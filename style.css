@@ -1300,3 +1300,166 @@ body.no-scroll{overflow:hidden;}
   .proj-modal__thumbs{grid-template-columns:repeat(2, 1fr);}
   .proj-modal__gallery,.proj-modal__info{padding:20px;}
 }
+.contact__form{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.form__row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.form__field{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.form__field input,
+.form__field select,
+.form__field textarea{
+    width:100%;
+    box-sizing:border-box;
+}
+
+.btn--full{
+    width:100%;
+}
+
+@media(max-width:768px){
+    .form__row{
+        grid-template-columns:1fr;
+    }
+}
+
+/* ===========================
+   MOBILE OPTIMIZATION
+=========================== */
+
+@media (max-width:768px){
+
+  body{
+    overflow-x:hidden;
+  }
+
+  .container{
+    padding:0 18px;
+  }
+
+  .section{
+    padding:70px 0;
+  }
+
+  .section__title{
+    font-size:2rem;
+    line-height:1.2;
+  }
+
+  .section__lead{
+    font-size:1rem;
+    margin-bottom:35px;
+  }
+
+  .contact__grid{
+    display:flex;
+    flex-direction:column;
+    gap:35px;
+  }
+
+  .contact__form{
+    order:1;
+    width:100%;
+    padding:22px;
+    border-radius:18px;
+  }
+
+  .contact__buttons{
+    flex-direction:column;
+    width:100%;
+  }
+
+  .contact__buttons .btn{
+    width:100%;
+  }
+
+  .contact__info{
+    gap:18px;
+  }
+
+  .contact__row{
+    align-items:flex-start;
+    font-size:.95rem;
+  }
+
+  .contact__icon{
+    width:42px;
+    height:42px;
+  }
+
+  .contact__social{
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  .contact__map{
+    margin-top:25px;
+    border-radius:16px;
+    overflow:hidden;
+  }
+
+  .contact__map iframe{
+    height:250px;
+  }
+
+  .form__row{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .form__field{
+    width:100%;
+  }
+
+  .form__field input,
+  .form__field select,
+  .form__field textarea{
+    width:100%;
+    font-size:16px;
+    padding:15px;
+  }
+
+  .btn--full{
+    width:100%;
+    height:56px;
+    font-size:16px;
+  }
+
+}
+.nav{
+    padding:14px 0;
+}
+
+.nav__logo-img{
+    height:34px;
+}
+.hero{
+    min-height:auto;
+    padding:120px 0 70px;
+}
+
+.hero__title{
+    font-size:2.4rem;
+}
+
+.hero__cta{
+    flex-direction:column;
+    width:100%;
+}
+
+.hero__cta .btn{
+    width:100%;
+}
