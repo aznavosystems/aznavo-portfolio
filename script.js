@@ -298,7 +298,18 @@ demo: 'erp-crm.html.html'}
   demo: 'law-demo.html.html'
 }
 
-
+,{
+  id: 'compta-demo',
+  badge: 'Demo SaaS',
+  title: 'Cabinet Comptable',
+  summary: "Démo interactive d'un logiciel de gestion pour cabinets comptables.",
+  desc: "Gestion des clients, déclarations fiscales, écritures comptables, factures, paie, documents et échéances.",
+  features: ['Clients', 'Déclarations', 'Écritures', 'Factures', 'Paie', 'Rapports'],
+  stack: ['HTML', 'CSS', 'JavaScript', 'Chart.js'],
+  cover: 'logo.png',
+  gallery: [{ src: 'logo.png', label: 'Cabinet Comptable' }],
+  demo: 'compta-demo.html.html'
+}
 
 
 
