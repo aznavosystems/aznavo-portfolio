@@ -584,27 +584,17 @@ function initServiceGlow(){
 /* --------------------------------------------------------------------------
    Contact form (front-end only demo submission)
    -------------------------------------------------------------------------- */
-function initContactForm(){
+function initContactForm() {
   const form = document.getElementById('contactForm');
-  const note = document.getElementById('formNote');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!form.checkValidity()){
-      note.textContent = 'Please fill in all required fields.';
-      note.style.color = '#F87171';
-      return;
-    }
-    const btn = form.querySelector('button[type="submit"]');
-    const label = btn.querySelector('.btn__label');
-    label.textContent = 'Sending…';
-    btn.disabled = true;
 
-    setTimeout(() => {
-      label.textContent = 'Message sent';
-      note.style.color = '';
-      note.textContent = 'Thanks — we\u2019ll reply within one business day.';
-      form.reset();
-      setTimeout(() => { label.textContent = 'Send message'; btn.disabled = false; }, 2500);
-    }, 900);
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      form.reportValidity();
+    }
+    // إذا الفورم صحيح، لا نمنع الإرسال.
+    // FormSubmit سيبعث الإيميل تلقائياً.
   });
 }

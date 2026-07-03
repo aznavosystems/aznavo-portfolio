@@ -333,49 +333,66 @@
         </div>
       </div>
 
-      <form class="contact__form reveal" id="contactForm" novalidate>
-        <div class="form__row">
-          <div class="form__field">
-            <label for="name">Nom</label>
-            <input type="text" id="name" name="name" placeholder="Votre nom" required>
-          </div>
-          <div class="form__field">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="vous@entreprise.com" required>
-          </div>
-        </div>
-        <div class="form__row">
-          <div class="form__field">
-            <label for="phone">Téléphone</label>
-            <input type="tel" id="phone" name="phone" placeholder="+216 XX XXX XXX">
-          </div>
-          <div class="form__field">
-            <label for="company">Entreprise</label>
-            <input type="text" id="company" name="company" placeholder="Votre entreprise">
-          </div>
-        </div>
-        <div class="form__field">
-          <label for="service">Service souhaité</label>
-          <select id="service" name="service">
-            <option>Logiciel sur mesure / application web</option>
-            <option>ERP / CRM / système métier</option>
-            <option>Infrastructure cloud &amp; hébergement</option>
-            <option>Cybersécurité &amp; sécurisation serveur</option>
-            <option>E-commerce Shopify / Amazon</option>
-            <option>SEO / marketing digital</option>
-            <option>Autre besoin</option>
-          </select>
-        </div>
-        <div class="form__field">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="4" placeholder="Décrivez votre projet, vos délais et votre budget estimatif." required></textarea>
-        </div>
-        <button type="submit" class="btn btn--primary btn--full">
-          <span class="btn__label">Envoyer le message</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <p class="form__note" id="formNote" role="status"></p>
-      </form>
+<form class="contact__form reveal"
+      id="contactForm"
+      action="https://formsubmit.co/aznavosystems@gmail.com"
+      method="POST">
+
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_subject" value="Nouveau message - AZNAVO SYSTEMS">
+  <input type="hidden" name="_template" value="table">
+
+  <div class="form__row">
+    <div class="form__field">
+      <label for="name">Nom</label>
+      <input type="text" id="name" name="name" placeholder="Votre nom" required>
+    </div>
+
+    <div class="form__field">
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" placeholder="vous@entreprise.com" required>
+    </div>
+  </div>
+
+  <div class="form__row">
+    <div class="form__field">
+      <label for="phone">Téléphone</label>
+      <input type="tel" id="phone" name="phone" placeholder="+216 XX XXX XXX">
+    </div>
+
+    <div class="form__field">
+      <label for="company">Entreprise</label>
+      <input type="text" id="company" name="company" placeholder="Votre entreprise">
+    </div>
+  </div>
+
+  <div class="form__field">
+    <label for="service">Service souhaité</label>
+    <select id="service" name="service">
+      <option>Logiciel sur mesure / application web</option>
+      <option>ERP / CRM / système métier</option>
+      <option>Infrastructure cloud & hébergement</option>
+      <option>Cybersécurité & sécurisation serveur</option>
+      <option>E-commerce Shopify / Amazon</option>
+      <option>SEO / marketing digital</option>
+      <option>Autre besoin</option>
+    </select>
+  </div>
+
+  <div class="form__field">
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="4"
+      placeholder="Décrivez votre projet, vos délais et votre budget estimatif."
+      required></textarea>
+  </div>
+
+  <button type="submit" class="btn btn--primary btn--full">
+    <span class="btn__label">Envoyer le message</span>
+  </button>
+
+  <p class="form__note" id="formNote"></p>
+
+</form>
     </div>
   </div>
 </section>
