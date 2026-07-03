@@ -231,6 +231,51 @@ const PROJECTS = [
     { src: 'img/amazon 4.png', label: 'Storefront' }
   ],
 },
+
+{
+  id: 'dental-demo',
+  badge: 'Demo SaaS',
+  title: 'Cabinet Dentaire',
+  summary: 'Démo interactive d’un logiciel de gestion pour cabinets dentaires.',
+  desc: 'Gestion des patients, rendez-vous, traitements, factures, paiements et rapports.',
+  features: ['Patients', 'Rendez-vous', 'Traitements', 'Facturation', 'Rapports'],
+  stack: ['HTML', 'CSS', 'JavaScript', 'Chart.js'],
+  cover: 'logo.png',
+  gallery: [{ src: 'logo.png', label: 'Demo cabinet dentaire' }],
+  demo: 'aznavo-dental-suite (1).html'
+},
+{
+  id: 'medical-demo',
+  badge: 'Demo SaaS',
+  title: 'Cabinet Médical',
+  summary: 'Démo interactive d’un logiciel de gestion pour cabinets médicaux.',
+  desc: 'Gestion des consultations, dossiers patients, ordonnances, rendez-vous et facturation.',
+  features: ['Consultations', 'Dossiers médicaux', 'Ordonnances', 'Rendez-vous', 'Facturation'],
+  stack: ['HTML', 'CSS', 'JavaScript', 'Chart.js'],
+  cover: 'logo.png',
+  gallery: [{ src: 'logo.png', label: 'Demo cabinet médical' }],
+  demo: 'cabinet-medical.html'
+},
+{
+  id: 'erp-crm-demo',
+  badge: 'Demo SaaS',
+  title: 'ERP / CRM Entreprise',
+  summary: 'Démo interactive d’une solution ERP/CRM pour entreprises.',
+  desc: 'Gestion des clients, ventes, factures, stock, projets, employés et rapports.',
+  features: ['CRM', 'Factures', 'Stock', 'Projets', 'Employés', 'Rapports'],
+  stack: ['HTML', 'CSS', 'JavaScript', 'Chart.js'],
+  cover: 'logo.png',
+  gallery: [{ src: 'logo.png', label: 'Demo ERP / CRM' }],
+  demo: 'aznavo-erp-crm-demo.html'
+}
+
+
+
+
+
+
+
+
 ];
 
 function projPlaceholderSVG(label){
@@ -298,16 +343,34 @@ function initProjModal(){
 function openProjectModal(id){
   const p = PROJECTS.find(x => x.id === id);
   if (!p) return;
+
   const modal = document.getElementById('projModal');
 
   document.getElementById('projModalBadge').textContent = p.badge;
   document.getElementById('projModalTitle').textContent = p.title;
   document.getElementById('projModalDesc').textContent = p.desc;
-  document.getElementById('projModalFeatures').innerHTML = p.features.map(f => `
-    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>${f}</li>`).join('');
-  document.getElementById('projModalStack').innerHTML = p.stack.map(s => `<span>${s}</span>`).join('');
 
-  activeGallery = p.gallery.map(g => ({ ...g, resolvedSrc: g.src || projPlaceholderSVG(g.label) }));
+  document.getElementById('projModalFeatures').innerHTML = p.features.map(f => `
+    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>${f}</li>
+  `).join('');
+
+  document.getElementById('projModalStack').innerHTML =
+    p.stack.map(s => `<span>${s}</span>`).join('');
+
+  const demoBtn = document.getElementById('projModalDemo');
+
+  if (p.demo) {
+    demoBtn.href = p.demo;
+    demoBtn.style.display = 'inline-flex';
+  } else {
+    demoBtn.style.display = 'none';
+  }
+
+  activeGallery = p.gallery.map(g => ({
+    ...g,
+    resolvedSrc: g.src || projPlaceholderSVG(g.label)
+  }));
+
   setModalImage(0);
 
   const thumbs = document.getElementById('projModalThumbs');
@@ -315,7 +378,9 @@ function openProjectModal(id){
     <button type="button" class="proj-modal__thumb ${i === 0 ? 'is-active' : ''}" data-thumb="${i}">
       <img src="${g.resolvedSrc}" alt="${g.label}">
       <span>${g.label}</span>
-    </button>`).join('');
+    </button>
+  `).join('');
+
   thumbs.querySelectorAll('[data-thumb]').forEach(t => {
     t.addEventListener('click', () => setModalImage(parseInt(t.dataset.thumb, 10)));
   });
