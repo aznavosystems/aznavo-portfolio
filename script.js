@@ -308,7 +308,7 @@ demo: 'erp-crm.html.html'}
   stack: ['HTML', 'CSS', 'JavaScript', 'Chart.js'],
   cover: 'logo.png',
   gallery: [{ src: 'logo.png', label: 'Cabinet Comptable' }],
-  demo: 'compta-demo.html.html'
+  demo: 'compta.html.html'
 }
 
 
