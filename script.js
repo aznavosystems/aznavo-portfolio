@@ -311,7 +311,35 @@ demo: 'erp-crm.html.html'}
   demo: 'compta.html.html'
 }
 
-
+,{
+  id: 'immobilier-demo',
+  badge: 'Demo SaaS',
+  title: 'Agence Immobilière',
+  summary: "Démo interactive d'un logiciel de gestion pour agences immobilières.",
+  desc: "Gestion des biens, clients, propriétaires, visites, contrats, agents, commissions et rapports.",
+  features: [
+    'Biens immobiliers',
+    'Clients',
+    'Propriétaires',
+    'Visites',
+    'Contrats',
+    'Rapports'
+  ],
+  stack: [
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'Chart.js'
+  ],
+  cover: 'logo.png',
+  gallery: [
+    {
+      src: 'logo.png',
+      label: 'Agence Immobilière'
+    }
+  ],
+  demo: 'aznavo-immobilier-demo_1.html'
+}
 
 
 ];
