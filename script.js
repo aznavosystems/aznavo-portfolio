@@ -268,7 +268,35 @@ const PROJECTS = [
   gallery: [{ src: 'logo.png', label: 'Demo ERP / CRM' }],
 demo: 'erp-crm.html.html'}
 
-
+,{
+  id: 'law-demo',
+  badge: 'Demo SaaS',
+  title: "Cabinet d'Avocats",
+  summary: "Démo interactive d'un logiciel de gestion pour cabinets d'avocats.",
+  desc: "Gestion des dossiers, clients, audiences, documents, honoraires et rapports.",
+  features: [
+    'Dossiers',
+    'Clients',
+    'Audiences',
+    'Documents',
+    'Honoraires',
+    'Rapports'
+  ],
+  stack: [
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'Chart.js'
+  ],
+  cover: 'logo.png',
+  gallery: [
+    {
+      src: 'logo.png',
+      label: "Cabinet d'Avocats"
+    }
+  ],
+  demo: 'law-demo.html.html'
+}
 
 
 
