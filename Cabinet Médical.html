@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZNAVO SYSTEMS — Logiciel de gestion pour cabinet médical</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#f4f6fb;
+  --bg-2:#eef1f8;
+  --bg-3:#e9edf6;
+  --glass:rgba(255,255,255,.72);
+  --glass-2:rgba(255,255,255,.92);
+  --glass-border:rgba(15,23,42,.08);
+  --glass-border-soft:rgba(15,23,42,.06);
+  --text-1:#0f172a;
+  --text-2:#586178;
+  --text-3:#94a0b8;
+  --indigo:#6366f1;
+  --cyan:#22d3ee;
+  --emerald:#34d399;
+  --amber:#fbbf24;
+  --rose:#fb7185;
+  --violet:#a78bfa;
+  --grad-brand:linear-gradient(135deg,#6366f1 0%,#22d3ee 100%);
+  --grad-brand-soft:linear-gradient(135deg,rgba(99,102,241,.12),rgba(34,211,238,.08));
+  --shadow-card:0 1px 2px rgba(15,23,42,.04), 0 12px 28px -14px rgba(15,23,42,.14);
+  --shadow-card-hover:0 4px 10px rgba(15,23,42,.05), 0 20px 40px -16px rgba(99,102,241,.22);
+  --radius-lg:20px;
+  --radius-md:14px;
+  --radius-sm:10px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%;}
+body{
+  position:relative;
+  background:
+    radial-gradient(1200px 640px at 10% -10%, rgba(99,102,241,.14), transparent 60%),
+    radial-gradient(1000px 600px at 100% 0%, rgba(34,211,238,.12), transparent 55%),
+    radial-gradient(1100px 750px at 50% 115%, rgba(52,211,153,.09), transparent 60%),
+    var(--bg);
+  color:var(--text-1);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.mono{font-family:'JetBrains Mono',monospace;}
+.disp{font-family:'Sora',sans-serif;}
+::selection{background:rgba(99,102,241,.22);}
+::-webkit-scrollbar{width:9px; height:9px;}
+::-webkit-scrollbar-thumb{background:rgba(15,23,42,.14); border-radius:20px;}
+::-webkit-scrollbar-thumb:hover{background:rgba(15,23,42,.22);}
+::-webkit-scrollbar-track{background:transparent;}
+
+/* ---------- Ambient floating blobs ---------- */
+.bg-blob{position:fixed; border-radius:50%; filter:blur(80px); z-index:0; pointer-events:none;}
+.bg-blob-1{width:480px; height:480px; top:-160px; left:-120px; background:radial-gradient(circle,rgba(99,102,241,.22),transparent 70%); animation:driftA 22s ease-in-out infinite;}
+.bg-blob-2{width:420px; height:420px; top:20%; right:-140px; background:radial-gradient(circle,rgba(34,211,238,.18),transparent 70%); animation:driftB 26s ease-in-out infinite;}
+.bg-blob-3{width:460px; height:460px; bottom:-180px; left:30%; background:radial-gradient(circle,rgba(52,211,153,.14),transparent 70%); animation:driftC 30s ease-in-out infinite;}
+@keyframes driftA{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(40px,50px) scale(1.08);}}
+@keyframes driftB{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-50px,30px) scale(1.05);}}
+@keyframes driftC{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(30px,-40px) scale(1.1);}}
+@media (prefers-reduced-motion: reduce){
+  .bg-blob{animation:none !important;}
+}
+@keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(251,113,133,.55);} 50%{box-shadow:0 0 0 5px rgba(251,113,133,0);}}
+
+a{color:inherit; text-decoration:none;}
+button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
+input,select{font-family:inherit; color:inherit;}
+
+svg.icn{width:18px; height:18px; stroke:currentColor; stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0;}
+
+/* ---------- Glass system ---------- */
+.glass{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius-lg);
+  backdrop-filter:blur(22px) saturate(140%);
+  -webkit-backdrop-filter:blur(22px) saturate(140%);
+  box-shadow:var(--shadow-card);
+  position:relative; z-index:1;
+}
+.glass-soft{
+  background:rgba(255,255,255,.55);
+  border:1px solid var(--glass-border-soft);
+  border-radius:var(--radius-md);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+.card-hover{transition:transform .3s cubic-bezier(.22,1,.36,1), border-color .3s ease, background .3s ease, box-shadow .3s ease;}
+.card-hover:hover{transform:translateY(-3px); border-color:rgba(99,102,241,.22); background:var(--glass-2); box-shadow:var(--shadow-card-hover);}
+
+/* ---------- Entrance choreography ---------- */
+@keyframes cardIn{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
+.screen-view.active .grid > *{animation:cardIn .55s cubic-bezier(.22,1,.36,1) both;}
+.screen-view.active .grid > *:nth-child(1){animation-delay:.03s;}
+.screen-view.active .grid > *:nth-child(2){animation-delay:.09s;}
+.screen-view.active .grid > *:nth-child(3){animation-delay:.15s;}
+.screen-view.active .grid > *:nth-child(4){animation-delay:.21s;}
+.screen-view.active > .glass.panel{animation:cardIn .55s cubic-bezier(.22,1,.36,1) both; animation-delay:.1s;}
+.screen-view.active .page-head{animation:cardIn .45s cubic-bezier(.22,1,.36,1) both;}
+@media (prefers-reduced-motion: reduce){
+  .screen-view.active .grid > *, .screen-view.active > .glass.panel, .screen-view.active .page-head{animation:none !important;}
+}
+
+.badge{
+  display:inline-flex; align-items:center; gap:5px;
+  padding:4px 10px; border-radius:100px;
+  font-size:12px; font-weight:600; letter-spacing:.01em;
+  border:1px solid transparent;
+}
+.badge-emerald{background:#ecfdf5; color:#059669; border-color:#a7f3d0;}
+.badge-amber{background:#fffbeb; color:#b45309; border-color:#fde68a;}
+.badge-rose{background:#fff1f2; color:#e11d48; border-color:#fecdd3;}
+.badge-indigo{background:#eef2ff; color:#4f46e5; border-color:#c7d2fe;}
+.badge-cyan{background:#ecfeff; color:#0e7490; border-color:#a5f3fc;}
+.badge-slate{background:#f1f5f9; color:#475569; border-color:#e2e8f0;}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:11px 18px; border-radius:12px; font-size:14px; font-weight:600;
+  transition:all .18s ease; white-space:nowrap;
+}
+.btn-primary{
+  background:var(--grad-brand); color:#ffffff;
+  box-shadow:0 8px 24px -8px rgba(99,102,241,.45);
+}
+.btn-primary:hover{transform:translateY(-1px) scale(1.015); box-shadow:0 14px 30px -10px rgba(99,102,241,.55);}
+.btn-primary:active{transform:translateY(0) scale(.99);}
+.btn-ghost{background:rgba(255,255,255,.6); border:1px solid var(--glass-border); color:var(--text-1);}
+.btn-ghost:hover{background:#ffffff; border-color:rgba(99,102,241,.25); transform:translateY(-1px);}
+.btn-icon{width:38px; height:38px; border-radius:10px; background:rgba(255,255,255,.6); border:1px solid var(--glass-border); display:inline-flex; align-items:center; justify-content:center; transition:all .18s ease;}
+.btn-icon:hover{background:#ffffff; border-color:rgba(99,102,241,.25); transform:translateY(-1px);}
+
+.input{
+  background:rgba(255,255,255,.65); border:1px solid var(--glass-border);
+  border-radius:11px; padding:10px 14px; font-size:14px; color:var(--text-1); width:100%;
+  transition:border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.input::placeholder{color:var(--text-3);}
+.input:focus{outline:none; border-color:rgba(99,102,241,.5); background:#ffffff; box-shadow:0 0 0 4px rgba(99,102,241,.1);}
+
+.avatar{
+  border-radius:50%; display:inline-flex; align-items:center; justify-content:center;
+  font-weight:700; font-family:'Sora',sans-serif; color:#ffffff; flex-shrink:0;
+}
+
+table{width:100%; border-collapse:collapse;}
+th{
+  text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.07em;
+  color:var(--text-3); font-weight:600; padding:0 16px 12px; border-bottom:1px solid var(--glass-border-soft);
+}
+td{padding:14px 16px; font-size:13.5px; border-bottom:1px solid rgba(255,255,255,.04); vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tbody tr{transition:background .15s ease;}
+tbody tr:hover{background:rgba(255,255,255,.025);}
+
+.section-title{font-family:'Sora',sans-serif; font-weight:700; font-size:20px; letter-spacing:-.01em;}
+.eyebrow{font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--text-3);}
+
+/* ---------- Logo ---------- */
+.logo-mark{
+  width:38px; height:38px; border-radius:11px; position:relative; flex-shrink:0;
+  background:var(--grad-brand); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 18px -6px rgba(99,102,241,.65);
+}
+.logo-mark svg{width:22px; height:22px;}
+.logo-word{font-family:'Sora',sans-serif; font-weight:800; font-size:16.5px; letter-spacing:-.01em; line-height:1.1;}
+.logo-sub{font-size:9.5px; font-weight:600; letter-spacing:.18em; color:var(--text-3); text-transform:uppercase;}
+
+/* ================= LOGIN ================= */
+#screen-login{
+  min-height:100vh; display:flex; align-items:stretch; position:relative; z-index:1;
+}
+.login-left{
+  flex:1.05; position:relative; overflow:hidden; padding:56px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  border-right:1px solid var(--glass-border-soft);
+}
+.orb{position:absolute; border-radius:50%; filter:blur(70px); opacity:.55;}
+.login-right{
+  flex:1; display:flex; align-items:center; justify-content:center; padding:40px;
+}
+.login-card{width:100%; max-width:400px;}
+.hds-badge{
+  display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:100px;
+  background:rgba(52,211,153,.08); border:1px solid rgba(52,211,153,.2); font-size:12px; color:#a7f3d0; font-weight:600;
+}
+.feature-row{display:flex; gap:14px; align-items:flex-start;}
+.feature-ico{
+  width:38px; height:38px; border-radius:11px; background:rgba(255,255,255,.06); border:1px solid var(--glass-border);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--cyan);
+}
+
+/* ================= APP SHELL ================= */
+#app{display:none; min-height:100vh; position:relative; z-index:1;}
+#app.active{display:flex;}
+.sidebar{
+  width:252px; flex-shrink:0; height:100vh; position:sticky; top:0; z-index:2;
+  border-right:1px solid var(--glass-border-soft);
+  background:rgba(255,255,255,.55);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  display:flex; flex-direction:column; padding:22px 16px;
+}
+.sidebar-header{display:flex; align-items:center; gap:11px; padding:6px 8px 22px; border-bottom:1px solid var(--glass-border-soft); margin-bottom:14px;}
+.nav-group-label{font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--text-3); padding:16px 12px 8px;}
+.nav-item{
+  display:flex; align-items:center; gap:11px; padding:9.5px 12px; border-radius:10px;
+  font-size:13.8px; font-weight:500; color:var(--text-2); position:relative; transition:all .18s ease;
+}
+.nav-item svg{opacity:.85;}
+.nav-item:hover{background:rgba(99,102,241,.06); color:var(--text-1); transform:translateX(2px);}
+.nav-item.active{
+  background:linear-gradient(135deg, rgba(99,102,241,.14), rgba(34,211,238,.08));
+  color:var(--indigo); border:1px solid rgba(99,102,241,.22); font-weight:600;
+  box-shadow:0 2px 8px -2px rgba(99,102,241,.2);
+}
+.nav-item.active svg{opacity:1; stroke:var(--indigo);}
+.sidebar-footer{margin-top:auto; padding-top:14px; border-top:1px solid var(--glass-border-soft);}
+.user-chip{display:flex; align-items:center; gap:10px; padding:9px; border-radius:12px; transition:background .18s ease;}
+.user-chip:hover{background:rgba(99,102,241,.06);}
+
+.main{flex:1; min-width:0; display:flex; flex-direction:column; height:100vh; overflow-y:auto; position:relative; z-index:1;}
+.topbar{
+  position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between;
+  padding:18px 32px; border-bottom:1px solid var(--glass-border-soft);
+  background:rgba(244,246,251,.78); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+}
+.content{padding:28px 32px 60px; position:relative; z-index:1;}
+.screen-view{display:none;}
+.screen-view.active{display:block; animation:fadeUp .4s cubic-bezier(.22,1,.36,1);}
+@keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+.page-head{display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:26px; flex-wrap:wrap; gap:14px;}
+.page-title{font-family:'Sora',sans-serif; font-weight:800; font-size:26px; letter-spacing:-.02em;}
+.page-sub{color:var(--text-2); font-size:13.5px; margin-top:4px;}
+
+.grid{display:grid; gap:18px;}
+.g4{grid-template-columns:repeat(4,1fr);}
+.g3{grid-template-columns:repeat(3,1fr);}
+.g2{grid-template-columns:repeat(2,1fr);}
+@media(max-width:1200px){.g4{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(2,1fr);}}
+
+.stat-card{padding:20px; position:relative; overflow:hidden;}
+.stat-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;}
+.stat-ico{width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center;}
+.stat-value{font-family:'Sora',sans-serif; font-weight:800; font-size:28px; letter-spacing:-.02em;}
+.stat-label{color:var(--text-2); font-size:13px; margin-top:5px;}
+.stat-delta{display:inline-flex; align-items:center; gap:3px; font-size:12px; font-weight:700; margin-top:10px;}
+.up{color:#059669;}
+.down{color:#e11d48;}
+
+.panel{padding:22px;}
+.panel-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;}
+.panel-title{font-family:'Sora',sans-serif; font-weight:700; font-size:15.5px;}
+
+.tabs{display:flex; gap:4px; background:rgba(255,255,255,.03); border:1px solid var(--glass-border-soft); border-radius:12px; padding:4px;}
+.tab{padding:8px 15px; border-radius:9px; font-size:13px; font-weight:600; color:var(--text-2);}
+.tab.active{background:var(--glass-2); color:#fff;}
+
+.pill-filter{padding:7px 14px; border-radius:100px; font-size:12.8px; font-weight:600; color:var(--text-2); border:1px solid var(--glass-border-soft); background:rgba(255,255,255,.02);}
+.pill-filter.active{background:var(--grad-brand-soft); color:#fff; border-color:rgba(99,102,241,.35);}
+
+.timeline-item{display:flex; gap:13px; padding:12px 0; border-bottom:1px solid var(--glass-border-soft);}
+.timeline-item:last-child{border-bottom:none; padding-bottom:0;}
+.timeline-dot{width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+
+.divider{height:1px; background:var(--glass-border-soft); margin:18px 0;}
+</style>
+</head>
+<body>
+
+<div class="bg-blob bg-blob-1"></div>
+<div class="bg-blob bg-blob-2"></div>
+<div class="bg-blob bg-blob-3"></div>
+
+<!-- ============================================================ -->
+<!-- LOGIN SCREEN -->
+<!-- ============================================================ -->
+<div id="screen-login">
+  <div class="login-left">
+    <div class="orb" style="width:520px; height:520px; background:radial-gradient(circle,#6366f1,transparent 70%); top:-160px; left:-140px;"></div>
+    <div class="orb" style="width:420px; height:420px; background:radial-gradient(circle,#22d3ee,transparent 70%); bottom:-140px; right:-100px;"></div>
+
+    <div style="position:relative; z-index:2;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M2 13h4l2 6 4-14 2 8h8" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="logo-word">AZNAVO</div>
+          <div class="logo-sub">Systems</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="position:relative; z-index:2; max-width:480px;">
+      <div class="hds-badge" style="margin-bottom:22px;">
+        <svg class="icn" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+        Hébergement de données de santé certifié HDS
+      </div>
+      <h1 class="disp" style="font-size:38px; font-weight:800; line-height:1.15; letter-spacing:-.02em; margin-bottom:16px;">
+        La gestion de votre cabinet, <span style="background:var(--grad-brand); -webkit-background-clip:text; background-clip:text; color:transparent;">réinventée.</span>
+      </h1>
+      <p style="color:var(--text-2); font-size:15px; line-height:1.65; margin-bottom:34px;">
+        Patients, rendez-vous, dossiers médicaux, ordonnances et facturation réunis dans une seule plateforme, pensée pour les médecins qui n'ont pas de temps à perdre.
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:18px;">
+        <div class="feature-row">
+          <div class="feature-ico"><svg class="icn" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+          <div>
+            <div style="font-weight:600; font-size:14px;">Agenda intelligent</div>
+            <div style="color:var(--text-3); font-size:12.5px; margin-top:2px;">Rappels automatiques et gestion des créneaux multi-praticiens</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-ico"><svg class="icn" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg></div>
+          <div>
+            <div style="font-weight:600; font-size:14px;">Dossiers médicaux centralisés</div>
+            <div style="color:var(--text-3); font-size:12.5px; margin-top:2px;">Antécédents, examens et ordonnances en un seul endroit</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-ico"><svg class="icn" viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h3v-4Z"/></svg></div>
+          <div>
+            <div style="font-weight:600; font-size:14px;">Facturation & paiements</div>
+            <div style="color:var(--text-3); font-size:12.5px; margin-top:2px;">Télétransmission, tiers payant et suivi des encaissements</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="position:relative; z-index:2; color:var(--text-3); font-size:12px;">© 2026 AZNAVO SYSTEMS — Tous droits réservés</div>
+  </div>
+
+  <div class="login-right">
+    <div class="login-card">
+      <div class="eyebrow" style="margin-bottom:10px;">Espace praticien</div>
+      <h2 class="disp" style="font-size:26px; font-weight:700; margin-bottom:8px;">Connexion à votre cabinet</h2>
+      <p style="color:var(--text-2); font-size:13.5px; margin-bottom:30px;">Accédez à votre espace sécurisé AZNAVO.</p>
+
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div>
+          <label style="font-size:12.5px; font-weight:600; color:var(--text-2); display:block; margin-bottom:7px;">Adresse e-mail professionnelle</label>
+          <input class="input" type="email" placeholder="dr.rousseau@cabinet-medical.fr" value="dr.rousseau@cabinet-medical.fr">
+        </div>
+        <div>
+          <label style="font-size:12.5px; font-weight:600; color:var(--text-2); display:block; margin-bottom:7px;">Mot de passe</label>
+          <input class="input" type="password" placeholder="••••••••••" value="••••••••••">
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; font-size:12.8px;">
+          <label style="display:flex; align-items:center; gap:7px; color:var(--text-2);">
+            <input type="checkbox" checked style="accent-color:#6366f1;"> Se souvenir de moi
+          </label>
+          <a style="color:var(--cyan); font-weight:600;">Mot de passe oublié ?</a>
+        </div>
+        <button class="btn btn-primary" style="width:100%; padding:13px; margin-top:6px;" onclick="goApp()">
+          Se connecter
+          <svg class="icn" style="width:16px;height:16px; stroke:#ffffff;" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <div style="display:flex; align-items:center; gap:12px; margin:6px 0;">
+          <div style="flex:1; height:1px; background:var(--glass-border-soft);"></div>
+          <span style="color:var(--text-3); font-size:11.5px;">ou</span>
+          <div style="flex:1; height:1px; background:var(--glass-border-soft);"></div>
+        </div>
+        <button class="btn btn-ghost" style="width:100%; padding:12px;">
+          <svg class="icn" style="width:16px;height:16px;" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Connexion via carte CPS
+        </button>
+      </div>
+
+      <p style="text-align:center; color:var(--text-3); font-size:12px; margin-top:28px;">
+        Nouveau cabinet ? <a style="color:var(--cyan); font-weight:600;">Demander une démonstration</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- APP SHELL -->
+<!-- ============================================================ -->
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M2 13h4l2 6 4-14 2 8h8" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="logo-word">AZNAVO</div>
+        <div class="logo-sub">Systems</div>
+      </div>
+    </div>
+
+    <nav style="flex:1; overflow-y:auto;">
+      <div class="nav-group-label">Général</div>
+      <a class="nav-item" data-target="dashboard" onclick="nav('dashboard', this)">
+        <svg class="icn" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+        Tableau de bord
+      </a>
+      <a class="nav-item" data-target="patients" onclick="nav('patients', this)">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Patients
+      </a>
+      <a class="nav-item" data-target="rdv" onclick="nav('rdv', this)">
+        <svg class="icn" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Rendez-vous
+      </a>
+
+      <div class="nav-group-label">Clinique</div>
+      <a class="nav-item" data-target="dossiers" onclick="nav('dossiers', this)">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>
+        Dossiers médicaux
+      </a>
+      <a class="nav-item" data-target="ordonnances" onclick="nav('ordonnances', this)">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6M9 9h1"/></svg>
+        Ordonnances
+      </a>
+      <a class="nav-item" data-target="examens" onclick="nav('examens', this)">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        Examens médicaux
+      </a>
+      <a class="nav-item" data-target="analyses" onclick="nav('analyses', this)">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M9 2v6l-5.5 9.5A2 2 0 0 0 5.2 21h13.6a2 2 0 0 0 1.7-3.5L15 8V2"/><path d="M9 2h6M8.5 13h7"/></svg>
+        Analyses
+      </a>
+
+      <div class="nav-group-label">Administration</div>
+      <a class="nav-item" data-target="facturation" onclick="nav('facturation', this)">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M6 2h12a1 1 0 0 1 1 1v18l-3-1.5-3 1.5-3-1.5-3 1.5-3-1.5V3a1 1 0 0 1 1-1Z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg>
+        Facturation
+      </a>
+      <a class="nav-item" data-target="paiements" onclick="nav('paiements', this)">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h3v-4Z"/></svg>
+        Paiements
+      </a>
+      <a class="nav-item" data-target="personnel" onclick="nav('personnel', this)">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 11 2 2 4-4"/></svg>
+        Personnel
+      </a>
+      <a class="nav-item" data-target="rapports" onclick="nav('rapports', this)">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        Rapports
+      </a>
+      <a class="nav-item" data-target="parametres" onclick="nav('parametres', this)">
+        <svg class="icn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+        Paramètres
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="avatar" style="width:36px; height:36px; font-size:13px; background:var(--grad-brand);">AR</div>
+        <div style="flex:1; min-width:0;">
+          <div style="font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Dr. Amélie Rousseau</div>
+          <div style="font-size:11.5px; color:var(--text-3);">Cabinet Rousseau — Lyon 6e</div>
+        </div>
+        <svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div style="display:flex; align-items:center; gap:16px; flex:1;">
+        <div class="page-crumb disp" id="crumb" style="font-weight:700; font-size:15px;">Tableau de bord</div>
+        <div style="position:relative; max-width:340px; flex:1; margin-left:12px;">
+          <svg class="icn" style="position:absolute; left:13px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:var(--text-3);" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input class="input" style="padding-left:36px;" placeholder="Rechercher un patient, un rendez-vous...">
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="badge badge-emerald"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> mer. 2 juil. 2026</div>
+        <button class="btn-icon" style="position:relative;">
+          <svg class="icn" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span style="position:absolute; top:6px; right:7px; width:7px; height:7px; border-radius:50%; background:var(--rose); border:1.5px solid #fff; animation:pulseDot 2s ease-in-out infinite;"></span>
+        </button>
+        <div class="avatar" style="width:38px; height:38px; font-size:13px; background:var(--grad-brand); cursor:pointer;">AR</div>
+      </div>
+    </div>
+
+    <div class="content" id="content">
+      <!-- ============ DASHBOARD ============ -->
+      <section class="screen-view active" id="view-dashboard">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Bonjour, Dr. Rousseau 👋</div>
+            <div class="page-sub">Voici l'activité de votre cabinet aujourd'hui, mercredi 2 juillet 2026.</div>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-ghost"><svg class="icn" style="width:15px;height:15px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Exporter</button>
+            <button class="btn btn-primary"><svg class="icn" style="width:15px;height:15px; stroke:#ffffff;" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Nouveau rendez-vous</button>
+          </div>
+        </div>
+
+        <div class="grid g4" style="margin-bottom:18px;">
+          <div class="glass card-hover stat-card">
+            <div class="stat-top">
+              <div class="stat-ico" style="background:rgba(99,102,241,.14); color:#4f46e5;"><svg class="icn" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+              <button class="btn-icon" style="width:28px; height:28px;"><svg class="icn" style="width:13px;height:13px;" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button>
+            </div>
+            <div class="stat-value">32</div>
+            <div class="stat-label">Patients aujourd'hui</div>
+            <div class="stat-delta up"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg> +12% vs hier</div>
+          </div>
+
+          <div class="glass card-hover stat-card">
+            <div class="stat-top">
+              <div class="stat-ico" style="background:rgba(34,211,238,.14); color:#0e7490;"><svg class="icn" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+              <span class="badge badge-cyan">6 en attente</span>
+            </div>
+            <div class="stat-value">18</div>
+            <div class="stat-label">Rendez-vous du jour</div>
+            <div class="stat-delta up"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg> +3 vs hier</div>
+          </div>
+
+          <div class="glass card-hover stat-card">
+            <div class="stat-top">
+              <div class="stat-ico" style="background:rgba(52,211,153,.14); color:#059669;"><svg class="icn" viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h3v-4Z"/></svg></div>
+            </div>
+            <div class="stat-value">4 280 €</div>
+            <div class="stat-label">Revenus aujourd'hui</div>
+            <div class="stat-delta up"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg> +8,4% vs hier</div>
+          </div>
+
+          <div class="glass card-hover stat-card">
+            <div class="stat-top">
+              <div class="stat-ico" style="background:rgba(251,191,36,.14); color:#b45309;"><svg class="icn" viewBox="0 0 24 24"><path d="M6 2h12a1 1 0 0 1 1 1v18l-3-1.5-3 1.5-3-1.5-3 1.5-3-1.5V3a1 1 0 0 1 1-1Z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></div>
+              <span class="badge badge-amber">3 factures</span>
+            </div>
+            <div class="stat-value">1 240 €</div>
+            <div class="stat-label">Paiements en attente</div>
+            <div class="stat-delta down"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg> −4,1% vs hier</div>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:2fr 1fr; margin-bottom:18px;">
+          <div class="glass panel">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">Évolution des revenus</div>
+                <div style="color:var(--text-3); font-size:12px; margin-top:2px;">7 derniers jours</div>
+              </div>
+              <div class="tabs">
+                <div class="tab active">Semaine</div>
+                <div class="tab">Mois</div>
+                <div class="tab">Année</div>
+              </div>
+            </div>
+            <div style="height:230px;"><canvas id="chartRevenue"></canvas></div>
+          </div>
+
+          <div class="glass panel">
+            <div class="panel-head">
+              <div class="panel-title">Répartition des rendez-vous</div>
+            </div>
+            <div style="height:170px; display:flex; align-items:center; justify-content:center;"><canvas id="chartTypes"></canvas></div>
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:14px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; font-size:12.5px;"><span style="display:flex; align-items:center; gap:8px;"><span style="width:8px;height:8px;border-radius:2px;background:#6366f1;"></span>Consultations</span><span class="mono" style="color:var(--text-2);">48%</span></div>
+              <div style="display:flex; align-items:center; justify-content:space-between; font-size:12.5px;"><span style="display:flex; align-items:center; gap:8px;"><span style="width:8px;height:8px;border-radius:2px;background:#22d3ee;"></span>Suivis</span><span class="mono" style="color:var(--text-2);">27%</span></div>
+              <div style="display:flex; align-items:center; justify-content:space-between; font-size:12.5px;"><span style="display:flex; align-items:center; gap:8px;"><span style="width:8px;height:8px;border-radius:2px;background:#34d399;"></span>Téléconsultations</span><span class="mono" style="color:var(--text-2);">15%</span></div>
+              <div style="display:flex; align-items:center; justify-content:space-between; font-size:12.5px;"><span style="display:flex; align-items:center; gap:8px;"><span style="width:8px;height:8px;border-radius:2px;background:#fb7185;"></span>Urgences</span><span class="mono" style="color:var(--text-2);">10%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1.4fr 1fr;">
+          <div class="glass panel">
+            <div class="panel-head">
+              <div class="panel-title">Activités récentes</div>
+              <a style="color:var(--cyan); font-size:12.5px; font-weight:600;">Tout voir</a>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:rgba(99,102,241,.14); color:#4f46e5;"><svg class="icn" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+              <div style="flex:1;">
+                <div style="font-size:13.5px;"><b>Nouveau patient enregistré</b> — Karim Belhadj</div>
+                <div style="color:var(--text-3); font-size:12px; margin-top:2px;">Il y a 12 minutes</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:rgba(34,211,238,.14); color:#0e7490;"><svg class="icn" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg></div>
+              <div style="flex:1;">
+                <div style="font-size:13.5px;"><b>Ordonnance générée</b> — Sophie Martin</div>
+                <div style="color:var(--text-3); font-size:12px; margin-top:2px;">Il y a 34 minutes</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:rgba(52,211,153,.14); color:#059669;"><svg class="icn" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/></svg></div>
+              <div style="flex:1;">
+                <div style="font-size:13.5px;"><b>Paiement reçu</b> — 85 € de Jean Petit</div>
+                <div style="color:var(--text-3); font-size:12px; margin-top:2px;">Il y a 51 minutes</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:rgba(251,191,36,.14); color:#b45309;"><svg class="icn" style="width:16px;height:16px;" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+              <div style="flex:1;">
+                <div style="font-size:13.5px;"><b>Rendez-vous confirmé</b> — 14h30 avec Lucie Fabre</div>
+                <div style="color:var(--text-3); font-size:12px; margin-top:2px;">Il y a 1 heure</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:rgba(251,113,133,.14); color:#e11d48;"><svg class="icn" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M9 2v6l-5.5 9.5A2 2 0 0 0 5.2 21h13.6a2 2 0 0 0 1.7-3.5L15 8V2"/></svg></div>
+              <div style="flex:1;">
+                <div style="font-size:13.5px;"><b>Résultats d'analyse reçus</b> — Bilan sanguin, Thomas Nguyen</div>
+                <div style="color:var(--text-3); font-size:12px; margin-top:2px;">Il y a 2 heures</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass panel">
+            <div class="panel-head">
+              <div class="panel-title">Prochains rendez-vous</div>
+              <span class="badge badge-indigo">18 aujourd'hui</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <div class="glass-soft" style="padding:8px 10px; text-align:center; min-width:52px;"><div class="mono" style="font-weight:700; font-size:13px;">14:30</div></div>
+                <div class="avatar" style="width:32px; height:32px; font-size:11px; background:linear-gradient(135deg,#6366f1,#a78bfa);">LF</div>
+                <div style="flex:1;"><div style="font-size:13px; font-weight:600;">Lucie Fabre</div><div style="color:var(--text-3); font-size:11.5px;">Consultation de suivi</div></div>
+              </div>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <div class="glass-soft" style="padding:8px 10px; text-align:center; min-width:52px;"><div class="mono" style="font-weight:700; font-size:13px;">15:00</div></div>
+                <div class="avatar" style="width:32px; height:32px; font-size:11px; background:linear-gradient(135deg,#22d3ee,#34d399);">TN</div>
+                <div style="flex:1;"><div style="font-size:13px; font-weight:600;">Thomas Nguyen</div><div style="color:var(--text-3); font-size:11.5px;">Résultats d'analyses</div></div>
+              </div>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <div class="glass-soft" style="padding:8px 10px; text-align:center; min-width:52px;"><div class="mono" style="font-weight:700; font-size:13px;">15:45</div></div>
+                <div class="avatar" style="width:32px; height:32px; font-size:11px; background:linear-gradient(135deg,#fb7185,#fbbf24);">MC</div>
+                <div style="flex:1;"><div style="font-size:13px; font-weight:600;">Marc Chevalier</div><div style="color:var(--text-3); font-size:11.5px;">Urgence — douleurs thoraciques</div></div>
+              </div>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <div class="glass-soft" style="padding:8px 10px; text-align:center; min-width:52px;"><div class="mono" style="font-weight:700; font-size:13px;">16:15</div></div>
+                <div class="avatar" style="width:32px; height:32px; font-size:11px; background:linear-gradient(135deg,#a78bfa,#22d3ee);">SB</div>
+                <div style="flex:1;"><div style="font-size:13px; font-weight:600;">Sarah Benali</div><div style="color:var(--text-3); font-size:11.5px;">Téléconsultation</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PATIENTS ============ -->
+      <section class="screen-view" id="view-patients">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Gestion des patients</div>
+            <div class="page-sub">1 248 patients enregistrés · 32 vus aujourd'hui</div>
+          </div>
+          <button class="btn btn-primary"><svg class="icn" style="width:15px;height:15px; stroke:#ffffff;" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Nouveau patient</button>
+        </div>
+
+        <div class="glass panel" style="margin-bottom:18px;">
+          <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+            <div style="position:relative; flex:1; min-width:240px;">
+              <svg class="icn" style="position:absolute; left:13px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:var(--text-3);" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input class="input" style="padding-left:36px;" placeholder="Rechercher par nom, numéro de dossier, téléphone...">
+            </div>
+            <div style="display:flex; gap:8px;">
+              <span class="pill-filter active">Tous</span>
+              <span class="pill-filter">Actifs</span>
+              <span class="pill-filter">Nouveaux</span>
+              <span class="pill-filter">Chroniques</span>
+            </div>
+            <button class="btn-icon"><svg class="icn" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></button>
+          </div>
+        </div>
+
+        <div class="glass panel">
+          <table>
+            <thead><tr><th>Patient</th><th>Âge</th><th>Dernier RDV</th><th>Prochain RDV</th><th>Médecin référent</th><th>Statut</th><th></th></tr></thead>
+            <tbody>
+              <tr>
+                <td><div style="display:flex; align-items:center; gap:11px;"><div class="avatar" style="width:36px;height:36px;font-size:12px;background:linear-gradient(135deg,#6366f1,#a78bfa);">KB</div><div><div style="font-weight:600;">Karim Belhadj</div><div style="color:var(--text-3); font-size:11.5px;">Dossier #10482</div></div></div></td>
+                <td>34 ans</td><td>28 juin 2026</td><td>02 juil. 2026</td><td>Dr. Rousseau</td>
+                <td><span class="badge badge-emerald">Actif</span></td>
+                <td><button class="btn-icon" style="width:32px;height:32px;"><svg class="icn" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex; align-items:center; gap:11px;"><div class="avatar" style="width:36px;height:36px;font-size:12px;background:linear-gradient(135deg,#22d3ee,#34d399);">SM</div><div><div style="font-weight:600;">Sophie Martin</div><div style="color:var(--text-3); font-size:11.5px;">Dossier #09214</div></div></div></td>
+                <td>52 ans</td><td>02 juil. 2026</td><td>16 juil. 2026</td><td>Dr. Rousseau</td>
+                <td><span class="badge badge-indigo">Chronique</span></td>
+                <td><button class="btn-icon" style="width:32px;height:32px;"><svg class="icn" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex; align-items:center; gap:11px;"><div class="avatar" style="width:36px;height:36px;font-size:12px;background:linear-gradient(135deg,#fb7185,#fbbf24);">JP</div><div><div style="font-weight:600;">Jean Petit</div><div style="color:var(--text-3); font-size:11.5px;">Dossier #08871</div></div></div></td>
+                <td>67 ans</td><td>02 juil. 2026</td><td>—</td><td>Dr. Rousseau</td>
+                <td><span class="badge badge-emerald">Actif</span></td>
+                <td><button class="btn-icon" style="width:32px;height:32px;"><svg class="icn" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex; align-items:center; gap:11px;"><div class="avatar" style="width:36px;height:36px;font-size:12px;background:linear-gradient(135deg,#a78bfa,#22d3ee);">LF</div><div><div style="font-weight:600;">Lucie Fabre</div><div style="color:var(--text-3); font-size:11.5px;">Dossier #11029</div></div></div></td>
+                <td>29 ans</td><td>19 juin 2026</td><td>02 juil. 2026</td><td>Dr. Rousseau</td>
+                <td><span class="badge badge-cyan">Nouveau</span></td>
+                <td><button class="btn-icon" style="width:32px;height:32px;"><svg class="icn" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex; align-items:center; gap:11px;"><div class="avatar" style="width:36px;height:36px;font-size:12px;background:linear-gradient(135deg,#34d399,#6366f1);">TN</div><div><div style="font-weight:600;">Thomas Nguyen</div><div style="color:var(--text-3); font-size:11.5px;">Dossier #07650</div></div></div></td>
+                <td>41 ans</td><td>25 juin 2026</td><td>02 juil. 2026</td><td>Dr. Bertrand</td>
+                <td><span class="badge badge-indigo">Chronique</span></td>
+                <td><button class="btn-icon" style="width:32px;height:32px;"><svg class="icn" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex; align-items:center; gap:11px;"><div class="avatar" style="width:36px;height:36px;font-size:12px;background:linear-gradient(135deg,#fbbf24,#fb7185);">MC</div><div><div style="font-weight:600;">Marc Chevalier</div><div style="color:var(--text-3); font-size:11.5px;">Dossier #11340</div></div></div></td>
+                <td>58 ans</td><td>02 juil. 2026</td><td>03 juil. 2026</td><td>Dr. Rousseau</td>
+                <td><span class="badge badge-rose">Suivi urgent</span></td>
+                <td><button class="btn-icon" style="width:32px;height:32px;"><svg class="icn" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex; align-items:center; gap:11px;"><div class="avatar" style="width:36px;height:36px;font-size:12px;background:linear-gradient(135deg,#6366f1,#22d3ee);">SB</div><div><div style="font-weight:600;">Sarah Benali</div><div style="color:var(--text-3); font-size:11.5px;">Dossier #10998</div></div></div></td>
+                <td>25 ans</td><td>14 juin 2026</td><td>02 juil. 2026</td><td>Dr. Bertrand</td>
+                <td><span class="badge badge-emerald">Actif</span></td>
+                <td><button class="btn-icon" style="width:32px;height:32px;"><svg class="icn" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:18px; font-size:12.5px; color:var(--text-3);">
+            <span>Affichage de 1 à 7 sur 1 248 patients</span>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-icon" style="width:30px;height:30px;">‹</button>
+              <button class="btn-icon" style="width:30px;height:30px; background:var(--grad-brand-soft); border-color:rgba(99,102,241,.3);">1</button>
+              <button class="btn-icon" style="width:30px;height:30px;">2</button>
+              <button class="btn-icon" style="width:30px;height:30px;">3</button>
+              <button class="btn-icon" style="width:30px;height:30px;">›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ RENDEZ-VOUS ============ -->
+      <section class="screen-view" id="view-rdv">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Rendez-vous</div>
+            <div class="page-sub">Semaine du 29 juin au 5 juillet 2026</div>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <div class="tabs"><div class="tab">Jour</div><div class="tab active">Semaine</div><div class="tab">Mois</div></div>
+            <button class="btn btn-primary"><svg class="icn" style="width:15px;height:15px; stroke:#ffffff;" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Nouveau rendez-vous</button>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:2.3fr 1fr;">
+          <div class="glass panel" style="overflow-x:auto;">
+            <div style="display:grid; grid-template-columns:56px repeat(6,1fr); gap:8px; min-width:760px;">
+              <div></div>
+              <div style="text-align:center; padding-bottom:10px;"><div style="font-size:11px; color:var(--text-3); font-weight:600;">LUN 29</div></div>
+              <div style="text-align:center; padding-bottom:10px;"><div style="font-size:11px; color:var(--text-3); font-weight:600;">MAR 30</div></div>
+              <div style="text-align:center; padding-bottom:10px;"><div style="font-size:11px; color:var(--cyan); font-weight:700;">MER 02</div></div>
+              <div style="text-align:center; padding-bottom:10px;"><div style="font-size:11px; color:var(--text-3); font-weight:600;">JEU 03</div></div>
+              <div style="text-align:center; padding-bottom:10px;"><div style="font-size:11px; color:var(--text-3); font-weight:600;">VEN 04</div></div>
+              <div style="text-align:center; padding-bottom:10px;"><div style="font-size:11px; color:var(--text-3); font-weight:600;">SAM 05</div></div>
+
+              <div class="mono" style="font-size:11px; color:var(--text-3); padding-top:6px;">09:00</div>
+              <div class="glass-soft" style="padding:8px; font-size:11.5px; background:rgba(99,102,241,.14); border-color:rgba(99,102,241,.28);">Émilie Roy<br><span style="color:var(--text-3);">Consultation</span></div>
+              <div></div>
+              <div class="glass-soft" style="padding:8px; font-size:11.5px; background:rgba(34,211,238,.14); border-color:rgba(34,211,238,.28);">Paul Girard<br><span style="color:var(--text-3);">Suivi</span></div>
+              <div></div>
+              <div class="glass-soft" style="padding:8px; font-size:11.5px; background:rgba(99,102,241,.14); border-color:rgba(99,102,241,.28);">Nadia Fall<br><span style="color:var(--text-3);">Consultation</span></div>
+              <div></div>
+
+              <div class="mono" style="font-size:11px; color:var(--text-3); padding-top:6px;">10:30</div>
+              <div></div>
+              <div class="glass-soft" style="padding:8px; font-size:11.5px; background:rgba(52,211,153,.14); border-color:rgba(52,211,153,.28);">Hugo Faure<br><span style="color:var(--text-3);">Vaccin</span></div>
+              <div class="glass-soft" style="padding:8px; font-size:11.5px; background:rgba(52,211,153,.14); border-color:rgba(52,211,153,.28);">Léa Girard<br><span style="color:var(--text-3);">Téléconsult.</span></div>
+              <div></div>
+              <div></div>
+              <div></div>
+
+              <div class="mono" style="font-size:11px; color:var(--text-3); padding-top:6px;">14:30</div>
+              <div class="glass-soft" style="padding:8px; font-size:11.5px; background:rgba(99,102,241,.14); border-color:rgba(99,102,241,.28);">Léo Blanc<br><span style="color:var(--text-3);">Consultation</span></div>
+              <div></div>
+              <div class="glass-soft" style="padding:8px; font-size:11.5px; border:1.5px solid var(--cyan); background:rgba(34,211,238,.18);">Lucie Fabre<br><span style="color:var(--text-3);">Suivi</span></div>
+              <div class="glass-soft" style="padding:8px; font-size:11.5px; background:rgba(251,113,133,.14); border-color:rgba(251,113,133,.28);">Marc Chevalier<br><span style="color:var(--text-3);">Urgence</span></div>
+              <div></div>
+              <div></div>
+
+              <div class="mono" style="font-size:11px; color:var(--text-3); padding-top:6px;">16:15</div>
+              <div></div>
+              <div class="glass-soft" style="padding:8px; font-size:11.5px; background:rgba(99,102,241,.14); border-color:rgba(99,102,241,.28);">Inès Perrot<br><span style="color:var(--text-3);">Consultation</span></div>
+              <div class="glass-soft" style="padding:8px; font-size:11.5px; background:rgba(34,211,238,.14); border-color:rgba(34,211,238,.28);">Sarah Benali<br><span style="color:var(--text-3);">Téléconsult.</span></div>
+              <div></div>
+              <div class="glass-soft" style="padding:8px; font-size:11.5px; background:rgba(52,211,153,.14); border-color:rgba(52,211,153,.28);">Yanis Da Costa<br><span style="color:var(--text-3);">Vaccin</span></div>
+              <div></div>
+            </div>
+          </div>
+
+          <div class="glass panel">
+            <div class="panel-head"><div class="panel-title">Aujourd'hui — Mer. 2 juillet</div><span class="badge badge-cyan">18 RDV</span></div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div class="glass-soft" style="padding:12px; display:flex; gap:12px; align-items:center;"><div class="mono" style="font-weight:700; font-size:12.5px; min-width:44px;">09:00</div><div style="flex:1;"><div style="font-weight:600; font-size:13px;">Émilie Roy</div><div style="color:var(--text-3); font-size:11.5px;">Consultation générale</div></div><span class="badge badge-emerald" style="font-size:10.5px;">Confirmé</span></div>
+              <div class="glass-soft" style="padding:12px; display:flex; gap:12px; align-items:center;"><div class="mono" style="font-weight:700; font-size:12.5px; min-width:44px;">14:30</div><div style="flex:1;"><div style="font-weight:600; font-size:13px;">Lucie Fabre</div><div style="color:var(--text-3); font-size:11.5px;">Consultation de suivi</div></div><span class="badge badge-cyan" style="font-size:10.5px;">En cours</span></div>
+              <div class="glass-soft" style="padding:12px; display:flex; gap:12px; align-items:center;"><div class="mono" style="font-weight:700; font-size:12.5px; min-width:44px;">15:45</div><div style="flex:1;"><div style="font-weight:600; font-size:13px;">Marc Chevalier</div><div style="color:var(--text-3); font-size:11.5px;">Urgence — thoracique</div></div><span class="badge badge-rose" style="font-size:10.5px;">Urgent</span></div>
+              <div class="glass-soft" style="padding:12px; display:flex; gap:12px; align-items:center;"><div class="mono" style="font-weight:700; font-size:12.5px; min-width:44px;">16:15</div><div style="flex:1;"><div style="font-weight:600; font-size:13px;">Sarah Benali</div><div style="color:var(--text-3); font-size:11.5px;">Téléconsultation</div></div><span class="badge badge-slate" style="font-size:10.5px;">À venir</span></div>
+            </div>
+            <div class="divider"></div>
+            <div style="display:flex; align-items:center; justify-content:space-between; font-size:12.5px; color:var(--text-2);">
+              <span>Taux d'occupation</span><span class="mono" style="font-weight:700; color:#fff;">86%</span>
+            </div>
+            <div style="height:6px; border-radius:10px; background:rgba(255,255,255,.06); margin-top:8px; overflow:hidden;"><div style="height:100%; width:86%; background:var(--grad-brand); border-radius:10px;"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DOSSIERS MÉDICAUX ============ -->
+      <section class="screen-view" id="view-dossiers">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Dossiers médicaux</div>
+            <div class="page-sub">Dossier #09214 — Sophie Martin</div>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-ghost"><svg class="icn" style="width:15px;height:15px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Exporter le dossier</button>
+            <button class="btn btn-primary"><svg class="icn" style="width:15px;height:15px; stroke:#ffffff;" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg> Nouvelle consultation</button>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:320px 1fr;">
+          <div style="display:flex; flex-direction:column; gap:18px;">
+            <div class="glass panel" style="text-align:center;">
+              <div class="avatar" style="width:76px; height:76px; font-size:24px; background:linear-gradient(135deg,#22d3ee,#34d399); margin:0 auto 14px;">SM</div>
+              <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:17px;">Sophie Martin</div>
+              <div style="color:var(--text-3); font-size:12.5px; margin-top:2px;">52 ans · Née le 14/03/1974</div>
+              <span class="badge badge-indigo" style="margin-top:12px;">Patiente chronique</span>
+              <div class="divider"></div>
+              <div style="text-align:left; display:flex; flex-direction:column; gap:11px; font-size:12.8px;">
+                <div style="display:flex; gap:10px; color:var(--text-2);"><svg class="icn" style="width:15px;height:15px; flex-shrink:0;" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 06 12 34 56 78</div>
+                <div style="display:flex; gap:10px; color:var(--text-2);"><svg class="icn" style="width:15px;height:15px; flex-shrink:0;" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg> sophie.martin@email.fr</div>
+                <div style="display:flex; gap:10px; color:var(--text-2);"><svg class="icn" style="width:15px;height:15px; flex-shrink:0;" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> 14 rue des Lilas, 69006 Lyon</div>
+              </div>
+            </div>
+
+            <div class="glass panel">
+              <div class="panel-title" style="margin-bottom:14px;">Allergies & antécédents</div>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <span class="badge badge-rose">Pénicilline</span>
+                <span class="badge badge-amber">Diabète type 2</span>
+                <span class="badge badge-amber">Hypertension</span>
+                <span class="badge badge-slate">Non-fumeuse</span>
+              </div>
+            </div>
+
+            <div class="glass panel">
+              <div class="panel-title" style="margin-bottom:14px;">Traitements en cours</div>
+              <div style="display:flex; flex-direction:column; gap:10px; font-size:12.8px;">
+                <div style="display:flex; justify-content:space-between;"><span>Metformine 500mg</span><span style="color:var(--text-3);">2x/jour</span></div>
+                <div style="display:flex; justify-content:space-between;"><span>Amlodipine 5mg</span><span style="color:var(--text-3);">1x/jour</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass panel">
+            <div class="tabs" style="margin-bottom:20px; width:fit-content;">
+              <div class="tab active">Consultations</div>
+              <div class="tab">Antécédents</div>
+              <div class="tab">Ordonnances</div>
+              <div class="tab">Examens</div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:rgba(99,102,241,.14); color:#4f46e5;"><svg class="icn" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg></div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between;"><b style="font-size:13.5px;">Consultation de suivi diabète</b><span class="mono" style="color:var(--text-3); font-size:12px;">02 juil. 2026</span></div>
+                <p style="color:var(--text-2); font-size:12.8px; margin-top:6px; line-height:1.6;">HbA1c à 7,1% en légère baisse. Poursuite du traitement actuel. Bilan lipidique prévu dans 3 mois. Patiente rapporte une bonne observance du régime alimentaire.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:rgba(52,211,153,.14); color:#059669;"><svg class="icn" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M9 2v6l-5.5 9.5A2 2 0 0 0 5.2 21h13.6a2 2 0 0 0 1.7-3.5L15 8V2"/></svg></div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between;"><b style="font-size:13.5px;">Bilan sanguin complet</b><span class="mono" style="color:var(--text-3); font-size:12px;">18 avr. 2026</span></div>
+                <p style="color:var(--text-2); font-size:12.8px; margin-top:6px; line-height:1.6;">Glycémie à jeun 1,15 g/L, cholestérol LDL 1,28 g/L. Fonction rénale normale. Résultats transmis et commentés en consultation.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:rgba(251,191,36,.14); color:#b45309;"><svg class="icn" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between;"><b style="font-size:13.5px;">Électrocardiogramme de contrôle</b><span class="mono" style="color:var(--text-3); font-size:12px;">02 mars 2026</span></div>
+                <p style="color:var(--text-2); font-size:12.8px; margin-top:6px; line-height:1.6;">Rythme sinusal régulier, aucune anomalie détectée. Tension artérielle stable sous traitement à 134/82 mmHg.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:rgba(167,139,250,.14); color:#7c3aed;"><svg class="icn" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between;"><b style="font-size:13.5px;">Première consultation — diagnostic diabète type 2</b><span class="mono" style="color:var(--text-3); font-size:12px;">11 nov. 2023</span></div>
+                <p style="color:var(--text-2); font-size:12.8px; margin-top:6px; line-height:1.6;">Découverte fortuite d'une hyperglycémie lors d'un bilan de routine. Mise en place du traitement et suivi diététique initié.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ORDONNANCES ============ -->
+      <section class="screen-view" id="view-ordonnances">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Ordonnances</div>
+            <div class="page-sub">248 ordonnances générées ce mois-ci</div>
+          </div>
+          <button class="btn btn-primary"><svg class="icn" style="width:15px;height:15px; stroke:#ffffff;" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Nouvelle ordonnance</button>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1.3fr 1fr;">
+          <div class="glass panel">
+            <div class="panel-head"><div class="panel-title">Historique récent</div>
+              <div style="display:flex; gap:8px;"><span class="pill-filter active">Toutes</span><span class="pill-filter">En attente</span><span class="pill-filter">Envoyées</span></div>
+            </div>
+            <table>
+              <thead><tr><th>Patient</th><th>Type</th><th>Date</th><th>Statut</th><th></th></tr></thead>
+              <tbody>
+                <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#22d3ee,#34d399);">SM</div>Sophie Martin</div></td><td>Renouvellement</td><td class="mono">02/07/2026</td><td><span class="badge badge-emerald">Envoyée</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+                <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#6366f1,#a78bfa);">KB</div>Karim Belhadj</div></td><td>Antibiotique</td><td class="mono">01/07/2026</td><td><span class="badge badge-emerald">Envoyée</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+                <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#fbbf24,#fb7185);">MC</div>Marc Chevalier</div></td><td>Examen complémentaire</td><td class="mono">02/07/2026</td><td><span class="badge badge-amber">Brouillon</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+                <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#34d399,#6366f1);">TN</div>Thomas Nguyen</div></td><td>Renouvellement</td><td class="mono">28/06/2026</td><td><span class="badge badge-emerald">Envoyée</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+                <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#a78bfa,#22d3ee);">LF</div>Lucie Fabre</div></td><td>Traitement ponctuel</td><td class="mono">26/06/2026</td><td><span class="badge badge-emerald">Envoyée</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="glass panel" style="background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));">
+            <div style="background:#f8f9fb; color:#111; border-radius:14px; padding:26px; font-family:'Inter',sans-serif;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid #111; padding-bottom:14px; margin-bottom:16px;">
+                <div style="display:flex; gap:10px; align-items:center;">
+                  <div class="logo-mark" style="width:30px;height:30px; border-radius:8px;"><svg viewBox="0 0 24 24" fill="none"><path d="M2 13h4l2 6 4-14 2 8h8" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:13px; color:#111;">Dr. Amélie Rousseau</div><div style="font-size:10px; color:#666;">Médecine générale — RPPS 10012345678</div></div>
+                </div>
+                <div style="text-align:right; font-size:10px; color:#666;">Cabinet Rousseau<br>12 av. Foch, 69006 Lyon<br>04 78 XX XX XX</div>
+              </div>
+              <div style="font-size:11px; color:#444; margin-bottom:16px;">Sophie Martin — née le 14/03/1974<br>Lyon, le 2 juillet 2026</div>
+              <div style="font-weight:700; font-size:12px; margin-bottom:10px; letter-spacing:.03em;">ORDONNANCE</div>
+              <div style="font-size:12px; line-height:1.9; color:#222;">
+                1. Metformine 500 mg — 2 comprimés par jour pendant 3 mois<br>
+                2. Amlodipine 5 mg — 1 comprimé le matin pendant 3 mois<br>
+                3. Bilan lipidique de contrôle dans 3 mois
+              </div>
+              <div style="margin-top:34px; text-align:right; font-size:11px; font-style:italic; color:#444;">Dr. A. Rousseau</div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:16px;">
+              <button class="btn btn-ghost" style="flex:1;"><svg class="icn" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> PDF</button>
+              <button class="btn btn-primary" style="flex:1;">Envoyer au patient</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ EXAMENS MÉDICAUX ============ -->
+      <section class="screen-view" id="view-examens">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Examens médicaux</div>
+            <div class="page-sub">Planification et suivi des examens</div>
+          </div>
+          <button class="btn btn-primary"><svg class="icn" style="width:15px;height:15px; stroke:#ffffff;" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Prescrire un examen</button>
+        </div>
+
+        <div class="grid g4" style="margin-bottom:18px;">
+          <div class="glass card-hover panel">
+            <div class="stat-ico" style="background:rgba(99,102,241,.14); color:#4f46e5; margin-bottom:14px;"><svg class="icn" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            <div style="font-weight:700; font-size:15px;">Radiologie</div>
+            <div style="color:var(--text-3); font-size:12px; margin-top:3px;">14 examens ce mois</div>
+          </div>
+          <div class="glass card-hover panel">
+            <div class="stat-ico" style="background:rgba(52,211,153,.14); color:#059669; margin-bottom:14px;"><svg class="icn" viewBox="0 0 24 24"><path d="M9 2v6l-5.5 9.5A2 2 0 0 0 5.2 21h13.6a2 2 0 0 0 1.7-3.5L15 8V2"/></svg></div>
+            <div style="font-weight:700; font-size:15px;">Analyses sanguines</div>
+            <div style="color:var(--text-3); font-size:12px; margin-top:3px;">42 examens ce mois</div>
+          </div>
+          <div class="glass card-hover panel">
+            <div class="stat-ico" style="background:rgba(251,113,133,.14); color:#e11d48; margin-bottom:14px;"><svg class="icn" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            <div style="font-weight:700; font-size:15px;">Électrocardiogramme</div>
+            <div style="color:var(--text-3); font-size:12px; margin-top:3px;">9 examens ce mois</div>
+          </div>
+          <div class="glass card-hover panel">
+            <div class="stat-ico" style="background:rgba(34,211,238,.14); color:#0e7490; margin-bottom:14px;"><svg class="icn" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></div>
+            <div style="font-weight:700; font-size:15px;">Échographie</div>
+            <div style="color:var(--text-3); font-size:12px; margin-top:3px;">7 examens ce mois</div>
+          </div>
+        </div>
+
+        <div class="glass panel">
+          <div class="panel-head">
+            <div class="panel-title">Examens planifiés</div>
+            <div style="display:flex; gap:8px;"><span class="pill-filter active">Tous</span><span class="pill-filter">Programmés</span><span class="pill-filter">Terminés</span></div>
+          </div>
+          <table>
+            <thead><tr><th>Patient</th><th>Examen</th><th>Prescripteur</th><th>Date</th><th>Statut</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#fb7185,#fbbf24);">MC</div>Marc Chevalier</div></td><td>ECG de repos</td><td>Dr. Rousseau</td><td class="mono">03/07/2026</td><td><span class="badge badge-amber">Programmé</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+              <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#34d399,#6366f1);">TN</div>Thomas Nguyen</div></td><td>Bilan sanguin complet</td><td>Dr. Bertrand</td><td class="mono">02/07/2026</td><td><span class="badge badge-emerald">Terminé</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+              <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#22d3ee,#34d399);">SM</div>Sophie Martin</div></td><td>Échographie abdominale</td><td>Dr. Rousseau</td><td class="mono">08/07/2026</td><td><span class="badge badge-amber">Programmé</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+              <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#6366f1,#a78bfa);">KB</div>Karim Belhadj</div></td><td>Radiographie thoracique</td><td>Dr. Rousseau</td><td class="mono">30/06/2026</td><td><span class="badge badge-emerald">Terminé</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ ANALYSES ============ -->
+      <section class="screen-view" id="view-analyses">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Analyses</div>
+            <div class="page-sub">Résultats de laboratoire — Thomas Nguyen</div>
+          </div>
+          <button class="btn btn-ghost"><svg class="icn" style="width:15px;height:15px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Télécharger le rapport</button>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1.4fr 1fr; margin-bottom:18px;">
+          <div class="glass panel">
+            <div class="panel-head"><div class="panel-title">Bilan sanguin — 02 juillet 2026</div><span class="badge badge-amber">1 valeur à surveiller</span></div>
+            <table>
+              <thead><tr><th>Marqueur</th><th>Résultat</th><th>Référence</th><th>Statut</th></tr></thead>
+              <tbody>
+                <tr><td>Glycémie à jeun</td><td class="mono">0,98 g/L</td><td class="mono" style="color:var(--text-3);">0,70 – 1,10</td><td><span class="badge badge-emerald">Normal</span></td></tr>
+                <tr><td>Cholestérol LDL</td><td class="mono">1,42 g/L</td><td class="mono" style="color:var(--text-3);">&lt; 1,30</td><td><span class="badge badge-amber">Élevé</span></td></tr>
+                <tr><td>Cholestérol HDL</td><td class="mono">0,58 g/L</td><td class="mono" style="color:var(--text-3);">&gt; 0,40</td><td><span class="badge badge-emerald">Normal</span></td></tr>
+                <tr><td>Triglycérides</td><td class="mono">1,05 g/L</td><td class="mono" style="color:var(--text-3);">&lt; 1,50</td><td><span class="badge badge-emerald">Normal</span></td></tr>
+                <tr><td>Créatinine</td><td class="mono">8,2 mg/L</td><td class="mono" style="color:var(--text-3);">6,0 – 12,0</td><td><span class="badge badge-emerald">Normal</span></td></tr>
+                <tr><td>Hémoglobine glyquée (HbA1c)</td><td class="mono">6,1 %</td><td class="mono" style="color:var(--text-3);">&lt; 6,5</td><td><span class="badge badge-emerald">Normal</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="glass panel">
+            <div class="panel-head"><div class="panel-title">Évolution — Glycémie</div></div>
+            <div style="height:200px;"><canvas id="chartBiomarqueur"></canvas></div>
+            <div class="divider"></div>
+            <p style="color:var(--text-2); font-size:12.5px; line-height:1.6;">Tendance à la baisse constante depuis 12 mois, cohérente avec l'amélioration de l'observance thérapeutique et du régime alimentaire.</p>
+          </div>
+        </div>
+
+        <div class="glass panel">
+          <div class="panel-head"><div class="panel-title">Historique des analyses</div></div>
+          <table>
+            <thead><tr><th>Patient</th><th>Type d'analyse</th><th>Date</th><th>Laboratoire</th><th>Statut</th></tr></thead>
+            <tbody>
+              <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#34d399,#6366f1);">TN</div>Thomas Nguyen</div></td><td>Bilan sanguin complet</td><td class="mono">02/07/2026</td><td>Biolab Lyon 6</td><td><span class="badge badge-emerald">Reçu</span></td></tr>
+              <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#22d3ee,#34d399);">SM</div>Sophie Martin</div></td><td>HbA1c + bilan lipidique</td><td class="mono">18/04/2026</td><td>Biolab Lyon 6</td><td><span class="badge badge-emerald">Reçu</span></td></tr>
+              <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:30px;height:30px;font-size:10.5px;background:linear-gradient(135deg,#fbbf24,#fb7185);">MC</div>Marc Chevalier</div></td><td>Troponine + D-dimères</td><td class="mono">02/07/2026</td><td>Laboratoire Part-Dieu</td><td><span class="badge badge-amber">En cours</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ FACTURATION ============ -->
+      <section class="screen-view" id="view-facturation">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Facturation</div>
+            <div class="page-sub">Juin 2026 · 312 factures émises</div>
+          </div>
+          <button class="btn btn-primary"><svg class="icn" style="width:15px;height:15px; stroke:#ffffff;" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Nouvelle facture</button>
+        </div>
+
+        <div class="grid g3" style="margin-bottom:18px;">
+          <div class="glass card-hover stat-card">
+            <div class="stat-top"><div class="stat-ico" style="background:rgba(99,102,241,.14); color:#4f46e5;"><svg class="icn" viewBox="0 0 24 24"><path d="M6 2h12a1 1 0 0 1 1 1v18l-3-1.5-3 1.5-3-1.5-3 1.5-3-1.5V3a1 1 0 0 1 1-1Z"/></svg></div></div>
+            <div class="stat-value">88 400 €</div><div class="stat-label">Facturé ce mois</div>
+            <div class="stat-delta up"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg> +6,4% vs mai</div>
+          </div>
+          <div class="glass card-hover stat-card">
+            <div class="stat-top"><div class="stat-ico" style="background:rgba(52,211,153,.14); color:#059669;"><svg class="icn" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div></div>
+            <div class="stat-value">84 950 €</div><div class="stat-label">Encaissé</div>
+            <div class="stat-delta up"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg> 96% du facturé</div>
+          </div>
+          <div class="glass card-hover stat-card">
+            <div class="stat-top"><div class="stat-ico" style="background:rgba(251,191,36,.14); color:#b45309;"><svg class="icn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div></div>
+            <div class="stat-value">3 450 €</div><div class="stat-label">Impayé / en retard</div>
+            <div class="stat-delta down"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg> 6 factures</div>
+          </div>
+        </div>
+
+        <div class="glass panel">
+          <div class="panel-head">
+            <div class="panel-title">Factures récentes</div>
+            <div style="display:flex; gap:8px;"><span class="pill-filter active">Toutes</span><span class="pill-filter">Payées</span><span class="pill-filter">En attente</span><span class="pill-filter">En retard</span></div>
+          </div>
+          <table>
+            <thead><tr><th>N° facture</th><th>Patient</th><th>Date</th><th>Montant</th><th>Statut</th><th></th></tr></thead>
+            <tbody>
+              <tr><td class="mono">FA-2026-1248</td><td>Sophie Martin</td><td class="mono">02/07/2026</td><td class="mono">85,00 €</td><td><span class="badge badge-emerald">Payée</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+              <tr><td class="mono">FA-2026-1247</td><td>Jean Petit</td><td class="mono">02/07/2026</td><td class="mono">25,00 €</td><td><span class="badge badge-amber">En attente</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+              <tr><td class="mono">FA-2026-1246</td><td>Karim Belhadj</td><td class="mono">01/07/2026</td><td class="mono">60,00 €</td><td><span class="badge badge-emerald">Payée</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+              <tr><td class="mono">FA-2026-1231</td><td>Marc Chevalier</td><td class="mono">18/06/2026</td><td class="mono">140,00 €</td><td><span class="badge badge-rose">En retard</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+              <tr><td class="mono">FA-2026-1229</td><td>Thomas Nguyen</td><td class="mono">15/06/2026</td><td class="mono">25,00 €</td><td><span class="badge badge-emerald">Payée</span></td><td><svg class="icn" style="width:15px;height:15px; color:var(--text-3);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ PAIEMENTS ============ -->
+      <section class="screen-view" id="view-paiements">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Paiements</div>
+            <div class="page-sub">Suivi des encaissements et moyens de paiement</div>
+          </div>
+          <button class="btn btn-ghost"><svg class="icn" style="width:15px;height:15px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Export comptable</button>
+        </div>
+
+        <div class="grid g4" style="margin-bottom:18px;">
+          <div class="glass card-hover panel">
+            <div class="stat-ico" style="background:rgba(99,102,241,.14); color:#4f46e5; margin-bottom:12px;"><svg class="icn" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg></div>
+            <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px;">38%</div><div style="color:var(--text-3); font-size:12px;">Carte bancaire</div>
+          </div>
+          <div class="glass card-hover panel">
+            <div class="stat-ico" style="background:rgba(52,211,153,.14); color:#059669; margin-bottom:12px;"><svg class="icn" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg></div>
+            <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px;">34%</div><div style="color:var(--text-3); font-size:12px;">Tiers payant</div>
+          </div>
+          <div class="glass card-hover panel">
+            <div class="stat-ico" style="background:rgba(34,211,238,.14); color:#0e7490; margin-bottom:12px;"><svg class="icn" viewBox="0 0 24 24"><path d="M6 2h12a1 1 0 0 1 1 1v18l-3-1.5-3 1.5-3-1.5-3 1.5-3-1.5V3a1 1 0 0 1 1-1Z"/></svg></div>
+            <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px;">18%</div><div style="color:var(--text-3); font-size:12px;">Virement</div>
+          </div>
+          <div class="glass card-hover panel">
+            <div class="stat-ico" style="background:rgba(251,191,36,.14); color:#b45309; margin-bottom:12px;"><svg class="icn" viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/></svg></div>
+            <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px;">10%</div><div style="color:var(--text-3); font-size:12px;">Espèces / chèque</div>
+          </div>
+        </div>
+
+        <div class="glass panel" style="margin-bottom:18px;">
+          <div class="panel-head"><div class="panel-title">Facturé vs encaissé</div></div>
+          <div style="height:220px;"><canvas id="chartFacturation"></canvas></div>
+        </div>
+
+        <div class="glass panel">
+          <div class="panel-head"><div class="panel-title">Transactions récentes</div></div>
+          <table>
+            <thead><tr><th>Patient</th><th>Moyen</th><th>Date</th><th>Montant</th><th>Statut</th></tr></thead>
+            <tbody>
+              <tr><td>Sophie Martin</td><td><span class="badge badge-indigo">CB</span></td><td class="mono">02/07/2026</td><td class="mono">85,00 €</td><td><span class="badge badge-emerald">Validé</span></td></tr>
+              <tr><td>Jean Petit</td><td><span class="badge badge-cyan">Tiers payant</span></td><td class="mono">02/07/2026</td><td class="mono">25,00 €</td><td><span class="badge badge-amber">En traitement</span></td></tr>
+              <tr><td>Karim Belhadj</td><td><span class="badge badge-slate">Virement</span></td><td class="mono">01/07/2026</td><td class="mono">60,00 €</td><td><span class="badge badge-emerald">Validé</span></td></tr>
+              <tr><td>Lucie Fabre</td><td><span class="badge badge-indigo">CB</span></td><td class="mono">30/06/2026</td><td class="mono">45,00 €</td><td><span class="badge badge-emerald">Validé</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ PERSONNEL ============ -->
+      <section class="screen-view" id="view-personnel">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Personnel</div>
+            <div class="page-sub">8 membres de l'équipe</div>
+          </div>
+          <button class="btn btn-primary"><svg class="icn" style="width:15px;height:15px; stroke:#ffffff;" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Ajouter un membre</button>
+        </div>
+
+        <div class="grid g4" style="margin-bottom:22px;">
+          <div class="glass card-hover panel" style="text-align:center;">
+            <div class="avatar" style="width:56px; height:56px; font-size:17px; background:var(--grad-brand); margin:0 auto 12px;">AR</div>
+            <div style="font-weight:700; font-size:14px;">Dr. Amélie Rousseau</div>
+            <div style="color:var(--text-3); font-size:12px; margin-top:2px;">Médecin généraliste</div>
+            <span class="badge badge-emerald" style="margin-top:10px;">En ligne</span>
+          </div>
+          <div class="glass card-hover panel" style="text-align:center;">
+            <div class="avatar" style="width:56px; height:56px; font-size:17px; background:linear-gradient(135deg,#22d3ee,#34d399); margin:0 auto 12px;">TB</div>
+            <div style="font-weight:700; font-size:14px;">Dr. Théo Bertrand</div>
+            <div style="color:var(--text-3); font-size:12px; margin-top:2px;">Cardiologue</div>
+            <span class="badge badge-emerald" style="margin-top:10px;">En ligne</span>
+          </div>
+          <div class="glass card-hover panel" style="text-align:center;">
+            <div class="avatar" style="width:56px; height:56px; font-size:17px; background:linear-gradient(135deg,#a78bfa,#6366f1); margin:0 auto 12px;">CL</div>
+            <div style="font-weight:700; font-size:14px;">Camille Leroy</div>
+            <div style="color:var(--text-3); font-size:12px; margin-top:2px;">Secrétaire médicale</div>
+            <span class="badge badge-slate" style="margin-top:10px;">Absente</span>
+          </div>
+          <div class="glass card-hover panel" style="text-align:center;">
+            <div class="avatar" style="width:56px; height:56px; font-size:17px; background:linear-gradient(135deg,#fbbf24,#fb7185); margin:0 auto 12px;">NP</div>
+            <div style="font-weight:700; font-size:14px;">Noémie Pires</div>
+            <div style="color:var(--text-3); font-size:12px; margin-top:2px;">Infirmière</div>
+            <span class="badge badge-emerald" style="margin-top:10px;">En ligne</span>
+          </div>
+        </div>
+
+        <div class="glass panel">
+          <div class="panel-head"><div class="panel-title">Planning de la semaine</div></div>
+          <table>
+            <thead><tr><th>Membre</th><th>Rôle</th><th>Lun</th><th>Mar</th><th>Mer</th><th>Jeu</th><th>Ven</th></tr></thead>
+            <tbody>
+              <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:28px;height:28px;font-size:10px;background:var(--grad-brand);">AR</div>Dr. Rousseau</div></td><td>Généraliste</td><td class="mono" style="color:#059669;">8h–18h</td><td class="mono" style="color:#059669;">8h–18h</td><td class="mono" style="color:#059669;">8h–18h</td><td class="mono" style="color:#059669;">8h–18h</td><td class="mono" style="color:var(--text-3);">Repos</td></tr>
+              <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:28px;height:28px;font-size:10px;background:linear-gradient(135deg,#22d3ee,#34d399);">TB</div>Dr. Bertrand</div></td><td>Cardiologue</td><td class="mono" style="color:var(--text-3);">Repos</td><td class="mono" style="color:#059669;">9h–17h</td><td class="mono" style="color:#059669;">9h–17h</td><td class="mono" style="color:var(--text-3);">Repos</td><td class="mono" style="color:#059669;">9h–17h</td></tr>
+              <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:28px;height:28px;font-size:10px;background:linear-gradient(135deg,#a78bfa,#6366f1);">CL</div>C. Leroy</div></td><td>Secrétariat</td><td class="mono" style="color:#059669;">8h–17h</td><td class="mono" style="color:#059669;">8h–17h</td><td class="mono" style="color:var(--text-3);">Absente</td><td class="mono" style="color:#059669;">8h–17h</td><td class="mono" style="color:#059669;">8h–17h</td></tr>
+              <tr><td><div style="display:flex; align-items:center; gap:10px;"><div class="avatar" style="width:28px;height:28px;font-size:10px;background:linear-gradient(135deg,#fbbf24,#fb7185);">NP</div>N. Pires</div></td><td>Infirmière</td><td class="mono" style="color:#059669;">8h–16h</td><td class="mono" style="color:#059669;">8h–16h</td><td class="mono" style="color:#059669;">8h–16h</td><td class="mono" style="color:#059669;">8h–16h</td><td class="mono" style="color:#059669;">8h–16h</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ RAPPORTS ============ -->
+      <section class="screen-view" id="view-rapports">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Rapports</div>
+            <div class="page-sub">Analyse d'activité du cabinet — 2026</div>
+          </div>
+          <button class="btn btn-ghost"><svg class="icn" style="width:15px;height:15px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Exporter en PDF</button>
+        </div>
+
+        <div class="grid g4" style="margin-bottom:18px;">
+          <div class="glass card-hover stat-card">
+            <div class="stat-value">3 126</div><div class="stat-label">Patients reçus (2026)</div>
+            <div class="stat-delta up"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg> +14% vs 2025</div>
+          </div>
+          <div class="glass card-hover stat-card">
+            <div class="stat-value">92,4%</div><div class="stat-label">Taux d'occupation moyen</div>
+            <div class="stat-delta up"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg> +3,1 pts</div>
+          </div>
+          <div class="glass card-hover stat-card">
+            <div class="stat-value">465 200 €</div><div class="stat-label">Chiffre d'affaires cumulé</div>
+            <div class="stat-delta up"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg> +9,7%</div>
+          </div>
+          <div class="glass card-hover stat-card">
+            <div class="stat-value">4,8 / 5</div><div class="stat-label">Satisfaction patients</div>
+            <div class="stat-delta up"><svg class="icn" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg> 312 avis</div>
+          </div>
+        </div>
+
+        <div class="glass panel" style="margin-bottom:18px;">
+          <div class="panel-head">
+            <div class="panel-title">Fréquentation annuelle par mois</div>
+            <div class="tabs"><div class="tab active">2026</div><div class="tab">2025</div></div>
+          </div>
+          <div style="height:240px;"><canvas id="chartRapportAnnuel"></canvas></div>
+        </div>
+
+        <div class="grid g3">
+          <div class="glass card-hover panel">
+            <div class="stat-ico" style="background:rgba(99,102,241,.14); color:#4f46e5; margin-bottom:14px;"><svg class="icn" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+            <div style="font-weight:700; font-size:14.5px; margin-bottom:4px;">Rapport mensuel d'activité</div>
+            <div style="color:var(--text-3); font-size:12px; margin-bottom:14px;">Consultations, occupation, motifs de visite</div>
+            <button class="btn btn-ghost" style="width:100%; font-size:12.5px; padding:8px;">Générer le rapport</button>
+          </div>
+          <div class="glass card-hover panel">
+            <div class="stat-ico" style="background:rgba(52,211,153,.14); color:#059669; margin-bottom:14px;"><svg class="icn" viewBox="0 0 24 24"><path d="M6 2h12a1 1 0 0 1 1 1v18l-3-1.5-3 1.5-3-1.5-3 1.5-3-1.5V3a1 1 0 0 1 1-1Z"/></svg></div>
+            <div style="font-weight:700; font-size:14.5px; margin-bottom:4px;">Rapport financier</div>
+            <div style="color:var(--text-3); font-size:12px; margin-bottom:14px;">Revenus, encaissements, impayés</div>
+            <button class="btn btn-ghost" style="width:100%; font-size:12.5px; padding:8px;">Générer le rapport</button>
+          </div>
+          <div class="glass card-hover panel">
+            <div class="stat-ico" style="background:rgba(34,211,238,.14); color:#0e7490; margin-bottom:14px;"><svg class="icn" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <div style="font-weight:700; font-size:14.5px; margin-bottom:4px;">Rapport patientèle</div>
+            <div style="color:var(--text-3); font-size:12px; margin-bottom:14px;">Démographie, nouveaux patients, fidélité</div>
+            <button class="btn btn-ghost" style="width:100%; font-size:12.5px; padding:8px;">Générer le rapport</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PARAMÈTRES ============ -->
+      <section class="screen-view" id="view-parametres">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Paramètres</div>
+            <div class="page-sub">Configuration du cabinet et de votre compte</div>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:230px 1fr;">
+          <div class="glass panel" style="padding:14px;">
+            <div class="nav-item active" style="margin-bottom:3px;"><svg class="icn" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profil du cabinet</div>
+            <div class="nav-item"><svg class="icn" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Utilisateurs & rôles</div>
+            <div class="nav-item"><svg class="icn" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg>Notifications</div>
+            <div class="nav-item"><svg class="icn" viewBox="0 0 24 24"><path d="M6 2h12a1 1 0 0 1 1 1v18l-3-1.5-3 1.5-3-1.5-3 1.5-3-1.5V3a1 1 0 0 1 1-1Z"/></svg>Facturation & taxes</div>
+            <div class="nav-item"><svg class="icn" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>Sécurité & RGPD</div>
+            <div class="nav-item"><svg class="icn" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>Intégrations</div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:18px;">
+            <div class="glass panel">
+              <div class="panel-title" style="margin-bottom:18px;">Profil du cabinet</div>
+              <div style="display:flex; align-items:center; gap:16px; margin-bottom:22px;">
+                <div class="avatar" style="width:64px; height:64px; font-size:20px; background:var(--grad-brand);">AR</div>
+                <div>
+                  <button class="btn btn-ghost" style="padding:8px 14px; font-size:12.5px;">Changer le logo</button>
+                  <div style="color:var(--text-3); font-size:11.5px; margin-top:6px;">PNG ou SVG, 512×512px recommandé</div>
+                </div>
+              </div>
+              <div class="grid g2">
+                <div><label style="font-size:12.5px; font-weight:600; color:var(--text-2); display:block; margin-bottom:7px;">Nom du cabinet</label><input class="input" value="Cabinet Rousseau"></div>
+                <div><label style="font-size:12.5px; font-weight:600; color:var(--text-2); display:block; margin-bottom:7px;">Numéro RPPS</label><input class="input" value="10012345678"></div>
+                <div><label style="font-size:12.5px; font-weight:600; color:var(--text-2); display:block; margin-bottom:7px;">Adresse</label><input class="input" value="12 avenue Foch, 69006 Lyon"></div>
+                <div><label style="font-size:12.5px; font-weight:600; color:var(--text-2); display:block; margin-bottom:7px;">Téléphone</label><input class="input" value="04 78 XX XX XX"></div>
+              </div>
+            </div>
+
+            <div class="glass panel">
+              <div class="panel-title" style="margin-bottom:6px;">Notifications</div>
+              <div style="color:var(--text-3); font-size:12px; margin-bottom:16px;">Choisissez les alertes que vous souhaitez recevoir</div>
+              <div style="display:flex; flex-direction:column; gap:14px;">
+                <div style="display:flex; align-items:center; justify-content:space-between;">
+                  <div><div style="font-size:13.5px; font-weight:600;">Rappels de rendez-vous</div><div style="color:var(--text-3); font-size:11.5px;">SMS envoyé 24h avant au patient</div></div>
+                  <div style="width:40px; height:22px; border-radius:20px; background:var(--grad-brand); position:relative;"><div style="width:16px;height:16px;border-radius:50%;background:#fff;position:absolute; top:3px; right:3px;"></div></div>
+                </div>
+                <div style="display:flex; align-items:center; justify-content:space-between;">
+                  <div><div style="font-size:13.5px; font-weight:600;">Résultats d'analyses reçus</div><div style="color:var(--text-3); font-size:11.5px;">Notification en temps réel</div></div>
+                  <div style="width:40px; height:22px; border-radius:20px; background:var(--grad-brand); position:relative;"><div style="width:16px;height:16px;border-radius:50%;background:#fff;position:absolute; top:3px; right:3px;"></div></div>
+                </div>
+                <div style="display:flex; align-items:center; justify-content:space-between;">
+                  <div><div style="font-size:13.5px; font-weight:600;">Factures impayées</div><div style="color:var(--text-3); font-size:11.5px;">Rappel hebdomadaire</div></div>
+                  <div style="width:40px; height:22px; border-radius:20px; background:rgba(255,255,255,.1); position:relative;"><div style="width:16px;height:16px;border-radius:50%;background:#9aa4b8;position:absolute; top:3px; left:3px;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass panel">
+              <div class="panel-title" style="margin-bottom:16px;">Sécurité & conformité</div>
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; padding:12px; border-radius:12px; background:rgba(52,211,153,.06); border:1px solid rgba(52,211,153,.18);">
+                  <div style="display:flex; gap:10px; align-items:center;"><svg class="icn" style="color:#059669;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><div style="font-size:13px; font-weight:600;">Hébergement HDS certifié</div></div>
+                  <span class="badge badge-emerald">Actif</span>
+                </div>
+                <div style="display:flex; align-items:center; justify-content:space-between; padding:12px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid var(--glass-border-soft);">
+                  <div style="font-size:13px; font-weight:600;">Authentification à deux facteurs</div>
+                  <span class="badge badge-emerald">Activée</span>
+                </div>
+                <div style="display:flex; align-items:center; justify-content:space-between; padding:12px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid var(--glass-border-soft);">
+                  <div style="font-size:13px; font-weight:600;">Chiffrement des dossiers patients</div>
+                  <span class="badge badge-emerald">AES-256</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+function goApp(){
+  document.getElementById('screen-login').style.display='none';
+  document.getElementById('app').classList.add('active');
+  initCharts();
+  animateCounters(document.getElementById('view-dashboard'));
+}
+function nav(target, el){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.screen-view').forEach(s=>s.classList.remove('active'));
+  const view = document.getElementById('view-'+target);
+  view.classList.add('active');
+  document.getElementById('crumb').textContent = el.textContent.trim();
+  document.getElementById('content').scrollTop = 0;
+  document.querySelector('.main').scrollTop = 0;
+  animateCounters(view);
+}
+document.querySelector('.nav-item[data-target="dashboard"]').classList.add('active');
+
+/* ---------- Animated stat counters ---------- */
+function animateCounters(scope){
+  const nodes = scope.querySelectorAll('.stat-value');
+  nodes.forEach((node)=>{
+    if(node.dataset.animating) return;
+    const raw = node.textContent.trim();
+    const match = raw.match(/-?[\d\s]*[\d](?:[.,]\d+)?/);
+    if(!match) return;
+    const numToken = match[0];
+    const prefix = raw.slice(0, match.index);
+    const suffix = raw.slice(match.index + numToken.length);
+    const hasComma = numToken.includes(',');
+    const cleanNum = numToken.replace(/\s/g,'').replace(',', '.');
+    const target = parseFloat(cleanNum);
+    if(isNaN(target)) return;
+    const decimals = hasComma ? (cleanNum.split('.')[1] || '').length : 0;
+    node.dataset.animating = '1';
+    const duration = 900;
+    const start = performance.now();
+    function frame(now){
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const value = target * eased;
+      let formatted = decimals ? value.toFixed(decimals).replace('.', ',') : Math.round(value).toString();
+      if(Math.abs(target) >= 1000){
+        const parts = formatted.split(',');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        formatted = parts.join(',');
+      }
+      node.textContent = prefix + formatted + suffix;
+      if(p < 1){ requestAnimationFrame(frame); } else { node.dataset.animating=''; }
+    }
+    requestAnimationFrame(frame);
+  });
+}
+
+let chartsInit=false;
+function initCharts(){
+  if(chartsInit) return; chartsInit=true;
+  Chart.defaults.font.family="'Inter',sans-serif";
+  Chart.defaults.color="#64748b";
+
+  new Chart(document.getElementById('chartRevenue'), {
+    type:'bar',
+    data:{
+      labels:['Jeu 26','Ven 27','Sam 28','Dim 29','Lun 30','Mar 1','Mer 2'],
+      datasets:[{
+        label:'Revenus (€)',
+        data:[2850,3120,1680,900,3760,4020,4280],
+        backgroundColor:(ctx)=>{
+          const g = ctx.chart.ctx.createLinearGradient(0,0,0,220);
+          g.addColorStop(0,'rgba(99,102,241,.85)');
+          g.addColorStop(1,'rgba(34,211,238,.35)');
+          return g;
+        },
+        borderRadius:8, maxBarThickness:34
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}, tooltip:{backgroundColor:'#0f172a', borderColor:'rgba(255,255,255,.08)', titleColor:'#fff', bodyColor:'#e2e8f0', borderWidth:1, padding:10, titleFont:{weight:600}, callbacks:{label:(c)=>c.parsed.y+' €'}}},
+      scales:{
+        y:{grid:{color:'rgba(15,23,42,.06)'}, border:{display:false}, ticks:{callback:(v)=>v/1000+'k'}},
+        x:{grid:{display:false}, border:{display:false}}
+      }
+    }
+  });
+
+  new Chart(document.getElementById('chartTypes'), {
+    type:'doughnut',
+    data:{
+      labels:['Consultations','Suivis','Téléconsultations','Urgences'],
+      datasets:[{data:[48,27,15,10], backgroundColor:['#6366f1','#22d3ee','#34d399','#fb7185'], borderColor:'#f4f6fb', borderWidth:4, hoverOffset:6}]
+    },
+    options:{responsive:true, maintainAspectRatio:false, cutout:'72%', plugins:{legend:{display:false}, tooltip:{backgroundColor:'#0f172a', borderColor:'rgba(255,255,255,.08)', titleColor:'#fff', bodyColor:'#e2e8f0', borderWidth:1, padding:10}}}
+  });
+
+  if(document.getElementById('chartFacturation')){
+    new Chart(document.getElementById('chartFacturation'), {
+      type:'line',
+      data:{
+        labels:['Jan','Fév','Mar','Avr','Mai','Juin'],
+        datasets:[
+          {label:'Facturé', data:[68000,71500,74200,79800,83100,88400], borderColor:'#6366f1', backgroundColor:'rgba(99,102,241,.12)', fill:true, tension:.4, pointRadius:0, borderWidth:2.5},
+          {label:'Encaissé', data:[64500,69800,70100,76200,80900,84950], borderColor:'#34d399', backgroundColor:'rgba(52,211,153,.10)', fill:true, tension:.4, pointRadius:0, borderWidth:2.5}
+        ]
+      },
+      options:{responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{position:'top', align:'end', labels:{boxWidth:8, boxHeight:8, usePointStyle:true, pointStyle:'circle'}}, tooltip:{backgroundColor:'#0f172a', borderColor:'rgba(255,255,255,.08)', titleColor:'#fff', bodyColor:'#e2e8f0', borderWidth:1, padding:10}},
+        scales:{y:{grid:{color:'rgba(15,23,42,.06)'}, border:{display:false}, ticks:{callback:(v)=>v/1000+'k €'}}, x:{grid:{display:false}, border:{display:false}}}
+      }
+    });
+  }
+
+  if(document.getElementById('chartRapportAnnuel')){
+    new Chart(document.getElementById('chartRapportAnnuel'), {
+      type:'bar',
+      data:{
+        labels:['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'],
+        datasets:[{label:'Patients reçus', data:[210,198,240,255,268,285,190,175,260,275,290,240], backgroundColor:'rgba(99,102,241,.7)', borderRadius:6, maxBarThickness:22}]
+      },
+      options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{backgroundColor:'#0f172a', borderColor:'rgba(255,255,255,.08)', titleColor:'#fff', bodyColor:'#e2e8f0', borderWidth:1, padding:10}},
+        scales:{y:{grid:{color:'rgba(15,23,42,.06)'}, border:{display:false}}, x:{grid:{display:false}, border:{display:false}}}}
+    });
+  }
+
+  if(document.getElementById('chartBiomarqueur')){
+    new Chart(document.getElementById('chartBiomarqueur'), {
+      type:'line',
+      data:{labels:['Jan','Mar','Mai','Juil (2025)','Sep','Nov','Jan 2026'],
+        datasets:[{label:'Glycémie (g/L)', data:[1.28,1.22,1.19,1.15,1.09,1.02,0.98], borderColor:'#22d3ee', backgroundColor:'rgba(34,211,238,.1)', fill:true, tension:.4, pointBackgroundColor:'#22d3ee', pointRadius:4, borderWidth:2.5}]},
+      options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{backgroundColor:'#0f172a', borderColor:'rgba(255,255,255,.08)', titleColor:'#fff', bodyColor:'#e2e8f0', borderWidth:1, padding:10}},
+        scales:{y:{grid:{color:'rgba(15,23,42,.06)'}, border:{display:false}}, x:{grid:{display:false}, border:{display:false}}}}
+    });
+  }
+}
+</script>
+</body>
+</html>
