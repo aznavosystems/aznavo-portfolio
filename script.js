@@ -338,7 +338,7 @@ demo: 'erp-crm.html.html'}
       label: 'Agence Immobilière'
     }
   ],
-  demo: 'aznavo-immobilier-demo_1.html'
+  demo: 'immobilier-demo.html'
 }
 
 
