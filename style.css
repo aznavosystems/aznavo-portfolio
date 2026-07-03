@@ -173,6 +173,11 @@ input,textarea,select{font:inherit;}
     background:rgba(8,17,32,.75);
     backdrop-filter:blur(18px);
     border-bottom:1px solid rgba(255,255,255,.08);
+        position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:9999;
 }
 .nav.is-scrolled{
   padding:12px 0;
@@ -1890,4 +1895,120 @@ h1,h2,h3,h4{color:#0F172A;}
   .stats{
     grid-template-columns:repeat(2,1fr) !important;
   }
+}
+/* ===========================
+   PHONE MODE IMPROVEMENTS
+=========================== */
+
+@media (max-width:768px){
+
+  html{
+    scroll-padding-top:90px;
+  }
+
+  .nav{
+    padding:12px 0 !important;
+  }
+
+  .nav__inner{
+    height:64px;
+  }
+
+  .nav__logo-img{
+    height:32px;
+  }
+
+  .nav__links{
+    top:64px !important;
+    width:100%;
+    left:0;
+    right:0;
+    max-height:calc(100vh - 64px);
+    overflow-y:auto;
+    z-index:9999;
+  }
+
+  .nav__links a{
+    font-size:16px;
+    padding:18px 24px;
+  }
+
+  .hero{
+    padding:105px 0 55px !important;
+    text-align:center;
+  }
+
+  .hero__logo{
+    height:58px !important;
+  }
+
+  .hero__title{
+    font-size:2rem !important;
+    line-height:1.15;
+  }
+
+  .hero__sub{
+    font-size:1rem;
+  }
+
+  .hero__cta{
+    width:100%;
+    gap:12px;
+  }
+
+  .hero__cta .btn{
+    width:100%;
+  }
+
+  .hero__meta{
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .hero__meta-divider{
+    display:none;
+  }
+
+  .section{
+    padding:70px 0;
+  }
+
+  .about__grid,
+  .portfolio__grid,
+  .pricing__grid,
+  .testimonials__grid,
+  .services__grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr !important;
+    gap:18px;
+  }
+
+  .stats__num{
+    font-size:1.8rem;
+  }
+
+  .contact__buttons .btn{
+    width:100%;
+  }
+
+  .footer__top{
+    grid-template-columns:1fr !important;
+    text-align:center;
+  }
+
+  .footer__brand,
+  .footer__col{
+    grid-column:auto !important;
+  }
+
+  .fab-whatsapp{
+    width:55px;
+    height:55px;
+    bottom:18px;
+    right:18px;
+  }
+
 }
