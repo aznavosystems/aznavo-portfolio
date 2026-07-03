@@ -266,8 +266,7 @@ const PROJECTS = [
   stack: ['HTML', 'CSS', 'JavaScript', 'Chart.js'],
   cover: 'logo.png',
   gallery: [{ src: 'logo.png', label: 'Demo ERP / CRM' }],
-  demo: 'aznavo-erp-crm-demo.html'
-}
+demo: 'erp-crm.html.html'}
 
 
 
