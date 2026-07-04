@@ -341,6 +341,39 @@ demo: 'erp-crm.html.html'}
   demo: 'immobilier-demo.html'
 }
 
+,{
+  id: 'rentcar',
+  title: 'Gestion de location de voitures',
+  category: 'Logiciel de gestion',
+  description:
+    'Application moderne pour les agences de location de voitures permettant de gérer la flotte, les réservations, les clients, les contrats PDF, les paiements et la maintenance.',
+  features: [
+    'Gestion de la flotte',
+    'Réservations',
+    'Clients',
+    'Contrats PDF',
+    'Paiements',
+    'Maintenance',
+    'Retours',
+    'Rapports'
+  ],
+  stack: [
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'Chart.js'
+  ],
+  cover: 'logo.png',
+  gallery: [
+    {
+      src: 'logo.png',
+      label: 'Agence Rent Car'
+    }
+  ],
+  demo: 'location.html'
+},
+
+
 
 ];
 
