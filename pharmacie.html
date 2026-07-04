@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZNAVO SYSTEMS — Gestion de Pharmacie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --primary:#0E7C66;
+  --primary-dark:#0A5F4E;
+  --primary-light:#E4F3EF;
+  --accent:#E2A33D;
+  --danger:#D64545;
+  --danger-light:#FCE9E9;
+  --ink:#152420;
+  --ink-soft:#5B6D68;
+  --paper:#F5F7F6;
+  --card:#FFFFFF;
+  --line:#E4EAE8;
+  --sidebar:#0B221D;
+  --sidebar-soft:#12332B;
+  --sidebar-text:#AFC7C1;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(15,40,32,.04), 0 8px 24px -12px rgba(15,40,32,.12);
+  --font-display:'Sora',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+body.dark{
+  --paper:#0E1614;
+  --card:#152420;
+  --ink:#EAF2EF;
+  --ink-soft:#8FA6A0;
+  --line:#233631;
+  --primary-light:#16332B;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:var(--font-body);
+  background:var(--paper);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  transition:background .2s ease,color .2s ease;
+}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0;letter-spacing:-.01em;}
+p{margin:0;}
+button{font-family:var(--font-body);cursor:pointer;}
+input,select,textarea{font-family:var(--font-body);}
+a{color:inherit;}
+::-webkit-scrollbar{width:8px;height:8px;}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px;}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:10px 16px;border-radius:10px;border:1px solid transparent;
+  font-size:13.5px;font-weight:600;transition:all .15s ease;white-space:nowrap;
+}
+.btn-primary{background:var(--primary);color:#fff;}
+.btn-primary:hover{background:var(--primary-dark);}
+.btn-outline{background:transparent;border-color:var(--line);color:var(--ink);}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary);}
+.btn-danger{background:var(--danger-light);color:var(--danger);}
+.btn-danger:hover{background:var(--danger);color:#fff;}
+.btn-ghost{background:transparent;color:var(--ink-soft);padding:8px 10px;}
+.btn-ghost:hover{color:var(--ink);background:var(--primary-light);}
+.btn-sm{padding:6px 10px;font-size:12.5px;border-radius:8px;}
+.btn-icon{padding:8px;border-radius:8px;}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+
+/* ---------- Login ---------- */
+#login-screen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 20% 20%, #0F3F34 0%, #0B221D 55%, #081612 100%);
+  padding:24px;
+}
+.login-card{
+  width:100%;max-width:920px;background:var(--card);border-radius:20px;overflow:hidden;
+  display:grid;grid-template-columns:1.1fr 1fr;box-shadow:0 30px 80px -20px rgba(0,0,0,.5);
+}
+.login-brand{
+  background:linear-gradient(160deg,#0E7C66,#0A5F4E 60%,#083E34);
+  color:#fff;padding:48px 40px;display:flex;flex-direction:column;justify-content:space-between;
+}
+.login-brand .mark{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:19px;letter-spacing:.02em;}
+.login-brand .mark .dot{width:10px;height:10px;border-radius:50%;background:#8CF0D3;box-shadow:0 0 0 4px rgba(140,240,211,.25);}
+.login-brand h1{font-size:30px;line-height:1.25;margin-top:40px;}
+.login-brand p{color:#CDEAE1;margin-top:14px;font-size:14.5px;line-height:1.6;}
+.login-brand .feat{margin-top:36px;display:flex;flex-direction:column;gap:14px;}
+.login-brand .feat div{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#DFF3EC;}
+.login-form-wrap{padding:44px 40px;display:flex;flex-direction:column;justify-content:center;}
+.login-tabs{display:flex;gap:6px;background:var(--paper);padding:4px;border-radius:10px;margin-bottom:26px;}
+.login-tabs button{flex:1;padding:9px;border:none;background:transparent;border-radius:8px;font-weight:600;font-size:13.5px;color:var(--ink-soft);}
+.login-tabs button.active{background:var(--card);color:var(--primary);box-shadow:var(--shadow);}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:6px;}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 12px;border-radius:10px;border:1.5px solid var(--line);
+  background:var(--card);color:var(--ink);font-size:14px;outline:none;transition:border .15s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.hint{font-size:12px;color:var(--ink-soft);margin-top:10px;}
+.demo-btn{margin-top:14px;width:100%;justify-content:center;}
+.error-msg{background:var(--danger-light);color:var(--danger);padding:9px 12px;border-radius:8px;font-size:12.5px;margin-bottom:14px;display:none;}
+
+/* ---------- App shell ---------- */
+#app{display:grid;grid-template-columns:248px 1fr;min-height:100vh;}
+.sidebar{
+  background:var(--sidebar);color:var(--sidebar-text);padding:22px 14px;
+  display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+.sidebar .brand{display:flex;align-items:center;gap:9px;padding:6px 10px 22px;color:#fff;font-family:var(--font-display);font-weight:800;font-size:16.5px;letter-spacing:.02em;}
+.sidebar .brand .dot{width:9px;height:9px;border-radius:50%;background:#8CF0D3;box-shadow:0 0 0 4px rgba(140,240,211,.18);}
+.sidebar .pharm-name{padding:0 10px 18px;font-size:12px;color:var(--sidebar-text);border-bottom:1px solid var(--sidebar-soft);margin-bottom:12px;}
+.nav-item{
+  display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;
+  font-size:13.5px;font-weight:600;color:var(--sidebar-text);margin-bottom:2px;transition:all .12s;
+}
+.nav-item svg{width:17px;height:17px;flex:none;}
+.nav-item:hover{background:var(--sidebar-soft);color:#fff;}
+.nav-item.active{background:var(--primary);color:#fff;}
+.sidebar-foot{margin-top:auto;padding-top:14px;border-top:1px solid var(--sidebar-soft);}
+.sidebar-user{display:flex;align-items:center;gap:9px;padding:8px 10px;}
+.avatar{width:32px;height:32px;border-radius:9px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none;}
+.sidebar-user .u-name{font-size:12.5px;font-weight:700;color:#fff;}
+.sidebar-user .u-role{font-size:11px;color:var(--sidebar-text);}
+
+.main{display:flex;flex-direction:column;min-width:0;}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;padding:14px 26px;
+  background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40;
+}
+.topbar h2{font-size:19px;}
+.topbar .sub{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+.topbar-right{display:flex;align-items:center;gap:8px;}
+.icon-btn{position:relative;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center;color:var(--ink-soft);}
+.icon-btn:hover{color:var(--primary);border-color:var(--primary);}
+.badge-dot{position:absolute;top:-4px;right:-4px;background:var(--danger);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px;}
+.notif-panel{position:absolute;top:56px;right:26px;width:340px;max-height:420px;overflow-y:auto;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);z-index:60;display:none;}
+.notif-panel.open{display:block;}
+.notif-panel h4{padding:14px 16px 8px;font-size:13px;}
+.notif-item{padding:10px 16px;border-top:1px solid var(--line);font-size:12.5px;display:flex;gap:10px;align-items:flex-start;}
+.notif-item .n-ic{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex:none;font-size:13px;}
+.notif-empty{padding:24px 16px;text-align:center;color:var(--ink-soft);font-size:12.5px;}
+
+.content{padding:24px 26px 60px;flex:1;}
+
+/* ---------- Cards / grids ---------- */
+.grid{display:grid;gap:16px;}
+.g-4{grid-template-columns:repeat(4,1fr);}
+.g-3{grid-template-columns:repeat(3,1fr);}
+.g-2{grid-template-columns:repeat(2,1fr);}
+@media(max-width:1200px){.g-4{grid-template-columns:repeat(2,1fr);}.g-3{grid-template-columns:repeat(2,1fr);}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;}
+.stat-card{display:flex;flex-direction:column;gap:8px;}
+.stat-card .s-label{font-size:12px;color:var(--ink-soft);font-weight:600;display:flex;align-items:center;justify-content:space-between;}
+.stat-card .s-value{font-family:var(--font-display);font-size:24px;font-weight:700;}
+.stat-card .s-sub{font-size:11.5px;color:var(--ink-soft);}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;}
+.tag-green{background:#E4F3EF;color:#0A6B57;}
+.tag-amber{background:#FCF1DC;color:#8A5A0A;}
+.tag-red{background:var(--danger-light);color:var(--danger);}
+.tag-gray{background:var(--paper);color:var(--ink-soft);border:1px solid var(--line);}
+body.dark .tag-green{background:#123B31;}
+body.dark .tag-amber{background:#3B2E12;}
+body.dark .tag-gray{background:#1a2926;}
+
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
+.section-head h3{font-size:16px;}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
+.search-box{position:relative;flex:1;min-width:200px;}
+.search-box input{width:100%;padding:10px 12px 10px 34px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);font-size:13px;outline:none;}
+.search-box input:focus{border-color:var(--primary);}
+.search-box svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--ink-soft);}
+.filter-select{padding:10px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);font-size:13px;color:var(--ink);outline:none;}
+
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{text-align:left;padding:10px 12px;background:var(--paper);color:var(--ink-soft);font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;border-bottom:1px solid var(--line);}
+thead th:first-child{border-radius:10px 0 0 0;}
+thead th:last-child{border-radius:0 10px 0 0;}
+tbody td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle;}
+tbody tr:hover{background:var(--primary-light);}
+tbody tr.row-danger{background:var(--danger-light);}
+tbody tr.row-danger:hover{background:#f8d6d6;}
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--line);}
+.empty-state{padding:50px 20px;text-align:center;color:var(--ink-soft);}
+.empty-state .e-ic{font-size:34px;margin-bottom:10px;}
+.row-actions{display:flex;gap:5px;}
+.mini-btn{width:28px;height:28px;border-radius:7px;border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center;color:var(--ink-soft);}
+.mini-btn:hover{color:var(--primary);border-color:var(--primary);}
+.mini-btn.del:hover{color:var(--danger);border-color:var(--danger);}
+
+/* ---------- Modal ---------- */
+.modal-overlay{position:fixed;inset:0;background:rgba(11,34,29,.55);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;backdrop-filter:blur(2px);}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--card);border-radius:16px;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 30px 80px -20px rgba(0,0,0,.4);}
+.modal-box.wide{max-width:760px;}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);z-index:2;}
+.modal-head h3{font-size:16px;}
+.modal-close{width:30px;height:30px;border-radius:8px;border:none;background:var(--paper);color:var(--ink-soft);font-size:16px;}
+.modal-body{padding:20px 22px;}
+.modal-foot{padding:16px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px;position:sticky;bottom:0;background:var(--card);}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;}
+.detail-item .d-label{font-size:11px;color:var(--ink-soft);font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px;}
+.detail-item .d-value{font-size:14px;font-weight:600;}
+.check-field{display:flex;align-items:center;gap:8px;padding-top:4px;}
+.check-field input{width:16px;height:16px;}
+.file-drop{border:1.5px dashed var(--line);border-radius:10px;padding:16px;text-align:center;font-size:12.5px;color:var(--ink-soft);cursor:pointer;}
+.file-drop:hover{border-color:var(--primary);color:var(--primary);}
+.file-preview{margin-top:10px;max-width:100%;max-height:140px;border-radius:8px;border:1px solid var(--line);}
+
+/* ---------- Toast ---------- */
+#toast-container{position:fixed;bottom:22px;right:22px;z-index:200;display:flex;flex-direction:column;gap:8px;}
+.toast{background:var(--sidebar);color:#fff;padding:12px 16px;border-radius:10px;font-size:13px;box-shadow:0 12px 30px rgba(0,0,0,.25);display:flex;align-items:center;gap:8px;animation:slideIn .2s ease;}
+.toast.err{background:var(--danger);}
+@keyframes slideIn{from{transform:translateY(10px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+
+/* ---------- POS ---------- */
+.pos-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;align-items:start;}
+@media(max-width:1100px){.pos-grid{grid-template-columns:1fr;}}
+.med-pick{max-height:360px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;}
+.med-pick-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);}
+.med-pick-item:last-child{border-bottom:none;}
+.med-pick-item:hover{background:var(--primary-light);}
+.med-pick-item .m-name{font-weight:600;font-size:13.5px;}
+.med-pick-item .m-meta{font-size:11.5px;color:var(--ink-soft);}
+.cart-item{display:grid;grid-template-columns:1.6fr .6fr .6fr .6fr .3fr;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:12.5px;}
+.cart-item input{width:100%;padding:6px 7px;border-radius:7px;border:1px solid var(--line);font-size:12.5px;}
+.cart-total-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13.5px;}
+.cart-total-row.grand{font-size:17px;font-weight:800;font-family:var(--font-display);border-top:1px dashed var(--line);padding-top:12px;margin-top:6px;}
+
+.receipt{
+  background:#fff;color:#111;font-family:var(--font-mono);font-size:12px;padding:22px 18px;
+  border-radius:4px;max-width:320px;margin:0 auto;
+  background-image:repeating-linear-gradient(45deg,#fff,#fff 100%);
+  box-shadow:0 10px 40px -15px rgba(0,0,0,.4);
+}
+.receipt h4{font-family:var(--font-mono);text-align:center;font-size:15px;}
+.receipt .r-line{display:flex;justify-content:space-between;margin:2px 0;}
+.receipt hr{border:none;border-top:1px dashed #999;margin:8px 0;}
+.receipt .center{text-align:center;}
+
+/* Dark mode toggle switch */
+.switch{position:relative;width:42px;height:24px;flex:none;}
+.switch input{opacity:0;width:0;height:0;}
+.slider-tg{position:absolute;inset:0;background:var(--line);border-radius:24px;transition:.2s;cursor:pointer;}
+.slider-tg:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;}
+input:checked + .slider-tg{background:var(--primary);}
+input:checked + .slider-tg:before{transform:translateX(18px);}
+
+.color-swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.swatch{width:30px;height:30px;border-radius:8px;cursor:pointer;border:2px solid transparent;}
+.swatch.active{border-color:var(--ink);}
+
+.tabs-line{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:18px;overflow-x:auto;}
+.tab-btn{padding:10px 14px;font-size:13px;font-weight:600;color:var(--ink-soft);border-bottom:2px solid transparent;white-space:nowrap;}
+.tab-btn.active{color:var(--primary);border-color:var(--primary);}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:900px){.two-col{grid-template-columns:1fr;} .field-row{grid-template-columns:1fr;} .pos-grid{grid-template-columns:1fr;}}
+.important-flag{color:var(--danger);}
+.progress-mini{height:6px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:6px;}
+.progress-mini > div{height:100%;background:var(--primary);}
+
+/* ---------- Alertes / Stock Intelligence ---------- */
+.tag-orange{background:#FDEEE0;color:#9A4B0A;}
+.tag-blue{background:#E4EEFC;color:#1D4FA0;}
+body.dark .tag-orange{background:#3B270F;}
+body.dark .tag-blue{background:#132A44;}
+.pulse-badge{animation:pulseBadge 1.6s ease-in-out infinite;}
+@keyframes pulseBadge{0%,100%{box-shadow:0 0 0 0 rgba(214,69,69,.45);}50%{box-shadow:0 0 0 6px rgba(214,69,69,0);}}
+.icon-btn.has-critical{border-color:var(--danger);color:var(--danger);animation:pulseBadge 1.8s ease-in-out infinite;}
+.premium-card{position:relative;overflow:hidden;}
+.premium-card::before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:var(--primary);}
+.premium-card.pc-danger::before{background:var(--danger);}
+.premium-card.pc-amber::before{background:var(--accent);}
+.premium-card.pc-blue::before{background:#1D4FA0;}
+.premium-card .s-value.big{font-size:26px;}
+.alert-banner{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:12px;background:var(--danger-light);color:var(--danger);font-weight:700;font-size:13.5px;margin-bottom:18px;border:1px solid rgba(214,69,69,.25);}
+.alert-banner .ab-ic{font-size:20px;}
+.order-btn{background:var(--primary-light);color:var(--primary);border:1px solid transparent;}
+.order-btn:hover{background:var(--primary);color:#fff;}
+
+/* ---------- Timeline ---------- */
+.timeline{position:relative;padding-left:26px;}
+.timeline::before{content:"";position:absolute;left:9px;top:4px;bottom:4px;width:2px;background:var(--line);}
+.timeline-item{position:relative;padding-bottom:20px;}
+.timeline-item:last-child{padding-bottom:0;}
+.timeline-item .t-dot{position:absolute;left:-26px;top:2px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;background:var(--card);border:2px solid var(--primary);}
+.timeline-item.sev-critical .t-dot{border-color:var(--danger);}
+.timeline-item.sev-warning .t-dot{border-color:var(--accent);}
+.timeline-item .t-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;}
+.timeline-item .t-title{font-weight:700;font-size:13px;}
+.timeline-item .t-text{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+.timeline-item .t-time{font-size:11px;color:var(--ink-soft);margin-top:4px;font-family:var(--font-mono);}
+
+/* ---------- Emails ---------- */
+.email-row{cursor:pointer;}
+.email-preview-box{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;font-family:var(--font-mono);font-size:12.5px;white-space:pre-wrap;line-height:1.6;}
+.email-meta-row{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin-bottom:4px;}
+.badge-cat{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:20px;background:var(--primary-light);color:var(--primary);}
+
+/* ---------- Alerts page tabs sub-cards ---------- */
+.alert-mini-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);gap:10px;flex-wrap:wrap;}
+.alert-mini-row:last-child{border-bottom:none;}
+.alert-mini-row .am-name{font-weight:600;font-size:13px;}
+.alert-mini-row .am-meta{font-size:11.5px;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<!-- ===================== LOGIN / SIGNUP ===================== -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-brand">
+      <div>
+        <div class="mark"><span class="dot"></span>AZNAVO SYSTEMS</div>
+        <h1>La gestion de pharmacie,<br>enfin simple.</h1>
+        <p>Ventes, stock, ordonnances, patients et rapports réunis dans un seul logiciel pensé pour les pharmaciens.</p>
+      </div>
+      <div class="feat">
+        <div>🧾 Caisse rapide avec scan de code-barres</div>
+        <div>💊 Alertes de stock faible &amp; péremption</div>
+        <div>📋 Ordonnances numérisées avec détection automatique</div>
+        <div>📊 Rapports et export PDF / Excel en un clic</div>
+      </div>
+    </div>
+    <div class="login-form-wrap">
+      <div class="login-tabs">
+        <button id="tab-login" class="active" onclick="switchAuthTab('login')">Connexion</button>
+        <button id="tab-signup" onclick="switchAuthTab('signup')">Créer un compte</button>
+      </div>
+      <div id="auth-error" class="error-msg"></div>
+
+      <form id="login-form" onsubmit="return handleLogin(event)">
+        <div class="field"><label>Adresse e-mail</label><input type="email" id="li-email" placeholder="vous@pharmacie.tn" required></div>
+        <div class="field"><label>Mot de passe</label><input type="password" id="li-password" placeholder="••••••••" required></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Se connecter</button>
+        <button type="button" class="btn btn-outline demo-btn" onclick="fillDemo()">Utiliser le compte de démonstration</button>
+        <p class="hint">Compte démo : demo@aznavo.tn / demo1234</p>
+      </form>
+
+      <form id="signup-form" style="display:none;" onsubmit="return handleSignup(event)">
+        <div class="field-row">
+          <div class="field"><label>Votre nom</label><input type="text" id="su-name" placeholder="Ex. Dr. Ben Ali" required></div>
+          <div class="field"><label>Nom de la pharmacie</label><input type="text" id="su-pharm" placeholder="Pharmacie Centrale" required></div>
+        </div>
+        <div class="field"><label>Adresse e-mail</label><input type="email" id="su-email" placeholder="vous@pharmacie.tn" required></div>
+        <div class="field"><label>Mot de passe</label><input type="password" id="su-password" placeholder="Au moins 6 caractères" required></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Créer mon compte</button>
+        <p class="hint">Démo locale — aucune donnée n'est envoyée à un serveur (stockage sur cet appareil uniquement).</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<div id="app" style="display:none;">
+  <aside class="sidebar">
+    <div class="brand"><span class="dot"></span>AZNAVO SYSTEMS</div>
+    <div class="pharm-name" id="sb-pharm-name">Pharmacie</div>
+    <nav id="nav-list"></nav>
+    <div class="sidebar-foot">
+      <div class="sidebar-user">
+        <div class="avatar" id="sb-avatar">A</div>
+        <div>
+          <div class="u-name" id="sb-user-name">Utilisateur</div>
+          <div class="u-role">Pharmacien</div>
+        </div>
+      </div>
+      <div class="nav-item" style="margin-top:6px;" onclick="logout()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        Déconnexion
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <h2 id="page-title">Tableau de bord</h2>
+        <div class="sub" id="page-sub">Vue d'ensemble de votre pharmacie</div>
+      </div>
+      <div class="topbar-right">
+        <label class="switch" title="Mode sombre">
+          <input type="checkbox" id="dark-toggle" onchange="toggleDark(this.checked)">
+          <span class="slider-tg"></span>
+        </label>
+        <button class="icon-btn" onclick="toggleNotifPanel()" id="notif-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="badge-dot" id="notif-badge" style="display:none;">0</span>
+        </button>
+      </div>
+    </div>
+    <div class="notif-panel" id="notif-panel"></div>
+    <div class="content" id="page-content"></div>
+  </div>
+</div>
+
+<div id="modal-root"></div>
+<div id="toast-container"></div>
+
+<script>
+/* =======================================================================
+   AZNAVO SYSTEMS — Demo Pharmacie (localStorage only, no backend)
+   ======================================================================= */
+
+const NAV = [
+  {key:'dashboard', label:'Tableau de bord', icon:'M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z'},
+  {key:'pos', label:'Ventes / Caisse', icon:'M3 6h18l-2 11H5L3 6zM3 6L2 3H1M8 21a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z'},
+  {key:'medicines', label:'Médicaments / Stock', icon:'M10 3h4a1 1 0 011 1v3h3a1 1 0 011 1v12a1 1 0 01-1 1H6a1 1 0 01-1-1V8a1 1 0 011-1h3V4a1 1 0 011-1zM9 12h6M12 9v6'},
+  {key:'alerts', label:'Alertes & Emails', icon:'M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9zM13.73 21a2 2 0 01-3.46 0'},
+  {key:'prescriptions', label:'Ordonnances', icon:'M6 2h9l5 5v15H6V2zm9 0v5h5M9 13h6M9 17h6M9 9h2'},
+  {key:'patients', label:'Patients', icon:'M12 12a4 4 0 100-8 4 4 0 000 8zm-7 9a7 7 0 0114 0'},
+  {key:'expenses', label:'Dépenses', icon:'M3 7h18M3 7v11a2 2 0 002 2h14a2 2 0 002-2V7M3 7l2-4h14l2 4M9 12h6'},
+  {key:'employees', label:'Employés', icon:'M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M10 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75'},
+  {key:'reports', label:'Rapports', icon:'M4 19h16M8 17V9m4 8V5m4 12v-6'},
+  {key:'settings', label:'Paramètres', icon:'M12 15a3 3 0 100-6 3 3 0 000 6z M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9c.14.31.22.65.22 1a1.65 1.65 0 001.38 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z'}
+];
+
+const CATEGORIES = ['Antibiotiques','Antalgiques','Antipyrétiques','Vitamines & Compléments','Dermatologie','Digestif','Respiratoire','Cardiovasculaire','Diabète','Hygiène & Soins','Autre'];
+const EXP_CATEGORIES = ['Loyer','Salaires','Électricité & Eau','Fournitures','Transport','Maintenance','Marketing','Assurance','Autre'];
+const ROLES = ['Pharmacien titulaire','Pharmacien assistant','Technicien','Caissier(ère)','Stagiaire'];
+const PAY_METHODS = ['Espèces','Carte bancaire','Assurance','Chèque'];
+
+let DB = null;
+let CHARTS = {};
+let modalFileTemp = {};
+let posCart = [];
+let posPatientId = '';
+let currentPrescriptionDetected = [];
+let currentPrescriptionFile = null;
+
+/* ---------------------------------------------------------------------
+   Persistence
+--------------------------------------------------------------------- */
+function loadDB(){
+  const raw = localStorage.getItem('aznavo_db');
+  if(raw){ DB = JSON.parse(raw); }
+  else { DB = { users:[], session:null, medicines:[], patients:[], sales:[], prescriptions:[], expenses:[], employees:[], settings:{},
+    notifLog:[], emailLog:[], purchaseOrders:[], dailyReports:[], alertState:{} }; }
+  ensureDBShape();
+}
+function ensureDBShape(){
+  if(!DB.notifLog) DB.notifLog=[];
+  if(!DB.emailLog) DB.emailLog=[];
+  if(!DB.purchaseOrders) DB.purchaseOrders=[];
+  if(!DB.dailyReports) DB.dailyReports=[];
+  if(!DB.alertState) DB.alertState={};
+  if(!DB.settings) DB.settings={};
+  if(!DB.settings.alertEmail) DB.settings.alertEmail = DB.settings.email || 'contact@pharmacie.tn';
+}
+function saveDB(){ localStorage.setItem('aznavo_db', JSON.stringify(DB)); }
+function uid(){ return 'id_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function fmt(n){ return (Number(n)||0).toFixed(2)+' DT'; }
+function fmtDate(d){ if(!d) return '—'; const dt=new Date(d); return dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}); }
+function fmtDateTime(d){ const dt=new Date(d); return dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+dt.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}); }
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function daysBetween(dateStr){ const d1=new Date(dateStr); const d2=new Date(); d1.setHours(0,0,0,0); d2.setHours(0,0,0,0); return Math.round((d1-d2)/86400000); }
+
+/* ---------------------------------------------------------------------
+   Seed demo data
+--------------------------------------------------------------------- */
+function seedDemoData(){
+  const meds = [
+    ['Doliprane 1000mg','6191234500017','Antalgiques','UBIPHARM',1.2,3.5,80,20,addDays(220),'LOT-A123'],
+    ['Amoxicilline 500mg','6191234500024','Antibiotiques','SAIPH',2.1,6.9,12,15,addDays(15),'LOT-B045'],
+    ['Efferalgan Vit C','6191234500031','Antipyrétiques','UBIPHARM',1.8,4.9,45,10,addDays(300),'LOT-C210'],
+    ['Vitamine D3 Uvedose','6191234500048','Vitamines & Compléments','PHARMALIA',3.0,8.5,5,10,addDays(400),'LOT-D330'],
+    ['Ventoline Spray','6191234500055','Respiratoire','GSK TN',5.4,13.9,18,8,addDays(9),'LOT-E118'],
+    ['Bétadine Solution','6191234500062','Dermatologie','MEDIS',2.6,6.2,30,10,addDays(500),'LOT-F077'],
+    ['Smecta Sachets','6191234500079','Digestif','IPSEN',0.9,2.8,60,15,addDays(250),'LOT-G551'],
+    ['Aspirine 500mg','6191234500086','Cardiovasculaire','UBIPHARM',1.0,2.9,3,10,addDays(120),'LOT-H093'],
+    ['Metformine 850mg','6191234500093','Diabète','SAIPH',1.5,4.2,25,10,addDays(-5),'LOT-I212'],
+    ['Sérum Physiologique','6191234500109','Hygiène & Soins','MEDIS',0.6,1.8,90,20,addDays(600),'LOT-J400']
+  ];
+  DB.medicines = meds.map(m=>({id:uid(),name:m[0],barcode:m[1],category:m[2],supplier:m[3],purchasePrice:m[4],sellingPrice:m[5],quantity:m[6],minStock:m[7],expiryDate:m[8],batchNumber:m[9]}));
+
+  const pats = [
+    ['Sami Ben Youssef','+216 20 111 222','Allergique à la pénicilline.',true],
+    ['Amira Trabelsi','+216 22 333 444','Suivi diabète type 2.',false],
+    ['Karim Gharbi','+216 55 666 777','',false],
+    ['Nadia Cherif','+216 98 222 111','Patiente régulière, très ponctuelle.',false]
+  ];
+  DB.patients = pats.map(p=>({id:uid(),name:p[0],phone:p[1],notes:p[2],important:p[3],createdAt:todayStr()}));
+
+  DB.employees = [
+    {id:uid(),name:'Dr. Leila Mansour',role:'Pharmacien titulaire',salary:2800,salaryStatus:'payé',attendance:[{date:todayStr(),status:'Présent'}]},
+    {id:uid(),name:'Yassine Ferjani',role:'Technicien',salary:1300,salaryStatus:'payé',attendance:[{date:todayStr(),status:'Présent'}]},
+    {id:uid(),name:'Rania Aouadi',role:'Caissier(ère)',salary:1000,salaryStatus:'non payé',attendance:[{date:todayStr(),status:'Absent'}]}
+  ];
+
+  const p1=DB.patients[0].id, p2=DB.patients[1].id;
+  DB.sales = [];
+  for(let i=0;i<10;i++){
+    const m1 = DB.medicines[i%DB.medicines.length];
+    const m2 = DB.medicines[(i+3)%DB.medicines.length];
+    const items = [
+      {medicineId:m1.id,name:m1.name,qty:2,price:m1.sellingPrice,discount:0},
+      {medicineId:m2.id,name:m2.name,qty:1,price:m2.sellingPrice,discount:10}
+    ];
+    const total = items.reduce((s,it)=>s+it.qty*it.price*(1-it.discount/100),0);
+    DB.sales.push({
+      id:uid(), date: addDays(-i), patientId: i%2===0?p1:p2, items,
+      paymentMethod: PAY_METHODS[i%PAY_METHODS.length],
+      total: Math.round(total*100)/100,
+      status: i===2||i===5 ? 'impayé' : 'payé'
+    });
+  }
+
+  DB.expenses = [
+    {id:uid(),category:'Loyer',amount:800,date:addDays(-2),note:'Loyer du mois',receipt:null},
+    {id:uid(),category:'Électricité & Eau',amount:145.5,date:addDays(-5),note:'',receipt:null},
+    {id:uid(),category:'Fournitures',amount:60,date:addDays(-1),note:'Sacs et étiquettes',receipt:null},
+    {id:uid(),category:'Salaires',amount:2500,date:addDays(-10),note:'Paie équipe',receipt:null}
+  ];
+
+  DB.prescriptions = [
+    {id:uid(), patientId:p1, date:addDays(-3), fileName:'ordonnance_sami.jpg', fileData:null, detected:['Doliprane 1000mg','Amoxicilline 500mg'], status:'traitée', linkedSaleId:null},
+    {id:uid(), patientId:p2, date:addDays(-1), fileName:'ordonnance_amira.pdf', fileData:null, detected:['Metformine 850mg'], status:'en attente', linkedSaleId:null}
+  ];
+}
+function addDays(n){ const d=new Date(); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); }
+
+/* ---------------------------------------------------------------------
+   Auth
+--------------------------------------------------------------------- */
+function switchAuthTab(tab){
+  document.getElementById('tab-login').classList.toggle('active', tab==='login');
+  document.getElementById('tab-signup').classList.toggle('active', tab==='signup');
+  document.getElementById('login-form').style.display = tab==='login' ? 'block':'none';
+  document.getElementById('signup-form').style.display = tab==='signup' ? 'block':'none';
+  hideAuthError();
+}
+function showAuthError(msg){ const e=document.getElementById('auth-error'); e.textContent=msg; e.style.display='block'; }
+function hideAuthError(){ document.getElementById('auth-error').style.display='none'; }
+function fillDemo(){ document.getElementById('li-email').value='demo@aznavo.tn'; document.getElementById('li-password').value='demo1234'; }
+
+function handleSignup(ev){
+  ev.preventDefault();
+  const name=document.getElementById('su-name').value.trim();
+  const pharm=document.getElementById('su-pharm').value.trim();
+  const email=document.getElementById('su-email').value.trim().toLowerCase();
+  const pass=document.getElementById('su-password').value;
+  if(pass.length<6){ showAuthError('Le mot de passe doit contenir au moins 6 caractères.'); return false; }
+  if(DB.users.find(u=>u.email===email)){ showAuthError('Un compte existe déjà avec cet e-mail.'); return false; }
+  const isFirst = DB.users.length===0;
+  const user = {id:uid(), name, email, password:pass};
+  DB.users.push(user);
+  if(isFirst && DB.medicines.length===0){ seedDemoData(); }
+  DB.settings = Object.assign({
+    pharmacyName: pharm || 'Ma Pharmacie', logo:null, phone:'+216 26 956 122', email, address:'Avenue Habib Bourguiba, Tunis',
+    taxId:'', primaryColor:'#0E7C66', darkMode:false
+  }, DB.settings.pharmacyName ? DB.settings : {});
+  DB.session = {userId:user.id};
+  saveDB();
+  enterApp();
+  return false;
+}
+function handleLogin(ev){
+  ev.preventDefault();
+  const email=document.getElementById('li-email').value.trim().toLowerCase();
+  const pass=document.getElementById('li-password').value;
+  if(email==='demo@aznavo.tn' && pass==='demo1234' && !DB.users.find(u=>u.email===email)){
+    const user={id:uid(),name:'Dr. Leila Mansour',email,password:pass};
+    DB.users.push(user);
+    if(DB.medicines.length===0) seedDemoData();
+    DB.settings = {pharmacyName:'Pharmacie Centrale AZNAVO', logo:null, phone:'+216 26 956 122', email, address:'Avenue Habib Bourguiba, Tunis', taxId:'TN-0928471', primaryColor:'#0E7C66', darkMode:false};
+    DB.session={userId:user.id};
+    saveDB(); enterApp(); return false;
+  }
+  const user = DB.users.find(u=>u.email===email && u.password===pass);
+  if(!user){ showAuthError('E-mail ou mot de passe incorrect.'); return false; }
+  DB.session={userId:user.id};
+  saveDB();
+  enterApp();
+  return false;
+}
+function logout(){ DB.session=null; saveDB(); location.reload(); }
+function currentUser(){ return DB.users.find(u=>u.id===(DB.session&&DB.session.userId)); }
+
+function enterApp(){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='grid';
+  ensureDBShape();
+  if(DB.settings && DB.settings.email) DB.settings.alertEmail = DB.settings.alertEmail || DB.settings.email;
+  applySettingsToUI();
+  buildNav();
+  const u=currentUser();
+  if(u){
+    document.getElementById('sb-user-name').textContent=u.name;
+    document.getElementById('sb-avatar').textContent=u.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  }
+  runAlertScan();
+  ensureDailyReport();
+  navigate('dashboard');
+}
+
+/* ---------------------------------------------------------------------
+   Navigation
+--------------------------------------------------------------------- */
+function buildNav(){
+  const nav=document.getElementById('nav-list');
+  nav.innerHTML = NAV.map(n=>`
+    <div class="nav-item" id="nav-${n.key}" onclick="navigate('${n.key}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${n.icon}"/></svg>
+      ${n.label}
+    </div>`).join('');
+}
+const PAGE_META = {
+  dashboard:['Tableau de bord',"Vue d'ensemble de votre pharmacie"],
+  pos:['Ventes / Caisse','Enregistrer une vente et générer une facture'],
+  medicines:['Médicaments / Stock','Gérer votre inventaire et vos alertes'],
+  alerts:['Alertes & Emails','Stock faible, péremption, rapports et notifications automatiques'],
+  prescriptions:['Ordonnances','Numériser et suivre les ordonnances patients'],
+  patients:['Patients','Fiches et historique de vos patients'],
+  expenses:['Dépenses','Suivre les charges de la pharmacie'],
+  employees:['Employés','Équipe, présence et salaires'],
+  reports:['Rapports',"Analyses et exports"],
+  settings:['Paramètres','Personnaliser votre pharmacie']
+};
+let currentPage='dashboard';
+function navigate(page){
+  currentPage=page;
+  NAV.forEach(n=>document.getElementById('nav-'+n.key).classList.toggle('active', n.key===page));
+  document.getElementById('page-title').textContent = PAGE_META[page][0];
+  document.getElementById('page-sub').textContent = PAGE_META[page][1];
+  closeNotifPanel();
+  const renderers = {
+    dashboard:renderDashboard, pos:renderPOS, medicines:renderMedicines, prescriptions:renderPrescriptions,
+    patients:renderPatients, expenses:renderExpenses, employees:renderEmployees, reports:renderReports, settings:renderSettings,
+    alerts:renderAlerts
+  };
+  renderers[page]();
+}
+function renderCurrentPage(){
+  const renderers = {
+    dashboard:renderDashboard, pos:renderPOS, medicines:renderMedicines, prescriptions:renderPrescriptions,
+    patients:renderPatients, expenses:renderExpenses, employees:renderEmployees, reports:renderReports, settings:renderSettings,
+    alerts:renderAlerts
+  };
+  if(renderers[currentPage]) renderers[currentPage]();
+}
+
+/* ---------------------------------------------------------------------
+   Toast
+--------------------------------------------------------------------- */
+function toast(msg, err){
+  const c=document.getElementById('toast-container');
+  const t=document.createElement('div');
+  t.className='toast'+(err?' err':'');
+  t.innerHTML = (err?'⚠️ ':'✅ ')+msg;
+  c.appendChild(t);
+  setTimeout(()=>t.remove(),3200);
+}
+
+/* ---------------------------------------------------------------------
+   Notifications
+--------------------------------------------------------------------- */
+function computeNotifications(){
+  const list=[];
+  DB.medicines.filter(m=>m.quantity<=0).forEach(m=>list.push({icon:'🚫',color:'tag-red',critical:true,text:`Rupture de stock : ${m.name}`}));
+  DB.medicines.filter(m=>m.quantity>0 && m.quantity<=m.minStock).forEach(m=>list.push({icon:'📦',color:'tag-amber',text:`Stock faible : ${m.name} (${m.quantity} restant)`}));
+  DB.medicines.filter(m=>expiryTierOf(m)!==null).forEach(m=>{
+    const tier=expiryTierOf(m);
+    list.push({icon: tier==='expired'?'⛔':'⏳', color:tierTagClass(tier), critical: tier==='expired', text: tier==='expired'? `Expiré : ${m.name}` : `Expire dans ${tier} j : ${m.name}`});
+  });
+  DB.sales.filter(s=>s.status==='impayé').forEach(s=>list.push({icon:'💳',color:'tag-red',text:`Facture impayée #${s.id.slice(-5).toUpperCase()} — ${fmt(s.total)}`}));
+  return list;
+}
+function refreshNotifBadge(){
+  const list=computeNotifications();
+  const badge=document.getElementById('notif-badge');
+  const btn=document.getElementById('notif-btn');
+  const hasCritical = list.some(n=>n.critical);
+  if(list.length>0){ badge.style.display='flex'; badge.textContent=list.length>99?'99+':list.length; }
+  else{ badge.style.display='none'; }
+  if(btn) btn.classList.toggle('has-critical', hasCritical);
+  const panel=document.getElementById('notif-panel');
+  panel.innerHTML = `<h4>Centre de notifications</h4>` + (list.length===0
+    ? `<div class="notif-empty">Aucune alerte pour le moment 🎉</div>`
+    : list.map(n=>`<div class="notif-item"><div class="n-ic ${n.color}">${n.icon}</div><div>${n.text}</div></div>`).join(''))
+    + `<div style="padding:10px 16px;"><button class="btn btn-outline btn-sm" style="width:100%;justify-content:center;" onclick="closeNotifPanel();navigate('alerts');">🔔 Voir toutes les alertes</button></div>`;
+}
+function toggleNotifPanel(){ refreshNotifBadge(); document.getElementById('notif-panel').classList.toggle('open'); }
+function closeNotifPanel(){ document.getElementById('notif-panel').classList.remove('open'); }
+document.addEventListener('click', e=>{
+  const panel=document.getElementById('notif-panel'), btn=document.getElementById('notif-btn');
+  if(panel && !panel.contains(e.target) && !btn.contains(e.target)) panel.classList.remove('open');
+});
+
+/* ---------------------------------------------------------------------
+   Modal engine
+--------------------------------------------------------------------- */
+function openModal(html, wide){
+  document.getElementById('modal-root').innerHTML = `
+    <div class="modal-overlay open" id="active-modal" onclick="if(event.target===this) closeModal()">
+      <div class="modal-box ${wide?'wide':''}">${html}</div>
+    </div>`;
+}
+function closeModal(){ document.getElementById('modal-root').innerHTML=''; modalFileTemp={}; }
+
+function fieldHTML(f, val){
+  val = val===undefined || val===null ? '' : val;
+  const req = f.required?'required':'';
+  if(f.type==='select'){
+    return `<div class="field"><label>${f.label}</label><select id="f_${f.key}" ${req}>${f.options.map(o=>`<option value="${o}" ${o===val?'selected':''}>${o}</option>`).join('')}</select></div>`;
+  }
+  if(f.type==='textarea'){
+    return `<div class="field"><label>${f.label}</label><textarea id="f_${f.key}" rows="3" ${req}>${val}</textarea></div>`;
+  }
+  if(f.type==='checkbox'){
+    return `<div class="field check-field"><input type="checkbox" id="f_${f.key}" ${val?'checked':''}><label style="margin:0;">${f.label}</label></div>`;
+  }
+  if(f.type==='color'){
+    return `<div class="field"><label>${f.label}</label><input type="color" id="f_${f.key}" value="${val||'#0E7C66'}" style="height:42px;padding:4px;"></div>`;
+  }
+  if(f.type==='file'){
+    return `<div class="field"><label>${f.label}</label>
+      <div class="file-drop" onclick="document.getElementById('f_${f.key}').click()">📎 Cliquez pour choisir un fichier (image ou PDF)</div>
+      <input type="file" id="f_${f.key}" accept="${f.accept||'image/*'}" style="display:none" onchange="handleFileField('${f.key}', this)">
+      <div id="preview_${f.key}">${val?`<img class="file-preview" src="${val}">`:''}</div>
+    </div>`;
+  }
+  return `<div class="field"><label>${f.label}</label><input type="${f.type}" id="f_${f.key}" value="${val}" step="${f.step||'any'}" ${req}></div>`;
+}
+function handleFileField(key, input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    modalFileTemp[key] = e.target.result;
+    const prev = document.getElementById('preview_'+key);
+    if(file.type.startsWith('image/')) prev.innerHTML = `<img class="file-preview" src="${e.target.result}">`;
+    else prev.innerHTML = `<div style="margin-top:8px;font-size:12px;color:var(--ink-soft);">📄 ${file.name} chargé</div>`;
+  };
+  reader.readAsDataURL(file);
+}
+function collectForm(fields){
+  const out={};
+  fields.forEach(f=>{
+    const el=document.getElementById('f_'+f.key);
+    if(!el){ if(modalFileTemp[f.key]!==undefined) out[f.key]=modalFileTemp[f.key]; return; }
+    if(f.type==='checkbox') out[f.key]=el.checked;
+    else if(f.type==='number') out[f.key]=parseFloat(el.value)||0;
+    else if(f.type==='file') out[f.key]= modalFileTemp[f.key]!==undefined ? modalFileTemp[f.key] : (f._existing||null);
+    else out[f.key]=el.value;
+  });
+  return out;
+}
+
+/* ---------------------------------------------------------------------
+   Generic entity CRUD config
+--------------------------------------------------------------------- */
+const ENTITIES = {
+  medicines:{
+    label:'médicament', labelPl:'Médicaments', dataKey:'medicines',
+    fields:()=>[
+      {key:'name',label:'Nom du médicament',type:'text',required:true},
+      {key:'barcode',label:'Code-barres',type:'text',required:true},
+      {key:'category',label:'Catégorie',type:'select',options:CATEGORIES,required:true},
+      {key:'supplier',label:'Fournisseur',type:'text'},
+      {key:'purchasePrice',label:"Prix d'achat (DT)",type:'number',step:'0.01'},
+      {key:'sellingPrice',label:'Prix de vente (DT)',type:'number',step:'0.01',required:true},
+      {key:'quantity',label:'Quantité en stock',type:'number',required:true},
+      {key:'minStock',label:'Stock minimum (alerte)',type:'number',required:true},
+      {key:'expiryDate',label:"Date d'expiration",type:'date',required:true},
+      {key:'batchNumber',label:'Numéro de lot',type:'text'}
+    ]
+  },
+  patients:{
+    label:'patient', labelPl:'Patients', dataKey:'patients',
+    fields:()=>[
+      {key:'name',label:'Nom complet',type:'text',required:true},
+      {key:'phone',label:'Téléphone',type:'text',required:true},
+      {key:'notes',label:'Notes médicales',type:'textarea'},
+      {key:'important',label:'Marquer comme patient important',type:'checkbox'}
+    ]
+  },
+  expenses:{
+    label:'dépense', labelPl:'Dépenses', dataKey:'expenses',
+    fields:()=>[
+      {key:'category',label:'Catégorie',type:'select',options:EXP_CATEGORIES,required:true},
+      {key:'amount',label:'Montant (DT)',type:'number',step:'0.01',required:true},
+      {key:'date',label:'Date',type:'date',required:true},
+      {key:'note',label:'Note',type:'textarea'},
+      {key:'receipt',label:'Justificatif (image/PDF)',type:'file',accept:'image/*,application/pdf'}
+    ]
+  },
+  employees:{
+    label:'employé', labelPl:'Employés', dataKey:'employees',
+    fields:()=>[
+      {key:'name',label:'Nom complet',type:'text',required:true},
+      {key:'role',label:'Poste',type:'select',options:ROLES,required:true},
+      {key:'salary',label:'Salaire mensuel (DT)',type:'number',step:'0.01',required:true},
+      {key:'salaryStatus',label:'Statut du salaire',type:'select',options:['payé','non payé'],required:true}
+    ]
+  }
+};
+
+function getList(entity){ return DB[ENTITIES[entity].dataKey]; }
+
+function openEntityForm(entity, id){
+  const cfg=ENTITIES[entity];
+  const fields=cfg.fields();
+  const item = id ? getList(entity).find(x=>x.id===id) : {};
+  if(id) fields.forEach(f=>{ if(f.type==='file') f._existing = item[f.key]; });
+  openModal(`
+    <div class="modal-head"><h3>${id?'Modifier':'Ajouter'} — ${cfg.label}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      ${entity==='medicines' ? `<div class="field-row" style="align-items:flex-end;">
+        <div style="flex:1">${fieldHTML(fields[1], item.barcode)}</div>
+        <button type="button" class="btn btn-outline btn-sm" style="margin-bottom:16px;" onclick="scanBarcodeInto('f_barcode')">📷 Scanner (démo)</button>
+      </div>${fields.filter(f=>f.key!=='barcode').map(f=>fieldHTML(f,item[f.key])).join('')}`
+      : fields.map(f=>fieldHTML(f,item[f.key])).join('')}
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-primary" onclick="saveEntityForm('${entity}','${id||''}')">💾 Enregistrer</button>
+    </div>
+  `, entity==='expenses');
+}
+function scanBarcodeInto(inputId){
+  const code = Math.floor(6190000000000+Math.random()*9999999).toString();
+  document.getElementById(inputId).value = code;
+  toast('Code-barres scanné (démo) : '+code);
+}
+function saveEntityForm(entity, id){
+  const cfg=ENTITIES[entity];
+  const fields=cfg.fields();
+  const data=collectForm(fields);
+  const required=fields.filter(f=>f.required);
+  for(const f of required){ if(data[f.key]===''||data[f.key]===undefined||data[f.key]===null){ toast('Veuillez remplir : '+f.label, true); return; } }
+  const list=getList(entity);
+  if(id){ Object.assign(list.find(x=>x.id===id), data); toast(cfg.label.charAt(0).toUpperCase()+cfg.label.slice(1)+' modifié(e) avec succès'); }
+  else{
+    const base={id:uid()};
+    if(entity==='patients') base.createdAt=todayStr();
+    if(entity==='employees') base.attendance=[];
+    list.push(Object.assign(base,data));
+    toast(cfg.label.charAt(0).toUpperCase()+cfg.label.slice(1)+' ajouté(e) avec succès');
+  }
+  saveDB(); closeModal();
+  if(entity==='medicines') runAlertScan();
+  renderCurrentEntityPage(entity);
+  refreshNotifBadge();
+}
+function deleteEntity(entity, id){
+  if(!confirm('Confirmer la suppression ? Cette action est irréversible.')) return;
+  const cfg=ENTITIES[entity];
+  DB[cfg.dataKey]=DB[cfg.dataKey].filter(x=>x.id!==id);
+  if(entity==='medicines' && DB.alertState) delete DB.alertState[id];
+  saveDB();
+  toast('Élément supprimé');
+  renderCurrentEntityPage(entity);
+  refreshNotifBadge();
+}
+function renderCurrentEntityPage(entity){
+  const map={medicines:renderMedicines, patients:renderPatients, expenses:renderExpenses, employees:renderEmployees};
+  if(map[entity]) map[entity]();
+}
+
+/* ---------------------------------------------------------------------
+   DASHBOARD
+--------------------------------------------------------------------- */
+function isInRange(dateStr, range){
+  const d=new Date(dateStr); const now=new Date();
+  if(range==='today') return dateStr.slice(0,10)===todayStr();
+  if(range==='week'){ const start=new Date(now); start.setDate(now.getDate()-now.getDay()); start.setHours(0,0,0,0); return d>=start; }
+  if(range==='month') return d.getMonth()===now.getMonth() && d.getFullYear()===now.getFullYear();
+  if(range==='year') return d.getFullYear()===now.getFullYear();
+  return true;
+}
+function sumSales(range){ return DB.sales.filter(s=>isInRange(s.date,range)).reduce((a,s)=>a+s.total,0); }
+function sumExpenses(range){ return DB.expenses.filter(e=>isInRange(e.date,range)).reduce((a,e)=>a+Number(e.amount),0); }
+
+function renderDashboard(){
+  runAlertScan();
+  ensureDailyReport();
+  const revToday=sumSales('today'), revWeek=sumSales('week'), revMonth=sumSales('month'), revYear=sumSales('year');
+  const expToday=sumExpenses('today'), expWeek=sumExpenses('week'), expMonth=sumExpenses('month');
+  const profit=revMonth-expMonth;
+  const lowStock=DB.medicines.filter(m=>m.quantity<=m.minStock);
+  const expiring=DB.medicines.filter(m=>daysBetween(m.expiryDate)<=30);
+  const unpaid=DB.sales.filter(s=>s.status==='impayé');
+
+  const outOfStock = DB.medicines.filter(m=>m.quantity<=0);
+  const lowStockOnly = DB.medicines.filter(m=>m.quantity>0 && m.quantity<=m.minStock);
+  const expToday0 = DB.medicines.filter(m=>daysBetween(m.expiryDate)===0);
+  const expWeek7 = DB.medicines.filter(m=>{const d=daysBetween(m.expiryDate); return d>=0&&d<=7;});
+
+  document.getElementById('page-content').innerHTML = `
+    ${outOfStock.length>0 ? `<div class="alert-banner"><span class="ab-ic">🚨</span> ${outOfStock.length} médicament(s) en rupture de stock — <a href="#" onclick="navigate('alerts');return false;" style="color:inherit;text-decoration:underline;">voir le centre d'alertes</a></div>` : ''}
+    <div class="section-head"><h3>📊 Tableau de bord Premium — Stock &amp; Alertes</h3><button class="btn btn-outline btn-sm" onclick="navigate('alerts')">🔔 Centre d'alertes complet</button></div>
+    <div class="grid g-3" style="margin-bottom:16px;">
+      <div class="card premium-card pc-danger stat-card"><div class="s-label"><span>Médicaments en rupture</span><span>🚫</span></div><div class="s-value big" style="color:var(--danger)">${outOfStock.length}</div></div>
+      <div class="card premium-card pc-amber stat-card"><div class="s-label"><span>Stock faible</span><span>📦</span></div><div class="s-value big">${lowStockOnly.length}</div></div>
+      <div class="card premium-card pc-danger stat-card"><div class="s-label"><span>Expirations aujourd'hui</span><span>⛔</span></div><div class="s-value big" style="color:var(--danger)">${expToday0.length}</div></div>
+      <div class="card premium-card pc-amber stat-card"><div class="s-label"><span>Expirations cette semaine</span><span>⏳</span></div><div class="s-value big">${expWeek7.length}</div></div>
+      <div class="card premium-card pc-blue stat-card"><div class="s-label"><span>Valeur totale du stock</span><span>💎</span></div><div class="s-value big">${fmt(stockValueTotal())}</div></div>
+      <div class="card premium-card pc-danger stat-card"><div class="s-label"><span>Valeur des expirés</span><span>💀</span></div><div class="s-value big" style="color:var(--danger)">${fmt(expiredValueTotal())}</div></div>
+    </div>
+
+    <div class="grid g-4" style="margin-bottom:16px;">
+      ${statCard("Revenu aujourd'hui", fmt(revToday), '💰')}
+      ${statCard('Revenu cette semaine', fmt(revWeek), '📈')}
+      ${statCard('Revenu ce mois', fmt(revMonth), '🗓️')}
+      ${statCard('Revenu cette année', fmt(revYear), '🏆')}
+    </div>
+    <div class="grid g-4" style="margin-bottom:16px;">
+      ${statCard("Dépenses aujourd'hui", fmt(expToday), '🧾')}
+      ${statCard('Dépenses cette semaine', fmt(expWeek), '📉')}
+      ${statCard('Dépenses ce mois', fmt(expMonth), '📦')}
+      ${statCard('Profit ce mois', fmt(profit), profit>=0?'✅':'⚠️', profit<0)}
+    </div>
+
+    <div class="grid g-2" style="margin-bottom:16px;">
+      <div class="card">
+        <div class="section-head"><h3>Revenus vs Dépenses (7 derniers jours)</h3></div>
+        <canvas id="chart-week" height="180"></canvas>
+      </div>
+      <div class="card">
+        <div class="section-head"><h3>Revenu mensuel (12 derniers mois)</h3></div>
+        <canvas id="chart-year" height="180"></canvas>
+      </div>
+    </div>
+
+    <div class="grid g-3">
+      <div class="card">
+        <div class="section-head"><h3>⚠️ Stock faible</h3><span class="tag tag-amber">${lowStock.length}</span></div>
+        ${listAlert(lowStock, m=>`${m.name} — ${m.quantity} restant(s)`)}
+      </div>
+      <div class="card">
+        <div class="section-head"><h3>⏳ Médicaments à expiration</h3><span class="tag tag-red">${expiring.length}</span></div>
+        ${listAlert(expiring, m=>{const d=daysBetween(m.expiryDate); return `${m.name} — ${d<0?'expiré':'dans '+d+' j'}`;})}
+      </div>
+      <div class="card">
+        <div class="section-head"><h3>💳 Factures impayées</h3><span class="tag tag-red">${unpaid.length}</span></div>
+        ${listAlert(unpaid, s=>`#${s.id.slice(-5).toUpperCase()} — ${fmt(s.total)}`)}
+      </div>
+    </div>
+  `;
+  refreshNotifBadge();
+  drawWeekChart(); drawYearChart();
+}
+function statCard(label,val,icon,danger){
+  return `<div class="card stat-card"><div class="s-label"><span>${label}</span><span>${icon}</span></div><div class="s-value" style="${danger?'color:var(--danger)':''}">${val}</div></div>`;
+}
+function listAlert(arr, render){
+  if(arr.length===0) return `<div class="empty-state" style="padding:24px 10px;"><div class="e-ic">✨</div>Rien à signaler</div>`;
+  return `<div>${arr.slice(0,6).map(x=>`<div style="padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px;">${render(x)}</div>`).join('')}</div>`;
+}
+function drawWeekChart(){
+  const ctx=document.getElementById('chart-week'); if(!ctx) return;
+  const labels=[], rev=[], exp=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const key=d.toISOString().slice(0,10);
+    labels.push(d.toLocaleDateString('fr-FR',{weekday:'short'}));
+    rev.push(DB.sales.filter(s=>s.date.slice(0,10)===key).reduce((a,s)=>a+s.total,0));
+    exp.push(DB.expenses.filter(e=>e.date.slice(0,10)===key).reduce((a,e)=>a+Number(e.amount),0));
+  }
+  if(CHARTS.week) CHARTS.week.destroy();
+  CHARTS.week = new Chart(ctx, {type:'bar', data:{labels, datasets:[
+    {label:'Revenus',data:rev,backgroundColor:getCSS('--primary'),borderRadius:6},
+    {label:'Dépenses',data:exp,backgroundColor:getCSS('--accent'),borderRadius:6}
+  ]}, options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:11}}}},scales:{y:{beginAtZero:true}}}});
+}
+function drawYearChart(){
+  const ctx=document.getElementById('chart-year'); if(!ctx) return;
+  const labels=[], rev=[];
+  const now=new Date();
+  for(let i=11;i>=0;i--){
+    const d=new Date(now.getFullYear(), now.getMonth()-i, 1);
+    labels.push(d.toLocaleDateString('fr-FR',{month:'short'}));
+    rev.push(DB.sales.filter(s=>{const sd=new Date(s.date); return sd.getMonth()===d.getMonth() && sd.getFullYear()===d.getFullYear();}).reduce((a,s)=>a+s.total,0));
+  }
+  if(CHARTS.year) CHARTS.year.destroy();
+  CHARTS.year = new Chart(ctx, {type:'line', data:{labels, datasets:[{label:'Revenu',data:rev,borderColor:getCSS('--primary'),backgroundColor:getCSS('--primary-light'),fill:true,tension:.35,pointRadius:3}]}, options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+}
+function getCSS(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim() || '#0E7C66'; }
+
+/* ---------------------------------------------------------------------
+   MEDICINES
+--------------------------------------------------------------------- */
+let medState={search:'',category:'all',stock:'all'};
+function renderMedicines(){
+  const list=filterMedicines();
+  document.getElementById('page-content').innerHTML = `
+    <div class="section-head"><h3>Inventaire (${DB.medicines.length} médicaments)</h3>
+      <button class="btn btn-primary" onclick="openEntityForm('medicines')">＋ Ajouter un médicament</button>
+    </div>
+    <div class="toolbar">
+      <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input placeholder="Rechercher par nom, code-barres, lot..." value="${medState.search}" oninput="medState.search=this.value; renderMedicines();"></div>
+      <select class="filter-select" onchange="medState.category=this.value; renderMedicines();">
+        <option value="all">Toutes catégories</option>
+        ${CATEGORIES.map(c=>`<option value="${c}" ${medState.category===c?'selected':''}>${c}</option>`).join('')}
+      </select>
+      <select class="filter-select" onchange="medState.stock=this.value; renderMedicines();">
+        <option value="all" ${medState.stock==='all'?'selected':''}>Tout stock</option>
+        <option value="low" ${medState.stock==='low'?'selected':''}>Stock faible</option>
+        <option value="expiring" ${medState.stock==='expiring'?'selected':''}>Expire bientôt</option>
+        <option value="expired" ${medState.stock==='expired'?'selected':''}>Expiré</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table><thead><tr><th>Médicament</th><th>Code-barres</th><th>Catégorie</th><th>Prix vente</th><th>Qté</th><th>Expiration</th><th>Lot</th><th></th></tr></thead>
+      <tbody>
+      ${list.length===0 ? `<tr><td colspan="8"><div class="empty-state"><div class="e-ic">💊</div>Aucun médicament trouvé</div></td></tr>` :
+      list.map(m=>{
+        const d=daysBetween(m.expiryDate);
+        const danger = m.quantity<=m.minStock || d<=30;
+        const stockBadge = m.quantity<=0 ? '<span class="tag tag-red pulse-badge">Rupture</span>' : (m.quantity<=m.minStock ? '<span class="tag tag-amber">Faible</span>' : '');
+        return `<tr class="${danger?'row-danger':''}">
+          <td><strong>${m.name}</strong></td>
+          <td>${m.barcode}</td>
+          <td>${m.category}</td>
+          <td>${fmt(m.sellingPrice)}</td>
+          <td>${m.quantity} ${stockBadge}</td>
+          <td>${fmtDate(m.expiryDate)} ${d<0?'<span class=\"tag tag-red\">Expiré</span>':(d<=30?'<span class=\"tag '+tierTagClass(expiryTierOf(m))+'\">'+d+'j</span>':'')}</td>
+          <td>${m.batchNumber||'—'}</td>
+          <td><div class="row-actions">
+            ${m.quantity<=m.minStock ? `<button class="mini-btn" title="Commander" onclick="openOrderModal('${m.id}')">🛒</button>` : ''}
+            <button class="mini-btn" title="Voir" onclick="viewMedicine('${m.id}')">👁</button>
+            <button class="mini-btn" title="Modifier" onclick="openEntityForm('medicines','${m.id}')">✎</button>
+            <button class="mini-btn del" title="Supprimer" onclick="deleteEntity('medicines','${m.id}')">🗑</button>
+          </div></td>
+        </tr>`;
+      }).join('')}
+      </tbody></table>
+    </div>
+  `;
+}
+function filterMedicines(){
+  return DB.medicines.filter(m=>{
+    if(medState.search){
+      const s=medState.search.toLowerCase();
+      if(!(m.name.toLowerCase().includes(s)||m.barcode.includes(s)||(m.batchNumber||'').toLowerCase().includes(s))) return false;
+    }
+    if(medState.category!=='all' && m.category!==medState.category) return false;
+    if(medState.stock==='low' && !(m.quantity<=m.minStock)) return false;
+    if(medState.stock==='expiring' && !(daysBetween(m.expiryDate)>=0 && daysBetween(m.expiryDate)<=30)) return false;
+    if(medState.stock==='expired' && !(daysBetween(m.expiryDate)<0)) return false;
+    return true;
+  });
+}
+function viewMedicine(id){
+  const m=DB.medicines.find(x=>x.id===id);
+  const d=daysBetween(m.expiryDate);
+  openModal(`
+    <div class="modal-head"><h3>${m.name}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="d-label">Code-barres</div><div class="d-value">${m.barcode}</div></div>
+        <div class="detail-item"><div class="d-label">Catégorie</div><div class="d-value">${m.category}</div></div>
+        <div class="detail-item"><div class="d-label">Fournisseur</div><div class="d-value">${m.supplier||'—'}</div></div>
+        <div class="detail-item"><div class="d-label">Numéro de lot</div><div class="d-value">${m.batchNumber||'—'}</div></div>
+        <div class="detail-item"><div class="d-label">Prix d'achat</div><div class="d-value">${fmt(m.purchasePrice)}</div></div>
+        <div class="detail-item"><div class="d-label">Prix de vente</div><div class="d-value">${fmt(m.sellingPrice)}</div></div>
+        <div class="detail-item"><div class="d-label">Quantité</div><div class="d-value">${m.quantity} (min ${m.minStock})</div></div>
+        <div class="detail-item"><div class="d-label">Expiration</div><div class="d-value">${fmtDate(m.expiryDate)} ${d<0?'⚠️ Expiré':''}</div></div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal()">Fermer</button><button class="btn btn-primary" onclick="closeModal();openEntityForm('medicines','${m.id}')">✎ Modifier</button></div>
+  `);
+}
+
+/* ---------------------------------------------------------------------
+   POS / SALES
+--------------------------------------------------------------------- */
+let salesState={search:'',status:'all',payment:'all'};
+function renderPOS(){
+  document.getElementById('page-content').innerHTML = `
+    <div class="pos-grid">
+      <div class="card">
+        <div class="section-head"><h3>🛒 Nouvelle vente</h3>
+          <button class="btn btn-outline btn-sm" onclick="scanForCart()">📷 Scanner code-barres (démo)</button>
+        </div>
+        <div class="search-box" style="margin-bottom:12px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="pos-search" placeholder="Rechercher un médicament..." oninput="renderPosMedList()"></div>
+        <div class="med-pick" id="pos-med-list"></div>
+
+        <div style="margin-top:20px;">
+          <div class="section-head" style="margin-bottom:8px;"><h3 style="font-size:14px;">Panier</h3></div>
+          <div id="pos-cart"></div>
+          <div style="margin-top:10px;">
+            <div class="field"><label>Patient (optionnel)</label>
+              <select id="pos-patient" onchange="posPatientId=this.value">
+                <option value="">— Aucun —</option>
+                ${DB.patients.map(p=>`<option value="${p.id}" ${posPatientId===p.id?'selected':''}>${p.name}</option>`).join('')}
+              </select>
+            </div>
+            <div class="field"><label>Mode de paiement</label>
+              <select id="pos-payment">${PAY_METHODS.map(p=>`<option value="${p}">${p}</option>`).join('')}</select>
+            </div>
+            <div class="field check-field"><input type="checkbox" id="pos-unpaid"><label style="margin:0;">Facturer plus tard (impayé)</label></div>
+          </div>
+          <div class="cart-total-row"><span>Sous-total</span><span id="pos-subtotal">0.00 DT</span></div>
+          <div class="cart-total-row"><span>Remise</span><span id="pos-discount">0.00 DT</span></div>
+          <div class="cart-total-row grand"><span>Total</span><span id="pos-grand">0.00 DT</span></div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:10px;" onclick="validateSale()">✅ Valider la vente</button>
+        </div>
+      </div>
+
+      <div class="card" id="pos-receipt-card">
+        <div class="section-head"><h3>🧾 Facture</h3></div>
+        <div id="pos-receipt-zone" style="color:var(--ink-soft);font-size:13px;text-align:center;padding:40px 10px;">La facture apparaîtra ici après validation.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:22px;">
+      <div class="section-head"><h3>Historique des ventes</h3></div>
+      <div class="toolbar">
+        <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input placeholder="Rechercher par n° facture ou patient..." value="${salesState.search}" oninput="salesState.search=this.value; renderSalesTable();"></div>
+        <select class="filter-select" onchange="salesState.status=this.value; renderSalesTable();">
+          <option value="all">Tous statuts</option><option value="payé" ${salesState.status==='payé'?'selected':''}>Payé</option><option value="impayé" ${salesState.status==='impayé'?'selected':''}>Impayé</option>
+        </select>
+        <select class="filter-select" onchange="salesState.payment=this.value; renderSalesTable();">
+          <option value="all">Tous paiements</option>${PAY_METHODS.map(p=>`<option value="${p}" ${salesState.payment===p?'selected':''}>${p}</option>`).join('')}
+        </select>
+      </div>
+      <div id="sales-table-zone"></div>
+    </div>
+  `;
+  renderPosMedList();
+  renderCart();
+  renderSalesTable();
+}
+function renderPosMedList(){
+  const q=(document.getElementById('pos-search').value||'').toLowerCase();
+  const meds=DB.medicines.filter(m=>m.quantity>0 && (m.name.toLowerCase().includes(q)||m.barcode.includes(q)));
+  document.getElementById('pos-med-list').innerHTML = meds.length===0 ? `<div class="empty-state" style="padding:20px;">Aucun médicament</div>` :
+    meds.map(m=>`<div class="med-pick-item"><div><div class="m-name">${m.name}</div><div class="m-meta">${fmt(m.sellingPrice)} · ${m.quantity} en stock</div></div><button class="btn btn-sm btn-outline" onclick="addToCart('${m.id}')">＋ Ajouter</button></div>`).join('');
+}
+function scanForCart(){
+  const inStock=DB.medicines.filter(m=>m.quantity>0);
+  if(inStock.length===0){ toast('Aucun médicament en stock', true); return; }
+  const m=inStock[Math.floor(Math.random()*inStock.length)];
+  toast('Code-barres scanné : '+m.barcode+' → '+m.name);
+  addToCart(m.id);
+}
+function addToCart(medId){
+  const m=DB.medicines.find(x=>x.id===medId);
+  if(!m) return;
+  const existing=posCart.find(c=>c.medicineId===medId);
+  if(existing){ if(existing.qty<m.quantity) existing.qty++; else toast('Stock insuffisant', true); }
+  else posCart.push({medicineId:medId,name:m.name,qty:1,price:m.sellingPrice,discount:0,maxQty:m.quantity});
+  renderCart();
+}
+function removeFromCart(idx){ posCart.splice(idx,1); renderCart(); }
+function updateCartField(idx,field,val){
+  posCart[idx][field] = field==='qty'||field==='discount' ? Math.max(0,parseFloat(val)||0) : val;
+  renderCart();
+}
+function renderCart(){
+  const zone=document.getElementById('pos-cart'); if(!zone) return;
+  if(posCart.length===0){ zone.innerHTML=`<div class="empty-state" style="padding:20px;"><div class="e-ic">🛒</div>Panier vide</div>`; }
+  else{
+    zone.innerHTML = `<div class="cart-item" style="font-weight:700;font-size:11px;color:var(--ink-soft);"><div>Produit</div><div>Qté</div><div>Prix</div><div>Rem.%</div><div></div></div>` +
+    posCart.map((c,i)=>`<div class="cart-item">
+      <div>${c.name}</div>
+      <input type="number" min="1" value="${c.qty}" onchange="updateCartField(${i},'qty',this.value)">
+      <input type="number" value="${c.price}" step="0.01" onchange="updateCartField(${i},'price',this.value)">
+      <input type="number" value="${c.discount}" min="0" max="100" onchange="updateCartField(${i},'discount',this.value)">
+      <button class="mini-btn del" onclick="removeFromCart(${i})">✕</button>
+    </div>`).join('');
+  }
+  const subtotal=posCart.reduce((a,c)=>a+c.qty*c.price,0);
+  const total=posCart.reduce((a,c)=>a+c.qty*c.price*(1-c.discount/100),0);
+  document.getElementById('pos-subtotal').textContent=fmt(subtotal);
+  document.getElementById('pos-discount').textContent='-'+fmt(subtotal-total);
+  document.getElementById('pos-grand').textContent=fmt(total);
+}
+function validateSale(){
+  if(posCart.length===0){ toast('Le panier est vide', true); return; }
+  for(const c of posCart){
+    const m=DB.medicines.find(x=>x.id===c.medicineId);
+    if(!m || c.qty>m.quantity){ toast('Stock insuffisant pour '+c.name, true); return; }
+  }
+  const total=posCart.reduce((a,c)=>a+c.qty*c.price*(1-c.discount/100),0);
+  const payment=document.getElementById('pos-payment').value;
+  const unpaid=document.getElementById('pos-unpaid').checked;
+  const sale={
+    id:uid(), date:new Date().toISOString(), patientId:posPatientId||null,
+    items:posCart.map(c=>({medicineId:c.medicineId,name:c.name,qty:c.qty,price:c.price,discount:c.discount})),
+    paymentMethod:payment, total:Math.round(total*100)/100, status: unpaid?'impayé':'payé'
+  };
+  posCart.forEach(c=>{ const m=DB.medicines.find(x=>x.id===c.medicineId); m.quantity-=c.qty; });
+  DB.sales.push(sale);
+  saveDB();
+  runAlertScan();
+  refreshNotifBadge();
+  renderReceipt(sale);
+  posCart=[]; posPatientId='';
+  renderCart(); renderPosMedList(); renderSalesTable();
+  toast('Vente enregistrée avec succès');
+  refreshNotifBadge();
+}
+function renderReceipt(sale){
+  const s=DB.settings;
+  const patient = sale.patientId ? DB.patients.find(p=>p.id===sale.patientId) : null;
+  document.getElementById('pos-receipt-zone').innerHTML = `
+    <div class="receipt" id="receipt-print">
+      <h4>${s.pharmacyName||'Pharmacie'}</h4>
+      <div class="center">${s.address||''}</div>
+      <div class="center">${s.phone||''}</div>
+      <hr>
+      <div class="r-line"><span>Facture</span><span>#${sale.id.slice(-6).toUpperCase()}</span></div>
+      <div class="r-line"><span>Date</span><span>${fmtDateTime(sale.date)}</span></div>
+      <div class="r-line"><span>Patient</span><span>${patient?patient.name:'Client comptoir'}</span></div>
+      <hr>
+      ${sale.items.map(it=>`<div class="r-line"><span>${it.qty}x ${it.name}</span><span>${fmt(it.qty*it.price*(1-it.discount/100))}</span></div>`).join('')}
+      <hr>
+      <div class="r-line"><strong>TOTAL</strong><strong>${fmt(sale.total)}</strong></div>
+      <div class="r-line"><span>Paiement</span><span>${sale.paymentMethod}</span></div>
+      <div class="r-line"><span>Statut</span><span>${sale.status==='payé'?'PAYÉ':'IMPAYÉ'}</span></div>
+      <hr>
+      <div class="center">Merci de votre confiance 💊</div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:14px;">
+      <button class="btn btn-outline btn-sm" onclick="window.print()">🖨️ Imprimer</button>
+      <button class="btn btn-primary btn-sm" onclick="exportReceiptPDF('${sale.id}')">⬇️ PDF</button>
+    </div>
+  `;
+}
+function exportReceiptPDF(saleId){
+  const sale=DB.sales.find(s=>s.id===saleId); if(!sale) return;
+  const { jsPDF } = window.jspdf;
+  const doc=new jsPDF({unit:'mm',format:[80,150]});
+  let y=10;
+  doc.setFontSize(11); doc.text(DB.settings.pharmacyName||'Pharmacie', 40, y, {align:'center'}); y+=6;
+  doc.setFontSize(8); doc.text(DB.settings.address||'', 40, y, {align:'center'}); y+=4;
+  doc.text(DB.settings.phone||'', 40, y, {align:'center'}); y+=6;
+  doc.text('Facture #'+sale.id.slice(-6).toUpperCase(), 5, y); y+=5;
+  doc.text('Date: '+fmtDateTime(sale.date), 5, y); y+=6;
+  sale.items.forEach(it=>{
+    doc.text(`${it.qty}x ${it.name}`, 5, y);
+    doc.text(fmt(it.qty*it.price*(1-it.discount/100)), 75, y, {align:'right'});
+    y+=5;
+  });
+  y+=2; doc.setFontSize(10); doc.text('TOTAL: '+fmt(sale.total), 5, y); y+=6;
+  doc.setFontSize(8); doc.text('Paiement: '+sale.paymentMethod+' — '+sale.status.toUpperCase(), 5, y);
+  doc.save('facture_'+sale.id.slice(-6)+'.pdf');
+}
+function filterSales(){
+  return DB.sales.filter(s=>{
+    if(salesState.status!=='all' && s.status!==salesState.status) return false;
+    if(salesState.payment!=='all' && s.paymentMethod!==salesState.payment) return false;
+    if(salesState.search){
+      const q=salesState.search.toLowerCase();
+      const patient=DB.patients.find(p=>p.id===s.patientId);
+      if(!(s.id.toLowerCase().includes(q) || (patient&&patient.name.toLowerCase().includes(q)))) return false;
+    }
+    return true;
+  }).sort((a,b)=>new Date(b.date)-new Date(a.date));
+}
+function renderSalesTable(){
+  const zone=document.getElementById('sales-table-zone'); if(!zone) return;
+  const list=filterSales();
+  zone.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Facture</th><th>Date</th><th>Patient</th><th>Paiement</th><th>Total</th><th>Statut</th><th></th></tr></thead><tbody>
+  ${list.length===0? `<tr><td colspan="7"><div class="empty-state"><div class="e-ic">🧾</div>Aucune vente</div></td></tr>` :
+  list.map(s=>{
+    const p=DB.patients.find(x=>x.id===s.patientId);
+    return `<tr>
+      <td>#${s.id.slice(-6).toUpperCase()}</td>
+      <td>${fmtDateTime(s.date)}</td>
+      <td>${p?p.name:'Client comptoir'}</td>
+      <td>${s.paymentMethod}</td>
+      <td>${fmt(s.total)}</td>
+      <td><span class="tag ${s.status==='payé'?'tag-green':'tag-red'}">${s.status}</span></td>
+      <td><div class="row-actions">
+        <button class="mini-btn" onclick="viewSale('${s.id}')">👁</button>
+        <button class="mini-btn" onclick="editSaleStatus('${s.id}')">✎</button>
+        <button class="mini-btn del" onclick="deleteSale('${s.id}')">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('')}
+  </tbody></table></div>`;
+}
+function viewSale(id){ const s=DB.sales.find(x=>x.id===id); renderReceiptModal(s); }
+function renderReceiptModal(sale){
+  const p=DB.patients.find(x=>x.id===sale.patientId);
+  openModal(`
+    <div class="modal-head"><h3>Facture #${sale.id.slice(-6).toUpperCase()}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="receipt">
+        <h4>${DB.settings.pharmacyName||'Pharmacie'}</h4>
+        <div class="center">${DB.settings.address||''}</div>
+        <hr>
+        <div class="r-line"><span>Date</span><span>${fmtDateTime(sale.date)}</span></div>
+        <div class="r-line"><span>Patient</span><span>${p?p.name:'Client comptoir'}</span></div>
+        <hr>
+        ${sale.items.map(it=>`<div class="r-line"><span>${it.qty}x ${it.name}</span><span>${fmt(it.qty*it.price*(1-it.discount/100))}</span></div>`).join('')}
+        <hr>
+        <div class="r-line"><strong>TOTAL</strong><strong>${fmt(sale.total)}</strong></div>
+        <div class="r-line"><span>Statut</span><span>${sale.status.toUpperCase()}</span></div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal()">Fermer</button><button class="btn btn-primary" onclick="exportReceiptPDF('${sale.id}')">⬇️ PDF</button></div>
+  `);
+}
+function editSaleStatus(id){
+  const s=DB.sales.find(x=>x.id===id);
+  openModal(`
+    <div class="modal-head"><h3>Modifier la facture</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Statut</label><select id="f_status"><option value="payé" ${s.status==='payé'?'selected':''}>Payé</option><option value="impayé" ${s.status==='impayé'?'selected':''}>Impayé</option></select></div>
+      <div class="field"><label>Mode de paiement</label><select id="f_pay">${PAY_METHODS.map(p=>`<option ${s.paymentMethod===p?'selected':''}>${p}</option>`).join('')}</select></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal()">Annuler</button><button class="btn btn-primary" onclick="saveSaleStatus('${id}')">💾 Enregistrer</button></div>
+  `);
+}
+function saveSaleStatus(id){
+  const s=DB.sales.find(x=>x.id===id);
+  s.status=document.getElementById('f_status').value;
+  s.paymentMethod=document.getElementById('f_pay').value;
+  saveDB(); closeModal(); renderSalesTable(); toast('Facture mise à jour'); refreshNotifBadge();
+}
+function deleteSale(id){
+  if(!confirm('Supprimer cette vente ? Le stock ne sera pas restauré automatiquement.')) return;
+  DB.sales=DB.sales.filter(s=>s.id!==id); saveDB(); renderSalesTable(); toast('Vente supprimée'); refreshNotifBadge();
+}
+
+/* ---------------------------------------------------------------------
+   PRESCRIPTIONS
+--------------------------------------------------------------------- */
+let rxState={search:'',status:'all'};
+function renderPrescriptions(){
+  const list=filterRx();
+  document.getElementById('page-content').innerHTML = `
+    <div class="section-head"><h3>Ordonnances (${DB.prescriptions.length})</h3>
+      <button class="btn btn-primary" onclick="openRxForm()">＋ Nouvelle ordonnance</button>
+    </div>
+    <div class="toolbar">
+      <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input placeholder="Rechercher par patient..." value="${rxState.search}" oninput="rxState.search=this.value; renderRxTable();"></div>
+      <select class="filter-select" onchange="rxState.status=this.value; renderRxTable();">
+        <option value="all">Tous statuts</option><option value="en attente" ${rxState.status==='en attente'?'selected':''}>En attente</option><option value="traitée" ${rxState.status==='traitée'?'selected':''}>Traitée</option>
+      </select>
+    </div>
+    <div id="rx-table-zone"></div>
+  `;
+  renderRxTable();
+}
+function filterRx(){
+  return DB.prescriptions.filter(r=>{
+    if(rxState.status!=='all' && r.status!==rxState.status) return false;
+    if(rxState.search){
+      const p=DB.patients.find(x=>x.id===r.patientId);
+      if(!(p && p.name.toLowerCase().includes(rxState.search.toLowerCase()))) return false;
+    }
+    return true;
+  }).sort((a,b)=>new Date(b.date)-new Date(a.date));
+}
+function renderRxTable(){
+  const zone=document.getElementById('rx-table-zone'); if(!zone) return;
+  const list=filterRx();
+  zone.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Patient</th><th>Date</th><th>Médicaments détectés</th><th>Statut</th><th></th></tr></thead><tbody>
+  ${list.length===0? `<tr><td colspan="5"><div class="empty-state"><div class="e-ic">📋</div>Aucune ordonnance</div></td></tr>` :
+  list.map(r=>{
+    const p=DB.patients.find(x=>x.id===r.patientId);
+    return `<tr>
+      <td>${p?p.name:'—'}</td>
+      <td>${fmtDate(r.date)}</td>
+      <td>${(r.detected||[]).join(', ')||'—'}</td>
+      <td><span class="tag ${r.status==='traitée'?'tag-green':'tag-amber'}">${r.status}</span></td>
+      <td><div class="row-actions">
+        <button class="mini-btn" onclick="viewRx('${r.id}')">👁</button>
+        <button class="mini-btn" onclick="editRx('${r.id}')">✎</button>
+        <button class="mini-btn del" onclick="deleteRx('${r.id}')">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('')}
+  </tbody></table></div>`;
+}
+function openRxForm(){
+  currentPrescriptionDetected=[]; currentPrescriptionFile=null;
+  openModal(`
+    <div class="modal-head"><h3>Nouvelle ordonnance</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Patient</label><select id="rx-patient">${DB.patients.map(p=>`<option value="${p.id}">${p.name}</option>`).join('')}</select></div>
+      <div class="field"><label>Date</label><input type="date" id="rx-date" value="${todayStr()}"></div>
+      <div class="field"><label>Fichier de l'ordonnance (image ou PDF)</label>
+        <div class="file-drop" onclick="document.getElementById('rx-file').click()">📎 Cliquez pour importer une ordonnance</div>
+        <input type="file" id="rx-file" accept="image/*,application/pdf" style="display:none" onchange="handleRxFile(this)">
+        <div id="rx-file-preview"></div>
+      </div>
+      <button type="button" class="btn btn-outline" style="width:100%;justify-content:center;margin:6px 0;" onclick="runOCRDemo()">🔍 Analyser (OCR démo)</button>
+      <div id="rx-ocr-status" style="font-size:12.5px;color:var(--ink-soft);"></div>
+      <div class="field"><label>Médicaments détectés</label><div id="rx-detected-list"></div></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-primary" onclick="saveRx()">💾 Enregistrer</button>
+    </div>
+  `, true);
+  renderDetectedList();
+}
+function handleRxFile(input){
+  const file=input.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    currentPrescriptionFile={name:file.name, data: file.type.startsWith('image/')? e.target.result : null};
+    document.getElementById('rx-file-preview').innerHTML = file.type.startsWith('image/')
+      ? `<img class="file-preview" src="${e.target.result}">`
+      : `<div style="margin-top:8px;font-size:12px;color:var(--ink-soft);">📄 ${file.name} chargé</div>`;
+  };
+  reader.readAsDataURL(file);
+}
+function runOCRDemo(){
+  document.getElementById('rx-ocr-status').textContent='⏳ Analyse en cours...';
+  setTimeout(()=>{
+    const pool=DB.medicines.map(m=>m.name);
+    const count=Math.min(pool.length, 2+Math.floor(Math.random()*2));
+    const picked=[];
+    while(picked.length<count){
+      const m=pool[Math.floor(Math.random()*pool.length)];
+      if(!picked.includes(m)) picked.push(m);
+    }
+    currentPrescriptionDetected=picked;
+    document.getElementById('rx-ocr-status').textContent='✅ Analyse terminée — '+picked.length+' médicament(s) détecté(s)';
+    renderDetectedList();
+  }, 1100);
+}
+function renderDetectedList(){
+  const zone=document.getElementById('rx-detected-list'); if(!zone) return;
+  if(currentPrescriptionDetected.length===0){ zone.innerHTML=`<div style="font-size:12.5px;color:var(--ink-soft);">Aucun médicament détecté pour le moment.</div>`; return; }
+  zone.innerHTML = currentPrescriptionDetected.map((name,i)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;font-size:13px;">${name}<button class="mini-btn del" onclick="removeDetected(${i})">✕</button></div>`).join('');
+}
+function removeDetected(i){ currentPrescriptionDetected.splice(i,1); renderDetectedList(); }
+function saveRx(){
+  const patientId=document.getElementById('rx-patient').value;
+  const date=document.getElementById('rx-date').value;
+  if(!patientId){ toast('Veuillez choisir un patient', true); return; }
+  DB.prescriptions.push({
+    id:uid(), patientId, date, fileName: currentPrescriptionFile?currentPrescriptionFile.name:null,
+    fileData: currentPrescriptionFile?currentPrescriptionFile.data:null,
+    detected:[...currentPrescriptionDetected], status:'en attente', linkedSaleId:null
+  });
+  saveDB(); closeModal(); renderRxTable(); toast('Ordonnance enregistrée');
+}
+function viewRx(id){
+  const r=DB.prescriptions.find(x=>x.id===id);
+  const p=DB.patients.find(x=>x.id===r.patientId);
+  openModal(`
+    <div class="modal-head"><h3>Ordonnance — ${p?p.name:''}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="detail-grid" style="margin-bottom:14px;">
+        <div class="detail-item"><div class="d-label">Date</div><div class="d-value">${fmtDate(r.date)}</div></div>
+        <div class="detail-item"><div class="d-label">Statut</div><div class="d-value">${r.status}</div></div>
+      </div>
+      ${r.fileData?`<img class="file-preview" style="max-height:220px;" src="${r.fileData}">`:`<div style="font-size:12.5px;color:var(--ink-soft);">Fichier : ${r.fileName||'aucun'}</div>`}
+      <div style="margin-top:14px;"><div class="d-label" style="font-size:11px;color:var(--ink-soft);font-weight:700;text-transform:uppercase;margin-bottom:6px;">Médicaments détectés</div>
+      ${(r.detected||[]).length===0?'<div style="font-size:13px;color:var(--ink-soft);">Aucun</div>':r.detected.map(d=>`<span class="tag tag-gray" style="margin:2px;">${d}</span>`).join('')}
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal()">Fermer</button>
+      <button class="btn btn-primary" onclick="addRxToCart('${r.id}')">🛒 Ajouter au panier POS</button>
+    </div>
+  `);
+}
+function addRxToCart(id){
+  const r=DB.prescriptions.find(x=>x.id===id);
+  posPatientId=r.patientId;
+  (r.detected||[]).forEach(name=>{
+    const m=DB.medicines.find(x=>x.name===name);
+    if(m) addToCart(m.id);
+  });
+  r.status='traitée'; saveDB();
+  closeModal();
+  navigate('pos');
+  toast('Médicaments ajoutés au panier POS');
+}
+function editRx(id){
+  const r=DB.prescriptions.find(x=>x.id===id);
+  openModal(`
+    <div class="modal-head"><h3>Modifier ordonnance</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Statut</label><select id="f_rxstatus"><option value="en attente" ${r.status==='en attente'?'selected':''}>En attente</option><option value="traitée" ${r.status==='traitée'?'selected':''}>Traitée</option></select></div>
+      <div class="field"><label>Médicaments détectés (séparés par une virgule)</label><textarea id="f_rxdetected" rows="3">${(r.detected||[]).join(', ')}</textarea></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal()">Annuler</button><button class="btn btn-primary" onclick="saveRxEdit('${id}')">💾 Enregistrer</button></div>
+  `);
+}
+function saveRxEdit(id){
+  const r=DB.prescriptions.find(x=>x.id===id);
+  r.status=document.getElementById('f_rxstatus').value;
+  r.detected=document.getElementById('f_rxdetected').value.split(',').map(s=>s.trim()).filter(Boolean);
+  saveDB(); closeModal(); renderRxTable(); toast('Ordonnance modifiée');
+}
+function deleteRx(id){ if(!confirm('Supprimer cette ordonnance ?')) return; DB.prescriptions=DB.prescriptions.filter(x=>x.id!==id); saveDB(); renderRxTable(); toast('Ordonnance supprimée'); }
+
+/* ---------------------------------------------------------------------
+   PATIENTS
+--------------------------------------------------------------------- */
+let patState={search:'',important:false};
+function renderPatients(){
+  document.getElementById('page-content').innerHTML = `
+    <div class="section-head"><h3>Patients (${DB.patients.length})</h3><button class="btn btn-primary" onclick="openEntityForm('patients')">＋ Ajouter un patient</button></div>
+    <div class="toolbar">
+      <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input placeholder="Rechercher par nom ou téléphone..." value="${patState.search}" oninput="patState.search=this.value; renderPatTable();"></div>
+      <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-soft);"><input type="checkbox" ${patState.important?'checked':''} onchange="patState.important=this.checked; renderPatTable();"> Importants uniquement</label>
+    </div>
+    <div id="pat-table-zone"></div>
+  `;
+  renderPatTable();
+}
+function filterPatients(){
+  return DB.patients.filter(p=>{
+    if(patState.important && !p.important) return false;
+    if(patState.search){
+      const s=patState.search.toLowerCase();
+      if(!(p.name.toLowerCase().includes(s)||p.phone.includes(s))) return false;
+    }
+    return true;
+  });
+}
+function renderPatTable(){
+  const zone=document.getElementById('pat-table-zone'); if(!zone) return;
+  const list=filterPatients();
+  zone.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Nom</th><th>Téléphone</th><th>Achats</th><th>Ordonnances</th><th></th></tr></thead><tbody>
+  ${list.length===0?`<tr><td colspan="5"><div class="empty-state"><div class="e-ic">🧑‍⚕️</div>Aucun patient</div></td></tr>`:
+  list.map(p=>{
+    const purchases=DB.sales.filter(s=>s.patientId===p.id).length;
+    const rx=DB.prescriptions.filter(r=>r.patientId===p.id).length;
+    return `<tr>
+      <td>${p.important?'<span class="important-flag">★</span> ':''}<strong>${p.name}</strong></td>
+      <td>${p.phone}</td>
+      <td>${purchases}</td>
+      <td>${rx}</td>
+      <td><div class="row-actions">
+        <button class="mini-btn" onclick="viewPatient('${p.id}')">👁</button>
+        <button class="mini-btn" onclick="openEntityForm('patients','${p.id}')">✎</button>
+        <button class="mini-btn del" onclick="deleteEntity('patients','${p.id}')">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('')}
+  </tbody></table></div>`;
+}
+function viewPatient(id){
+  const p=DB.patients.find(x=>x.id===id);
+  const purchases=DB.sales.filter(s=>s.patientId===id).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const rx=DB.prescriptions.filter(r=>r.patientId===id).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  openModal(`
+    <div class="modal-head"><h3>${p.important?'★ ':''}${p.name}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="detail-grid" style="margin-bottom:16px;">
+        <div class="detail-item"><div class="d-label">Téléphone</div><div class="d-value">${p.phone}</div></div>
+        <div class="detail-item"><div class="d-label">Patient depuis</div><div class="d-value">${fmtDate(p.createdAt)}</div></div>
+      </div>
+      ${p.notes?`<div style="margin-bottom:16px;"><div class="d-label" style="font-size:11px;color:var(--ink-soft);font-weight:700;">NOTES</div><div style="font-size:13.5px;margin-top:4px;">${p.notes}</div></div>`:''}
+      <div class="tabs-line"><div class="tab-btn active">Historique</div></div>
+      <div style="font-size:12.5px;font-weight:700;color:var(--ink-soft);margin-bottom:8px;">ACHATS (${purchases.length})</div>
+      ${purchases.length===0?`<div style="font-size:12.5px;color:var(--ink-soft);margin-bottom:14px;">Aucun achat</div>`:purchases.map(s=>`<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:12.5px;"><span>${fmtDate(s.date)}</span><span>${fmt(s.total)}</span></div>`).join('')}
+      <div style="font-size:12.5px;font-weight:700;color:var(--ink-soft);margin:14px 0 8px;">ORDONNANCES (${rx.length})</div>
+      ${rx.length===0?`<div style="font-size:12.5px;color:var(--ink-soft);">Aucune ordonnance</div>`:rx.map(r=>`<div style="padding:7px 0;border-bottom:1px solid var(--line);font-size:12.5px;">${fmtDate(r.date)} — ${(r.detected||[]).join(', ')||'—'}</div>`).join('')}
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal()">Fermer</button></div>
+  `);
+}
+
+/* ---------------------------------------------------------------------
+   EXPENSES
+--------------------------------------------------------------------- */
+let expState={search:'',category:'all',period:'all'};
+function renderExpenses(){
+  const list=filterExpenses();
+  const total=list.reduce((a,e)=>a+Number(e.amount),0);
+  document.getElementById('page-content').innerHTML = `
+    <div class="section-head"><h3>Dépenses (${DB.expenses.length})</h3><button class="btn btn-primary" onclick="openEntityForm('expenses')">＋ Ajouter une dépense</button></div>
+    <div class="toolbar">
+      <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input placeholder="Rechercher..." value="${expState.search}" oninput="expState.search=this.value; renderExpenses();"></div>
+      <select class="filter-select" onchange="expState.category=this.value; renderExpenses();">
+        <option value="all">Toutes catégories</option>${EXP_CATEGORIES.map(c=>`<option value="${c}" ${expState.category===c?'selected':''}>${c}</option>`).join('')}
+      </select>
+      <select class="filter-select" onchange="expState.period=this.value; renderExpenses();">
+        <option value="all" ${expState.period==='all'?'selected':''}>Toute période</option>
+        <option value="today" ${expState.period==='today'?'selected':''}>Aujourd'hui</option>
+        <option value="week" ${expState.period==='week'?'selected':''}>Cette semaine</option>
+        <option value="month" ${expState.period==='month'?'selected':''}>Ce mois</option>
+        <option value="year" ${expState.period==='year'?'selected':''}>Cette année</option>
+      </select>
+    </div>
+    <div class="card" style="margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:13px;color:var(--ink-soft);font-weight:600;">Total affiché</span>
+      <span style="font-family:var(--font-display);font-size:20px;font-weight:700;">${fmt(total)}</span>
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>Catégorie</th><th>Montant</th><th>Date</th><th>Note</th><th></th></tr></thead><tbody>
+    ${list.length===0?`<tr><td colspan="5"><div class="empty-state"><div class="e-ic">🧾</div>Aucune dépense</div></td></tr>`:
+    list.map(e=>`<tr>
+      <td>${e.category}</td><td>${fmt(e.amount)}</td><td>${fmtDate(e.date)}</td><td>${e.note||'—'}</td>
+      <td><div class="row-actions">
+        <button class="mini-btn" onclick="viewExpense('${e.id}')">👁</button>
+        <button class="mini-btn" onclick="openEntityForm('expenses','${e.id}')">✎</button>
+        <button class="mini-btn del" onclick="deleteEntity('expenses','${e.id}')">🗑</button>
+      </div></td>
+    </tr>`).join('')}
+    </tbody></table></div>
+  `;
+}
+function filterExpenses(){
+  return DB.expenses.filter(e=>{
+    if(expState.category!=='all' && e.category!==expState.category) return false;
+    if(expState.period!=='all' && !isInRange(e.date, expState.period)) return false;
+    if(expState.search && !((e.note||'').toLowerCase().includes(expState.search.toLowerCase())||e.category.toLowerCase().includes(expState.search.toLowerCase()))) return false;
+    return true;
+  }).sort((a,b)=>new Date(b.date)-new Date(a.date));
+}
+function viewExpense(id){
+  const e=DB.expenses.find(x=>x.id===id);
+  openModal(`
+    <div class="modal-head"><h3>${e.category}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="d-label">Montant</div><div class="d-value">${fmt(e.amount)}</div></div>
+        <div class="detail-item"><div class="d-label">Date</div><div class="d-value">${fmtDate(e.date)}</div></div>
+      </div>
+      ${e.note?`<div style="margin-top:12px;font-size:13.5px;">${e.note}</div>`:''}
+      ${e.receipt?`<img class="file-preview" style="margin-top:12px;" src="${e.receipt}">`:''}
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal()">Fermer</button></div>
+  `);
+}
+
+/* ---------------------------------------------------------------------
+   EMPLOYEES
+--------------------------------------------------------------------- */
+let empState={search:'',role:'all',salaryStatus:'all'};
+function renderEmployees(){
+  const list=filterEmployees();
+  document.getElementById('page-content').innerHTML = `
+    <div class="section-head"><h3>Employés (${DB.employees.length})</h3><button class="btn btn-primary" onclick="openEntityForm('employees')">＋ Ajouter un employé</button></div>
+    <div class="toolbar">
+      <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input placeholder="Rechercher par nom ou poste..." value="${empState.search}" oninput="empState.search=this.value; renderEmployees();"></div>
+      <select class="filter-select" onchange="empState.role=this.value; renderEmployees();">
+        <option value="all">Tous postes</option>${ROLES.map(r=>`<option value="${r}" ${empState.role===r?'selected':''}>${r}</option>`).join('')}
+      </select>
+      <select class="filter-select" onchange="empState.salaryStatus=this.value; renderEmployees();">
+        <option value="all">Tous salaires</option><option value="payé" ${empState.salaryStatus==='payé'?'selected':''}>Payé</option><option value="non payé" ${empState.salaryStatus==='non payé'?'selected':''}>Non payé</option>
+      </select>
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>Nom</th><th>Poste</th><th>Salaire</th><th>Statut</th><th>Présence (auj.)</th><th></th></tr></thead><tbody>
+    ${list.length===0?`<tr><td colspan="6"><div class="empty-state"><div class="e-ic">👥</div>Aucun employé</div></td></tr>`:
+    list.map(e=>{
+      const todayAtt=(e.attendance||[]).find(a=>a.date===todayStr());
+      return `<tr>
+      <td><strong>${e.name}</strong></td><td>${e.role}</td><td>${fmt(e.salary)}</td>
+      <td><span class="tag ${e.salaryStatus==='payé'?'tag-green':'tag-red'}">${e.salaryStatus}</span></td>
+      <td>${todayAtt?`<span class="tag ${todayAtt.status==='Présent'?'tag-green':'tag-amber'}">${todayAtt.status}</span>`:`<button class="btn btn-sm btn-outline" onclick="markAttendance('${e.id}','Présent')">Marquer présent</button>`}</td>
+      <td><div class="row-actions">
+        <button class="mini-btn" onclick="viewEmployee('${e.id}')">👁</button>
+        <button class="mini-btn" onclick="openEntityForm('employees','${e.id}')">✎</button>
+        <button class="mini-btn del" onclick="deleteEntity('employees','${e.id}')">🗑</button>
+      </div></td>
+    </tr>`;
+    }).join('')}
+    </tbody></table></div>
+  `;
+}
+function filterEmployees(){
+  return DB.employees.filter(e=>{
+    if(empState.role!=='all' && e.role!==empState.role) return false;
+    if(empState.salaryStatus!=='all' && e.salaryStatus!==empState.salaryStatus) return false;
+    if(empState.search){
+      const s=empState.search.toLowerCase();
+      if(!(e.name.toLowerCase().includes(s)||e.role.toLowerCase().includes(s))) return false;
+    }
+    return true;
+  });
+}
+function markAttendance(id,status){
+  const e=DB.employees.find(x=>x.id===id);
+  e.attendance=e.attendance||[];
+  const existing=e.attendance.find(a=>a.date===todayStr());
+  if(existing) existing.status=status; else e.attendance.push({date:todayStr(),status});
+  saveDB(); renderEmployees(); toast('Présence mise à jour');
+}
+function viewEmployee(id){
+  const e=DB.employees.find(x=>x.id===id);
+  const att=(e.attendance||[]).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  openModal(`
+    <div class="modal-head"><h3>${e.name}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="detail-grid" style="margin-bottom:14px;">
+        <div class="detail-item"><div class="d-label">Poste</div><div class="d-value">${e.role}</div></div>
+        <div class="detail-item"><div class="d-label">Salaire</div><div class="d-value">${fmt(e.salary)}</div></div>
+        <div class="detail-item"><div class="d-label">Statut salaire</div><div class="d-value">${e.salaryStatus}</div></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div class="d-label" style="font-size:11px;color:var(--ink-soft);font-weight:700;">HISTORIQUE DE PRÉSENCE</div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-sm btn-outline" onclick="markAttendance('${e.id}','Présent');viewEmployee('${e.id}')">✓ Présent</button>
+          <button class="btn btn-sm btn-outline" onclick="markAttendance('${e.id}','Absent');viewEmployee('${e.id}')">✕ Absent</button>
+        </div>
+      </div>
+      ${att.length===0?`<div style="font-size:12.5px;color:var(--ink-soft);">Aucune présence enregistrée</div>`:att.slice(0,10).map(a=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:12.5px;"><span>${fmtDate(a.date)}</span><span class="tag ${a.status==='Présent'?'tag-green':'tag-red'}">${a.status}</span></div>`).join('')}
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal()">Fermer</button></div>
+  `);
+}
+
+/* ---------------------------------------------------------------------
+   REPORTS
+--------------------------------------------------------------------- */
+let reportPeriod='month';
+function renderReports(){
+  document.getElementById('page-content').innerHTML = `
+    <div class="section-head"><h3>Rapports</h3>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-outline" onclick="exportReportExcel()">⬇️ Export Excel</button>
+        <button class="btn btn-primary" onclick="exportReportPDF()">⬇️ Export PDF</button>
+      </div>
+    </div>
+    <div class="toolbar">
+      <select class="filter-select" onchange="reportPeriod=this.value; renderReports();">
+        <option value="today" ${reportPeriod==='today'?'selected':''}>Rapport journalier</option>
+        <option value="week" ${reportPeriod==='week'?'selected':''}>Rapport hebdomadaire</option>
+        <option value="month" ${reportPeriod==='month'?'selected':''}>Rapport mensuel</option>
+        <option value="year" ${reportPeriod==='year'?'selected':''}>Rapport annuel</option>
+      </select>
+    </div>
+    <div class="grid g-3" style="margin-bottom:16px;">
+      ${statCard('Revenu total', fmt(sumSales(reportPeriod)), '💰')}
+      ${statCard('Dépenses totales', fmt(sumExpenses(reportPeriod)), '🧾')}
+      ${statCard('Profit', fmt(sumSales(reportPeriod)-sumExpenses(reportPeriod)), '📊', (sumSales(reportPeriod)-sumExpenses(reportPeriod))<0)}
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="section-head"><h3>Rapport de stock</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>Médicament</th><th>Quantité</th><th>Valeur stock (achat)</th><th>Valeur stock (vente)</th></tr></thead><tbody>
+      ${DB.medicines.map(m=>`<tr><td>${m.name}</td><td>${m.quantity}</td><td>${fmt(m.quantity*m.purchasePrice)}</td><td>${fmt(m.quantity*m.sellingPrice)}</td></tr>`).join('')}
+      </tbody></table></div>
+    </div>
+    <div class="grid g-2">
+      <div class="card">
+        <div class="section-head"><h3>Ventes (période sélectionnée)</h3></div>
+        <div class="table-wrap"><table><thead><tr><th>Facture</th><th>Date</th><th>Total</th></tr></thead><tbody>
+        ${DB.sales.filter(s=>isInRange(s.date,reportPeriod)).map(s=>`<tr><td>#${s.id.slice(-6).toUpperCase()}</td><td>${fmtDate(s.date)}</td><td>${fmt(s.total)}</td></tr>`).join('')||`<tr><td colspan="3"><div class="empty-state">Aucune vente</div></td></tr>`}
+        </tbody></table></div>
+      </div>
+      <div class="card">
+        <div class="section-head"><h3>Dépenses (période sélectionnée)</h3></div>
+        <div class="table-wrap"><table><thead><tr><th>Catégorie</th><th>Date</th><th>Montant</th></tr></thead><tbody>
+        ${DB.expenses.filter(e=>isInRange(e.date,reportPeriod)).map(e=>`<tr><td>${e.category}</td><td>${fmtDate(e.date)}</td><td>${fmt(e.amount)}</td></tr>`).join('')||`<tr><td colspan="3"><div class="empty-state">Aucune dépense</div></td></tr>`}
+        </tbody></table></div>
+      </div>
+    </div>
+  `;
+}
+function exportReportPDF(){
+  const { jsPDF } = window.jspdf;
+  const doc=new jsPDF();
+  let y=16;
+  doc.setFontSize(16); doc.text('AZNAVO SYSTEMS — Rapport', 14, y); y+=8;
+  doc.setFontSize(10); doc.text(DB.settings.pharmacyName||'', 14, y); y+=6;
+  doc.text('Période : '+reportPeriod, 14, y); y+=10;
+  doc.setFontSize(12); doc.text('Revenu total : '+fmt(sumSales(reportPeriod)), 14, y); y+=7;
+  doc.text('Dépenses totales : '+fmt(sumExpenses(reportPeriod)), 14, y); y+=7;
+  doc.text('Profit : '+fmt(sumSales(reportPeriod)-sumExpenses(reportPeriod)), 14, y); y+=10;
+  doc.setFontSize(11); doc.text('Ventes :', 14, y); y+=6;
+  doc.setFontSize(9);
+  DB.sales.filter(s=>isInRange(s.date,reportPeriod)).forEach(s=>{
+    doc.text(`#${s.id.slice(-6).toUpperCase()}  ${fmtDate(s.date)}  ${fmt(s.total)}`, 14, y); y+=5;
+    if(y>270){ doc.addPage(); y=16; }
+  });
+  y+=4; doc.setFontSize(11); doc.text('Dépenses :', 14, y); y+=6; doc.setFontSize(9);
+  DB.expenses.filter(e=>isInRange(e.date,reportPeriod)).forEach(e=>{
+    doc.text(`${e.category}  ${fmtDate(e.date)}  ${fmt(e.amount)}`, 14, y); y+=5;
+    if(y>270){ doc.addPage(); y=16; }
+  });
+  doc.save('rapport_'+reportPeriod+'.pdf');
+}
+function exportReportExcel(){
+  let csv='Type,Référence,Date,Montant\n';
+  DB.sales.filter(s=>isInRange(s.date,reportPeriod)).forEach(s=>{ csv+=`Vente,${s.id.slice(-6)},${fmtDate(s.date)},${s.total}\n`; });
+  DB.expenses.filter(e=>isInRange(e.date,reportPeriod)).forEach(e=>{ csv+=`Dépense,${e.category},${fmtDate(e.date)},${e.amount}\n`; });
+  const blob=new Blob(["\uFEFF"+csv], {type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='rapport_'+reportPeriod+'.csv'; a.click();
+}
+
+/* ---------------------------------------------------------------------
+   SETTINGS
+--------------------------------------------------------------------- */
+const COLOR_OPTS=['#0E7C66','#2563EB','#7C3AED','#DB2777','#DC2626','#D97706','#0891B2'];
+function renderSettings(){
+  const s=DB.settings;
+  document.getElementById('page-content').innerHTML = `
+    <div class="grid g-2">
+      <div class="card">
+        <h3 style="margin-bottom:16px;">Informations de la pharmacie</h3>
+        <div class="field"><label>Nom de la pharmacie</label><input id="st-name" value="${s.pharmacyName||''}"></div>
+        <div class="field"><label>Logo</label>
+          <div class="file-drop" onclick="document.getElementById('st-logo').click()">📎 Choisir un logo</div>
+          <input type="file" id="st-logo" accept="image/*" style="display:none" onchange="handleLogoUpload(this)">
+          <div id="st-logo-preview">${s.logo?`<img class="file-preview" src="${s.logo}">`:''}</div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Téléphone</label><input id="st-phone" value="${s.phone||''}"></div>
+          <div class="field"><label>E-mail</label><input id="st-email" value="${s.email||''}"></div>
+        </div>
+        <div class="field"><label>Adresse</label><input id="st-address" value="${s.address||''}"></div>
+        <div class="field"><label>Matricule fiscal (Tax ID)</label><input id="st-tax" value="${s.taxId||''}"></div>
+        <div class="field"><label>E-mail de réception des alertes</label><input id="st-alert-email" value="${s.alertEmail||s.email||''}"></div>
+        <p class="hint">Les alertes de stock faible, rupture, péremption et le rapport quotidien seront envoyés (démo) à cette adresse.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:16px;">Apparence</h3>
+        <div class="field"><label>Couleur principale</label>
+          <div class="color-swatches">${COLOR_OPTS.map(c=>`<div class="swatch ${s.primaryColor===c?'active':''}" style="background:${c}" onclick="selectColor('${c}')"></div>`).join('')}</div>
+        </div>
+        <div class="field" style="display:flex;align-items:center;justify-content:space-between;">
+          <label style="margin:0;">Mode sombre</label>
+          <label class="switch"><input type="checkbox" id="st-dark" ${s.darkMode?'checked':''} onchange="toggleDark(this.checked)"><span class="slider-tg"></span></label>
+        </div>
+        <p class="hint">Vos préférences sont enregistrées automatiquement sur cet appareil.</p>
+      </div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:16px;" onclick="saveSettings()">💾 Enregistrer les paramètres</button>
+  `;
+  window._selectedColor = s.primaryColor||'#0E7C66';
+}
+function selectColor(c){ window._selectedColor=c; document.documentElement.style.setProperty('--primary',c); document.documentElement.style.setProperty('--primary-dark',c); renderSettings(); window._selectedColor=c; }
+function handleLogoUpload(input){
+  const file=input.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{ modalFileTemp.logo=e.target.result; document.getElementById('st-logo-preview').innerHTML=`<img class="file-preview" src="${e.target.result}">`; };
+  reader.readAsDataURL(file);
+}
+function saveSettings(){
+  DB.settings.pharmacyName=document.getElementById('st-name').value;
+  DB.settings.phone=document.getElementById('st-phone').value;
+  DB.settings.email=document.getElementById('st-email').value;
+  DB.settings.address=document.getElementById('st-address').value;
+  DB.settings.taxId=document.getElementById('st-tax').value;
+  DB.settings.alertEmail=document.getElementById('st-alert-email').value||DB.settings.email;
+  DB.settings.primaryColor=window._selectedColor||DB.settings.primaryColor;
+  if(modalFileTemp.logo) DB.settings.logo=modalFileTemp.logo;
+  saveDB();
+  applySettingsToUI();
+  toast('Paramètres enregistrés');
+}
+function toggleDark(val){
+  DB.settings.darkMode=val;
+  document.body.classList.toggle('dark', val);
+  document.getElementById('dark-toggle').checked=val;
+  saveDB();
+}
+function applySettingsToUI(){
+  const s=DB.settings;
+  document.documentElement.style.setProperty('--primary', s.primaryColor||'#0E7C66');
+  document.documentElement.style.setProperty('--primary-dark', s.primaryColor||'#0A5F4E');
+  document.body.classList.toggle('dark', !!s.darkMode);
+  document.getElementById('dark-toggle').checked=!!s.darkMode;
+  document.getElementById('sb-pharm-name').textContent=s.pharmacyName||'Pharmacie';
+}
+
+/* ---------------------------------------------------------------------
+   ALERTES DE STOCK & NOTIFICATIONS INTELLIGENTES
+--------------------------------------------------------------------- */
+const SUPPLIERS = ['UBIPHARM','SAIPH','PHARMALIA','GSK TN','MEDIS','IPSEN','SOFAPHARM','TUNISIE PHARMA'];
+let alertsTab = 'overview';
+
+function stockLevelOf(m){ if(m.quantity<=0) return 'out'; if(m.quantity<=m.minStock) return 'low'; return 'ok'; }
+function expiryTierOf(m){
+  const d=daysBetween(m.expiryDate);
+  if(d<0) return 'expired';
+  if(d<=7) return 7;
+  if(d<=30) return 30;
+  if(d<=60) return 60;
+  if(d<=90) return 90;
+  return null;
+}
+function tierTagClass(tier){
+  if(tier==='expired' || tier===7) return 'tag-red';
+  if(tier===30) return 'tag-orange';
+  if(tier===60) return 'tag-amber';
+  return 'tag-blue';
+}
+function tierLabel(tier){
+  if(tier==='expired') return 'Expiré';
+  return `${tier} jours`;
+}
+
+function logNotif(o){
+  DB.notifLog.unshift({id:uid(), type:o.type, icon:o.icon, severity:o.severity||'info', title:o.title, text:o.text, date:new Date().toISOString(), read:false});
+  if(DB.notifLog.length>300) DB.notifLog.length=300;
+}
+function logEmail(o){
+  DB.emailLog.unshift({id:uid(), category:o.category, to:o.to, subject:o.subject, preview:o.preview, body:o.body, date:new Date().toISOString()});
+  if(DB.emailLog.length>300) DB.emailLog.length=300;
+}
+
+function buildStockEmailBody(m, kind){
+  if(kind==='out'){
+    return `Bonjour,\n\nLe médicament "${m.name}" (code-barres ${m.barcode}) est en RUPTURE DE STOCK totale (0 unité).\n\nCatégorie : ${m.category}\nFournisseur habituel : ${m.supplier||'—'}\nStock minimum configuré : ${m.minStock}\n\nLa vente de ce produit est désormais bloquée. Merci de passer commande dès que possible.\n\n— AZNAVO SYSTEMS`;
+  }
+  return `Bonjour,\n\nLe médicament "${m.name}" a atteint son seuil de stock minimum.\n\nStock actuel : ${m.quantity}\nSeuil minimum configuré : ${m.minStock}\nFournisseur habituel : ${m.supplier||'—'}\n\nPensez à réapprovisionner ce produit avant la rupture.\n\n— AZNAVO SYSTEMS`;
+}
+function buildExpiryEmailBody(m, tier){
+  const label = tier==='expired' ? 'est expiré' : `expire dans ${tier} jours`;
+  return `Bonjour,\n\nLe médicament "${m.name}" (lot ${m.batchNumber||'—'}) ${label}.\n\nDate d'expiration : ${fmtDate(m.expiryDate)}\nQuantité concernée : ${m.quantity}\n\nMerci de vérifier ce produit et de le retirer du rayon si nécessaire.\n\n— AZNAVO SYSTEMS`;
+}
+
+function runAlertScan(){
+  let changed=false;
+  DB.medicines.forEach(m=>{
+    const prev = DB.alertState[m.id] || {stock:null, expiry:null};
+    const stock = stockLevelOf(m);
+    const expiry = expiryTierOf(m);
+    if(stock!==prev.stock && (stock==='out'||stock==='low')){
+      if(stock==='out'){
+        logNotif({type:'rupture', icon:'🚫', severity:'critical', title:'Rupture de stock', text:`${m.name} est en rupture de stock.`});
+        logEmail({category:'Rupture de Stock', to:DB.settings.alertEmail, subject:'⛔ Rupture de stock — '+m.name, preview:`${m.name} est en rupture totale de stock.`, body:buildStockEmailBody(m,'out')});
+      } else {
+        logNotif({type:'stock-faible', icon:'📦', severity:'warning', title:'Stock faible', text:`${m.name} — ${m.quantity} unité(s) restante(s) (seuil : ${m.minStock}).`});
+        logEmail({category:'Alerte Stock Faible', to:DB.settings.alertEmail, subject:'⚠️ Stock faible — '+m.name, preview:`${m.name} a atteint le seuil minimum de ${m.minStock}.`, body:buildStockEmailBody(m,'low')});
+      }
+      changed=true;
+    }
+    if(expiry!==prev.expiry && expiry!==null){
+      logNotif({type:'expiration', icon: expiry==='expired'?'⛔':'⏳', severity: (expiry==='expired'||expiry===7)?'critical':'warning', title: expiry==='expired'?'Médicament expiré':`Expiration dans ${expiry} jours`, text:`${m.name} — lot ${m.batchNumber||'—'} — exp. ${fmtDate(m.expiryDate)}`});
+      logEmail({category:'Médicament Expiré', to:DB.settings.alertEmail, subject:(expiry==='expired'?'⛔ Médicament expiré — ':'⏳ Péremption proche — ')+m.name, preview:`${m.name} : ${tierLabel(expiry).toLowerCase()}${expiry==='expired'?'':' avant expiration'}.`, body:buildExpiryEmailBody(m,expiry)});
+      changed=true;
+    }
+    DB.alertState[m.id] = {stock, expiry};
+  });
+  if(changed) saveDB();
+}
+
+function stockValueTotal(){ return DB.medicines.reduce((a,m)=>a+m.quantity*m.purchasePrice,0); }
+function expiredValueTotal(){ return DB.medicines.filter(m=>daysBetween(m.expiryDate)<0).reduce((a,m)=>a+m.quantity*m.purchasePrice,0); }
+
+/* ---------- Commande fournisseur intelligente ---------- */
+function openOrderModal(medId){
+  const m=DB.medicines.find(x=>x.id===medId);
+  if(!m) return;
+  const suggestedQty = Math.max(Math.round(m.minStock*3 - m.quantity), m.minStock*2, 10);
+  openModal(`
+    <div class="modal-head"><h3>📦 Commande fournisseur — ${m.name}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="detail-grid" style="margin-bottom:16px;">
+        <div class="detail-item"><div class="d-label">Stock actuel</div><div class="d-value">${m.quantity}</div></div>
+        <div class="detail-item"><div class="d-label">Stock minimum</div><div class="d-value">${m.minStock}</div></div>
+      </div>
+      <div class="field"><label>Fournisseur</label>
+        <select id="po-supplier">${SUPPLIERS.map(s=>`<option ${s===m.supplier?'selected':''}>${s}</option>`).join('')}</select>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Quantité à commander</label><input type="number" id="po-qty" value="${suggestedQty}" min="1"></div>
+        <div class="field"><label>Coût unitaire estimé (DT)</label><input type="number" id="po-cost" value="${m.purchasePrice}" step="0.01"></div>
+      </div>
+      <p class="hint">Quantité calculée automatiquement selon le stock minimum configuré et le stock actuel.</p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-primary" onclick="submitPurchaseOrder('${m.id}')">✅ Générer le bon de commande</button>
+    </div>
+  `);
+}
+function submitPurchaseOrder(medId){
+  const m=DB.medicines.find(x=>x.id===medId);
+  if(!m) return;
+  const supplier=document.getElementById('po-supplier').value;
+  const qty=Math.max(1,parseInt(document.getElementById('po-qty').value)||1);
+  const cost=parseFloat(document.getElementById('po-cost').value)||m.purchasePrice;
+  const po={id:uid(), ref:'PO-'+Date.now().toString(36).toUpperCase(), date:new Date().toISOString(), supplier, status:'Envoyée',
+    items:[{medicineId:m.id,name:m.name,qty,unitCost:cost}], total:Math.round(qty*cost*100)/100};
+  DB.purchaseOrders.unshift(po);
+  logEmail({category:'Commande Fournisseur', to:supplier+' (fournisseur)', subject:'Bon de commande '+po.ref, preview:`Commande de ${qty} x ${m.name} — ${fmt(po.total)}`,
+    body:`Bonjour ${supplier},\n\nVeuillez trouver ci-dessous notre commande :\n\nRéférence : ${po.ref}\nProduit : ${m.name}\nQuantité : ${qty}\nCoût unitaire estimé : ${fmt(cost)}\nTotal estimé : ${fmt(po.total)}\n\nMerci de confirmer la disponibilité et le délai de livraison.\n\nCordialement,\n${DB.settings.pharmacyName||'La Pharmacie'}`});
+  logNotif({type:'commande', icon:'📦', severity:'info', title:'Commande envoyée', text:`Bon de commande ${po.ref} envoyé à ${supplier} pour ${m.name} (${qty} unités).`});
+  saveDB(); closeModal(); toast('Bon de commande généré et envoyé (démo)');
+  renderCurrentPage();
+}
+function receivePurchaseOrder(poId){
+  const po=DB.purchaseOrders.find(p=>p.id===poId);
+  if(!po || po.status==='Reçue') return;
+  po.items.forEach(it=>{ const m=DB.medicines.find(x=>x.id===it.medicineId); if(m) m.quantity += it.qty; });
+  po.status='Reçue';
+  logNotif({type:'commande', icon:'✅', severity:'info', title:'Commande reçue', text:`Commande ${po.ref} reçue — stock mis à jour.`});
+  saveDB(); toast('Commande marquée comme reçue, stock mis à jour'); renderCurrentPage();
+}
+function withdrawMedicine(medId){
+  const m=DB.medicines.find(x=>x.id===medId);
+  if(!m) return;
+  if(!confirm(`Retirer "${m.name}" du stock (mettre la quantité à 0) ?`)) return;
+  m.quantity=0;
+  logNotif({type:'retrait', icon:'🗑️', severity:'warning', title:'Médicament retiré', text:`${m.name} a été retiré du stock (péremption).`});
+  saveDB(); toast('Médicament retiré du stock'); runAlertScan(); renderCurrentPage();
+}
+function sendTestEmail(){
+  logEmail({category:'Test', to:DB.settings.alertEmail, subject:'Email de test — AZNAVO SYSTEMS', preview:'Ceci est un email de test généré manuellement.',
+    body:`Bonjour,\n\nCeci est un e-mail de test envoyé depuis le centre de notifications AZNAVO SYSTEMS.\n\nSi vous recevez cet e-mail, la configuration des alertes fonctionne correctement.\n\n— AZNAVO SYSTEMS`});
+  saveDB(); toast('Email de test envoyé (démo)'); renderCurrentPage();
+}
+
+/* ---------- Rapport quotidien automatique ---------- */
+function buildDailyReport(date){
+  const yesterday = addDays(-1);
+  const salesYesterday = DB.sales.filter(s=>s.date.slice(0,10)===yesterday);
+  const revenueYesterday = salesYesterday.reduce((a,s)=>a+s.total,0);
+  const productCount={};
+  DB.sales.forEach(s=>s.items.forEach(it=>{ productCount[it.name]=(productCount[it.name]||0)+it.qty; }));
+  const topProducts = Object.entries(productCount).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([name,qty])=>({name,qty}));
+  return {
+    id:uid(), date,
+    lowStock: DB.medicines.filter(m=>m.quantity>0 && m.quantity<=m.minStock).map(m=>m.name),
+    outOfStock: DB.medicines.filter(m=>m.quantity<=0).map(m=>m.name),
+    expiringSoon: DB.medicines.filter(m=>{const d=daysBetween(m.expiryDate);return d>=0&&d<=30;}).map(m=>m.name),
+    expired: DB.medicines.filter(m=>daysBetween(m.expiryDate)<0).map(m=>m.name),
+    topProducts,
+    revenueYesterday: Math.round(revenueYesterday*100)/100,
+    prescriptionsCount: DB.prescriptions.filter(p=>p.date.slice(0,10)===yesterday).length,
+    clientsCount: new Set(salesYesterday.map(s=>s.patientId).filter(Boolean)).size
+  };
+}
+function buildDailyReportEmailBody(r){
+  return `Bonjour,\n\nVoici le rapport quotidien du ${fmtDate(r.date)} :\n\n• Chiffre d'affaires de la veille : ${fmt(r.revenueYesterday)}\n• Nombre d'ordonnances (veille) : ${r.prescriptionsCount}\n• Nombre de clients (veille) : ${r.clientsCount}\n• Médicaments en stock faible : ${r.lowStock.length}\n• Médicaments en rupture : ${r.outOfStock.length}\n• Médicaments bientôt expirés (≤30j) : ${r.expiringSoon.length}\n• Médicaments expirés : ${r.expired.length}\n• Top produits vendus : ${r.topProducts.map(p=>p.name+' ('+p.qty+')').join(', ')||'—'}\n\n— AZNAVO SYSTEMS`;
+}
+function ensureDailyReport(force){
+  const today=todayStr();
+  if(!force && DB.dailyReports.find(r=>r.date===today)) return;
+  if(force){ DB.dailyReports = DB.dailyReports.filter(r=>r.date!==today); }
+  const report = buildDailyReport(today);
+  DB.dailyReports.unshift(report);
+  if(DB.dailyReports.length>60) DB.dailyReports.length=60;
+  logNotif({type:'rapport', icon:'🗒️', severity:'info', title:'Rapport quotidien généré', text:`Rapport du ${fmtDate(today)} disponible (CA veille : ${fmt(report.revenueYesterday)}).`});
+  logEmail({category:'Rapport Quotidien', to:DB.settings.alertEmail, subject:'Rapport quotidien — '+fmtDate(today), preview:`CA veille : ${fmt(report.revenueYesterday)} · ${report.lowStock.length} en stock faible · ${report.expired.length} expirés`, body:buildDailyReportEmailBody(report)});
+  saveDB();
+}
+
+/* ---------- Page Alertes & Emails ---------- */
+function renderAlerts(){
+  runAlertScan();
+  document.getElementById('page-content').innerHTML = `
+    <div class="tabs-line">
+      <button class="tab-btn ${alertsTab==='overview'?'active':''}" onclick="switchAlertsTab('overview')">Vue d'ensemble</button>
+      <button class="tab-btn ${alertsTab==='timeline'?'active':''}" onclick="switchAlertsTab('timeline')">Timeline des alertes</button>
+      <button class="tab-btn ${alertsTab==='emails'?'active':''}" onclick="switchAlertsTab('emails')">Emails envoyés</button>
+      <button class="tab-btn ${alertsTab==='orders'?'active':''}" onclick="switchAlertsTab('orders')">Commandes fournisseurs</button>
+      <button class="tab-btn ${alertsTab==='reports'?'active':''}" onclick="switchAlertsTab('reports')">Rapports quotidiens</button>
+    </div>
+    <div id="alerts-tab-zone"></div>
+  `;
+  renderAlertsTab();
+}
+function switchAlertsTab(t){ alertsTab=t; renderAlertsTab(); }
+function renderAlertsTab(){
+  const zone=document.getElementById('alerts-tab-zone'); if(!zone) return;
+  if(alertsTab==='overview') zone.innerHTML=renderAlertsOverview();
+  else if(alertsTab==='timeline') zone.innerHTML=renderAlertsTimeline();
+  else if(alertsTab==='emails') zone.innerHTML=renderEmailsTab();
+  else if(alertsTab==='orders') zone.innerHTML=renderOrdersTab();
+  else if(alertsTab==='reports') zone.innerHTML=renderReportsTab();
+}
+function renderAlertsOverview(){
+  const outOfStock = DB.medicines.filter(m=>m.quantity<=0);
+  const lowStockOnly = DB.medicines.filter(m=>m.quantity>0 && m.quantity<=m.minStock);
+  const today0 = DB.medicines.filter(m=>daysBetween(m.expiryDate)===0);
+  const week7 = DB.medicines.filter(m=>{const d=daysBetween(m.expiryDate); return d>=0&&d<=7;});
+  const toWithdraw = DB.medicines.filter(m=>{const d=daysBetween(m.expiryDate); return d<=7;});
+
+  let html = '';
+  if(outOfStock.length>0){
+    html += `<div class="alert-banner"><span class="ab-ic">🚨</span> ${outOfStock.length} médicament(s) en rupture totale — vente bloquée jusqu'à réapprovisionnement.</div>`;
+  }
+  html += `
+    <div class="grid g-3" style="margin-bottom:16px;">
+      <div class="card premium-card pc-danger stat-card"><div class="s-label"><span>Médicaments en rupture</span><span>🚫</span></div><div class="s-value big" style="color:var(--danger)">${outOfStock.length}</div></div>
+      <div class="card premium-card pc-amber stat-card"><div class="s-label"><span>Stock faible</span><span>📦</span></div><div class="s-value big">${lowStockOnly.length}</div></div>
+      <div class="card premium-card pc-danger stat-card"><div class="s-label"><span>Expirations aujourd'hui</span><span>⛔</span></div><div class="s-value big" style="color:var(--danger)">${today0.length}</div></div>
+      <div class="card premium-card pc-amber stat-card"><div class="s-label"><span>Expirations cette semaine</span><span>⏳</span></div><div class="s-value big">${week7.length}</div></div>
+      <div class="card premium-card pc-blue stat-card"><div class="s-label"><span>Valeur totale du stock</span><span>💎</span></div><div class="s-value big">${fmt(stockValueTotal())}</div></div>
+      <div class="card premium-card pc-danger stat-card"><div class="s-label"><span>Valeur des expirés</span><span>💀</span></div><div class="s-value big" style="color:var(--danger)">${fmt(expiredValueTotal())}</div></div>
+    </div>
+
+    <div class="grid g-2" style="margin-bottom:16px;">
+      <div class="card">
+        <div class="section-head"><h3>🚫 Rupture &amp; stock faible</h3><span class="tag tag-red">${outOfStock.length+lowStockOnly.length}</span></div>
+        ${outOfStock.length===0 && lowStockOnly.length===0 ? `<div class="empty-state" style="padding:24px 10px;"><div class="e-ic">✨</div>Rien à signaler</div>` :
+        [...outOfStock.map(m=>({m,out:true})), ...lowStockOnly.map(m=>({m,out:false}))].map(({m,out})=>`
+          <div class="alert-mini-row">
+            <div><div class="am-name">${m.name} ${out?'<span class="tag tag-red pulse-badge">Rupture</span>':'<span class="tag tag-amber">Faible</span>'}</div>
+            <div class="am-meta">${m.quantity} en stock · seuil ${m.minStock} · ${m.supplier||'—'}</div></div>
+            <button class="btn btn-sm order-btn" onclick="openOrderModal('${m.id}')">🛒 Commander maintenant</button>
+          </div>`).join('')}
+      </div>
+      <div class="card">
+        <div class="section-head"><h3>🗑️ Médicaments à retirer</h3><span class="tag tag-red">${toWithdraw.length}</span></div>
+        ${toWithdraw.length===0 ? `<div class="empty-state" style="padding:24px 10px;"><div class="e-ic">✨</div>Rien à retirer</div>` :
+        toWithdraw.map(m=>{ const d=daysBetween(m.expiryDate); const tier = d<0?'expired':(d<=7?7:d);
+          return `<div class="alert-mini-row">
+            <div><div class="am-name">${m.name} <span class="tag ${tierTagClass(tier)}">${tierLabel(tier)}</span></div>
+            <div class="am-meta">Lot ${m.batchNumber||'—'} · exp. ${fmtDate(m.expiryDate)} · ${m.quantity} unité(s)</div></div>
+            <button class="btn btn-sm btn-danger" onclick="withdrawMedicine('${m.id}')">Retirer du stock</button>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-head"><h3>⏳ Tableau des péremptions par urgence</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>Médicament</th><th>Lot</th><th>Expiration</th><th>Urgence</th><th>Quantité</th></tr></thead><tbody>
+      ${DB.medicines.filter(m=>expiryTierOf(m)!==null).sort((a,b)=>daysBetween(a.expiryDate)-daysBetween(b.expiryDate)).map(m=>{
+        const tier=expiryTierOf(m);
+        return `<tr><td>${m.name}</td><td>${m.batchNumber||'—'}</td><td>${fmtDate(m.expiryDate)}</td><td><span class="tag ${tierTagClass(tier)}">${tierLabel(tier)}</span></td><td>${m.quantity}</td></tr>`;
+      }).join('') || `<tr><td colspan="5"><div class="empty-state">Aucun médicament proche de l'expiration</div></td></tr>`}
+      </tbody></table></div>
+    </div>
+  `;
+  return html;
+}
+function renderAlertsTimeline(){
+  if(DB.notifLog.length===0) return `<div class="card"><div class="empty-state"><div class="e-ic">🔔</div>Aucune alerte dans l'historique</div></div>`;
+  return `<div class="card"><div class="timeline">
+    ${DB.notifLog.slice(0,80).map(n=>`
+      <div class="timeline-item sev-${n.severity}">
+        <div class="t-dot">${n.icon}</div>
+        <div class="t-card">
+          <div class="t-title">${n.title}</div>
+          <div class="t-text">${n.text}</div>
+          <div class="t-time">${fmtDateTime(n.date)}</div>
+        </div>
+      </div>`).join('')}
+  </div></div>`;
+}
+function renderEmailsTab(){
+  return `
+    <div class="section-head"><h3>Historique des emails envoyés (démo)</h3>
+      <button class="btn btn-outline btn-sm" onclick="sendTestEmail()">✉️ Envoyer un email de test</button>
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>Date</th><th>Catégorie</th><th>Destinataire</th><th>Objet</th><th>Aperçu</th></tr></thead><tbody>
+    ${DB.emailLog.length===0 ? `<tr><td colspan="5"><div class="empty-state"><div class="e-ic">📭</div>Aucun email envoyé</div></td></tr>` :
+    DB.emailLog.map(e=>`<tr class="email-row" onclick="viewEmail('${e.id}')">
+      <td>${fmtDateTime(e.date)}</td>
+      <td><span class="badge-cat">${e.category}</span></td>
+      <td>${e.to}</td>
+      <td><strong>${e.subject}</strong></td>
+      <td>${e.preview}</td>
+    </tr>`).join('')}
+    </tbody></table></div>
+  `;
+}
+function viewEmail(id){
+  const e=DB.emailLog.find(x=>x.id===id); if(!e) return;
+  openModal(`
+    <div class="modal-head"><h3>✉️ ${e.subject}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="email-meta-row"><span>À : ${e.to}</span><span>${fmtDateTime(e.date)}</span></div>
+      <div class="email-meta-row"><span class="badge-cat">${e.category}</span></div>
+      <div class="email-preview-box" style="margin-top:10px;">${e.body}</div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal()">Fermer</button></div>
+  `, true);
+}
+function renderOrdersTab(){
+  return `
+    <div class="section-head"><h3>Commandes fournisseurs</h3></div>
+    <div class="table-wrap"><table><thead><tr><th>Réf.</th><th>Date</th><th>Fournisseur</th><th>Produit(s)</th><th>Total</th><th>Statut</th><th></th></tr></thead><tbody>
+    ${DB.purchaseOrders.length===0 ? `<tr><td colspan="7"><div class="empty-state"><div class="e-ic">📦</div>Aucune commande passée</div></td></tr>` :
+    DB.purchaseOrders.map(po=>`<tr>
+      <td><strong>${po.ref}</strong></td>
+      <td>${fmtDateTime(po.date)}</td>
+      <td>${po.supplier}</td>
+      <td>${po.items.map(i=>i.name+' x'+i.qty).join(', ')}</td>
+      <td>${fmt(po.total)}</td>
+      <td><span class="tag ${po.status==='Reçue'?'tag-green':'tag-amber'}">${po.status}</span></td>
+      <td>${po.status!=='Reçue' ? `<button class="btn btn-sm btn-outline" onclick="receivePurchaseOrder('${po.id}')">Marquer reçue</button>` : ''}</td>
+    </tr>`).join('')}
+    </tbody></table></div>
+  `;
+}
+function renderReportsTab(){
+  return `
+    <div class="section-head"><h3>Rapports quotidiens automatiques</h3>
+      <button class="btn btn-outline btn-sm" onclick="ensureDailyReport(true); switchAlertsTab('reports');">🔄 Générer le rapport de démonstration maintenant</button>
+    </div>
+    ${DB.dailyReports.length===0 ? `<div class="card"><div class="empty-state"><div class="e-ic">🗒️</div>Aucun rapport généré</div></div>` :
+    DB.dailyReports.map(r=>`
+      <div class="card" style="margin-bottom:14px;">
+        <div class="section-head"><h3>Rapport du ${fmtDate(r.date)}</h3></div>
+        <div class="detail-grid">
+          <div class="detail-item"><div class="d-label">CA de la veille</div><div class="d-value">${fmt(r.revenueYesterday)}</div></div>
+          <div class="detail-item"><div class="d-label">Ordonnances</div><div class="d-value">${r.prescriptionsCount}</div></div>
+          <div class="detail-item"><div class="d-label">Clients</div><div class="d-value">${r.clientsCount}</div></div>
+          <div class="detail-item"><div class="d-label">Stock faible</div><div class="d-value">${r.lowStock.length}</div></div>
+          <div class="detail-item"><div class="d-label">Ruptures</div><div class="d-value">${r.outOfStock.length}</div></div>
+          <div class="detail-item"><div class="d-label">Expirés</div><div class="d-value">${r.expired.length}</div></div>
+        </div>
+        <p class="hint" style="margin-top:10px;">Top produits vendus : ${r.topProducts.map(p=>p.name+' ('+p.qty+')').join(', ')||'—'}</p>
+      </div>
+    `).join('')}
+  `;
+}
+
+/* ---------------------------------------------------------------------
+   INIT
+--------------------------------------------------------------------- */
+loadDB();
+if(DB.session && DB.users.find(u=>u.id===DB.session.userId)){ enterApp(); }
+</script>
+</body>
+</html>

@@ -373,7 +373,36 @@ demo: 'erp-crm.html.html'}
   demo: 'location.html'
 },
 
-
+,{
+  id: 'pharmacie-demo',
+  badge: 'Demo SaaS',
+  title: 'Pharmacie',
+  summary: "Démo interactive d'un logiciel de gestion pour pharmacies.",
+  desc: "Gestion des ventes, stock, fournisseurs, achats, ordonnances, alertes de stock, facturation et rapports.",
+  features: [
+    'Stock',
+    'Ventes',
+    'Achats',
+    'Fournisseurs',
+    'Ordonnances',
+    'Facturation',
+    'Rapports'
+  ],
+  stack: [
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'Chart.js'
+  ],
+  cover: 'logo.png',
+  gallery: [
+    {
+      src: 'logo.png',
+      label: 'Pharmacie'
+    }
+  ],
+  demo: 'pharmacie.html'
+}
 
 ];
 
