@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -206,6 +207,16 @@ input, select, textarea{font-family:inherit;}
 .kpi-delta.up{color:var(--green);}
 .kpi-delta.down{color:var(--red);}
 
+.quickdoc-bar{display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; background:linear-gradient(120deg, var(--accent-soft), transparent 70%), var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px 22px; margin-bottom:22px; box-shadow:var(--shadow); position:relative; overflow:hidden;}
+.quickdoc-bar::before{content:''; position:absolute; inset:0 0 auto 0; height:1px; background:var(--card-highlight);}
+.quickdoc-label{display:flex; align-items:center; gap:12px;}
+.quickdoc-label svg{width:26px; height:26px; color:var(--accent); flex-shrink:0;}
+.qd-title{font-family:var(--font-display); font-weight:700; font-size:15px;}
+.qd-sub{font-size:12px; color:var(--text-dim); margin-top:2px;}
+.quickdoc-actions{display:flex; gap:10px; flex-wrap:wrap;}
+.quickdoc-btn{background:var(--bg-2); border-color:var(--border-strong); font-weight:700;}
+.quickdoc-btn:hover{border-color:var(--accent); color:var(--accent);}
+
 .charts-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:18px; margin-bottom:22px;}
 .charts-grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:22px;}
 .chart-box{position:relative; height:260px;}
@@ -291,6 +302,68 @@ tbody tr:last-child td{border-bottom:none;}
 .task-title.done{text-decoration:line-through; color:var(--text-faint);}
 .task-meta{font-size:11px; color:var(--text-faint); font-family:var(--font-mono); white-space:nowrap;}
 
+.agenda-legend{display:flex; gap:18px; margin-bottom:16px; flex-wrap:wrap;}
+.leg-item{display:flex; align-items:center; gap:7px; font-size:12px; color:var(--text-dim); font-weight:500;}
+.leg-dot{width:9px; height:9px; border-radius:50%; flex-shrink:0;}
+.calendar-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden;}
+.cal-dow{background:var(--surface-2); padding:9px 6px; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-faint); text-align:center;}
+.cal-cell{background:var(--bg-2); min-height:94px; padding:7px; display:flex; flex-direction:column; gap:4px;}
+.cal-cell.out{background:var(--surface-2); opacity:.45;}
+.cal-cell.today{box-shadow:inset 0 0 0 2px var(--accent);}
+.cal-daynum{font-family:var(--font-mono); font-size:11px; color:var(--text-faint); font-weight:600;}
+.cal-cell.today .cal-daynum{color:var(--accent);}
+.cal-evt{font-size:10px; padding:2px 6px; border-radius:5px; color:#fff; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; cursor:default;}
+
+.court-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px;}
+.court-card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px; box-shadow:var(--shadow); position:relative; overflow:hidden;}
+.court-card::before{content:''; position:absolute; inset:0 0 auto 0; height:1px; background:var(--card-highlight);}
+.court-icon{width:36px; height:36px; border-radius:10px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center; margin-bottom:12px;}
+.court-icon svg{width:18px; height:18px;}
+.court-name{font-family:var(--font-display); font-weight:700; font-size:14.5px; margin-bottom:6px; line-height:1.35;}
+.court-meta{font-size:12px; color:var(--text-dim); line-height:1.7;}
+.court-meta b{color:var(--text);}
+.court-foot{display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:12px; border-top:1px solid var(--border);}
+
+.alerts-list{display:flex; flex-direction:column; gap:10px; max-height:520px; overflow-y:auto;}
+.alert-item{display:flex; gap:12px; padding:12px 13px; border-radius:11px; background:var(--surface-2); border:1px solid var(--border); align-items:flex-start;}
+.alert-ico{width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#fff;}
+.alert-ico svg{width:15px; height:15px;}
+.alert-title{font-size:12.5px; font-weight:700;}
+.alert-text{font-size:11.5px; color:var(--text-dim); margin-top:2px;}
+.alert-empty{padding:24px; text-align:center; color:var(--text-faint); font-size:12.5px;}
+
+.toggle-list{display:flex; flex-direction:column; gap:2px;}
+.toggle-row{display:flex; align-items:center; justify-content:space-between; padding:11px 2px; border-bottom:1px solid var(--border); gap:14px;}
+.toggle-row:last-child{border:none;}
+.tr-title{font-size:12.5px; font-weight:600;}
+.tr-sub{font-size:11px; color:var(--text-faint); margin-top:2px;}
+.switch{position:relative; width:38px; height:22px; flex-shrink:0; border-radius:20px; background:var(--border-strong); cursor:pointer; transition:background .2s;}
+.switch.on{background:var(--accent);}
+.switch::after{content:''; position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%; background:#fff; transition:transform .2s; box-shadow:0 2px 4px rgba(0,0,0,0.25);}
+.switch.on::after{transform:translateX(16px);}
+.email-log{display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto;}
+.log-item{display:flex; gap:10px; align-items:flex-start; font-size:11.5px; padding:9px 10px; border-radius:9px; background:var(--surface-2); border:1px solid var(--border);}
+.log-item .log-dot{width:6px; height:6px; border-radius:50%; background:var(--green); margin-top:5px; flex-shrink:0;}
+.log-item .log-to{color:var(--text-faint); font-family:var(--font-mono); font-size:10.5px;}
+.report-textarea{width:100%; min-height:100px; background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:11px 13px; color:var(--text); font-size:13px; outline:none; resize:vertical;}
+.report-textarea:focus{border-color:var(--accent);}
+
+.search-results{position:absolute; top:calc(100% + 8px); left:0; right:0; background:var(--bg-2); border:1px solid var(--border); border-radius:14px; box-shadow:0 24px 60px -20px rgba(26,33,56,0.35); z-index:60; max-height:420px; overflow-y:auto; display:none;}
+.search-results.show{display:block;}
+.sr-group{padding:8px 0;}
+.sr-group:not(:last-child){border-bottom:1px solid var(--border);}
+.sr-label{font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--text-faint); font-weight:700; padding:4px 16px;}
+.sr-item{display:flex; align-items:center; gap:10px; padding:9px 16px; font-size:12.5px; cursor:pointer;}
+.sr-item:hover{background:var(--surface-2);}
+.sr-item .sr-main{font-weight:600;}
+.sr-item .sr-sub{color:var(--text-faint); font-size:11px; margin-left:auto; font-family:var(--font-mono);}
+.sr-empty{padding:20px 16px; color:var(--text-faint); font-size:12.5px; text-align:center;}
+.notif-dropdown{position:absolute; top:calc(100% + 10px); right:0; width:340px; background:var(--bg-2); border:1px solid var(--border); border-radius:14px; box-shadow:0 24px 60px -20px rgba(26,33,56,0.35); z-index:120; opacity:0; pointer-events:none; transform:translateY(-6px); transition:all .18s;}
+.notif-dropdown.show{opacity:1; pointer-events:auto; transform:translateY(0);}
+.notif-dropdown-head{padding:12px 16px; border-bottom:1px solid var(--border); font-size:12.5px; font-weight:700; display:flex; justify-content:space-between; align-items:center;}
+.notif-dropdown-head a{font-size:11px; color:var(--accent); font-weight:600;}
+.notif-dropdown-list{max-height:340px; overflow-y:auto; padding:8px;}
+
 .modal-overlay{position:fixed; inset:0; background:rgba(20,26,42,0.55); backdrop-filter:blur(6px); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; opacity:0; pointer-events:none; transition:opacity .25s;}
 .modal-overlay.active{opacity:1; pointer-events:auto;}
 .modal{width:100%; max-width:480px; background:var(--bg-2); border:1px solid var(--border-strong); border-radius:18px; padding:26px; box-shadow:0 30px 80px -20px rgba(20,26,42,0.4); transform:translateY(20px) scale(.97); transition:transform .3s cubic-bezier(.16,1,.3,1); max-height:88vh; overflow-y:auto;}
@@ -371,12 +444,15 @@ tbody tr:last-child td{border-bottom:none;}
       <a class="nav-item" data-page="dossiers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>Dossiers<span class="nav-badge">6</span></a>
       <a class="nav-item" data-page="clients"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Clients</a>
       <a class="nav-item" data-page="audiences"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Audiences</a>
+      <a class="nav-item" data-page="agenda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/><path d="M8 15h2M12 15h2M16 15h.01M8 18h2"/></svg>Agenda</a>
+      <a class="nav-item" data-page="tribunaux"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/></svg>Tribunaux</a>
       <a class="nav-item" data-page="documents"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M9 12h6M9 16h6M9 8h3"/></svg>Documents</a>
       <div class="nav-section-label">Gestion</div>
       <a class="nav-item" data-page="honoraires"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Honoraires</a>
       <a class="nav-item" data-page="taches"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Tâches</a>
       <a class="nav-item" data-page="avocats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>Avocats</a>
       <div class="nav-section-label">Système</div>
+      <a class="nav-item" data-page="notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>Notifications<span class="nav-badge" id="navAlertBadge">0</span></a>
       <a class="nav-item" data-page="rapports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>Rapports</a>
       <a class="nav-item" data-page="parametres"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>Paramètres</a>
     </nav>
@@ -394,10 +470,20 @@ tbody tr:last-child td{border-bottom:none;}
     <div class="topbar">
       <button class="hamburger" id="hamburgerBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="page-title-mobile" id="pageTitleMobile">Tableau de bord</div>
-      <div class="searchbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input type="text" placeholder="Rechercher un dossier, un client, une audience..."><kbd>⌘K</kbd></div>
+      <div class="searchbar" style="position:relative;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="globalSearch" placeholder="Rechercher un dossier, un client, une audience..." oninput="runGlobalSearch(this.value)" onfocus="if(this.value) runGlobalSearch(this.value)"><kbd>⌘K</kbd>
+        <div class="search-results" id="searchResults"></div>
+      </div>
       <div class="topbar-actions">
         <div class="status-pill"><span class="status-dot"></span>Délais à jour</div>
-        <button class="icon-btn" title="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="dot"></span></button>
+        <div style="position:relative;">
+          <button class="icon-btn" title="Notifications" onclick="toggleNotifDropdown()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="dot" id="topbarAlertDot"></span></button>
+          <div class="notif-dropdown" id="notifDropdown">
+            <div class="notif-dropdown-head"><span>Notifications</span><a onclick="goToPage('notifications')">Tout voir</a></div>
+            <div class="notif-dropdown-list" id="notifDropdownList"></div>
+          </div>
+        </div>
         <button class="icon-btn" title="Messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
         <div class="avatar" style="cursor:pointer">KB</div>
       </div>
@@ -410,6 +496,15 @@ tbody tr:last-child td{border-bottom:none;}
         <div class="page-head">
           <div><h1>Tableau de bord</h1><p>Vue d'ensemble du cabinet — mise à jour il y a 6 minutes</p></div>
           <div class="page-actions"><button class="btn ghost sm">Cette semaine</button><button class="btn accent sm" onclick="openModal('modalCase')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Nouveau dossier</button></div>
+        </div>
+
+        <div class="quickdoc-bar">
+          <div class="quickdoc-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M9 13h6M9 17h4M9 9h1"/></svg><div><div class="qd-title">Génération instantanée de documents</div><div class="qd-sub">Un dossier rempli, un PDF prêt à signer</div></div></div>
+          <div class="quickdoc-actions">
+            <button class="btn quickdoc-btn" onclick="openGenDoc('convention')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M9 13h6M9 17h4"/></svg>Convention d'honoraires</button>
+            <button class="btn quickdoc-btn" onclick="openGenDoc('procuration')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M6 21v-2a6 6 0 0 1 12 0v2"/></svg>Procuration</button>
+            <button class="btn quickdoc-btn" onclick="openGenDoc('facture')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Facture</button>
+          </div>
         </div>
 
         <div class="kpi-grid">
@@ -471,9 +566,51 @@ tbody tr:last-child td{border-bottom:none;}
           <div class="page-actions"><button class="btn accent" onclick="openModal('modalHearing')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Nouvelle audience</button></div>
         </div>
         <div class="card"><div class="table-wrap"><table>
-          <thead><tr><th>Date</th><th>Heure</th><th>Dossier</th><th>Tribunal</th><th>Type</th><th>Avocat</th><th>Statut</th></tr></thead>
+          <thead><tr><th>Date</th><th>Heure</th><th>Dossier</th><th>Tribunal</th><th>Salle</th><th>Juge</th><th>Partie adverse</th><th>Résultat</th><th>Statut</th><th></th></tr></thead>
           <tbody id="hearingsTableBody"></tbody>
         </table></div></div>
+      </section>
+
+      <!-- AGENDA -->
+      <section class="page" id="page-agenda">
+        <div class="page-head"><div><h1>Agenda</h1><p>Calendrier professionnel — audiences, rendez-vous et échéances</p></div>
+          <div class="page-actions">
+            <button class="btn sm" onclick="calendarShift(-1)">←</button>
+            <button class="btn sm" id="calendarLabel" onclick="calendarToday()" style="min-width:150px;justify-content:center;"></button>
+            <button class="btn sm" onclick="calendarShift(1)">→</button>
+          </div>
+        </div>
+        <div class="agenda-legend">
+          <span class="leg-item"><span class="leg-dot" style="background:var(--accent-2)"></span>Audience</span>
+          <span class="leg-item"><span class="leg-dot" style="background:var(--green)"></span>Rendez-vous</span>
+          <span class="leg-item"><span class="leg-dot" style="background:var(--red)"></span>Échéance</span>
+        </div>
+        <div class="card"><div class="calendar-grid" id="calendarGrid"></div></div>
+      </section>
+
+      <!-- TRIBUNAUX -->
+      <section class="page" id="page-tribunaux">
+        <div class="page-head"><div><h1>Tribunaux</h1><p>Base de données des juridictions suivies par le cabinet</p></div>
+          <div class="page-actions"><button class="btn accent" onclick="openModal('modalCourt')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Ajouter un tribunal</button></div>
+        </div>
+        <div class="court-grid" id="courtsGrid"></div>
+      </section>
+
+      <!-- NOTIFICATIONS & E-MAILS -->
+      <section class="page" id="page-notifications">
+        <div class="page-head"><div><h1>Notifications &amp; E-mails</h1><p>Alertes intelligentes et rappels automatiques du cabinet</p></div></div>
+        <div class="profile-grid">
+          <div class="card"><div class="card-head"><div><h3>Alertes en cours</h3><div class="sub" id="alertCountSub">—</div></div></div>
+            <div id="alertsList" class="alerts-list"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3>Rappels automatiques par e-mail</h3></div>
+            <div class="toggle-list" id="emailToggleList"></div>
+            <div style="height:16px"></div>
+            <div class="card-head" style="margin-bottom:10px;"><h3 style="font-size:13px">Journal des e-mails envoyés (simulation)</h3></div>
+            <div class="email-log" id="emailLog"></div>
+          </div>
+        </div>
       </section>
 
       <!-- DOCUMENTS -->
@@ -592,7 +729,11 @@ tbody tr:last-child td{border-bottom:none;}
         <div style="height:18px"></div>
         <div class="timeline" id="cpTimeline"></div>
       </div>
-      <div class="card"><div class="card-head"><h3>Résumé</h3></div><div class="stat-list" id="cpStats"></div></div>
+      <div style="display:flex; flex-direction:column; gap:18px;">
+        <div class="card"><div class="card-head"><h3>Résumé</h3></div><div class="stat-list" id="cpStats"></div></div>
+        <div class="card"><div class="card-head"><h3>Documents scannés</h3></div><div class="stat-list" id="cpDocs"></div></div>
+        <div class="card"><div class="card-head"><h3>Historique des paiements</h3></div><div class="stat-list" id="cpPayments"></div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -635,8 +776,53 @@ tbody tr:last-child td{border-bottom:none;}
       <div class="field"><label>Heure</label><input type="time" value="09:30"></div>
       <div class="field"><label>Tribunal</label><input type="text" placeholder="Tribunal de première instance de Tunis"></div>
       <div class="field"><label>Type d'audience</label><input type="text" placeholder="Plaidoirie, mise en état..."></div>
+      <div class="field"><label>Salle</label><input type="text" placeholder="Salle 3"></div>
+      <div class="field"><label>Juge</label><input type="text" placeholder="Mme/M. le juge..."></div>
+      <div class="field full"><label>Partie adverse</label><input type="text" placeholder="ex : Société XYZ"></div>
     </div>
     <div class="modal-foot"><button class="btn" onclick="closeModal('modalHearing')">Annuler</button><button class="btn accent" onclick="submitHearing()">Planifier l'audience</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalReport">
+  <div class="modal">
+    <div class="modal-head"><h3>Compte rendu d'audience</h3><button class="modal-close" onclick="closeModal('modalReport')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="form-grid">
+      <div class="field full"><label id="reportHearingLabel">Dossier</label><textarea id="reportText" class="report-textarea" placeholder="Résumé de l'audience, décisions prises, prochaines étapes..."></textarea></div>
+      <div class="field"><label>Résultat de l'audience</label>
+        <select class="filter-select" id="reportResult" style="width:100%;padding:12px 13px;">
+          <option>Renvoi</option><option>Plaidoirie entendue</option><option>Jugement rendu</option><option>Délibéré</option><option>Non comparution partie adverse</option>
+        </select>
+      </div>
+      <div class="field"><label>Joindre un document</label><input type="file" id="reportFile"></div>
+    </div>
+    <div class="modal-foot"><button class="btn" onclick="closeModal('modalReport')">Annuler</button><button class="btn accent" onclick="submitReport()">Enregistrer le compte rendu</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalCourt">
+  <div class="modal">
+    <div class="modal-head"><h3>Nouveau tribunal</h3><button class="modal-close" onclick="closeModal('modalCourt')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="form-grid">
+      <div class="field full"><label>Nom du tribunal</label><input type="text" placeholder="ex : Tribunal de première instance de Nabeul"></div>
+      <div class="field"><label>Ville</label><input type="text" placeholder="Nabeul"></div>
+      <div class="field"><label>Type de juridiction</label><input type="text" placeholder="Première instance, Cour d'appel..."></div>
+      <div class="field full"><label>Adresse</label><input type="text" placeholder="Avenue Habib Bourguiba, Nabeul"></div>
+      <div class="field"><label>Salle(s)</label><input type="text" placeholder="Salle 1, Salle 2..."></div>
+    </div>
+    <div class="modal-foot"><button class="btn" onclick="closeModal('modalCourt')">Annuler</button><button class="btn accent" onclick="submitCourt()">Ajouter le tribunal</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalGenDoc">
+  <div class="modal">
+    <div class="modal-head"><h3 id="genDocTitle">Générer un document</h3><button class="modal-close" onclick="closeModal('modalGenDoc')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="form-grid">
+      <div class="field full"><label>Client concerné</label><select class="filter-select" id="genDocClient" style="width:100%;padding:12px 13px;"></select></div>
+      <div class="field full"><label>Dossier lié (optionnel)</label><select class="filter-select" id="genDocCase" style="width:100%;padding:12px 13px;"></select></div>
+      <div class="field" id="genDocAmountWrap"><label>Montant HT (TND)</label><input type="number" id="genDocAmount" placeholder="0.00" value="3500"></div>
+    </div>
+    <div class="modal-foot"><button class="btn" onclick="closeModal('modalGenDoc')">Annuler</button><button class="btn accent" onclick="confirmGenDoc()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>Générer le PDF</button></div>
   </div>
 </div>
 
@@ -649,6 +835,20 @@ const caseTypes = ['Droit civil','Droit pénal','Droit commercial','Droit de la 
 const courts = ['Tribunal de première instance de Tunis','Tribunal de première instance de Sousse','Tribunal de première instance de Sfax','Cour d\'appel de Tunis','Cour d\'appel de Sousse'];
 const lawyerNames = ['Me. Karim Belhadj','Me. Sonia Meddeb','Me. Walid Cherni','Me. Ines Dhaouadi','Me. Adel Ferjani'];
 
+const TODAY = new Date(2026,6,4); // 04 juillet 2026
+const FR_MONTHS = {janv:0,fevr:1,mars:2,avr:3,mai:4,juin:5,juil:6,aout:7,sept:8,oct:9,nov:10,dec:11};
+function stripAccents(s){ return s.normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function parseFrDate(str){
+  if(!str || str==='—') return null;
+  const parts = stripAccents(str.replace(/\./g,'')).toLowerCase().split(' ').filter(Boolean);
+  if(parts.length<2) return null;
+  const day = parseInt(parts[0]); const year = parts[2]?parseInt(parts[2]):2026;
+  const key = Object.keys(FR_MONTHS).find(k=>parts[1].startsWith(k));
+  if(key===undefined || isNaN(day)) return null;
+  return new Date(year, FR_MONTHS[key], day);
+}
+function sameDay(a,b){ return a && b && a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
+function diffDays(str){ const d=parseFrDate(str); if(!d) return null; return Math.round((d-TODAY)/86400000); }
 function seededRand(seed){ let x = Math.sin(seed)*10000; return x - Math.floor(x); }
 function pick(arr,seed){ return arr[Math.floor(seededRand(seed)*arr.length)]; }
 function initials(name){ return name.replace('Me. ','').split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
@@ -661,14 +861,19 @@ const clientNames = clientNamesPeople.concat(clientNamesCompanies);
 
 let clients = clientNames.map((name,i)=>{
   const isCompany = clientNamesCompanies.includes(name);
+  const city = pick(cities, i*3.1);
   return {
     id:'CL'+(1000+i), name,
     type: isCompany?'Entreprise':'Particulier',
-    city: pick(cities, i*3.1),
+    city,
     activeCases: 1+Math.floor(seededRand(i*4.4)*4),
     lastContact: ['02 juil. 2026','28 juin 2026','15 juin 2026','30 mai 2026','21 juin 2026','01 juil. 2026'][i%6],
     email: name.toLowerCase().replace(/[^a-z]+/g,'.')+'@client.tn',
-    phone: '+216 '+(70+i%9)+' '+(100+i*7)%900+' '+(100+i*13)%900
+    phone: '+216 '+(70+i%9)+' '+(100+i*7)%900+' '+(100+i*13)%900,
+    cin: isCompany? null : '0'+(8000000+i*93117),
+    matriculeFiscal: isCompany? (100000+i*777)+'X/A/M/000' : null,
+    passport: isCompany? null : 'T'+(100000+i*511),
+    address: (10+i)+' Rue '+pick(['de Marseille','Ibn Khaldoun','de la Liberté','Charles de Gaulle','Mongi Slim'], i*7.2)+', '+city
   };
 });
 
@@ -683,10 +888,36 @@ let cases = clientNames.map((name,i)=>({
   nextHearing: ['08 juil. 2026','12 juil. 2026','15 juil. 2026','—','22 juil. 2026','—'][i%6]
 })).slice(0,20);
 
+const judgeNames = ['Mme la Présidente Aïda Karray','M. le Juge Nabil Ferchichi','Mme la Juge Rania Sassi','M. le Juge Hichem Bouazizi','Mme la Juge Amel Dridi'];
+const opposingParties = ['Société Delta Trading','M. Anis Werghi','SOTRAPIL SA','Mme Leila Ounissi','Groupe Meddeb Frères','Banque Zitouna','M. Rachid Ayari'];
+const hearingResults = ['Renvoi','Plaidoirie entendue','Délibéré','Non-comparution de la partie adverse'];
+
 let hearings = cases.filter(c=>c.nextHearing!=='—').map((c,i)=>({
   date:c.nextHearing, time:['09:00','09:30','10:15','11:00','14:00'][i%5],
   case:c.num, court:c.court, type: pick(['Plaidoirie','Mise en état','Délibéré'], i*2.2),
-  lawyer:c.lawyer, status: pick(['Confirmée','À confirmer'], i*1.1)
+  lawyer:c.lawyer, status: pick(['Confirmée','À confirmer'], i*1.1),
+  room: 'Salle '+(1+(i%6)),
+  judge: pick(judgeNames, i*4.1),
+  opposing: pick(opposingParties, i*3.7),
+  result: i%3===0 ? pick(hearingResults, i*2.9) : '',
+  hasReport: i%3===0
+}));
+
+let courtDetails = courts.map((name,i)=>{
+  const city = name.includes('Sousse')?'Sousse':name.includes('Sfax')?'Sfax':'Tunis';
+  return {
+    name, city,
+    type: name.includes("Cour d'appel")?"Cour d'appel":'Première instance',
+    address: pick(['Avenue Habib Bourguiba','Rue de Rome','Rue du 2 Mars 1934','Avenue de la République'], i*3.3)+', '+city,
+    rooms: 'Salles 1 à '+(3+i),
+  };
+});
+
+let appointments = clients.slice(0,7).map((c,i)=>({
+  date: ['04 juil. 2026','07 juil. 2026','10 juil. 2026','15 juil. 2026','18 juil. 2026','22 juil. 2026','28 juil. 2026'][i],
+  time: ['10:00','11:30','14:00','09:00','15:30','16:00','10:45'][i],
+  client: c.name,
+  subject: pick(['Point d\'avancement','Signature de convention','Remise de pièces','Consultation initiale','Préparation audience'], i*2.5)
 }));
 
 let documents = cases.slice(0,14).map((c,i)=>({
@@ -768,6 +999,7 @@ function initApp(){
   if(appInitialized) return; appInitialized=true;
   renderCases(); renderClients(); renderHearings(); renderDocuments(); renderInvoices(); renderPayments();
   renderLawyers(); renderTasks(); renderDashboardActivity(); buildCharts();
+  renderCourts(); buildCalendar(); renderAlertsUI(); renderEmailToggles(); renderEmailLog();
 }
 
 document.querySelectorAll('.nav-item').forEach(item=>{
@@ -858,9 +1090,18 @@ function openClientProfile(id){
   document.getElementById('cpStats').innerHTML = `
     <div class="s-row"><span>Email</span><span>${c.email}</span></div>
     <div class="s-row"><span>Téléphone</span><span class="mono">${c.phone}</span></div>
+    <div class="s-row"><span>Adresse</span><span>${c.address}</span></div>
+    ${c.cin?`<div class="s-row"><span>CIN</span><span class="mono">${c.cin}</span></div>`:''}
+    ${c.passport?`<div class="s-row"><span>Passeport</span><span class="mono">${c.passport}</span></div>`:''}
+    ${c.matriculeFiscal?`<div class="s-row"><span>Matricule fiscal</span><span class="mono">${c.matriculeFiscal}</span></div>`:''}
     <div class="s-row"><span>Dossiers actifs</span><span>${c.activeCases}</span></div>
     <div class="s-row"><span>Client depuis</span><span>2023</span></div>
     <div class="s-row"><span>Dernier contact</span><span>${c.lastContact}</span></div>`;
+  const cCaseNums = cases.filter(cs=>cs.client===c.name).map(cs=>cs.num);
+  const cDocs = documents.filter(d=>cCaseNums.includes(d.case));
+  const cPays = payments.filter(p=>p.client===c.name);
+  document.getElementById('cpDocs').innerHTML = cDocs.length? cDocs.map(d=>`<div class="s-row"><span>📄 ${d.name}</span><span class="mono">${d.date}</span></div>`).join('') : '<div class="alert-empty">Aucun document scanné pour ce client.</div>';
+  document.getElementById('cpPayments').innerHTML = cPays.length? cPays.map(p=>`<div class="s-row"><span>${p.ref} · ${p.method}</span><span class="mono">${p.amount.toLocaleString('fr-FR')} TND</span></div>`).join('') : '<div class="alert-empty">Aucun paiement enregistré.</div>';
   const events = [
     {icon:'note', title:'Consultation initiale', text:'Premier entretien concernant le dossier en cours.', time:c.lastContact},
     {icon:'invoice', title:'Facture d\'honoraires envoyée', text:'Facture émise pour les diligences réalisées.', time:'20 juin 2026'},
@@ -883,12 +1124,39 @@ function backToClients(){ document.getElementById('page-clientProfile').style.di
 function addNote(){ showToast('Note ajoutée au dossier client'); }
 
 /* ================= RENDER: HEARINGS / DOCUMENTS ================= */
+let currentReportIndex=0;
 function renderHearings(){
-  document.getElementById('hearingsTableBody').innerHTML = hearings.map(h=>{
+  document.getElementById('hearingsTableBody').innerHTML = hearings.map((h,i)=>{
     const cls = h.status==='Confirmée'?'green':'amber';
-    return `<tr><td class="mono cell-main">${h.date}</td><td class="mono">${h.time}</td><td class="mono">${h.case}</td><td style="font-size:12px">${h.court}</td><td>${h.type}</td><td>${h.lawyer}</td><td><span class="badge ${cls}">${h.status}</span></td></tr>`;
+    return `<tr><td class="mono cell-main">${h.date}</td><td class="mono">${h.time}</td><td class="mono">${h.case}</td><td style="font-size:12px">${h.court}</td><td>${h.room}</td><td style="font-size:12px">${h.judge}</td><td style="font-size:12px">${h.opposing}</td><td>${h.result?`<span class="badge blue">${h.result}</span>`:'<span class="badge gray">—</span>'}</td><td><span class="badge ${cls}">${h.status}</span></td><td><div class="row-actions"><button title="Compte rendu d'audience" onclick="openReportModal(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button></div></td></tr>`;
   }).join('');
 }
+function openReportModal(i){
+  currentReportIndex=i; const h=hearings[i];
+  document.getElementById('reportHearingLabel').textContent = 'Compte rendu — Audience '+h.case+' ('+h.date+')';
+  document.getElementById('reportText').value='';
+  document.getElementById('reportResult').value = h.result || 'Renvoi';
+  openModal('modalReport');
+}
+function submitReport(){
+  const h = hearings[currentReportIndex];
+  h.result = document.getElementById('reportResult').value;
+  h.hasReport = true;
+  closeModal('modalReport');
+  renderHearings();
+  renderAlertsUI();
+  showToast('Compte rendu enregistré pour l\'audience '+h.case);
+}
+function renderCourts(){
+  document.getElementById('courtsGrid').innerHTML = courtDetails.map(ct=>`
+    <div class="court-card">
+      <div class="court-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/></svg></div>
+      <div class="court-name">${ct.name}</div>
+      <div class="court-meta"><b>${ct.city}</b> · ${ct.type}<br>${ct.address}<br>${ct.rooms}</div>
+      <div class="court-foot"><span class="badge blue">${cases.filter(c=>c.court===ct.name).length} dossier(s) en cours</span></div>
+    </div>`).join('');
+}
+function submitCourt(){ closeModal('modalCourt'); showToast('Tribunal ajouté à la base de données'); }
 function renderDocuments(){
   document.getElementById('documentsTableBody').innerHTML = documents.map(d=>`
     <tr><td class="cell-main">${d.name}</td><td class="mono">${d.case}</td><td><span class="badge gray">${d.type}</span></td><td>${d.date}</td><td class="mono">${d.size}</td>
@@ -928,7 +1196,7 @@ function renderTasks(){
       <div class="task-meta">${t.due}</div>
     </div>`).join('');
 }
-function toggleTask(i){ tasks[i].done=!tasks[i].done; renderTasks(); refreshCharts(); }
+function toggleTask(i){ tasks[i].done=!tasks[i].done; renderTasks(); refreshCharts(); renderAlertsUI(); renderEmailLog(); }
 
 function renderDashboardActivity(){
   const events = [
@@ -992,6 +1260,249 @@ function buildCharts(){
   });
 }
 function refreshCharts(){ Object.values(chartRefs).forEach(c=>c.destroy()); buildCharts(); }
+
+/* ================= NOTIFICATIONS & ALERTS ENGINE ================= */
+function alertIcon(key){
+  const icons={
+    court:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+    clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+    doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M9 13h6M9 17h4"/></svg>',
+    invoice:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+    urgent:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>'
+  };
+  return icons[key]||icons.doc;
+}
+function computeAlerts(){
+  const alerts=[];
+  hearings.forEach(h=>{
+    const dd=diffDays(h.date);
+    if(dd===0) alerts.push({icon:'court', color:'var(--accent-2)', title:'Audience aujourd\'hui — '+h.case, text:h.court+' · '+h.room+' · '+h.time, sortKey:0});
+    else if(dd===1) alerts.push({icon:'court', color:'var(--accent)', title:'Audience demain — '+h.case, text:h.court+' · '+h.room+' · '+h.time, sortKey:1});
+  });
+  tasks.forEach(t=>{
+    if(/délai de recours/i.test(t.title) && !t.done) alerts.push({icon:'clock', color:'var(--red)', title:'Délai de recours proche', text:t.title+' — échéance '+t.due, sortKey:2});
+  });
+  const caseNumsWithDocs = new Set(documents.map(d=>d.case));
+  cases.filter(c=>!caseNumsWithDocs.has(c.num) && c.status!=='Clôturé').slice(0,4).forEach(c=>{
+    alerts.push({icon:'doc', color:'var(--amber)', title:'Document manquant', text:'Dossier '+c.num+' — '+c.client, sortKey:3});
+  });
+  invoices.filter(inv=>inv.status==='En retard').forEach(inv=>{
+    alerts.push({icon:'invoice', color:'var(--red)', title:'Facture impayée', text:inv.num+' — '+inv.client+' · '+inv.amount.toLocaleString('fr-FR')+' TND', sortKey:4});
+  });
+  cases.filter(c=>c.status==='Plaidoirie').slice(0,3).forEach(c=>{
+    alerts.push({icon:'urgent', color:'var(--red)', title:'Dossier urgent', text:c.num+' ('+c.client+') — plaidoirie imminente', sortKey:5});
+  });
+  return alerts.sort((a,b)=>a.sortKey-b.sortKey);
+}
+function alertItemHTML(a){ return `<div class="alert-item"><div class="alert-ico" style="background:${a.color}">${alertIcon(a.icon)}</div><div><div class="alert-title">${a.title}</div><div class="alert-text">${a.text}</div></div></div>`; }
+function renderAlertsUI(){
+  const alerts = computeAlerts();
+  const listEl=document.getElementById('alertsList');
+  if(listEl) listEl.innerHTML = alerts.length? alerts.map(alertItemHTML).join('') : '<div class="alert-empty">Aucune alerte active — tout est à jour.</div>';
+  const ddEl=document.getElementById('notifDropdownList');
+  if(ddEl) ddEl.innerHTML = alerts.length? alerts.slice(0,6).map(alertItemHTML).join('') : '<div class="alert-empty">Aucune alerte.</div>';
+  const sub=document.getElementById('alertCountSub'); if(sub) sub.textContent = alerts.length+' alerte(s) nécessitant votre attention';
+  const navBadge=document.getElementById('navAlertBadge'); if(navBadge) navBadge.textContent = alerts.length;
+  const dot=document.getElementById('topbarAlertDot'); if(dot) dot.style.display = alerts.length? 'block':'none';
+}
+function toggleNotifDropdown(){ document.getElementById('notifDropdown').classList.toggle('show'); }
+function goToPage(id){ const item=document.querySelector('.nav-item[data-page="'+id+'"]'); if(item) item.click(); document.getElementById('notifDropdown').classList.remove('show'); }
+
+/* ================= EMAIL REMINDER SETTINGS ================= */
+let emailSettings = [
+  {key:'d7', title:"E-mail 7 jours avant l'audience", sub:'Envoyé automatiquement au client concerné', on:true},
+  {key:'d3', title:"E-mail 3 jours avant l'audience", sub:'Rappel de préparation du dossier', on:true},
+  {key:'h24', title:"E-mail 24 heures avant l'audience", sub:'Dernier rappel avant comparution', on:true},
+  {key:'lateInvoice', title:'Rappel de paiement en retard', sub:'Relance automatique des factures impayées', on:true},
+  {key:'deadline', title:'Rappel des échéances importantes', sub:'Délais de recours et dates limites', on:true},
+  {key:'newDoc', title:'Notification nouveau document', sub:"Alerte lors de l'ajout d'une pièce au dossier", on:false},
+  {key:'paymentReceived', title:'Confirmation de paiement reçu', sub:'Accusé de réception envoyé au client', on:true},
+];
+function renderEmailToggles(){
+  document.getElementById('emailToggleList').innerHTML = emailSettings.map((s,i)=>`
+    <div class="toggle-row"><div><div class="tr-title">${s.title}</div><div class="tr-sub">${s.sub}</div></div><div class="switch ${s.on?'on':''}" onclick="toggleEmailSetting(${i})"></div></div>`).join('');
+}
+function toggleEmailSetting(i){
+  emailSettings[i].on = !emailSettings[i].on;
+  renderEmailToggles();
+  renderEmailLog();
+  showToast((emailSettings[i].on?'Rappel activé : ':'Rappel désactivé : ')+emailSettings[i].title);
+}
+function buildEmailLog(){
+  const log=[];
+  const setting = k=>emailSettings.find(s=>s.key===k)?.on;
+  hearings.slice(0,5).forEach(h=>{
+    const cs = cases.find(c=>c.num===h.case);
+    const c = cs && clients.find(cl=>cl.name===cs.client);
+    const email = c?c.email:'client@aznavo-demo.tn';
+    const dd = diffDays(h.date);
+    if(setting('d7') && dd!==null && dd<=7 && dd>=0) log.push({title:"Rappel 7 jours — Audience "+h.case, to:email, time: dd<=7? 'Programmé':'—'});
+    if(setting('d3') && dd!==null && dd<=3 && dd>=0) log.push({title:"Rappel 3 jours — Audience "+h.case, to:email, time:'Programmé'});
+    if(setting('h24') && dd===0) log.push({title:"Rappel 24h — Audience "+h.case, to:email, time:'Envoyé aujourd\'hui'});
+  });
+  if(setting('lateInvoice')) invoices.filter(inv=>inv.status==='En retard').forEach(inv=>{
+    const c = clients.find(cl=>cl.name===inv.client);
+    log.push({title:'Relance facture '+inv.num, to:c?c.email:'client@aznavo-demo.tn', time:'Envoyé aujourd\'hui'});
+  });
+  if(setting('deadline')) tasks.filter(t=>/délai de recours/i.test(t.title) && !t.done).forEach(t=>{
+    log.push({title:'Rappel échéance — '+t.title, to:'equipe@aznavo-demo.tn', time:'Programmé'});
+  });
+  if(setting('paymentReceived')) payments.slice(0,3).forEach(p=>{
+    const c = clients.find(cl=>cl.name===p.client);
+    log.push({title:'Confirmation de paiement — '+p.ref, to:c?c.email:'client@aznavo-demo.tn', time:'Envoyé'});
+  });
+  return log;
+}
+function renderEmailLog(){
+  const log = buildEmailLog();
+  document.getElementById('emailLog').innerHTML = log.length? log.map(l=>`<div class="log-item"><span class="log-dot"></span><div><div>${l.title}</div><div class="log-to">${l.to} · ${l.time}</div></div></div>`).join('') : '<div class="alert-empty">Aucun e-mail dans le journal.</div>';
+}
+
+/* ================= AGENDA / CALENDAR ================= */
+let calState = {year:2026, month:6};
+const MONTH_NAMES=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+function calendarShift(delta){ calState.month+=delta; if(calState.month<0){calState.month=11;calState.year--;} else if(calState.month>11){calState.month=0;calState.year++;} buildCalendar(); }
+function calendarToday(){ calState={year:2026,month:6}; buildCalendar(); }
+function buildCalendar(){
+  const label=document.getElementById('calendarLabel'); if(label) label.textContent = MONTH_NAMES[calState.month]+' '+calState.year;
+  const {year,month}=calState;
+  const firstDay = new Date(year,month,1);
+  const startOffset = (firstDay.getDay()+6)%7;
+  const daysInMonth = new Date(year,month+1,0).getDate();
+  const daysInPrevMonth = new Date(year,month,0).getDate();
+  const dows=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  let html = dows.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+  const totalCells = Math.ceil((startOffset+daysInMonth)/7)*7;
+  for(let i=0;i<totalCells;i++){
+    const dayNum = i-startOffset+1;
+    let cellDate, outOfMonth=false;
+    if(dayNum<1){ cellDate=new Date(year,month-1,daysInPrevMonth+dayNum); outOfMonth=true; }
+    else if(dayNum>daysInMonth){ cellDate=new Date(year,month+1,dayNum-daysInMonth); outOfMonth=true; }
+    else { cellDate=new Date(year,month,dayNum); }
+    const isToday = sameDay(cellDate, TODAY);
+    const evts=[];
+    hearings.forEach(h=>{ const d=parseFrDate(h.date); if(sameDay(d,cellDate)) evts.push({label:'⚖ '+h.case, color:'var(--accent-2)'}); });
+    appointments.forEach(a=>{ const d=parseFrDate(a.date); if(sameDay(d,cellDate)) evts.push({label:a.time+' '+a.client.split(' ')[0], color:'var(--green)'}); });
+    tasks.forEach(t=>{ const d=parseFrDate(t.due+' 2026'); if(sameDay(d,cellDate) && !t.done) evts.push({label:t.title.slice(0,16)+'…', color:'var(--red)'}); });
+    html += `<div class="cal-cell ${outOfMonth?'out':''} ${isToday?'today':''}"><div class="cal-daynum">${cellDate.getDate()}</div>${evts.slice(0,3).map(e=>`<div class="cal-evt" style="background:${e.color}">${e.label}</div>`).join('')}</div>`;
+  }
+  document.getElementById('calendarGrid').innerHTML = html;
+}
+
+/* ================= GLOBAL SEARCH ================= */
+function runGlobalSearch(q){
+  const box=document.getElementById('searchResults');
+  if(!q || !q.trim()){ box.classList.remove('show'); box.innerHTML=''; return; }
+  const query=q.toLowerCase();
+  const grp=(label,items,render)=> items.length? `<div class="sr-group"><div class="sr-label">${label}</div>${items.map(render).join('')}</div>` : '';
+  const cl = clients.filter(c=>c.name.toLowerCase().includes(query)).slice(0,5);
+  const cs = cases.filter(c=>c.client.toLowerCase().includes(query)||c.num.toLowerCase().includes(query)).slice(0,5);
+  const inv = invoices.filter(i=>i.client.toLowerCase().includes(query)||i.num.toLowerCase().includes(query)).slice(0,5);
+  const hr = hearings.filter(h=>{ const cs2=cases.find(c=>c.num===h.case); return h.case.toLowerCase().includes(query) || (cs2 && cs2.client.toLowerCase().includes(query)); }).slice(0,5);
+  let html='';
+  html += grp('Clients', cl, c=>`<div class="sr-item" onclick="closeSearchAndGo('clients');setTimeout(()=>openClientProfile('${c.id}'),50)"><span class="sr-main">${c.name}</span><span class="sr-sub">${c.city}</span></div>`);
+  html += grp('Dossiers', cs, c=>`<div class="sr-item" onclick="closeSearchAndGo('dossiers')"><span class="sr-main">${c.num}</span><span class="sr-sub">${c.client}</span></div>`);
+  html += grp('Factures', inv, i=>`<div class="sr-item" onclick="closeSearchAndGo('honoraires')"><span class="sr-main">${i.num}</span><span class="sr-sub">${i.client}</span></div>`);
+  html += grp('Audiences', hr, h=>`<div class="sr-item" onclick="closeSearchAndGo('audiences')"><span class="sr-main">${h.case}</span><span class="sr-sub">${h.date}</span></div>`);
+  box.innerHTML = html || `<div class="sr-empty">Aucun résultat pour “${q}”</div>`;
+  box.classList.add('show');
+}
+function closeSearchAndGo(page){ document.getElementById('searchResults').classList.remove('show'); document.getElementById('globalSearch').value=''; goToPage(page); }
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.searchbar')) { const sr=document.getElementById('searchResults'); if(sr) sr.classList.remove('show'); }
+  if(!e.target.closest('.topbar-actions')) { const nd=document.getElementById('notifDropdown'); if(nd) nd.classList.remove('show'); }
+});
+
+/* ================= PDF DOCUMENT GENERATION ================= */
+let currentGenDocType='convention';
+function openGenDoc(type){
+  currentGenDocType=type;
+  const titles={convention:"Générer — Convention d'honoraires", procuration:'Générer — Procuration', facture:'Générer — Facture'};
+  document.getElementById('genDocTitle').textContent = titles[type];
+  document.getElementById('genDocClient').innerHTML = clients.map(c=>`<option value="${c.id}">${c.name} — ${c.city}</option>`).join('');
+  document.getElementById('genDocCase').innerHTML = '<option value="">—</option>'+cases.map(c=>`<option value="${c.num}">${c.num} — ${c.type}</option>`).join('');
+  document.getElementById('genDocAmountWrap').style.display = type==='facture'?'block':'none';
+  openModal('modalGenDoc');
+}
+function confirmGenDoc(){
+  const client = clients.find(c=>c.id===document.getElementById('genDocClient').value);
+  const caseNum = document.getElementById('genDocCase').value;
+  const amount = parseFloat(document.getElementById('genDocAmount').value)||3500;
+  closeModal('modalGenDoc');
+  generateLegalPDF(currentGenDocType, client, caseNum, amount);
+  showToast('Document PDF généré — téléchargement lancé');
+}
+function generateLegalPDF(type, client, caseNum, amount){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'mm', format:'a4'});
+  const marginX=20; let y=24;
+  doc.setFont('times','bold'); doc.setFontSize(15);
+  doc.text('AZNAVO SYSTEMS', marginX, y); y+=6;
+  doc.setFont('times','normal'); doc.setFontSize(9.5);
+  doc.text("Cabinet d'avocats — Avenue Habib Bourguiba, Tunis — Barreau de Tunis", marginX, y); y+=10;
+  doc.setDrawColor(184,134,44); doc.setLineWidth(0.6); doc.line(marginX,y,190,y); y+=12;
+
+  const dateStr = TODAY.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  let title, bodyLines;
+
+  if(type==='convention'){
+    title = "CONVENTION D'HONORAIRES";
+    bodyLines = [
+      "Entre le Cabinet AZNAVO SYSTEMS, représenté par Me. Karim Belhadj, avocat associé, d'une part,", '',
+      `Et ${client?client.name:'le Client'}${client&&client.cin?(', titulaire de la CIN n° '+client.cin):''}, domicilié(e) à ${client?client.address:''}, d'autre part,`, '',
+      'Il est convenu ce qui suit :', '',
+      "Article 1 — Objet", `Le Cabinet est chargé d'assister et de représenter le Client dans le cadre du dossier ${caseNum||'à venir'}.`, '',
+      "Article 2 — Honoraires", "Les honoraires sont fixés d'un commun accord, en fonction de la nature et de la complexité du dossier, du temps consacré et des diligences accomplies.", '',
+      "Article 3 — Modalités de paiement", "Un acompte est versé à la signature de la présente convention, le solde étant réglé selon l'avancement du dossier ou son issue.", '',
+      "Article 4 — Confidentialité", "Le Cabinet est tenu au secret professionnel pour toute information communiquée dans le cadre de ce mandat.", '',
+      `Fait à Tunis, le ${dateStr}, en deux exemplaires originaux.`
+    ];
+  } else if(type==='procuration'){
+    title='PROCURATION';
+    bodyLines=[
+      `Je soussigné(e), ${client?client.name:'le Client'}${client&&client.cin?(', CIN n° '+client.cin):(client&&client.matriculeFiscal?', Matricule fiscal n° '+client.matriculeFiscal:'')}, domicilié(e) à ${client?client.address:''},`, '',
+      "donne par les présentes pouvoir à Me. Karim Belhadj, avocat au Barreau de Tunis, exerçant au sein du Cabinet AZNAVO SYSTEMS,", '',
+      `À l'effet de me représenter et d'agir en mon nom dans le cadre du dossier ${caseNum||'référencé ci-dessus'}, devant toute juridiction compétente, y compris pour :`, '',
+      "— Introduire, suivre et défendre toute action judiciaire utile,",
+      "— Signer tout acte de procédure nécessaire à la bonne conduite du dossier,",
+      "— Recevoir toute notification ou signification s'y rapportant,",
+      "— Transiger, si besoin, dans l'intérêt du mandant.", '',
+      "La présente procuration est valable pour la durée du mandat confié.", '',
+      `Fait à Tunis, le ${dateStr}.`
+    ];
+  } else {
+    title="FACTURE D'HONORAIRES";
+    const ht=amount, tva=ht*0.19, ttc=ht+tva;
+    bodyLines=[
+      `Facture émise à l'attention de : ${client?client.name:'Client'}`,
+      `${client?client.address:''}`,
+      client&&client.matriculeFiscal? `Matricule fiscal : ${client.matriculeFiscal}` : (client&&client.cin?`CIN : ${client.cin}`:''), '',
+      `Dossier concerné : ${caseNum||'—'}`,
+      `Date d'émission : ${dateStr}`,
+      "Échéance : 30 jours", '',
+      "Désignation : Prestations d'assistance et de représentation juridique", '',
+      `Montant HT : ${ht.toLocaleString('fr-FR')} TND`,
+      `TVA (19%) : ${tva.toLocaleString('fr-FR',{maximumFractionDigits:2})} TND`,
+      `Montant TTC : ${ttc.toLocaleString('fr-FR',{maximumFractionDigits:2})} TND`, '',
+      "Merci de bien vouloir procéder au règlement à réception de la présente facture."
+    ];
+  }
+
+  doc.setFont('times','bold'); doc.setFontSize(13);
+  doc.text(title, 105, y, {align:'center'}); y+=12;
+  doc.setFont('times','normal'); doc.setFontSize(10.5);
+  bodyLines.forEach(line=>{
+    if(!line){ y+=5; return; }
+    const split = doc.splitTextToSize(line, 170);
+    split.forEach(s=>{ if(y>275){ doc.addPage(); y=24; } doc.text(s, marginX, y); y+=6; });
+  });
+  y+=14; if(y>260){ doc.addPage(); y=30; }
+  doc.text('Me. Karim Belhadj', 140, y);
+  doc.text('Avocat associé', 140, y+5);
+
+  const fname=(type==='convention'?'Convention_honoraires_':type==='procuration'?'Procuration_':'Facture_')+(client?client.name.replace(/\s+/g,'_'):'Client')+'.pdf';
+  doc.save(fname);
+}
 </script>
 </body>
 </html>
