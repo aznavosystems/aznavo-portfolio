@@ -423,28 +423,39 @@ function projPlaceholderSVG(label){
     </svg>`);
 }
 
-function initPortfolio(){
+function initPortfolio() {
   const grid = document.getElementById('portfolioGrid');
+
   grid.innerHTML = PROJECTS.map(p => `
-    <article class="project-card reveal" data-project="${p.id}">
+    <article class="project-card reveal">
       <div class="project-card__media">
-        <img src="${p.cover || projPlaceholderSVG(p.title)}" alt="${p.title} preview" loading="lazy">
+        <img src="${p.cover || projPlaceholderSVG(p.title)}"
+             alt="${p.title}"
+             loading="lazy">
         <span class="project-card__badge">${p.badge}</span>
       </div>
+
       <div class="project-card__body">
         <h3>${p.title}</h3>
         <p>${p.summary}</p>
-        <div class="project-card__stack">${p.stack.slice(0,4).map(s => `<span>${s}</span>`).join('')}</div>
-        <button type="button" class="btn btn--ghost btn--sm project-card__cta" data-project-open="${p.id}">
-          View project
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-    </article>`).join('');
 
-  grid.querySelectorAll('[data-project-open]').forEach(btn => {
-    btn.addEventListener('click', () => openProjectModal(btn.dataset.projectOpen));
-  });
+        <div class="project-card__stack">
+          ${p.stack.slice(0,4).map(s => `<span>${s}</span>`).join('')}
+        </div>
+
+        <a href="${p.demo}" class="btn btn--ghost btn--sm project-card__cta">
+          View project
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </article>
+  `).join('');
 }
 
 /* --------------------------------------------------------------------------
