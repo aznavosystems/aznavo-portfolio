@@ -1,0 +1,2339 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#061126" />
+<title>Portflow — Demo Premium</title>
+<style>
+:root{--bg:#050b18;--panel:#0b162a;--panel2:#101d33;--line:rgba(148,163,184,.15);--text:#f8fafc;--muted:#8ea0b8;--blue:#2f7cff;--blue2:#68a5ff;--violet:#8b5cf6;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--shadow:0 24px 70px rgba(0,0,0,.32)}*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 20% 0%,rgba(47,124,255,.14),transparent 28%),radial-gradient(circle at 90% 30%,rgba(139,92,246,.12),transparent 26%),var(--bg);color:var(--text)}button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}.app{min-height:100vh;display:flex}.sidebar{width:270px;background:rgba(5,11,24,.92);border-right:1px solid var(--line);padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto}.brand{display:flex;align-items:center;gap:11px;padding:8px 10px 20px}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#246bff,#6fa8ff);display:grid;place-items:center;box-shadow:0 12px 30px rgba(47,124,255,.35);font-weight:800}.brand b{font-size:18px}.nav-title{color:#52657f;font-size:10px;text-transform:uppercase;letter-spacing:.16em;margin:17px 10px 8px}.nav-btn{width:100%;border:0;background:transparent;color:#9fb0c5;display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:12px;text-align:left;margin:3px 0}.nav-btn:hover{background:rgba(255,255,255,.04);color:#fff}.nav-btn.active{background:linear-gradient(90deg,rgba(47,124,255,.2),rgba(47,124,255,.06));color:#a9c9ff;border:1px solid rgba(47,124,255,.22)}.main{flex:1;min-width:0}.topbar{height:70px;display:flex;align-items:center;gap:15px;padding:0 24px;border-bottom:1px solid var(--line);background:rgba(5,11,24,.72);backdrop-filter:blur(20px);position:sticky;top:0;z-index:5}.search{flex:1;max-width:650px;position:relative}.search input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:13px;padding:12px 16px 12px 42px;color:#fff}.search:before{content:'⌕';position:absolute;left:15px;top:8px;font-size:22px;color:#70829a}.top-actions{margin-left:auto;display:flex;gap:8px}.icon-btn,.secondary,.primary,.danger{border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:#dce7f5;background:rgba(255,255,255,.04)}.icon-btn{width:42px;padding:0}.primary{background:linear-gradient(135deg,#2563eb,#3b82f6);border-color:#3b82f6;color:#fff;box-shadow:0 12px 26px rgba(37,99,235,.25)}.danger{background:rgba(239,68,68,.1);color:#fca5a5;border-color:rgba(239,68,68,.25)}.content{padding:28px;max-width:1600px;margin:auto}.page-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:22px}.page-head h1{margin:0;font-size:28px}.page-head p{margin:7px 0 0;color:var(--muted)}.grid{display:grid;gap:16px}.kpis{grid-template-columns:repeat(4,minmax(0,1fr))}.card{background:linear-gradient(180deg,rgba(16,29,51,.92),rgba(8,18,35,.94));border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}.card-pad{padding:20px}.kpi small{color:var(--muted)}.kpi strong{display:block;font-size:30px;margin:16px 0 8px}.trend{font-size:12px;color:#70e69a}.two{grid-template-columns:2fr 1fr}.three{grid-template-columns:repeat(3,1fr)}.section-title{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}.section-title h3{margin:0;font-size:15px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:14px 18px;border-bottom:1px solid rgba(148,163,184,.09);text-align:left;font-size:13px;white-space:nowrap}th{font-size:11px;color:#69809b;text-transform:uppercase;letter-spacing:.08em}.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase}.blue{background:rgba(59,130,246,.13);color:#7eb2ff}.green{background:rgba(34,197,94,.13);color:#70e69a}.amber{background:rgba(245,158,11,.13);color:#f8c15b}.red{background:rgba(239,68,68,.13);color:#ff8e8e}.violet{background:rgba(139,92,246,.13);color:#c4a7ff}.list{padding:8px 0}.list-item{padding:15px 20px;border-bottom:1px solid rgba(148,163,184,.08);display:flex;gap:12px;align-items:flex-start}.list-item:last-child{border-bottom:0}.dot{width:9px;height:9px;border-radius:99px;background:var(--blue);margin-top:5px;box-shadow:0 0 0 5px rgba(47,124,255,.09)}.muted{color:var(--muted);font-size:12px}.bar{height:7px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,#2f7cff,#77b1ff);border-radius:99px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.entity{padding:18px}.entity h4{margin:0 0 7px}.entity .row{display:flex;justify-content:space-between;margin-top:16px;color:var(--muted);font-size:12px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.68);display:grid;place-items:center;z-index:20;padding:20px}.modal-box{width:min(620px,100%);background:#0b162a;border:1px solid var(--line);border-radius:20px;box-shadow:0 30px 90px rgba(0,0,0,.5)}.modal-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modal-body{padding:20px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}.field input,.field select,.field textarea{width:100%;background:#071122;border:1px solid var(--line);border-radius:11px;padding:11px;color:#fff}.field textarea{min-height:90px;resize:vertical}.modal-foot{padding:16px 20px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px}.login{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr}.login-art{padding:70px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 30% 30%,rgba(47,124,255,.27),transparent 30%),linear-gradient(160deg,#061126,#081b36)}.login-art h1{font-size:54px;line-height:1.05;margin:20px 0}.login-card-wrap{display:grid;place-items:center;padding:30px}.login-card{width:min(430px,100%);padding:30px}.login-card h2{font-size:26px}.login-card .field{margin-bottom:15px}.login-card button{width:100%;margin-top:8px}.toast{position:fixed;right:25px;bottom:25px;background:#101d33;border:1px solid rgba(59,130,246,.35);padding:14px 18px;border-radius:14px;box-shadow:var(--shadow);z-index:30}.ai-float{position:fixed;right:25px;bottom:25px;width:56px;height:56px;border-radius:17px;border:0;background:linear-gradient(135deg,#7c3aed,#9f67ff);color:#fff;font-size:23px;box-shadow:0 18px 40px rgba(139,92,246,.42)}.hero-map{height:290px;position:relative;background:radial-gradient(circle at 50% 50%,rgba(47,124,255,.09),transparent 55%),linear-gradient(180deg,#071122,#091528)}.route{position:absolute;height:2px;background:linear-gradient(90deg,transparent,#4b90ff,transparent);transform-origin:left center;opacity:.75}.route:after{content:'';position:absolute;right:0;top:-3px;width:8px;height:8px;border-radius:50%;background:#77b1ff;box-shadow:0 0 18px #2f7cff}.empty{padding:50px;text-align:center;color:var(--muted)}@media(max-width:1050px){.kpis,.three,.cards{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.sidebar{width:230px}}@media(max-width:760px){.sidebar{position:fixed;left:-270px;z-index:10}.content{padding:18px}.kpis,.three,.cards,.form-grid{grid-template-columns:1fr}.login{grid-template-columns:1fr}.login-art{display:none}.topbar{padding:0 14px}.page-head{align-items:flex-start;flex-direction:column}}
+
+.profile{display:flex;align-items:center;gap:10px;padding:6px 10px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.03)}
+.avatar{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#2563eb,#8b5cf6);font-weight:800}
+.full{grid-column:1/-1}.field small{display:block;color:#667b96;margin-top:6px;font-size:11px}
+.upload-zone{border:1px dashed rgba(104,165,255,.45);border-radius:14px;padding:22px;text-align:center;background:rgba(47,124,255,.05)}
+.upload-zone input{margin-top:12px}.ai-answer{margin-top:14px;padding:14px;border-radius:13px;background:rgba(139,92,246,.09);border:1px solid rgba(139,92,246,.24);line-height:1.6}
+.quick-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.quick-actions button{font-size:12px}
+.modal-box.large{width:min(860px,100%)}.modal-box.small{width:min(480px,100%)}
+.demo-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;background:rgba(34,197,94,.1);color:#70e69a;font-size:11px;font-weight:700}
+.empty-state{padding:38px;text-align:center;color:var(--muted)}
+.input-error{border-color:rgba(239,68,68,.8)!important}
+
+
+.command-layout{display:grid;grid-template-columns:1.45fr .55fr;gap:16px}
+.stat-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px}
+.stat-mini{padding:15px}.stat-mini b{display:block;font-size:21px;margin-top:7px}
+.filter-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.filter-row select,.filter-row input{background:#071122;border:1px solid var(--line);border-radius:10px;padding:9px 11px;color:#fff}
+.timeline{padding:18px}.timeline-step{display:flex;gap:12px;position:relative;padding-bottom:20px}.timeline-step:before{content:'';position:absolute;left:6px;top:14px;bottom:0;width:1px;background:rgba(104,165,255,.28)}.timeline-step:last-child:before{display:none}.timeline-step .dot{flex:0 0 auto}
+.reco{display:flex;gap:10px;align-items:flex-start;padding:14px;border-bottom:1px solid rgba(148,163,184,.08)}.reco:last-child{border-bottom:0}
+.panel-actions{display:flex;gap:8px;flex-wrap:wrap}
+.module-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.module-card{padding:18px}.module-card .module-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+@media(max-width:1100px){.command-layout{grid-template-columns:1fr}.stat-strip{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.stat-strip,.module-grid{grid-template-columns:1fr}}
+
+
+.auto-fill-box{padding:14px;border-radius:13px;background:rgba(47,124,255,.07);border:1px solid rgba(47,124,255,.25);margin-bottom:15px}
+.loading-line{height:6px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:12px}
+.loading-line span{display:block;height:100%;width:45%;background:linear-gradient(90deg,#2563eb,#8b5cf6);animation:scan 1s infinite alternate}
+@keyframes scan{from{transform:translateX(-30%)}to{transform:translateX(160%)}}
+
+
+.mobile-menu-btn{display:none}
+.mobile-overlay{display:none}
+.supply-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.supply-kpi{padding:16px}.supply-kpi b{display:block;font-size:23px;margin-top:8px}
+.tracking-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:16px}
+.shipment-card{padding:18px}
+.shipment-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.shipment-progress{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:22px 0 12px}
+.shipment-step{text-align:center;position:relative}
+.shipment-step:before{content:'';display:block;height:5px;border-radius:99px;background:rgba(255,255,255,.08);margin-bottom:9px}
+.shipment-step.done:before{background:var(--green)}
+.shipment-step.current:before{background:var(--amber)}
+.shipment-step span{font-size:10px;color:var(--muted)}
+.compare-table td.best{background:rgba(34,197,94,.08);color:#9ff0b8;font-weight:700}
+.recommendation{padding:16px;border-radius:14px;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(47,124,255,.08));border:1px solid rgba(139,92,246,.25)}
+.phone-bottom-nav{display:none}
+@media(max-width:760px){
+  body{padding-bottom:72px}
+  .mobile-menu-btn{display:inline-grid}
+  .sidebar{left:-285px;width:280px;transition:left .25s ease;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+  .sidebar.mobile-open{left:0}
+  .mobile-overlay.show{display:block;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9}
+  .topbar{height:auto;min-height:64px;flex-wrap:wrap;padding:10px 12px;gap:9px}
+  .topbar>strong{flex:1;font-size:14px}
+  .search{order:3;max-width:none;flex-basis:100%}
+  .top-actions{margin-left:0}
+  .top-actions .secondary,.profile{display:none}
+  .content{padding:14px}
+  .page-head h1{font-size:23px}
+  .page-head p{font-size:13px}
+  .page-head>div:last-child,.panel-actions{width:100%}
+  .page-head button,.panel-actions button{flex:1}
+  .supply-kpis{grid-template-columns:repeat(2,1fr)}
+  .tracking-grid{grid-template-columns:1fr}
+  .shipment-progress{grid-template-columns:1fr;gap:8px}
+  .shipment-step{text-align:left;display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:center}
+  .shipment-step:before{width:12px;height:12px;margin:0;border-radius:50%}
+  .shipment-head{flex-direction:column}
+  table{min-width:720px}
+  .modal{padding:8px;align-items:end}
+  .modal-box,.modal-box.large,.modal-box.small{width:100%;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0}
+  .modal-body{padding:15px}.modal-head,.modal-foot{padding:14px}
+  .modal-foot{position:sticky;bottom:0;background:#0b162a}
+  .phone-bottom-nav{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;height:64px;background:rgba(5,11,24,.96);border-top:1px solid var(--line);z-index:8;backdrop-filter:blur(18px)}
+  .phone-bottom-nav button{border:0;background:transparent;color:#8294aa;font-size:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+  .phone-bottom-nav button.active{color:#77b1ff}
+  .phone-bottom-nav span{font-size:18px}
+}
+
+
+.customer-hero{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:22px}
+.customer-avatar{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,#2563eb,#8b5cf6);font-weight:800;font-size:20px}
+.customer-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.customer-kpi{padding:16px}.customer-kpi b{display:block;font-size:23px;margin-top:7px}
+.customer-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:16px;margin-top:16px}
+.email-layout{display:grid;grid-template-columns:260px 1fr 360px;gap:14px}
+.email-folders,.email-list,.email-preview{min-height:620px}
+.email-folder{width:100%;border:0;background:transparent;color:#9fb0c5;padding:11px 12px;border-radius:10px;text-align:left;display:flex;justify-content:space-between}
+.email-folder.active,.email-folder:hover{background:rgba(47,124,255,.12);color:#fff}
+.email-item{padding:14px 16px;border-bottom:1px solid rgba(148,163,184,.08);cursor:pointer}
+.email-item:hover,.email-item.active{background:rgba(47,124,255,.07)}
+.email-item.unread b{color:#fff}.email-item p{margin:6px 0;color:var(--muted);font-size:12px}
+.email-meta{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--muted)}
+.email-preview-body{padding:20px;line-height:1.7}
+.ai-summary{padding:14px;border-radius:13px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.22);margin:16px 0}
+.activity-row{display:flex;gap:12px;padding:14px 18px;border-bottom:1px solid rgba(148,163,184,.08)}
+.activity-row:last-child{border-bottom:0}
+@media(max-width:1100px){.email-layout{grid-template-columns:220px 1fr}.email-preview{grid-column:1/-1}.customer-grid{grid-template-columns:1fr}}
+@media(max-width:760px){
+  .customer-hero{grid-template-columns:auto 1fr}.customer-hero .panel-actions{grid-column:1/-1}
+  .customer-kpis{grid-template-columns:repeat(2,1fr)}
+  .email-layout{grid-template-columns:1fr}
+  .email-folders{min-height:auto}.email-list,.email-preview{min-height:auto}
+}
+
+
+.integration-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.integration-kpi{padding:16px}.integration-kpi b{display:block;font-size:23px;margin-top:7px}
+.integration-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.integration-card{padding:18px;position:relative}
+.integration-icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(47,124,255,.12);font-size:21px;margin-bottom:14px}
+.integration-status{position:absolute;right:16px;top:16px}
+.integration-details{display:grid;gap:8px;margin:14px 0;padding:12px;border-radius:12px;background:rgba(255,255,255,.025)}
+.integration-details div{display:flex;justify-content:space-between;gap:12px;font-size:12px}
+.integration-log{display:flex;gap:12px;padding:14px 18px;border-bottom:1px solid rgba(148,163,184,.08)}
+.integration-log:last-child{border-bottom:0}
+@media(max-width:1100px){.integration-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.integration-kpis,.integration-grid{grid-template-columns:1fr}}
+
+
+/* Supplier cards + integrated 360 navigation */
+.cards{align-items:stretch}
+.entity{display:flex;flex-direction:column;min-height:210px}
+.entity .row{margin-top:auto}
+.entity>div:last-child{display:flex;gap:8px;flex-wrap:wrap}
+.entity .secondary,.entity .danger{flex:0 0 auto}
+.supplier-inline-note{margin:0 0 16px;padding:12px 14px;border-radius:12px;background:rgba(47,124,255,.07);border:1px solid rgba(47,124,255,.18);color:#a9c9ff}
+
+/* Phone layout */
+@media(max-width:760px){
+  .main{width:100%;overflow:hidden}
+  .content{width:100%;padding:12px}
+  .page-head{gap:12px;margin-bottom:14px}
+  .page-head>div,.page-head .panel-actions{width:100%}
+  .page-head button{width:100%}
+  .cards,.module-grid,.integration-grid,.customer-kpis,.profile-kpis,.s360-kpis,.supply-kpis{grid-template-columns:1fr!important}
+  .entity{min-height:auto;padding:16px}
+  .entity>div:last-child{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .entity>div:last-child .danger{grid-column:1/-1}
+  .entity button{width:100%}
+  .topbar{position:sticky;top:0;z-index:7}
+  .topbar .search{order:3;width:100%;flex-basis:100%}
+  .topbar .search input{font-size:14px}
+  .profile{display:none!important}
+  .top-actions>.secondary{display:none!important}
+  .icon-btn{width:40px;height:40px}
+  .sidebar{width:280px}
+  .card{border-radius:15px}
+  .card-pad{padding:15px}
+  .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{min-width:760px}
+  .modal{padding:0;align-items:end}
+  .modal-box,.modal-box.large,.modal-box.small{width:100%;max-width:none;max-height:92vh;border-radius:18px 18px 0 0;overflow:auto}
+  .modal-body{padding:14px}
+  .modal-foot{display:grid;grid-template-columns:1fr 1fr;position:sticky;bottom:0;background:#0b162a}
+  .modal-foot button{width:100%}
+  .form-grid{grid-template-columns:1fr}
+  .full{grid-column:auto}
+  .ai-float{right:16px;bottom:78px;width:50px;height:50px}
+}
+
+
+/* ===== Supplier 360 layout fix ===== */
+.profile-hero{
+  display:grid;
+  grid-template-columns:72px minmax(0,1fr) auto;
+  align-items:center;
+  gap:20px;
+  padding:24px;
+}
+.profile-logo{
+  width:64px;
+  height:64px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#2563eb,#8b5cf6);
+  box-shadow:0 14px 32px rgba(37,99,235,.28);
+  color:#fff;
+  font-size:20px;
+  font-weight:800;
+}
+.profile-meta{min-width:0}
+.profile-meta h2{
+  margin:0 0 7px;
+  font-size:24px;
+}
+.profile-meta p{
+  margin:0;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+}
+.profile-hero>.panel-actions{
+  justify-content:flex-end;
+  align-items:center;
+}
+
+.profile-kpis{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  margin-top:16px;
+}
+.profile-kpi{
+  padding:18px;
+  min-height:102px;
+}
+.profile-kpi span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+}
+.profile-kpi b{
+  display:block;
+  margin-top:10px;
+  font-size:25px;
+  line-height:1.1;
+}
+
+.split-360{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(310px,.65fr);
+  gap:16px;
+  margin-top:16px;
+  align-items:start;
+}
+.split-360>div{min-width:0}
+
+.activity-item{
+  display:grid;
+  grid-template-columns:12px minmax(0,1fr) auto;
+  align-items:start;
+  gap:12px;
+  padding:16px 20px;
+  border-bottom:1px solid rgba(148,163,184,.09);
+}
+.activity-item:last-child{border-bottom:0}
+.activity-item .dot{margin-top:5px}
+.activity-time{
+  color:var(--muted);
+  font-size:11px;
+  white-space:nowrap;
+}
+
+.ai-panel{
+  padding:20px;
+  background:
+    radial-gradient(circle at 85% 10%,rgba(139,92,246,.18),transparent 35%),
+    linear-gradient(180deg,rgba(16,29,51,.96),rgba(8,18,35,.96));
+}
+.ai-score{
+  margin:12px 0 4px;
+  font-size:44px;
+  line-height:1;
+  font-weight:800;
+}
+
+.split-360 .section-title{
+  min-height:62px;
+}
+.split-360 .card-pad p{
+  margin:0 0 18px;
+  line-height:1.45;
+}
+.split-360 .table-wrap table{
+  min-width:720px;
+}
+
+/* Keep cards and content properly spaced */
+.content{overflow:hidden}
+.card{min-width:0}
+.panel-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.quick-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+/* Tablet */
+@media(max-width:1050px){
+  .profile-hero{
+    grid-template-columns:64px minmax(0,1fr);
+  }
+  .profile-hero>.panel-actions{
+    grid-column:1/-1;
+    justify-content:flex-start;
+  }
+  .profile-kpis{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .split-360{
+    grid-template-columns:1fr;
+  }
+}
+
+/* Phone */
+@media(max-width:760px){
+  .profile-hero{
+    grid-template-columns:52px minmax(0,1fr);
+    gap:12px;
+    padding:16px;
+  }
+  .profile-logo{
+    width:50px;
+    height:50px;
+    border-radius:14px;
+    font-size:16px;
+  }
+  .profile-meta h2{
+    font-size:19px;
+  }
+  .profile-meta p{
+    font-size:12px;
+  }
+  .profile-hero>.panel-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    width:100%;
+  }
+  .profile-hero>.panel-actions .primary{
+    grid-column:1/-1;
+  }
+  .profile-hero>.panel-actions button{
+    width:100%;
+  }
+
+  .profile-kpis{
+    grid-template-columns:1fr 1fr!important;
+    gap:10px;
+  }
+  .profile-kpi{
+    min-height:88px;
+    padding:14px;
+  }
+  .profile-kpi b{
+    font-size:20px;
+  }
+
+  .split-360{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  .split-360 .section-title{
+    align-items:flex-start;
+    gap:10px;
+    flex-wrap:wrap;
+    min-height:auto;
+    padding:15px;
+  }
+  .split-360 .section-title button{
+    width:100%;
+  }
+  .split-360 .card-pad{
+    padding:15px;
+  }
+  .activity-item{
+    grid-template-columns:10px minmax(0,1fr);
+    padding:14px 15px;
+  }
+  .activity-time{
+    grid-column:2;
+    white-space:normal;
+  }
+  .ai-score{
+    font-size:36px;
+  }
+  .split-360 .table-wrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .split-360 .table-wrap table{
+    min-width:690px;
+  }
+}
+
+
+.crm-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.crm-kpi{padding:16px}.crm-kpi b{display:block;font-size:23px;margin-top:7px}
+.crm-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.crm-toolbar input,.crm-toolbar select{background:#071122;border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:#fff}
+.crm-card{padding:18px;display:flex;flex-direction:column;min-height:245px}
+.crm-card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.crm-menu{position:relative}
+.crm-menu button{width:36px;height:36px;padding:0}
+.crm-card-info{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.crm-card-info div{padding:10px;border-radius:10px;background:rgba(255,255,255,.025)}
+.crm-card-info span{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}
+.crm-card-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.crm-card-actions .primary{flex:1}
+@media(max-width:900px){.crm-kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){
+  .crm-kpis{grid-template-columns:1fr 1fr}
+  .crm-toolbar{display:grid;grid-template-columns:1fr}
+  .crm-toolbar input,.crm-toolbar select,.crm-toolbar button{width:100%}
+  .crm-card-info{grid-template-columns:1fr}
+  .crm-card-actions{display:grid;grid-template-columns:1fr 1fr}
+  .crm-card-actions .primary{grid-column:1/-1}
+}
+
+
+.comm-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.comm-kpi{padding:16px}.comm-kpi b{display:block;font-size:23px;margin-top:7px}
+.comm-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+.comm-list-item{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:12px;align-items:center;padding:15px 18px;border-bottom:1px solid rgba(148,163,184,.08)}
+.comm-list-item:last-child{border-bottom:0}
+.comm-avatar{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#2563eb,#8b5cf6);font-weight:800}
+.comm-channel{font-size:11px;color:var(--muted)}
+.comm-actions{display:flex;gap:8px;flex-wrap:wrap}
+.comm-timeline{padding:18px}
+.comm-event{display:grid;grid-template-columns:70px 12px 1fr;gap:12px;padding-bottom:18px;position:relative}
+.comm-event:before{content:'';position:absolute;left:75px;top:14px;bottom:0;width:1px;background:rgba(104,165,255,.24)}
+.comm-event:last-child:before{display:none}
+.comm-event-time{font-size:12px;color:var(--muted)}
+.quick-comm{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.quick-comm button{min-height:68px}
+.note-card{padding:15px;border-bottom:1px solid rgba(148,163,184,.08)}
+.note-card:last-child{border-bottom:0}
+@media(max-width:1000px){.comm-grid{grid-template-columns:1fr}.quick-comm{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){
+  .comm-kpis{grid-template-columns:1fr 1fr}
+  .comm-list-item{grid-template-columns:38px 1fr}
+  .comm-list-item>.comm-actions{grid-column:1/-1}
+  .comm-list-item>.comm-actions button{flex:1}
+  .quick-comm{grid-template-columns:1fr 1fr}
+  .comm-event{grid-template-columns:56px 10px 1fr}
+  .comm-event:before{left:61px}
+}
+
+
+.assistant-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.assistant-kpi{padding:16px}.assistant-kpi b{display:block;font-size:23px;margin-top:7px}
+.assistant-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.assistant-card{padding:18px;display:flex;flex-direction:column;min-height:250px}
+.assistant-card .panel-actions{margin-top:auto}
+.rule-list{display:grid;gap:10px;margin-top:14px}
+.rule-item{padding:12px;border-radius:11px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+@media(max-width:1000px){.assistant-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.assistant-kpis{grid-template-columns:1fr 1fr}}
+
+
+.workflow-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.workflow-kpi{padding:16px}.workflow-kpi b{display:block;font-size:23px;margin-top:7px}
+.workflow-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+.workflow-card{padding:18px}
+.workflow-row{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) auto;gap:12px;align-items:center;padding:15px 18px;border-bottom:1px solid rgba(148,163,184,.08)}
+.workflow-row:last-child{border-bottom:0}
+.workflow-template-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:16px}
+.workflow-template{padding:15px;border-radius:14px;background:rgba(255,255,255,.025);border:1px solid var(--line)}
+.workflow-template h4{margin:10px 0 7px}
+.workflow-log{display:grid;grid-template-columns:70px 12px minmax(0,1fr);gap:12px;padding:14px 18px;position:relative}
+.workflow-log:before{content:'';position:absolute;left:75px;top:26px;bottom:-4px;width:1px;background:rgba(104,165,255,.22)}
+.workflow-log:last-child:before{display:none}
+.workflow-log-time{font-size:12px;color:var(--muted)}
+@media(max-width:1050px){.workflow-grid{grid-template-columns:1fr}}
+@media(max-width:760px){
+  .workflow-kpis{grid-template-columns:1fr 1fr}
+  .workflow-row{grid-template-columns:1fr}
+  .workflow-template-grid{grid-template-columns:1fr}
+  .workflow-log{grid-template-columns:54px 10px 1fr}
+  .workflow-log:before{left:59px}
+}
+
+
+/* Premium icons and motion */
+html{scroll-behavior:smooth}
+button,.card,.nav-btn,input,select,textarea{
+  transition:transform .22s cubic-bezier(.22,.8,.22,1),box-shadow .22s ease,border-color .22s ease,background .22s ease;
+}
+button:active{transform:scale(.97)}
+.primary:hover{transform:translateY(-2px);box-shadow:0 17px 34px rgba(37,99,235,.38)}
+.secondary:hover,.icon-btn:hover{transform:translateY(-1px);border-color:rgba(104,165,255,.38);background:rgba(255,255,255,.07)}
+.card{animation:cardEnter .48s cubic-bezier(.22,.8,.22,1) both}
+.card:hover{transform:translateY(-3px);border-color:rgba(104,165,255,.27);box-shadow:0 26px 72px rgba(0,0,0,.38)}
+.content>*{animation:pageEnter .42s cubic-bezier(.22,.8,.22,1) both}
+.content>*:nth-child(2){animation-delay:.04s}
+.content>*:nth-child(3){animation-delay:.08s}
+.content>*:nth-child(4){animation-delay:.12s}
+.modal{animation:fadeIn .2s ease both}
+.modal-box{animation:modalEnter .3s cubic-bezier(.22,.8,.22,1) both}
+.toast{animation:toastEnter .32s cubic-bezier(.22,.8,.22,1) both}
+.bar span{transform-origin:left;animation:barEnter .8s cubic-bezier(.22,.8,.22,1) both}
+.ai-float{animation:floatButton 2.8s ease-in-out infinite}
+.nav-btn{position:relative;overflow:hidden}
+.nav-btn:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(104,165,255,.08),transparent);transform:translateX(-120%);transition:transform .5s ease}
+.nav-btn:hover:before{transform:translateX(120%)}
+.nav-icon{width:25px;height:25px;flex:0 0 25px;display:grid;place-items:center;border-radius:8px;background:rgba(47,124,255,.08);color:#8fbdff;font-size:13px}
+.nav-btn.active .nav-icon{background:rgba(47,124,255,.22);color:#fff;box-shadow:0 6px 16px rgba(47,124,255,.18)}
+.nav-btn.active{box-shadow:inset 3px 0 0 #4f8cff}
+
+/* Animated premium login */
+.login{position:relative;overflow:hidden}
+.login:before,.login:after{content:'';position:absolute;border-radius:50%;pointer-events:none}
+.login:before{width:460px;height:460px;left:-150px;top:-160px;background:radial-gradient(circle,rgba(47,124,255,.25),transparent 68%);animation:orbMove 8s ease-in-out infinite alternate}
+.login:after{width:420px;height:420px;right:-120px;bottom:-150px;background:radial-gradient(circle,rgba(139,92,246,.22),transparent 68%);animation:orbMove 10s ease-in-out infinite alternate-reverse}
+.login-art,.login-card-wrap{position:relative;z-index:1}
+.login-art{animation:loginLeft .65s cubic-bezier(.22,.8,.22,1) both}
+.login-card{animation:loginRight .68s cubic-bezier(.22,.8,.22,1) .08s both;background:linear-gradient(180deg,rgba(16,29,51,.95),rgba(8,18,35,.96));backdrop-filter:blur(18px)}
+.login-features{display:grid;gap:11px;margin-top:25px}
+.login-feature{display:flex;align-items:center;gap:11px;color:#b9c7d8;font-size:14px}
+.login-feature span{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:rgba(47,124,255,.12);color:#8ebcff}
+.login-demo-note{margin-top:17px;padding:12px;border-radius:12px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);color:#9be7b2;font-size:12px}
+.field input:focus,.field select:focus,.field textarea:focus,.search input:focus{outline:none;border-color:#4f8cff;box-shadow:0 0 0 4px rgba(47,124,255,.1)}
+
+@keyframes pageEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes cardEnter{from{opacity:0;transform:translateY(15px) scale(.99)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes modalEnter{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes toastEnter{from{opacity:0;transform:translate(18px,12px)}to{opacity:1;transform:none}}
+@keyframes barEnter{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes floatButton{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes orbMove{from{transform:translate3d(0,0,0)}to{transform:translate3d(50px,32px,0)}}
+@keyframes loginLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}
+@keyframes loginRight{from{opacity:0;transform:translateX(30px) scale(.98)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+
+/* Dashboard map fix */
+.hero-map{
+  height:300px!important;
+  min-height:300px!important;
+  max-height:300px!important;
+  overflow:hidden;
+  position:relative;
+  background:
+    radial-gradient(circle at 18% 28%,rgba(47,124,255,.10),transparent 22%),
+    radial-gradient(circle at 78% 62%,rgba(139,92,246,.08),transparent 24%),
+    linear-gradient(180deg,#071122,#091528);
+}
+.hero-map:before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(148,163,184,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(148,163,184,.04) 1px,transparent 1px);
+  background-size:40px 40px;
+  mask-image:linear-gradient(to bottom,transparent,black 18%,black 82%,transparent);
+}
+.route{
+  position:absolute;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#4b90ff 18%,#77b1ff 82%,transparent);
+  transform-origin:left center;
+  opacity:.78;
+}
+.route:after{
+  content:'';
+  position:absolute;
+  right:0;
+  top:-4px;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#77b1ff;
+  box-shadow:0 0 0 5px rgba(47,124,255,.10),0 0 20px rgba(47,124,255,.75);
+}
+.map-point{
+  position:absolute;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#7eb2ff;
+  box-shadow:0 0 0 5px rgba(47,124,255,.10),0 0 18px rgba(47,124,255,.75);
+}
+.map-label{
+  position:absolute;
+  padding:7px 10px;
+  border-radius:10px;
+  background:rgba(8,18,35,.88);
+  border:1px solid rgba(104,165,255,.22);
+  color:#dce7f5;
+  font-size:11px;
+  backdrop-filter:blur(8px);
+}
+.map-stats{
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.map-stat{
+  padding:9px 11px;
+  border-radius:11px;
+  background:rgba(8,18,35,.82);
+  border:1px solid rgba(148,163,184,.14);
+  font-size:11px;
+}
+@media(max-width:760px){
+  .hero-map{
+    height:240px!important;
+    min-height:240px!important;
+    max-height:240px!important;
+  }
+  .map-label{display:none}
+  .map-stats{left:12px;right:12px;bottom:12px}
+  .map-stat{flex:1;text-align:center}
+}
+
+
+.supplier-form-note{
+  grid-column:1/-1;
+  padding:12px 14px;
+  border-radius:12px;
+  background:rgba(47,124,255,.07);
+  border:1px solid rgba(47,124,255,.2);
+  color:#a9c9ff;
+}
+.supplier-popup-hero{
+  display:grid;
+  grid-template-columns:64px minmax(0,1fr);
+  gap:16px;
+  align-items:center;
+  padding-bottom:16px;
+  border-bottom:1px solid var(--line);
+}
+.supplier-popup-logo{
+  width:60px;height:60px;border-radius:16px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#2563eb,#8b5cf6);
+  font-size:18px;font-weight:800;
+}
+.supplier-popup-hero h2{margin:0 0 6px}
+.supplier-popup-hero p{margin:0;color:var(--muted)}
+.supplier-popup-kpis{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;
+}
+.supplier-popup-kpis>div{
+  padding:13px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);
+}
+.supplier-popup-kpis span{display:block;color:var(--muted);font-size:11px}
+.supplier-popup-kpis b{display:block;font-size:19px;margin-top:6px}
+.supplier-popup-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){
+  .supplier-popup-kpis{grid-template-columns:1fr 1fr}
+  .supplier-popup-grid{grid-template-columns:1fr}
+}
+
+
+/* ===== Final dashboard visual polish ===== */
+.dashboard-accent{
+  background:
+    radial-gradient(circle at 12% 12%,rgba(47,124,255,.18),transparent 26%),
+    radial-gradient(circle at 88% 18%,rgba(139,92,246,.16),transparent 24%),
+    linear-gradient(180deg,rgba(10,22,42,.98),rgba(6,14,28,.98));
+}
+.kpis .card:nth-child(1){background:linear-gradient(180deg,rgba(22,62,122,.96),rgba(10,28,56,.96))}
+.kpis .card:nth-child(2){background:linear-gradient(180deg,rgba(34,78,106,.96),rgba(10,31,46,.96))}
+.kpis .card:nth-child(3){background:linear-gradient(180deg,rgba(78,45,126,.96),rgba(29,18,57,.96))}
+.kpis .card:nth-child(4){background:linear-gradient(180deg,rgba(92,57,22,.96),rgba(40,25,9,.96))}
+.kpis .card{border-color:rgba(255,255,255,.11)}
+.kpis .card:hover{transform:translateY(-5px) scale(1.01)}
+.kpi small{color:#c9d8ea}
+.kpi strong{letter-spacing:-.03em}
+.dashboard-banner{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:16px;
+  padding:20px 22px;
+  margin-bottom:16px;
+  border-radius:18px;
+  border:1px solid rgba(104,165,255,.18);
+  background:
+    linear-gradient(120deg,rgba(37,99,235,.18),rgba(139,92,246,.10)),
+    rgba(12,26,48,.78);
+  box-shadow:0 20px 50px rgba(0,0,0,.22);
+}
+.dashboard-banner h2{margin:0 0 6px;font-size:22px}
+.dashboard-banner p{margin:0;color:#a8bbd1}
+.dashboard-banner .panel-actions{justify-content:flex-end}
+.order-summary{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:10px;
+  padding:14px;
+  border-radius:14px;
+  background:rgba(47,124,255,.06);
+  border:1px solid rgba(47,124,255,.16);
+}
+.order-summary div{
+  padding:10px;
+  border-radius:10px;
+  background:rgba(255,255,255,.025);
+}
+.order-summary span{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}
+.order-summary b{font-size:16px}
+.checkbox-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.checkbox-line{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:11px 12px;
+  border-radius:10px;
+  background:rgba(255,255,255,.025);
+  border:1px solid var(--line);
+}
+@media(max-width:900px){
+  .dashboard-banner{grid-template-columns:1fr}
+  .dashboard-banner .panel-actions{justify-content:flex-start}
+  .order-summary{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+  .dashboard-banner{padding:16px}
+  .dashboard-banner .panel-actions{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .dashboard-banner .panel-actions button{width:100%}
+  .order-summary{grid-template-columns:1fr}
+  .checkbox-grid{grid-template-columns:1fr}
+}
+
+
+/* ===== Export 360 ===== */
+.export-hero{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:18px;
+  align-items:center;
+  padding:22px;
+  background:
+    radial-gradient(circle at 88% 12%,rgba(47,124,255,.18),transparent 28%),
+    linear-gradient(180deg,rgba(16,29,51,.96),rgba(8,18,35,.96));
+}
+.export-hero h2{margin:0 0 7px}
+.export-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.export-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-top:16px}
+.export-kpi{padding:15px}.export-kpi b{display:block;font-size:21px;margin-top:7px}
+.export-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-top:16px}
+.export-section{margin-bottom:16px}
+.stakeholder{
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr) auto;
+  gap:12px;
+  align-items:center;
+  padding:14px 18px;
+  border-bottom:1px solid rgba(148,163,184,.08);
+}
+.stakeholder:last-child{border-bottom:0}
+.stakeholder-icon{
+  width:42px;height:42px;border-radius:13px;display:grid;place-items:center;
+  background:rgba(47,124,255,.11);color:#8ebcff;font-size:18px;
+}
+.doc-check{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  gap:12px;
+  align-items:center;
+  padding:13px 18px;
+  border-bottom:1px solid rgba(148,163,184,.08);
+}
+.doc-check:last-child{border-bottom:0}
+.vessel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:18px}
+.vessel-field{padding:13px;border-radius:12px;background:rgba(255,255,255,.025);border:1px solid var(--line)}
+.vessel-field span{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}
+.freight-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:18px}
+.freight-card{padding:15px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
+.freight-card.best{border-color:rgba(34,197,94,.35);background:rgba(34,197,94,.06)}
+.export-timeline{padding:18px}
+.export-step{display:grid;grid-template-columns:78px 12px minmax(0,1fr);gap:12px;padding-bottom:18px;position:relative}
+.export-step:before{content:'';position:absolute;left:83px;top:25px;bottom:-2px;width:1px;background:rgba(104,165,255,.22)}
+.export-step:last-child:before{display:none}
+@media(max-width:1100px){
+  .export-kpis{grid-template-columns:repeat(3,1fr)}
+  .export-grid{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .export-hero{grid-template-columns:1fr;padding:16px}
+  .export-kpis{grid-template-columns:1fr 1fr}
+  .vessel-grid,.freight-compare{grid-template-columns:1fr}
+  .stakeholder,.doc-check{grid-template-columns:36px 1fr}
+  .stakeholder>div:last-child,.doc-check>*:nth-child(n+2){grid-column:auto}
+  .export-step{grid-template-columns:58px 10px 1fr}
+  .export-step:before{left:63px}
+}
+
+
+/* ===== Global modal scroll fix ===== */
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  background:rgba(1,6,16,.76);
+  backdrop-filter:blur(8px);
+}
+
+.modal-box,
+.modal-box.large,
+.modal-box.small{
+  width:min(980px,96vw);
+  max-height:90vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border-radius:22px;
+}
+
+.modal-box.large{
+  width:min(1120px,96vw);
+}
+
+.modal-box.small{
+  width:min(520px,96vw);
+}
+
+.modal-head{
+  flex:0 0 auto;
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:#0b162a;
+}
+
+.modal-body{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  padding:22px;
+}
+
+.modal-foot{
+  flex:0 0 auto;
+  position:sticky;
+  bottom:0;
+  z-index:2;
+  background:#0b162a;
+  border-top:1px solid var(--line);
+}
+
+/* Premium scrollbar */
+.modal-body{
+  scrollbar-width:thin;
+  scrollbar-color:#3b82f6 transparent;
+}
+
+.modal-body::-webkit-scrollbar{
+  width:8px;
+}
+
+.modal-body::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#3b82f6,#8b5cf6);
+  border-radius:999px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover{
+  background:#60a5fa;
+}
+
+/* Keep long forms usable */
+.modal-body .form-grid{
+  align-items:start;
+}
+
+.modal-body textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+@media(max-width:760px){
+  .modal{
+    align-items:flex-end;
+    padding:0;
+  }
+
+  .modal-box,
+  .modal-box.large,
+  .modal-box.small{
+    width:100%;
+    max-width:none;
+    height:100dvh;
+    max-height:100dvh;
+    border-radius:18px 18px 0 0;
+  }
+
+  .modal-head{
+    padding:14px 16px;
+  }
+
+  .modal-body{
+    padding:16px;
+  }
+
+  .modal-foot{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    padding:14px 16px;
+  }
+
+  .modal-foot button{
+    width:100%;
+  }
+
+  .modal-foot button:last-child:nth-child(odd){
+    grid-column:1/-1;
+  }
+
+  .modal-body .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .modal-body .full,
+  .modal-body .supplier-form-note,
+  .modal-body .order-summary{
+    grid-column:1;
+  }
+
+  .order-summary{
+    grid-template-columns:1fr!important;
+  }
+}
+
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+const data={
+  orders:[
+    {ref:'CMD-2291',supplier:'Yiwu Textile Co.',client:'Nord Distribution',status:'En transit',value:'42 600 €',eta:'1 août',priority:'Haute',owner:'Sami Ben Ali',incoterm:'FOB',origin:'Ningbo',destination:'Tunis'},
+    {ref:'CMD-2288',supplier:'Anadolu Steel',client:'MedTech Import',status:'Douane',value:'76 300 €',eta:'2 août',priority:'Urgente',owner:'Lina Trabelsi',incoterm:'CIF',origin:'Istanbul',destination:'Radès'},
+    {ref:'CMD-2285',supplier:'Guangdong Ceramics',client:'Atlas Ceramics SA',status:'En transit',value:'184 200 €',eta:'3 août',priority:'Normale',owner:'Sami Ben Ali',incoterm:'FOB',origin:'Shenzhen',destination:'Sfax'},
+    {ref:'CMD-2279',supplier:'Shenzhen Electronics',client:'Groupe Salhi',status:'Retard',value:'312 900 €',eta:'9 août',priority:'Urgente',owner:'Nour Gharbi',incoterm:'EXW',origin:'Shenzhen',destination:'Tunis'}
+  ],
+  clients:[
+    {name:'Atlas Ceramics SA',contact:'Nabil Trabelsi',stage:'Gagné',score:92,email:'nabil@atlas.tn',phone:'+216 71 000 111',city:'Tunis'},
+    {name:'Nord Distribution',contact:'Emma Rossi',stage:'Gagné',score:88,email:'emma@nord-distribution.eu',phone:'+39 02 000 222',city:'Milan'},
+    {name:'MedTech Import',contact:'Karim Ziadi',stage:'Négociation',score:74,email:'karim@medtech.tn',phone:'+216 74 000 333',city:'Sfax'}
+  ],
+  suppliers:[
+    {name:'Yiwu Textile Co.',country:'Chine',rating:'4.6',onTime:91,email:'sales@yiwu-textile.cn',category:'Textile',payment:'30% / 70%'},
+    {name:'Anadolu Steel',country:'Turquie',rating:'4.2',onTime:96,email:'export@anadolu.com.tr',category:'Métal',payment:'LC 60 jours'},
+    {name:'Shenzhen Electronics',country:'Chine',rating:'3.9',onTime:71,email:'account@sz-electronics.cn',category:'Électronique',payment:'50% / 50%'}
+  ],
+  documents:[
+    {name:'Facture_CMD2291_Yiwu.pdf',type:'Facture',status:'Analysé',client:'Nord Distribution',supplier:'Yiwu Textile Co.',amount:'42 600 €',date:'2026-07-28',due:'2026-08-15',priority:'Haute',owner:'Sami Ben Ali',notes:'Facture commerciale liée à CMD-2291.'},
+    {name:'BL_EXP24107_COSCO.pdf',type:'Bill of Lading',status:'Analysé',client:'Atlas Ceramics SA',supplier:'COSCO Shipping',amount:'',date:'2026-07-27',due:'',priority:'Normale',owner:'Lina Trabelsi',notes:'Connaissement maritime validé.'},
+    {name:'PackingList_CMD2285.pdf',type:'Packing List',status:'En analyse',client:'Atlas Ceramics SA',supplier:'Guangdong Ceramics',amount:'184 200 €',date:'2026-07-30',due:'2026-08-03',priority:'Urgente',owner:'Nour Gharbi',notes:'Contrôle des quantités en cours.'}
+  ],
+  notifications:[
+    'CMD-2279 : risque de retard élevé détecté.',
+    'Facture manquante sur CMD-2291.',
+    'Le fournisseur Anadolu Steel a répondu.',
+    '3 documents ont été analysés par l’IA.'
+  ],
+  emails:[
+    {from:'Yiwu Textile Co.',subject:'Re: Confirmation expédition CMD-2291',preview:'La marchandise est prête et le container sera chargé demain...',time:'10:42',unread:true,folder:'Inbox',order:'CMD-2291',body:'Bonjour,\n\nNous vous confirmons que la marchandise est prête. Le chargement du container est prévu demain matin. Les documents finaux seront envoyés après embarquement.\n\nBien cordialement,\nYiwu Textile Co.'},
+    {from:'CMA CGM',subject:'Arrival notice — TGHU441028',preview:'Votre container est attendu au port de Radès le 3 août...',time:'09:15',unread:true,folder:'Inbox',order:'CMD-2288',body:'Dear customer,\n\nContainer TGHU441028 is expected at Radès on 3 August. Please prepare customs documentation.\n\nRegards,\nCMA CGM'},
+    {from:'Atlas Ceramics SA',subject:'Demande de mise à jour commande CMD-2285',preview:'Pouvez-vous nous confirmer la date de livraison prévue ?',time:'Hier',unread:false,folder:'Inbox',order:'CMD-2285',body:'Bonjour,\n\nPouvez-vous nous confirmer la date de livraison prévue pour la commande CMD-2285 ?\n\nMerci.'},
+    {from:'Portflow Team',subject:'Relance envoyée à Shenzhen Electronics',preview:'Votre relance automatique a été envoyée avec succès...',time:'Hier',unread:false,folder:'Sent',order:'CMD-2279',body:'Bonjour,\n\nMerci de nous confirmer immédiatement le statut de la commande CMD-2279 et la nouvelle date d’expédition.\n\nCordialement.'}
+  ]
+};
+
+
+const navIcons={
+  dashboard:'⌂',
+  command:'◈',
+  importexport:'⇄',
+  tracking:'⌖',
+  export360:'⛴',
+  documents:'▤',
+  suppliers:'◆',
+  crm:'♙',
+  customer360:'◉',
+  commcenter:'☏',
+  emailhub:'✉',
+  ai:'✦',
+  reports:'▥',
+  workflows:'⤧',
+  integrations:'⌘',
+  settings:'⚙'
+};
+
+const pages=[['dashboard','Dashboard'],['command','Command Center'],['importexport','Import / Export'],['export360','Dossier Export 360°'],['tracking','Tracking & Supply Chain'],['documents','Documents'],['suppliers','Fournisseurs'],['supplier360','Supplier 360'],['crm','CRM & Commercial'],['customer360','Customer 360'],['commcenter','Communication Center'],['emailhub','Email Hub'],['ai','Assistant opérationnel'],['reports','Analyses & Rapports'],['workflows','Workflow Builder'],['integrations','Intégrations'],['settings','Paramètres']];
+
+let state={
+  logged:false,
+  active:'dashboard',
+  modal:null,
+  toast:'',
+  search:'',
+  aiAnswer:'',
+  selectedFile:'',
+  mobileMenu:false,
+  selectedEmail:0,
+  emailFolder:'Inbox',
+  selectedSupplier:0,
+  selectedClient:0,
+  integrations:{
+    gmail:true,
+    outlook:false,
+    odoo:false,
+    sap:false,
+    whatsapp:true,
+    drive:false,
+    dropbox:false,
+    maersk:false,
+    cmacgm:true,
+    webhook:false
+  }
+};
+
+const root=document.getElementById('root');
+
+function esc(v=''){return String(v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function statusClass(s){if(/Livré|Gagné|Analysé|Payé|Terminé|Connecté|Validé/i.test(s))return'green';if(/Retard|Impayé|Bloqué|Erreur/i.test(s))return'red';if(/Douane|analyse|Négociation/i.test(s))return'violet';if(/Production|attente|partiel/i.test(s))return'amber';return'blue'}
+function uid(prefix){return prefix+'-'+String(Date.now()).slice(-6)}
+function getVal(id){return document.getElementById(id)?.value?.trim()||''}
+function toast(msg){state.toast=msg;render();setTimeout(()=>{state.toast='';render()},2200)}
+function login(){
+  const email=getVal('email'), pass=getVal('pass');
+  if(!email||!pass){toast('Veuillez remplir les identifiants.');return}
+  localStorage.setItem('pf_auth','1');state.logged=true;render();setTimeout(()=>toast('Connexion réussie — bienvenue sur Portflow Premium'),100)
+}
+function logout(){localStorage.removeItem('pf_auth');state.logged=false;render()}
+function nav(id){state.active=id;state.search='';state.mobileMenu=false;render()}
+function toggleMobileMenu(){state.mobileMenu=!state.mobileMenu;render()}
+function openModal(type,item,index=null){state.modal={type,item:item||{},index};state.aiAnswer='';state.selectedFile='';render();setTimeout(()=>{const b=document.querySelector('.modal-body');if(b)b.scrollTop=0},0)}
+function closeModal(){state.modal=null;state.aiAnswer='';render()}
+function showNotifications(){openModal('notifications')}
+function runSearch(){
+  const q=getVal('globalSearch').toLowerCase();
+  if(!q){toast('Saisissez un mot-clé à rechercher.');return}
+  const results=[];
+  data.orders.forEach((o,i)=>{if(Object.values(o).join(' ').toLowerCase().includes(q))results.push({kind:'Commande',title:o.ref,sub:o.client,index:i})});
+  data.documents.forEach((d,i)=>{if(Object.values(d).join(' ').toLowerCase().includes(q))results.push({kind:'Document',title:d.name,sub:d.type,index:i})});
+  data.clients.forEach((c,i)=>{if(Object.values(c).join(' ').toLowerCase().includes(q))results.push({kind:'Client',title:c.name,sub:c.contact,index:i})});
+  data.suppliers.forEach((s,i)=>{if(Object.values(s).join(' ').toLowerCase().includes(q))results.push({kind:'Fournisseur',title:s.name,sub:s.country,index:i})});
+  openModal('search',{query:q,results});
+}
+function openSearchResult(kind,index){
+  if(kind==='Commande')openModal('order',data.orders[index],index);
+  else if(kind==='Document')openModal('documentView',data.documents[index],index);
+  else if(kind==='Client')openModal('client',data.clients[index],index);
+  else openModal('supplier',data.suppliers[index],index);
+}
+function saveModal(){
+  const type=state.modal.type, idx=state.modal.index;
+  if(type==='order'){
+    const item={
+      ref:getVal('f_ref')||uid('CMD'),
+      orderType:getVal('f_order_type')||'Import',
+      orderDate:getVal('f_order_date'),
+      product:getVal('f_product'),
+      category:getVal('f_order_category'),
+      quantity:getVal('f_quantity'),
+      unit:getVal('f_unit'),
+      supplier:getVal('f_supplier'),
+      client:getVal('f_client'),
+      status:getVal('f_status')||'En attente',
+      value:getVal('f_total')||getVal('f_amount')||'0 €',
+      currency:getVal('f_order_currency')||'EUR',
+      eta:getVal('f_eta')||'À confirmer',
+      shipmentDate:getVal('f_shipment_date'),
+      priority:getVal('f_priority')||'Normale',
+      owner:getVal('f_owner')||'Non assigné',
+      incoterm:getVal('f_incoterm')||'FOB',
+      transportMode:getVal('f_transport_mode'),
+      carrier:getVal('f_carrier'),
+      container:getVal('f_container'),
+      origin:getVal('f_origin'),
+      destination:getVal('f_destination'),
+      portDeparture:getVal('f_port_departure'),
+      portArrival:getVal('f_port_arrival'),
+      paymentTerms:getVal('f_payment_terms'),
+      depositPaid:getVal('f_deposit_paid'),
+      remaining:getVal('f_remaining'),
+      subtotal:getVal('f_subtotal'),
+      transportCost:getVal('f_transport_cost'),
+      customsCost:getVal('f_customs_cost'),
+      insuranceCost:getVal('f_insurance_cost'),
+      otherCost:getVal('f_other_cost'),
+      notes:getVal('f_order_notes')
+    };
+    if(!item.client||!item.supplier){toast('Client et fournisseur sont obligatoires.');return}
+    idx===null?data.orders.unshift(item):data.orders[idx]=item;
+  }else if(type==='document' || type==='upload'){
+    const fileName=state.selectedFile||getVal('f_name')||uid('Document')+'.pdf';
+    const item={
+      name:fileName,
+      type:getVal('f_type')||'Autre',
+      status:getVal('f_status')||'En analyse',
+      client:getVal('f_client'),
+      supplier:getVal('f_supplier'),
+      amount:getVal('f_amount'),
+      date:getVal('f_date'),
+      due:getVal('f_due'),
+      priority:getVal('f_priority')||'Normale',
+      owner:getVal('f_owner')||'Non assigné',
+      notes:getVal('f_notes')
+    };
+    idx===null?data.documents.unshift(item):data.documents[idx]=item;
+  }else if(type==='client'||type==='clientAuto'){
+    const item={name:getVal('f_name'),contact:getVal('f_contact'),stage:getVal('f_stage'),score:Number(getVal('f_score')||0),email:getVal('f_email'),phone:getVal('f_phone'),city:getVal('f_city'),sector:getVal('f_sector'),source:getVal('f_source'),owner:getVal('f_owner'),notes:getVal('f_notes')};
+    if(!item.name){toast('Le nom du client est obligatoire.');return}
+    idx===null?data.clients.unshift(item):data.clients[idx]=item;
+  }else if(type==='supplier'||type==='supplierAuto'){
+    const item={
+      name:getVal('f_name'),
+      legalName:getVal('f_legal_name'),
+      country:getVal('f_country'),
+      city:getVal('f_city'),
+      address:getVal('f_address'),
+      tax:getVal('f_tax'),
+      category:getVal('f_category'),
+      contact:getVal('f_contact'),
+      email:getVal('f_email'),
+      phone:getVal('f_phone'),
+      website:getVal('f_website'),
+      currency:getVal('f_currency'),
+      rating:getVal('f_rating')||'0',
+      onTime:Number(getVal('f_ontime')||0),
+      leadTime:getVal('f_lead_time'),
+      minOrder:getVal('f_min_order'),
+      payment:getVal('f_payment'),
+      incoterms:getVal('f_incoterms'),
+      certifications:getVal('f_certifications'),
+      risk:getVal('f_risk'),
+      status:getVal('f_supplier_status'),
+      notes:getVal('f_notes')
+    };
+    if(!item.name){toast('Le nom du fournisseur est obligatoire.');return}
+    idx===null?data.suppliers.unshift(item):data.suppliers[idx]=item;
+  }else if(type==='settings'){
+    localStorage.setItem('pf_company',getVal('f_company'));
+  }
+  state.modal=null;render();toast('Action enregistrée avec succès');
+}
+function confirmDelete(kind,index){openModal('delete',{kind},index)}
+function removeItem(){
+  const {kind}=state.modal.item,index=state.modal.index;
+  if(kind==='order')data.orders.splice(index,1);
+  if(kind==='document')data.documents.splice(index,1);
+  if(kind==='client')data.clients.splice(index,1);
+  if(kind==='supplier')data.suppliers.splice(index,1);
+  state.modal=null;render();toast('Élément supprimé dans la démonstration');
+}
+function handleFile(input){
+  const file=input.files?.[0];
+  if(!file)return;
+  state.selectedFile=file.name;
+  const n=document.getElementById('selectedFileName');if(n)n.textContent=file.name+' — '+Math.round(file.size/1024)+' Ko';
+}
+function analyzeFile(){
+  if(!state.selectedFile){toast('Choisissez d’abord un fichier.');return}
+  state.aiAnswer='Traitement terminé : type probable « Facture », montant détecté « 42 600 € », fournisseur « Yiwu Textile Co. », échéance « 15/08/2026 ». Vérification humaine recommandée avant validation.';
+  render();
+}
+function askAI(){
+  const q=getVal('aiPrompt');
+  if(!q){toast('Écrivez une question pour le Assistant opérationnel.');return}
+  state.aiAnswer=`Synthèse IA : le dossier présente un risque modéré. Le document principal est complet, mais une relance fournisseur est recommandée aujourd’hui. Action proposée : envoyer un email de confirmation, assigner le dossier à Sami et créer une alerte à J+2.`;
+  render();
+}
+function quickAction(label){toast(label+' — action exécutée dans la démo premium')}
+function connectService(name){toast(name+' connecté avec succès dans la démo');}
+function Login(){return `<div class="login">
+<section class="login-art">
+  <div class="logo">P</div>
+  <span class="demo-chip" style="width:max-content;margin-top:20px">✦ Démo Premium Interactive</span>
+  <h1>Commerce international.<br><span style="color:#77b1ff">Simple, rapide et automatisé.</span></h1>
+  <p style="color:#9fb0c5;max-width:560px;font-size:18px;line-height:1.7">Centralisez vos commandes, fournisseurs, documents, clients, communications, tracking et workflows dans une seule plateforme.</p>
+  <div class="login-features">
+    <div class="login-feature"><span>⌖</span>Suivi des délais et commandes import/export</div>
+    <div class="login-feature"><span>◆</span>Comparaison et pilotage fournisseurs</div>
+    <div class="login-feature"><span>⤧</span>Automatisations Angular + PHP sans serveur IA</div>
+  </div>
+</section>
+<section class="login-card-wrap">
+  <div class="card login-card">
+    <span class="demo-chip">Accès démonstration</span>
+    <h2>Bienvenue sur Portflow</h2>
+    <p class="muted">Découvrez l’expérience complète de la plateforme.</p>
+    <div class="field"><label>Email</label><input id="email" value="demo@portflow.ai" autocomplete="username"></div>
+    <div class="field"><label>Mot de passe</label><input id="pass" type="password" value="demo123" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()"></div>
+    <button class="primary" onclick="login()">Entrer dans la démo →</button>
+    <div class="login-demo-note">Les identifiants sont déjà remplis. Cliquez simplement sur le bouton.</div>
+  </div>
+</section>
+</div>`}
+function Sidebar(){return `<aside class="sidebar ${state.mobileMenu?'mobile-open':''}"><div class="brand"><div class="logo">P</div><div><b>Portflow</b><div class="muted">Trade Operations OS</div></div></div>${[['Vue d’ensemble',['dashboard','command']],['Opérations',['importexport','export360','tracking','documents','suppliers']],['Relation client',['crm','customer360','commcenter','emailhub']],['Intelligence',['ai','reports']],['Automatisation',['workflows']],['Système',['integrations','settings']]].map(g=>`<div class="nav-title">${g[0]}</div>${g[1].map(id=>{const p=pages.find(x=>x[0]===id);return `<button class="nav-btn ${state.active===id?'active':''}" onclick="nav('${id}')"><span class="nav-icon">${navIcons[id]||'◆'}</span><span>${p[1]}</span></button>`}).join('')}`).join('')}</aside>`}
+function Topbar(){const label=pages.find(x=>x[0]===state.active)[1];return `<header class="topbar"><button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()">☰</button><strong>${label}</strong><div class="search"><input id="globalSearch" placeholder="Rechercher une commande, un client, un document…" onkeydown="if(event.key==='Enter')runSearch()"></div><div class="top-actions"><button class="secondary" onclick="openModal('ai')">✦ Assistant</button><button class="icon-btn" onclick="showNotifications()" title="Notifications">🔔</button><div class="profile"><div class="avatar">SB</div><div><b style="font-size:12px">Sami Ben Ali</b><div class="muted">Admin Premium</div></div></div><button class="secondary" onclick="logout()">Déconnexion</button></div></header>`}
+function Kpis(){return `<div class="grid kpis">${[['Commandes en cours',data.orders.length,'+9,4 %'],['Expéditions actives','46','+3,1 %'],['CA du mois','452 K€','+19,6 %'],['Docs en attente IA',data.documents.filter(d=>/analyse/i.test(d.status)).length,'−22 %']].map(x=>`<div class="card card-pad kpi"><small>${x[0]}</small><strong>${x[1]}</strong><div class="trend">↗ ${x[2]} vs mois dernier</div></div>`).join('')}</div>`}
+function OrdersTable(){return `<div class="card"><div class="section-title"><h3>Commandes & expéditions</h3><button class="primary" onclick="openModal('order')">+ Nouvelle commande</button></div><div class="table-wrap"><table><thead><tr><th>Référence</th><th>Fournisseur</th><th>Client</th><th>Statut</th><th>Valeur</th><th>ETA</th><th>Actions</th></tr></thead><tbody>${data.orders.length?data.orders.map((o,i)=>`<tr><td style="color:#77b1ff">${esc(o.ref)}</td><td>${esc(o.supplier)}</td><td>${esc(o.client)}</td><td><span class="badge ${statusClass(o.status)}">${esc(o.status)}</span></td><td>${esc(o.value)}</td><td>${esc(o.eta)}</td><td><button class="secondary" onclick="openModal('order',data.orders[${i}],${i})">Modifier</button> <button class="danger" onclick="confirmDelete('order',${i})">Supprimer</button></td></tr>`).join(''):`<tr><td colspan="7"><div class="empty-state">Aucune commande.</div></td></tr>`}</tbody></table></div></div>`}
+function Dashboard(){return `<div class="page-head"><div><h1>Bonjour, Sami 👋</h1><p>Voici l’essentiel de votre activité aujourd’hui.</p></div><div><button class="secondary" onclick="openModal('order')">+ Nouvelle commande</button> <button class="primary" onclick="openModal('upload')">Importer un document</button></div></div>
+<div class="dashboard-banner">
+  <div><h2>Centre de pilotage Portflow</h2><p>Suivez les commandes critiques, les délais fournisseurs et les documents importants en un seul endroit.</p></div>
+  <div class="panel-actions"><button class="secondary" onclick="nav('tracking')">Voir le tracking</button><button class="primary" onclick="openModal('order')">Créer une commande</button></div>
+</div>${Kpis()}<div class="grid two" style="margin-top:16px"><div class="card"><div class="section-title"><h3>Réseau mondial des expéditions</h3><span class="muted">5 routes actives</span></div><div class="hero-map">
+  <div class="route" style="width:36%;left:18%;top:32%;transform:rotate(12deg)"></div>
+  <div class="route" style="width:31%;left:43%;top:49%;transform:rotate(-8deg)"></div>
+  <div class="route" style="width:24%;left:52%;top:35%;transform:rotate(5deg)"></div>
+
+  <span class="map-point" style="left:17%;top:31%"></span>
+  <span class="map-point" style="left:52%;top:40%"></span>
+  <span class="map-point" style="left:74%;top:47%"></span>
+
+  <span class="map-label" style="left:10%;top:20%">Ningbo · Chine</span>
+  <span class="map-label" style="left:43%;top:25%">Istanbul · Turquie</span>
+  <span class="map-label" style="left:70%;top:56%">Radès · Tunisie</span>
+
+  <div class="map-stats">
+    <div class="map-stat"><b>5</b><br><span class="muted">Routes actives</span></div>
+    <div class="map-stat"><b>3</b><br><span class="muted">Containers suivis</span></div>
+    <div class="map-stat"><b>89%</b><br><span class="muted">À l’heure</span></div>
+  </div>
+</div></div><div class="card"><div class="section-title"><h3>Alertes intelligentes</h3><button class="secondary" onclick="showNotifications()">Tout voir</button></div><div class="list">${[['Retard probable — CMD-2279','red'],['Facture manquante — CMD-2291','amber'],['Relance client suggérée','violet'],['Opportunité tarifaire détectée','green']].map(x=>`<div class="list-item"><span class="dot" style="background:var(--${x[1]})"></span><div><b>${x[0]}</b><div class="muted">Analyse automatique mise à jour il y a quelques minutes.</div><div class="quick-actions"><button class="secondary" onclick="quickAction('Alerte traitée')">Traiter</button></div></div></div>`).join('')}</div></div></div><div style="margin-top:16px">${OrdersTable()}</div>`}
+
+function CommandCenter(){
+  const recos=[
+    'Envoyer une relance à Shenzhen Electronics',
+    'Vérifier le Bill of Lading de CMD-2291',
+    'Demander le certificat d’origine',
+    'Contacter le transporteur de CMD-2279',
+    'Préparer le paiement fournisseur sous 2 jours'
+  ];
+  return `<div class="page-head"><div><h1>Command Center</h1><p>Vue centrale des opérations critiques et des actions prioritaires.</p></div><div class="panel-actions"><button class="secondary" onclick="openModal('commandTask')">+ Ajouter une action</button><button class="primary" onclick="openModal('order')">+ Nouvelle commande</button></div></div>
+  <div class="stat-strip">
+    ${[['Commandes aujourd’hui','18'],['En retard','4'],['Bloquées','2'],['Terminées','31'],['Valeur totale','616 K€'],['Risque IA','27 %']].map(x=>`<div class="card stat-mini"><span class="muted">${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+  </div>
+  <div class="command-layout">
+    <div>
+      <div class="card">
+        <div class="section-title"><h3>Opérations critiques</h3><div class="filter-row"><select onchange="quickAction('Filtre statut appliqué')"><option>Tous les statuts</option><option>Retard</option><option>Douane</option><option>Bloqué</option></select><input placeholder="Rechercher…" onkeydown="if(event.key==='Enter')quickAction('Recherche appliquée')"></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Commande</th><th>Client</th><th>Fournisseur</th><th>Priorité</th><th>Statut</th><th>Responsable</th><th>Actions</th></tr></thead><tbody>
+        ${data.orders.map((o,i)=>`<tr><td style="color:#77b1ff">${esc(o.ref)}</td><td>${esc(o.client)}</td><td>${esc(o.supplier)}</td><td><span class="badge ${o.priority==='Urgente'?'red':o.priority==='Haute'?'amber':'blue'}">${esc(o.priority)}</span></td><td><span class="badge ${statusClass(o.status)}">${esc(o.status)}</span></td><td>${esc(o.owner)}</td><td><button class="secondary" onclick="openModal('order',data.orders[${i}],${i})">Modifier</button> <button class="secondary" onclick="openModal('ai')">IA</button></td></tr>`).join('')}
+        </tbody></table></div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="section-title"><h3>Timeline — CMD-2291</h3><button class="secondary" onclick="quickAction('Timeline actualisée')">Actualiser</button></div>
+        <div class="timeline">
+          ${[['Commande créée','28 juillet — 09:42'],['Facture reçue','28 juillet — 13:10'],['Packing List validée','29 juillet — 11:25'],['Container embarqué','30 juillet — 18:40'],['Douane','Prévue le 2 août'],['Livraison','Prévue le 5 août']].map((x,i)=>`<div class="timeline-step"><span class="dot" style="background:${i<4?'var(--green)':'var(--blue)'}"></span><div><b>${x[0]}</b><div class="muted">${x[1]}</div></div></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="section-title"><h3>Recommandations automatiques</h3><span class="badge violet">${recos.length} actions</span></div>
+        ${recos.map((r,i)=>`<div class="reco"><span class="dot" style="background:var(--violet)"></span><div style="flex:1"><b>${r}</b><div class="quick-actions"><button class="secondary" onclick="openModal('ai')">Voir</button><button class="primary" onclick="quickAction('Recommandation appliquée')">Appliquer</button><button class="secondary" onclick="quickAction('Recommandation ignorée')">Ignorer</button></div></div></div>`).join('')}
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="section-title"><h3>Actions rapides</h3></div>
+        <div class="card-pad panel-actions"><button class="primary" onclick="openModal('order')">Nouvelle commande</button><button class="secondary" onclick="openModal('supplier')">Nouveau fournisseur</button><button class="secondary" onclick="openModal('upload')">Importer document</button><button class="secondary" onclick="openModal('workflowItem')">Créer workflow</button><button class="secondary" onclick="quickAction('Rapport généré')">Rapport</button><button class="secondary" onclick="quickAction('Export Excel préparé')">Exporter Excel</button></div>
+      </div>
+    </div>
+  </div>`;
+}
+function FunctionalModules(title,subtitle,items,addType='generic'){
+  return GenericPage(title,subtitle,`<div class="module-grid">${items.map((x,i)=>`<div class="card module-card"><span class="badge ${i%2?'violet':'blue'}">${x.tag||'Module'}</span><h4 style="margin-top:14px">${x.title}</h4><p class="muted" style="line-height:1.6">${x.desc}</p><div class="module-actions"><button class="secondary" onclick="${x.onclick||`openModal('generic',{title:'${x.title.replace(/'/g,"\\'")}',module:'${title.replace(/'/g,"\\'")}'})`}">${x.button||'Ouvrir'}</button><button class="secondary" onclick="quickAction('${x.title.replace(/'/g,"\\'")} ajouté aux favoris')">☆</button></div></div>`).join('')}</div>`,`openModal('${addType}',{module:'${title.replace(/'/g,"\\'")}'})`)}
+
+function GenericPage(title,subtitle,body,action="openModal('generic')",label='+ Ajouter'){return `<div class="page-head"><div><h1>${title}</h1><p>${subtitle}</p></div><button class="primary" onclick="${action}">${label}</button></div>${body}`}
+function Documents(){return GenericPage('Documents','Centralisation et extraction IA de vos fichiers.',`<div class="card card-pad" style="text-align:center;border-style:dashed"><h3>Déposez vos PDF, images ou emails ici</h3><p class="muted">L’IA extrait automatiquement les références, montants, dates et parties prenantes.</p><button class="primary" onclick="openModal('upload')">Choisir un document</button></div><div class="card" style="margin-top:16px"><div class="section-title"><h3>Documents récents</h3><button class="secondary" onclick="openModal('document')">+ Saisie manuelle</button></div><table><thead><tr><th>Nom</th><th>Type</th><th>Statut</th><th>Client</th><th>Actions</th></tr></thead><tbody>${data.documents.map((d,i)=>`<tr><td>${esc(d.name)}</td><td>${esc(d.type)}</td><td><span class="badge ${statusClass(d.status)}">${esc(d.status)}</span></td><td>${esc(d.client||'—')}</td><td><button class="secondary" onclick="openModal('documentView',data.documents[${i}],${i})">Voir</button> <button class="secondary" onclick="openModal('document',data.documents[${i}],${i})">Modifier</button> <button class="danger" onclick="confirmDelete('document',${i})">Supprimer</button></td></tr>`).join('')}</tbody></table></div>`,`openModal('upload')`,'Importer un document')}
+
+
+function CommunicationCenterPage(){
+  const conversations=[
+    {name:'Atlas Ceramics SA',contact:'Nabil Trabelsi',channel:'WhatsApp',last:'Pouvez-vous confirmer la livraison ?',time:'Il y a 5 min',status:'En attente',initials:'AC'},
+    {name:'Nord Distribution',contact:'Emma Rossi',channel:'Email',last:'Merci, le devis est validé.',time:'Aujourd’hui 14:10',status:'Répondu',initials:'ND'},
+    {name:'MedTech Import',contact:'Karim Ziadi',channel:'Téléphone',last:'Rappel demandé concernant CMD-2288.',time:'Hier 16:45',status:'À rappeler',initials:'MI'}
+  ];
+  return `<div class="page-head"><div><h1>Communication Center</h1><p>Centralisez WhatsApp, emails, appels, notes internes et relances.</p></div><div class="panel-actions"><button class="secondary" onclick="quickAction('Historique exporté')">Exporter historique</button><button class="primary" onclick="openModal('newCommunication')">+ Nouvelle communication</button></div></div>
+  <div class="comm-kpis">
+    ${[['Conversations actives','24'],['Messages aujourd’hui','138'],['Appels planifiés','8'],['Réponses dans les délais','91%']].map(x=>`<div class="card comm-kpi"><span class="muted">${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+  </div>
+  <div class="card" style="margin-bottom:16px"><div class="section-title"><h3>Actions rapides</h3></div><div class="card-pad quick-comm">
+    <button class="secondary" onclick="openModal('newMessage')">💬 Nouveau message</button>
+    <button class="secondary" onclick="openModal('composeEmail')">✉ Envoyer un email</button>
+    <button class="secondary" onclick="openModal('scheduleCall')">☎ Planifier un appel</button>
+    <button class="secondary" onclick="openModal('internalNote')">📝 Créer une note</button>
+    <button class="secondary" onclick="openModal('reminder',{ref:'Relance client'})">⏰ Planifier rappel</button>
+    <button class="secondary" onclick="openModal('upload')">📎 Envoyer un PDF</button>
+    <button class="secondary" onclick="quickAction('Devis préparé')">📄 Envoyer devis</button>
+    <button class="secondary" onclick="nav('tracking')">📦 Partager tracking</button>
+  </div></div>
+  <div class="comm-grid">
+    <div>
+      <div class="card"><div class="section-title"><h3>Conversations récentes</h3><div class="toolbar"><select onchange="quickAction('Filtre canal appliqué')"><option>Tous les canaux</option><option>WhatsApp</option><option>Email</option><option>Téléphone</option></select><input placeholder="Rechercher…"></div></div>
+        ${conversations.map((c,i)=>`<div class="comm-list-item">
+          <div class="comm-avatar">${c.initials}</div>
+          <div><b>${c.name}</b><div class="comm-channel">${c.channel} · ${c.contact}</div><div class="muted" style="margin-top:5px">${c.last}</div><div class="quick-actions"><span class="badge ${statusClass(c.status)}">${c.status}</span><span class="muted">${c.time}</span></div></div>
+          <div class="comm-actions">
+            <button class="secondary" onclick="openModal('conversation',{name:'${c.name}',channel:'${c.channel}',contact:'${c.contact}',status:'${c.status}'})">Ouvrir</button>
+            ${c.channel==='Téléphone'?`<button class="primary" onclick="openModal('scheduleCall',{client:'${c.name}'})">Appeler</button>`:`<button class="primary" onclick="openModal('${c.channel==='Email'?'composeEmail':'newMessage'}',{client:'${c.name}'})">Répondre</button>`}
+          </div>
+        </div>`).join('')}
+      </div>
+      <div class="card" style="margin-top:16px"><div class="section-title"><h3>Notes internes</h3><button class="secondary" onclick="openModal('internalNote')">+ Ajouter une note</button></div>
+        ${[
+          ['@Sami','Vérifier le certificat d’origine avant envoi au client.','Haute','Aujourd’hui 11:20'],
+          ['@Lina','Le client Atlas souhaite une mise à jour avant 16h.','Normale','Hier 15:40'],
+          ['@Nour','Préparer une alternative fournisseur pour CMD-2279.','Urgente','Hier 09:15']
+        ].map(x=>`<div class="note-card"><div style="display:flex;justify-content:space-between;gap:10px"><b>${x[0]}</b><span class="badge ${x[2]==='Urgente'?'red':x[2]==='Haute'?'amber':'blue'}">${x[2]}</span></div><p class="muted">${x[1]}</p><div class="muted">${x[3]}</div></div>`).join('')}
+      </div>
+    </div>
+    <div>
+      <div class="card"><div class="section-title"><h3>Timeline de communication</h3><button class="secondary" onclick="quickAction('Timeline actualisée')">Actualiser</button></div><div class="comm-timeline">
+        ${[
+          ['14:05','WhatsApp envoyé','Statut de commande partagé avec Atlas Ceramics.','green'],
+          ['14:20','Réponse client','Demande de confirmation de livraison.','blue'],
+          ['14:32','Devis envoyé','Proposition commerciale PDF envoyée.','violet'],
+          ['15:01','Facture envoyée','Facture liée à CMD-2285.','amber'],
+          ['15:15','Commande confirmée','Validation finale enregistrée.','green']
+        ].map(x=>`<div class="comm-event"><div class="comm-event-time">${x[0]}</div><span class="dot" style="background:var(--${x[3]})"></span><div><b>${x[1]}</b><div class="muted">${x[2]}</div></div></div>`).join('')}
+      </div></div>
+      <div class="card" style="margin-top:16px"><div class="section-title"><h3>Appels à venir</h3><button class="secondary" onclick="openModal('scheduleCall')">+ Planifier</button></div>
+        ${[
+          ['MedTech Import','Aujourd’hui 17:00','Suivi commande CMD-2288'],
+          ['Nord Distribution','Demain 10:30','Validation offre volume'],
+          ['Atlas Ceramics SA','2 août 09:00','Confirmation livraison']
+        ].map(x=>`<div class="list-item"><span class="dot"></span><div style="flex:1"><b>${x[0]}</b><div class="muted">${x[2]}</div></div><div><b>${x[1]}</b><div class="quick-actions"><button class="secondary" onclick="quickAction('Appel marqué comme terminé')">Terminer</button></div></div></div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function CRMPage(){
+  const won=data.clients.filter(c=>c.stage==='Gagné').length;
+  const negotiation=data.clients.filter(c=>c.stage==='Négociation').length;
+  return `<div class="page-head"><div><h1>CRM & Commercial</h1><p>Prospects, opportunités, relances et relations clients.</p></div><div class="panel-actions"><button class="secondary" onclick="openModal('clientAuto')">Préremplissage automatique</button><button class="primary" onclick="openModal('client')">+ Nouveau client</button></div></div>
+  <div class="crm-kpis">
+    ${[['Total clients',data.clients.length],['Prospects',1],['En négociation',negotiation],['Clients gagnés',won]].map(x=>`<div class="card crm-kpi"><span class="muted">${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+  </div>
+  <div class="crm-toolbar">
+    <input id="crmSearch" placeholder="Rechercher société ou contact…" onkeydown="if(event.key==='Enter')quickAction('Recherche CRM appliquée')">
+    <select onchange="quickAction('Filtre étape appliqué')"><option>Toutes les étapes</option><option>Prospect</option><option>Qualification</option><option>Négociation</option><option>Gagné</option><option>Perdu</option></select>
+    <select onchange="quickAction('Tri appliqué')"><option>Trier par score</option><option>Nom A-Z</option><option>Dernière activité</option><option>Prochaine relance</option></select>
+    <button class="secondary" onclick="quickAction('Export CRM préparé')">Exporter</button>
+  </div>
+  <div class="cards">
+    ${data.clients.map((c,i)=>`<div class="card crm-card">
+      <div class="crm-card-head">
+        <div><h3 style="margin:0 0 6px">${esc(c.name)}</h3><div class="muted">${esc(c.contact)}</div></div>
+        <div class="crm-menu"><button class="secondary" onclick="openModal('clientMenu',{index:${i},name:'${esc(c.name)}'})">⋮</button></div>
+      </div>
+      <div class="quick-actions"><span class="badge ${statusClass(c.stage)}">${esc(c.stage)}</span><span class="badge blue">Score ${c.score}</span></div>
+      <div class="crm-card-info">
+        <div><span>Prochaine relance</span><b>${c.name==='MedTech Import'?'2 août':'5 août'}</b></div>
+        <div><span>Chiffre d’affaires</span><b>${c.name==='Atlas Ceramics SA'?'184 K€':c.name==='Nord Distribution'?'96 K€':'42 K€'}</b></div>
+        <div><span>Email</span><b>${esc(c.email||'Non renseigné')}</b></div>
+        <div><span>Ville</span><b>${esc(c.city||'—')}</b></div>
+      </div>
+      <div class="crm-card-actions">
+        <button class="secondary" onclick="openModal('client',data.clients[${i}],${i})">Modifier</button>
+        <button class="secondary" onclick="quickAction('Email client préparé')">Email</button>
+        <button class="primary" onclick="state.selectedClient=${i};nav('customer360')">Voir 360°</button>
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function Entities(kind){
+  const arr=kind==='clients'?data.clients:data.suppliers;
+  const isClient=kind==='clients';
+  return GenericPage(isClient?'CRM & Commercial':'Fournisseurs',isClient?'Prospects, opportunités et relations clients.':'Performance, comparaison et suivi fournisseurs.',`${isClient?'':`<div class="supplier-inline-note">Cliquez sur <b>Voir 360°</b> pour ouvrir la fiche complète du fournisseur : performance, commandes, risques et conformité.</div>`}${isClient?`<div class="panel-actions" style="margin-bottom:16px"><button class="secondary" onclick="openModal('clientAuto')">✦ Ajouter client automatiquement</button></div>`:`<div class="panel-actions" style="margin-bottom:16px"><button class="secondary" onclick="openModal('supplierAuto')">✦ Ajouter fournisseur automatiquement</button></div>`}<div class="cards">${arr.map((e,i)=>`<div class="card entity"><h4>${esc(e.name)}</h4><div class="muted">${esc(e.contact||e.country)}</div><div class="row"><span>${esc(e.stage||('★ '+e.rating))}</span><span>${e.score?('Score '+e.score):('À l’heure '+e.onTime+'%')}</span></div><div style="margin-top:15px"><button class="secondary" onclick="openModal('${isClient?'client':'supplier'}',${isClient?'data.clients':'data.suppliers'}[${i}],${i})">Modifier</button> <button class="secondary" onclick="${isClient?`state.selectedClient=${i};nav('customer360')`:`openModal('supplier360Popup',data.suppliers[${i}],${i})`}">Voir 360°</button> <button class="danger" onclick="confirmDelete('${isClient?'client':'supplier'}',${i})">Supprimer</button></div></div>`).join('')}</div>`,`openModal('${isClient?'client':'supplier'}')`,isClient?'+ Nouveau client':'+ Nouveau fournisseur')}
+function ModuleCards(title,subtitle,items){return FunctionalModules(title,subtitle,items,'generic')}
+
+
+function Customer360Page(){
+  const clientIndex=Number.isInteger(state.selectedClient)?state.selectedClient:0;
+  const c=data.clients[clientIndex]||data.clients[0]||{};
+  return `<div class="page-head"><div><h1>Customer 360</h1><p>Vue complète du client sélectionné : activité, commandes, paiements, contacts et prochaine action.</p></div><div class="panel-actions"><button class="secondary" onclick="openModal('clientAuto')">Remplissage automatique</button><button class="primary" onclick="openModal('client')">+ Nouveau client</button></div></div>
+  <div class="card customer-hero">
+    <div class="customer-avatar">${esc((c.name||'CL').split(' ').map(x=>x[0]).slice(0,2).join(''))}</div>
+    <div><h2 style="margin:0 0 6px">${esc(c.name||'Atlas Ceramics SA')}</h2><div class="muted">${esc(c.contact||'Nabil Trabelsi')} · ${esc(c.email||'nabil@atlas.tn')} · ${esc(c.city||'Tunis')}</div><div class="quick-actions"><span class="badge green">Client actif</span><span class="badge blue">Score 92/100</span><span class="badge violet">Potentiel élevé</span></div></div>
+    <div class="panel-actions"><button class="secondary" onclick="openModal('client',data.clients[${clientIndex}],${clientIndex})">Modifier</button><button class="secondary" onclick="quickAction('Email client préparé')">Email</button><button class="primary" onclick="openModal('ai')">Prochaine action</button></div>
+  </div>
+  <div class="customer-kpis">
+    ${[
+      ['Chiffre d’affaires',c.name==='Atlas Ceramics SA'?'184 200 €':c.name==='Nord Distribution'?'96 000 €':c.name==='MedTech Import'?'42 600 €':'68 500 €'],
+      ['Commandes actives',String(data.orders.filter(o=>o.client===c.name).length||1)],
+      ['Solde à recevoir',c.name==='Atlas Ceramics SA'?'18 600 €':c.name==='Nord Distribution'?'7 500 €':c.name==='MedTech Import'?'12 300 €':'4 200 €'],
+      ['Marge moyenne',c.name==='MedTech Import'?'19,6 %':'24,8 %']
+    ].map(x=>`<div class="card customer-kpi"><span class="muted">${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+  </div>
+  <div class="customer-grid">
+    <div>
+      <div class="card"><div class="section-title"><h3>Historique commercial</h3><button class="secondary" onclick="quickAction('Interaction ajoutée')">+ Interaction</button></div>
+        ${[['Commande CMD-2285 confirmée','184 200 € · livraison prévue le 3 août','Aujourd’hui'],['Email reçu','Demande de confirmation de livraison','Hier'],['Appel commercial','Proposition complémentaire discutée','28 juillet'],['Paiement reçu','Acompte 55 000 €','25 juillet']].map(x=>`<div class="activity-row"><span class="dot"></span><div style="flex:1"><b>${x[0]}</b><div class="muted">${x[1]}</div></div><span class="muted">${x[2]}</span></div>`).join('')}
+      </div>
+      <div class="card" style="margin-top:16px"><div class="section-title"><h3>Commandes liées</h3><button class="primary" onclick="openModal('order')">+ Commande</button></div><div class="table-wrap"><table><thead><tr><th>Référence</th><th>Statut</th><th>Montant</th><th>ETA</th><th>Action</th></tr></thead><tbody>${data.orders.filter(o=>o.client===c.name).map(o=>`<tr><td>${o.ref}</td><td><span class="badge ${statusClass(o.status)}">${o.status}</span></td><td>${o.value}</td><td>${o.eta}</td><td><button class="secondary" onclick="openModal('order',data.orders[${data.orders.indexOf(o)}],${data.orders.indexOf(o)})">Voir</button></td></tr>`).join('')}</tbody></table></div></div>
+    </div>
+    <div>
+      <div class="card ai-panel"><span class="badge violet">Analyse relationnelle</span><div class="ai-score">${c.score||70}</div><b>Relation très solide</b><p class="muted">Client fiable avec potentiel de croissance élevé. Aucun risque majeur de paiement détecté.</p><div class="bar"><span style="width:${c.score||70}%"></span></div><button class="primary" style="margin-top:15px" onclick="quickAction('Plan commercial appliqué')">Appliquer le plan</button></div>
+      <div class="card" style="margin-top:16px"><div class="section-title"><h3>Prochaine meilleure action</h3></div><div class="card-pad"><b>Proposer une offre volume</b><p class="muted">Probabilité de conversion estimée à 78%.</p><button class="secondary" onclick="openModal('ai')">Générer le message</button></div></div>
+      <div class="card" style="margin-top:16px"><div class="section-title"><h3>Contact principal</h3></div><div class="card-pad"><b>${esc(c.contact||'Nabil Trabelsi')}</b><p class="muted">Directeur des achats</p><p>${esc(c.email||'nabil@atlas.tn')}<br>${esc(c.phone||'+216 71 000 111')}</p></div></div>
+    </div>
+  </div>`;
+}
+function selectEmail(i){state.selectedEmail=i;render()}
+function setEmailFolder(folder){state.emailFolder=folder;state.selectedEmail=0;render()}
+function EmailHubPage(){
+  const list=data.emails.filter(e=>e.folder===state.emailFolder);
+  const selected=list[state.selectedEmail]||list[0]||data.emails[0];
+  return `<div class="page-head"><div><h1>Email Hub</h1><p>Centralisez les emails fournisseurs et clients, puis reliez-les aux commandes.</p></div><div class="panel-actions"><button class="secondary" onclick="quickAction('Synchronisation email lancée')">Synchroniser</button><button class="primary" onclick="openModal('composeEmail')">+ Nouvel email</button></div></div>
+  <div class="email-layout">
+    <div class="card email-folders"><div class="section-title"><h3>Dossiers</h3></div><div class="card-pad">
+      ${[['Inbox','Boîte de réception',3],['Sent','Envoyés',1],['Drafts','Brouillons',2],['Alerts','Relances',4]].map(x=>`<button class="email-folder ${state.emailFolder===x[0]?'active':''}" onclick="setEmailFolder('${x[0]}')"><span>${x[1]}</span><b>${x[2]}</b></button>`).join('')}
+      <div class="nav-title">Comptes connectés</div><div class="list-item"><span class="dot" style="background:var(--green)"></span><div><b>achats@portflow.ai</b><div class="muted">Gmail connecté</div></div></div>
+      <button class="secondary" style="width:100%;margin-top:12px" onclick="connectService('Outlook')">+ Connecter un compte</button>
+    </div></div>
+    <div class="card email-list"><div class="section-title"><h3>${state.emailFolder==='Inbox'?'Boîte de réception':state.emailFolder}</h3><span class="muted">${list.length} messages</span></div>
+      ${list.length?list.map((e,i)=>`<div class="email-item ${e.unread?'unread':''} ${i===state.selectedEmail?'active':''}" onclick="selectEmail(${i})"><div class="email-meta"><b>${esc(e.from)}</b><span>${esc(e.time)}</span></div><b>${esc(e.subject)}</b><p>${esc(e.preview)}</p><span class="badge blue">${esc(e.order)}</span></div>`).join(''):`<div class="empty-state">Aucun email dans ce dossier.</div>`}
+    </div>
+    <div class="card email-preview"><div class="section-title"><h3>Aperçu</h3><div class="panel-actions"><button class="secondary" onclick="openModal('composeEmail',{replyTo:'${esc(selected?.from||'')}',subject:'Re: ${esc(selected?.subject||'')}'})">Répondre</button><button class="secondary" onclick="quickAction('Email lié à la commande')">Lier</button></div></div>
+      ${selected?`<div class="email-preview-body"><div class="muted">De</div><b>${esc(selected.from)}</b><h2>${esc(selected.subject)}</h2><span class="badge blue">${esc(selected.order)}</span>
+      <div class="ai-summary"><b>Résumé automatique</b><p>${selected.order} : le message confirme une mise à jour importante. Une réponse ou une vérification du délai est recommandée.</p><button class="secondary" onclick="quickAction('Résumé copié')">Copier le résumé</button></div>
+      <div style="white-space:pre-line">${esc(selected.body)}</div>
+      <div class="quick-actions" style="margin-top:20px"><button class="primary" onclick="openModal('composeEmail',{replyTo:'${esc(selected.from)}',subject:'Re: ${esc(selected.subject)}'})">Répondre</button><button class="secondary" onclick="openModal('reminder',{ref:'${esc(selected.order)}'})">Créer une relance</button><button class="secondary" onclick="quickAction('Pièces jointes enregistrées')">Enregistrer pièces jointes</button></div></div>`:''}
+    </div>
+  </div>`;
+}
+
+
+function toggleIntegration(key,label){
+  state.integrations[key]=!state.integrations[key];
+  render();
+  toast(label+(state.integrations[key]?' connecté avec succès':' déconnecté'));
+}
+
+
+function Supplier360Page(){
+  const s=data.suppliers[state.selectedSupplier||0]||data.suppliers[0];
+  const idx=data.suppliers.indexOf(s);
+  const linked=data.orders.filter(o=>o.supplier===s.name);
+  return `<div class="page-head"><div><h1>Supplier 360</h1><p>Vue complète du fournisseur : performance, commandes, risques, conformité et actions.</p></div><div class="panel-actions"><button class="secondary" onclick="openModal('supplierCompare')">Comparer</button><button class="primary" onclick="openModal('supplier')">+ Nouveau fournisseur</button></div></div>
+  <div class="card profile-hero">
+    <div class="profile-logo">${esc(s.name.split(' ').map(x=>x[0]).slice(0,2).join(''))}</div>
+    <div class="profile-meta"><h2>${esc(s.name)}</h2><p>${esc(s.country)} · ${esc(s.category||'Fournisseur')} · ${esc(s.email||'')}</p><div class="quick-actions"><span class="badge green">Vérifié</span><span class="badge blue">Fiabilité ${s.onTime}%</span><span class="badge ${s.onTime<80?'red':'green'}">Risque ${s.onTime<80?'élevé':'faible'}</span></div></div>
+    <div class="panel-actions"><button class="secondary" onclick="openModal('supplier',data.suppliers[${idx}],${idx})">Modifier</button><button class="secondary" onclick="openModal('supplierEmail',{ref:'Demande de devis'})">Demander devis</button><button class="primary" onclick="openModal('order',{supplier:'${esc(s.name)}'})">+ Commande</button></div>
+  </div>
+  <div class="profile-kpis">
+    ${[['Commandes',linked.length||12],['Montant acheté','184 K€'],['Délai moyen',s.name==='Anadolu Steel'?'10 j':s.name==='Shenzhen Electronics'?'24 j':'18 j'],['Livraisons à temps',s.onTime+'%']].map(x=>`<div class="card profile-kpi"><span class="muted">${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+  </div>
+  <div class="split-360">
+    <div>
+      <div class="card"><div class="section-title"><h3>Performance fournisseur</h3><button class="secondary" onclick="quickAction('Évaluation enregistrée')">+ Évaluation</button></div><div class="card-pad">
+        ${[['Qualité produit',94],['Respect des délais',s.onTime],['Réactivité',88],['Conformité documentaire',96],['Compétitivité prix',91]].map(x=>`<div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><span>${x[0]}</span><b>${x[1]}%</b></div><div class="bar"><span style="width:${x[1]}%"></span></div></div>`).join('')}
+      </div></div>
+      <div class="card" style="margin-top:16px"><div class="section-title"><h3>Commandes liées</h3><button class="primary" onclick="openModal('order',{supplier:'${esc(s.name)}'})">+ Commande</button></div><div class="table-wrap"><table><thead><tr><th>Référence</th><th>Client</th><th>Statut</th><th>Valeur</th><th>ETA</th><th>Action</th></tr></thead><tbody>${linked.length?linked.map(o=>`<tr><td>${o.ref}</td><td>${o.client}</td><td><span class="badge ${statusClass(o.status)}">${o.status}</span></td><td>${o.value}</td><td>${o.eta}</td><td><button class="secondary" onclick="openModal('order',data.orders[${data.orders.indexOf(o)}],${data.orders.indexOf(o)})">Voir</button> <button class="secondary" onclick="openModal('reminder',{ref:'${o.ref}'})">Relancer</button></td></tr>`).join(''):`<tr><td colspan="6"><div class="empty-state">Aucune commande liée.</div></td></tr>`}</tbody></table></div></div>
+      <div class="card" style="margin-top:16px"><div class="section-title"><h3>Historique & incidents</h3><button class="secondary" onclick="quickAction('Incident ajouté')">+ Incident</button></div>${[['Contrôle qualité validé','Lot conforme','Aujourd’hui'],['Documents reçus','Facture et certificat','Hier'],['Retard signalé','Écart de 2 jours','22 juillet']].map(x=>`<div class="activity-item"><span class="dot"></span><div><b>${x[0]}</b><div class="muted">${x[1]}</div></div><span class="activity-time">${x[2]}</span></div>`).join('')}</div>
+    </div>
+    <div>
+      <div class="card"><div class="section-title"><h3>Coordonnées & conditions</h3></div><div class="card-pad"><p><span class="muted">Email</span><br><b>${esc(s.email||'—')}</b></p><p><span class="muted">Pays</span><br><b>${esc(s.country)}</b></p><p><span class="muted">Catégorie</span><br><b>${esc(s.category||'—')}</b></p><p><span class="muted">Paiement</span><br><b>${esc(s.payment||'—')}</b></p></div></div>
+      <div class="card ai-panel" style="margin-top:16px"><span class="badge violet">Score de risque</span><div class="ai-score">${s.onTime<80?'68':'18'}%</div><b>${s.onTime<80?'Risque important':'Risque faible'}</b><p class="muted">${s.onTime<80?'Retards fréquents à surveiller.':'Fournisseur stable et fiable.'}</p><button class="primary" onclick="quickAction('Plan d’action créé')">Créer plan d’action</button></div>
+      <div class="card" style="margin-top:16px"><div class="section-title"><h3>Documents & conformité</h3><button class="secondary" onclick="openModal('upload')">+ Document</button></div><div class="card-pad"><p>✓ Registre de commerce</p><p>✓ Certificat fiscal</p><p>✓ ISO 9001</p><p>✓ Conditions générales signées</p></div></div>
+    </div>
+  </div>`;
+}
+
+
+
+function WorkflowBuilderPage(){
+  const workflows=[
+    {name:'Relance fournisseur',trigger:'Document manquant depuis 3 jours',action:'Email + notification',status:'Actif',runs:'48 exécutions'},
+    {name:'Alerte retard critique',trigger:'ETA dépassée',action:'Alerte + assignation manager',status:'Actif',runs:'17 exécutions'},
+    {name:'Onboarding fournisseur',trigger:'Nouveau fournisseur créé',action:'Checklist + documents + rappel',status:'Actif',runs:'9 exécutions'},
+    {name:'Paiement en retard',trigger:'Échéance dépassée de 7 jours',action:'Relance client + tâche comptable',status:'En pause',runs:'6 exécutions'}
+  ];
+  const templates=[
+    ['📦','Retard fournisseur','Créer une alerte et envoyer une relance automatique.'],
+    ['🚢','ETA dépassée','Notifier le responsable et mettre la priorité sur Urgente.'],
+    ['📄','Document manquant','Créer une tâche et relancer le fournisseur.'],
+    ['💰','Paiement en retard','Envoyer un rappel et notifier la comptabilité.'],
+    ['👤','Nouveau fournisseur','Créer checklist, dossier et rappels de conformité.'],
+    ['📧','Relance client','Préparer et envoyer un message de suivi.']
+  ];
+  return `<div class="page-head"><div><h1>Workflow Builder</h1><p>Automatisez les tâches répétitives avec des règles Angular, PHP, MySQL et Cron Jobs.</p></div><div class="panel-actions"><button class="secondary" onclick="openModal('workflowTemplates')">Bibliothèque de modèles</button><button class="primary" onclick="openModal('workflowCreate')">+ Nouveau workflow</button></div></div>
+  <div class="workflow-kpis">
+    ${[['Workflows actifs','18'],['Exécutions aujourd’hui','247'],['Temps économisé','12 h'],['Taux de réussite','98%']].map(x=>`<div class="card workflow-kpi"><span class="muted">${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+  </div>
+  <div class="workflow-grid">
+    <div>
+      <div class="card">
+        <div class="section-title"><h3>Workflows actifs</h3><div class="toolbar"><select onchange="quickAction('Filtre workflow appliqué')"><option>Tous les statuts</option><option>Actif</option><option>En pause</option></select><button class="secondary" onclick="quickAction('Liste actualisée')">Actualiser</button></div></div>
+        ${workflows.map((w,i)=>`<div class="workflow-row">
+          <div><b>${w.name}</b><div class="muted">${w.runs}</div></div>
+          <div><span class="muted">Déclencheur</span><br>${w.trigger}</div>
+          <div><span class="muted">Action</span><br>${w.action}</div>
+          <div class="panel-actions"><span class="badge ${w.status==='Actif'?'green':'amber'}">${w.status}</span><button class="secondary" onclick="openModal('workflowEdit',{name:'${w.name}',trigger:'${w.trigger}',action:'${w.action}',status:'${w.status}'})">Modifier</button><button class="secondary" onclick="quickAction('${w.status==='Actif'?'Workflow mis en pause':'Workflow activé'}')">${w.status==='Actif'?'Pause':'Activer'}</button></div>
+        </div>`).join('')}
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="section-title"><h3>Historique d’exécution</h3><button class="secondary" onclick="quickAction('Historique exporté en CSV')">Exporter CSV</button></div>
+        ${[
+          ['16:22','Email fournisseur envoyé','Relance fournisseur · CMD-2291','green'],
+          ['15:48','Alerte critique créée','ETA dépassée · CMD-2279','red'],
+          ['14:35','Checklist créée','Onboarding fournisseur · Global Supply','blue'],
+          ['13:10','Notification envoyée','Paiement en retard · Atlas Ceramics','amber'],
+          ['11:54','Statut modifié','Commande CMD-2288 → Douane','violet']
+        ].map(x=>`<div class="workflow-log"><div class="workflow-log-time">${x[0]}</div><span class="dot" style="background:var(--${x[3]})"></span><div><b>${x[1]}</b><div class="muted">${x[2]}</div></div></div>`).join('')}
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="section-title"><h3>Bibliothèque de modèles</h3><button class="secondary" onclick="openModal('workflowTemplates')">Voir tout</button></div>
+        <div class="workflow-template-grid">
+          ${templates.map(t=>`<div class="workflow-template"><div style="font-size:22px">${t[0]}</div><h4>${t[1]}</h4><p class="muted">${t[2]}</p><button class="secondary" onclick="openModal('workflowCreate',{name:'${t[1]}'})">Utiliser</button></div>`).join('')}
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="section-title"><h3>Actions disponibles</h3></div>
+        <div class="card-pad">
+          ${['Envoyer un email','Envoyer WhatsApp','Créer une tâche','Créer une alerte','Modifier un statut','Affecter un responsable','Générer un PDF','Créer une notification'].map(x=>`<div class="list-item"><span class="dot"></span><div><b>${x}</b></div></div>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function AssistantOperationalPage(){
+  return `<div class="page-head"><div><h1>Assistant opérationnel</h1><p>Automatisez la lecture des documents, les résumés de dossiers et la détection des risques avec Angular, PHP et des règles métier.</p></div><div class="panel-actions"><button class="secondary" onclick="openModal('automationRules')">Configurer les règles</button><button class="primary" onclick="openModal('upload')">+ Scanner un document</button></div></div>
+  <div class="assistant-kpis">
+    ${[['Documents traités','128'],['Dossiers résumés','46'],['Risques détectés','7'],['Tâches automatisées','91%']].map(x=>`<div class="card assistant-kpi"><span class="muted">${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+  </div>
+  <div class="assistant-grid">
+    <div class="card assistant-card">
+      <span class="badge blue">OCR + règles</span>
+      <h3>Extraire un document</h3>
+      <p class="muted">Lisez un PDF ou une image, détectez les champs utiles et préremplissez automatiquement le formulaire.</p>
+      <div class="rule-list">
+        <div class="rule-item">Numéro de facture ou commande</div>
+        <div class="rule-item">Fournisseur, client et montant</div>
+        <div class="rule-item">Date, échéance et devise</div>
+      </div>
+      <div class="panel-actions"><button class="primary" onclick="openModal('upload')">Scanner et remplir</button></div>
+    </div>
+    <div class="card assistant-card">
+      <span class="badge violet">Synthèse automatique</span>
+      <h3>Résumer un dossier</h3>
+      <p class="muted">Regroupez commande, documents, emails, paiements et délais dans un résumé structuré.</p>
+      <div class="rule-list">
+        <div class="rule-item">Statut global de la commande</div>
+        <div class="rule-item">Documents présents et manquants</div>
+        <div class="rule-item">Prochaine action recommandée</div>
+      </div>
+      <div class="panel-actions"><button class="primary" onclick="openModal('folderSummary')">Générer le résumé</button></div>
+    </div>
+    <div class="card assistant-card">
+      <span class="badge amber">Règles métier</span>
+      <h3>Détecter les risques</h3>
+      <p class="muted">Analysez les dates, retards, documents, paiements et performances fournisseurs.</p>
+      <div class="rule-list">
+        <div class="rule-item">ETA dépassée ou retard probable</div>
+        <div class="rule-item">Document obligatoire manquant</div>
+        <div class="rule-item">Fournisseur peu fiable ou paiement en retard</div>
+      </div>
+      <div class="panel-actions"><button class="primary" onclick="openModal('riskDetection')">Lancer la détection</button></div>
+    </div>
+  </div>`;
+}
+
+function ReportsPage(){
+  return `<div class="page-head"><div><h1>Analyses & Rapports</h1><p>Mesurez la rentabilité, les délais, la performance fournisseurs et les tendances.</p></div><div class="panel-actions"><button class="secondary" onclick="quickAction('Export Excel préparé')">Exporter Excel</button><button class="primary" onclick="quickAction('Rapport PDF généré')">Générer PDF</button></div></div>
+  <div class="filter-row" style="margin-bottom:16px"><select><option>30 derniers jours</option><option>Ce trimestre</option><option>Cette année</option></select><select><option>Tous les fournisseurs</option><option>Yiwu Textile</option><option>Anadolu Steel</option></select><select><option>Tous les clients</option><option>Atlas Ceramics SA</option><option>Nord Distribution</option></select><button class="secondary" onclick="quickAction('Filtres appliqués')">Appliquer</button></div>
+  <div class="supply-kpis">${[['Chiffre d’affaires','452 K€'],['Coût achats','318 K€'],['Marge brute','134 K€'],['Délai moyen','18,4 j'],['Livraisons à temps','89 %']].map(x=>`<div class="card supply-kpi"><span class="muted">${x[0]}</span><b>${x[1]}</b></div>`).join('')}</div>
+  <div class="grid two">
+    <div class="card"><div class="section-title"><h3>Chiffre d’affaires mensuel</h3><span class="badge green">+19,6%</span></div><div class="card-pad">${[['Jan',52],['Fév',68],['Mar',61],['Avr',78],['Mai',72],['Juin',91],['Juil',100]].map(x=>`<div style="display:grid;grid-template-columns:40px 1fr 55px;gap:10px;align-items:center;margin-bottom:12px"><span class="muted">${x[0]}</span><div class="bar"><span style="width:${x[1]}%"></span></div><b>${Math.round(x[1]*4.52)}K</b></div>`).join('')}</div></div>
+    <div class="card"><div class="section-title"><h3>Commandes par statut</h3></div><div class="card-pad">${[['En transit',46,'blue'],['Douane',18,'violet'],['Livrées',31,'green'],['En retard',4,'red']].map(x=>`<div class="list-item"><span class="dot" style="background:var(--${x[2]})"></span><div style="flex:1"><b>${x[0]}</b></div><strong>${x[1]}</strong></div>`).join('')}</div></div>
+  </div>
+  <div class="grid two" style="margin-top:16px">
+    <div class="card"><div class="section-title"><h3>Performance fournisseurs</h3><button class="secondary" onclick="openModal('supplierCompare')">Comparer</button></div><div class="table-wrap"><table><thead><tr><th>Fournisseur</th><th>Fiabilité</th><th>Délai moyen</th><th>Qualité</th><th>Achats</th></tr></thead><tbody><tr><td>Yiwu Textile</td><td>96%</td><td>18 j</td><td>4.9/5</td><td>184 K€</td></tr><tr><td>Anadolu Steel</td><td>91%</td><td>10 j</td><td>4.6/5</td><td>143 K€</td></tr><tr><td>Shenzhen Electronics</td><td>82%</td><td>24 j</td><td>4.4/5</td><td>312 K€</td></tr></tbody></table></div></div>
+    <div class="card"><div class="section-title"><h3>Prévisions & Tendances</h3><span class="badge blue">Calcul statistique</span></div><div class="card-pad"><div class="recommendation"><b>Prévision prochain mois</b><h2>486 K€</h2><p class="muted">Calcul basé sur la moyenne récente et la tendance des commandes confirmées.</p></div><div class="list-item"><span class="dot"></span><div><b>Volume prévu</b><div class="muted">+7,5% par rapport à juillet</div></div></div><div class="list-item"><span class="dot" style="background:var(--amber)"></span><div><b>Risque délai</b><div class="muted">Hausse probable sur les expéditions Chine</div></div></div></div></div>
+  </div>`;
+}
+
+function IntegrationPage(){
+  const integrations=[
+    {key:'gmail',icon:'✉',name:'Gmail',category:'Email',desc:'Synchronisez les messages et pièces jointes avec les commandes.',account:'achats@portflow.ai',sync:'Il y a 4 min'},
+    {key:'outlook',icon:'▣',name:'Microsoft Outlook',category:'Email',desc:'Centralisez les emails professionnels et calendriers.',account:'Non configuré',sync:'—'},
+    {key:'odoo',icon:'O',name:'Odoo',category:'ERP',desc:'Synchronisez achats, fournisseurs, stocks et factures.',account:'Base Portflow Demo',sync:'Jamais'},
+    {key:'sap',icon:'S',name:'SAP Business One',category:'ERP',desc:'Échangez commandes, stocks et données financières.',account:'Non configuré',sync:'—'},
+    {key:'whatsapp',icon:'◉',name:'WhatsApp Business',category:'Communication',desc:'Centralisez messages fournisseurs, clients et relances.',account:'+216 20 000 000',sync:'Il y a 12 min'},
+    {key:'drive',icon:'△',name:'Google Drive',category:'Documents',desc:'Archivez automatiquement factures et documents import/export.',account:'Non configuré',sync:'—'},
+    {key:'dropbox',icon:'◇',name:'Dropbox',category:'Documents',desc:'Sauvegardez les pièces jointes dans des dossiers sécurisés.',account:'Non configuré',sync:'—'},
+    {key:'maersk',icon:'⚓',name:'Maersk Tracking',category:'Transport',desc:'Récupérez les événements de containers et ETA.',account:'Clé API requise',sync:'—'},
+    {key:'cmacgm',icon:'▤',name:'CMA CGM Tracking',category:'Transport',desc:'Suivez containers, navires et arrivées portuaires.',account:'Compte démo',sync:'Il y a 18 min'},
+    {key:'webhook',icon:'⌁',name:'API & Webhooks',category:'Développeur',desc:'Connectez Portflow à vos applications et automatisations.',account:'2 endpoints actifs',sync:'Aujourd’hui'}
+  ];
+  const connected=Object.values(state.integrations).filter(Boolean).length;
+  return `<div class="page-head"><div><h1>Intégrations & Connexions</h1><p>Connectez vos emails, ERP, documents, transporteurs et applications externes.</p></div><div class="panel-actions"><button class="secondary" onclick="openModal('integrationLogs')">Historique</button><button class="primary" onclick="openModal('customIntegration')">+ Intégration personnalisée</button></div></div>
+  <div class="integration-kpis">
+    ${[['Intégrations actives',connected],['Synchronisations aujourd’hui','128'],['Erreurs','1'],['Dernière synchronisation','4 min']].map(x=>`<div class="card integration-kpi"><span class="muted">${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+  </div>
+  <div class="integration-grid">
+    ${integrations.map(x=>`<div class="card integration-card">
+      <span class="integration-status badge ${state.integrations[x.key]?'green':'blue'}">${state.integrations[x.key]?'Connecté':'Disponible'}</span>
+      <div class="integration-icon">${x.icon}</div>
+      <span class="badge ${x.category==='ERP'?'violet':x.category==='Transport'?'amber':'blue'}">${x.category}</span>
+      <h3>${x.name}</h3><p class="muted" style="line-height:1.55">${x.desc}</p>
+      <div class="integration-details"><div><span>Compte</span><b>${x.account}</b></div><div><span>Dernière synchro</span><b>${x.sync}</b></div></div>
+      <div class="panel-actions">
+        ${state.integrations[x.key]
+          ?`<button class="secondary" onclick="openModal('integrationConfig',{key:'${x.key}',name:'${x.name}',account:'${x.account}'})">Configurer</button><button class="danger" onclick="toggleIntegration('${x.key}','${x.name}')">Déconnecter</button>`
+          :`<button class="primary" onclick="openModal('integrationConnect',{key:'${x.key}',name:'${x.name}'})">Connecter</button>`}
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+
+
+function Export360Page(){
+  const docs=[
+    ['Facture commerciale','Validé','31/07/2026'],
+    ['Packing List','Validé','31/07/2026'],
+    ['Bill of Lading','En attente','—'],
+    ['Certificat d’origine','À préparer','—'],
+    ['Déclaration export','À préparer','—'],
+    ['EUR.1','Non requis','—'],
+    ['Certificat phytosanitaire','Non requis','—'],
+    ['Assurance transport','Validé','30/07/2026'],
+    ['Domiciliation bancaire','En cours','—'],
+    ['Lettre de crédit','Non requise','—']
+  ];
+  const stakeholders=[
+    ['👤','Client export','Nord Distribution','Emma Rossi · emma@nord-distribution.eu'],
+    ['🏭','Fournisseur','Yiwu Textile Co.','Li Wei · sales@yiwu-textile.cn'],
+    ['🚚','Transitaire','Mediterranean Forwarding','Sami Jaziri · +216 71 220 440'],
+    ['⚓','Agent maritime','CMA CGM Tunisie','Agence Radès'],
+    ['🏛','Autorité portuaire','Port de Radès','Guichet export'],
+    ['🏦','Banque','BIAT Trade Finance','Domiciliation export'],
+    ['🛡','Assurance','GAT Assurance','Police transport n° TR-8821'],
+    ['📦','Douane','Bureau export Radès','Déclaration en préparation']
+  ];
+  return `<div class="page-head"><div><h1>Dossier Export 360°</h1><p>Centralisez toute l’opération export : intervenants, navire, booking, fret, documents, banque, douane et suivi.</p></div><div class="panel-actions"><button class="secondary" onclick="quickAction('Dossier exporté en PDF')">Exporter PDF</button><button class="primary" onclick="openModal('exportOperation')">+ Nouvelle opération export</button></div></div>
+  <div class="card export-hero">
+    <div><h2>EXP-2026-0042 — Nord Distribution</h2><p class="muted">Textile · 1 200 cartons · Destination Milan, Italie</p><div class="export-meta"><span class="badge green">Booking confirmé</span><span class="badge blue">FOB Ningbo</span><span class="badge violet">Container 40HC</span><span class="badge amber">Documents 70%</span></div></div>
+    <div class="panel-actions"><button class="secondary" onclick="openModal('exportEdit')">Modifier</button><button class="secondary" onclick="openModal('supplierEmail',{ref:'EXP-2026-0042'})">Relancer intervenant</button><button class="primary" onclick="nav('tracking')">Voir tracking</button></div>
+  </div>
+  <div class="export-kpis">
+    ${[['Valeur export','126 K€'],['Coût fret','4 850 €'],['Marge estimée','22,4 %'],['ETA','12 août'],['Documents validés','7/10'],['Risque global','Faible']].map(x=>`<div class="card export-kpi"><span class="muted">${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+  </div>
+  <div class="export-grid">
+    <div>
+      <div class="card export-section">
+        <div class="section-title"><h3>Navire, booking & transport</h3><button class="secondary" onclick="openModal('vesselBooking')">Modifier booking</button></div>
+        <div class="vessel-grid">
+          ${[
+            ['Compagnie maritime','CMA CGM'],
+            ['Navire','CMA CGM TOSCA'],
+            ['Numéro voyage','0MR7CE1MA'],
+            ['Booking','BKG-882041'],
+            ['Container','CMAU 782941-0'],
+            ['Type','40HC'],
+            ['Port départ','Ningbo, Chine'],
+            ['Port arrivée','Gênes, Italie'],
+            ['Cut-off documentaire','4 août · 12:00'],
+            ['Cut-off container','5 août · 18:00'],
+            ['ETD','6 août 2026'],
+            ['ETA','12 août 2026']
+          ].map(x=>`<div class="vessel-field"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+        </div>
+      </div>
+      <div class="card export-section">
+        <div class="section-title"><h3>Checklist documentaire export</h3><button class="secondary" onclick="openModal('upload')">+ Ajouter document</button></div>
+        ${docs.map((d,i)=>`<div class="doc-check"><div><b>${d[0]}</b><div class="muted">Dernière mise à jour : ${d[2]}</div></div><span class="badge ${statusClass(d[1])}">${d[1]}</span><button class="secondary" onclick="${d[1]==='Validé'?`quickAction('Document ouvert')`:`openModal('upload')`}">${d[1]==='Validé'?'Voir':'Ajouter'}</button></div>`).join('')}
+      </div>
+      <div class="card export-section">
+        <div class="section-title"><h3>Comparaison des offres de fret</h3><button class="secondary" onclick="quickAction('Nouvelle cotation ajoutée')">+ Cotation</button></div>
+        <div class="freight-compare">
+          <div class="freight-card best"><span class="badge green">Recommandé</span><h3>CMA CGM</h3><p><b>4 850 €</b></p><p class="muted">Transit 6 jours · Direct</p><button class="primary" onclick="quickAction('Offre CMA CGM sélectionnée')">Sélectionner</button></div>
+          <div class="freight-card"><h3>Maersk</h3><p><b>5 120 €</b></p><p class="muted">Transit 7 jours · Direct</p><button class="secondary" onclick="quickAction('Offre Maersk sélectionnée')">Sélectionner</button></div>
+          <div class="freight-card"><h3>MSC</h3><p><b>4 620 €</b></p><p class="muted">Transit 10 jours · 1 transbordement</p><button class="secondary" onclick="quickAction('Offre MSC sélectionnée')">Sélectionner</button></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card export-section">
+        <div class="section-title"><h3>Intervenants</h3><button class="secondary" onclick="openModal('stakeholder')">+ Intervenant</button></div>
+        ${stakeholders.map(x=>`<div class="stakeholder"><div class="stakeholder-icon">${x[0]}</div><div><b>${x[1]}</b><div>${x[2]}</div><div class="muted">${x[3]}</div></div><button class="secondary" onclick="quickAction('Contact ouvert')">Contacter</button></div>`).join('')}
+      </div>
+      <div class="card export-section">
+        <div class="section-title"><h3>Timeline export</h3><button class="secondary" onclick="quickAction('Timeline actualisée')">Actualiser</button></div>
+        <div class="export-timeline">
+          ${[
+            ['31 juil.','Commande export confirmée','Contrat et conditions validés','green'],
+            ['1 août','Booking maritime confirmé','CMA CGM · BKG-882041','green'],
+            ['2 août','Documents en préparation','BL et déclaration export en attente','amber'],
+            ['5 août','Dépôt container','Cut-off container à 18:00','blue'],
+            ['6 août','Départ navire','ETD Ningbo','blue'],
+            ['12 août','Arrivée prévue','ETA Gênes','violet']
+          ].map(x=>`<div class="export-step"><div class="muted">${x[0]}</div><span class="dot" style="background:var(--${x[3]})"></span><div><b>${x[1]}</b><div class="muted">${x[2]}</div></div></div>`).join('')}
+        </div>
+      </div>
+      <div class="card export-section">
+        <div class="section-title"><h3>Alertes & prochaine action</h3></div>
+        <div class="card-pad">
+          <div class="recommendation"><b>Action prioritaire</b><p>Obtenir le Bill of Lading provisoire avant le 4 août à 12:00.</p><button class="primary" onclick="openModal('supplierEmail',{ref:'EXP-2026-0042'})">Générer la relance</button></div>
+          <div class="list-item"><span class="dot" style="background:var(--amber)"></span><div><b>Domiciliation bancaire en cours</b><div class="muted">Confirmation attendue sous 24h.</div></div></div>
+          <div class="list-item"><span class="dot" style="background:var(--green)"></span><div><b>Booking confirmé</b><div class="muted">Aucun changement d’ETA.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function TrackingSupplyChain(){
+  const shipments=[
+    {ref:'CMD-2291',client:'Nord Distribution',supplier:'Yiwu Textile Co.',container:'MSCU829193',carrier:'COSCO',origin:'Ningbo',destination:'Radès',eta:'2 août',delay:'0 jour',status:'En transit',progress:4},
+    {ref:'CMD-2288',client:'MedTech Import',supplier:'Anadolu Steel',container:'TGHU441028',carrier:'CMA CGM',origin:'Istanbul',destination:'Radès',eta:'3 août',delay:'1 jour',status:'Douane',progress:5},
+    {ref:'CMD-2279',client:'Groupe Salhi',supplier:'Shenzhen Electronics',container:'OOLU772105',carrier:'Maersk',origin:'Shenzhen',destination:'Tunis',eta:'9 août',delay:'4 jours',status:'Retard',progress:3}
+  ];
+  const steps=['Créée','Facture','Production','Embarquée','En mer','Douane','Livrée'];
+  return `<div class="page-head"><div><h1>Tracking & Supply Chain</h1><p>Suivi centralisé des commandes fournisseurs, délais, relances et risques d’approvisionnement.</p></div><div class="panel-actions"><button class="secondary" onclick="openModal('supplierCompare')">Comparer les fournisseurs</button><button class="primary" onclick="openModal('order')">+ Nouvelle commande</button></div></div>
+  <div class="supply-kpis">
+    ${[['Commandes suivies','46'],['Retards critiques','4'],['Relances aujourd’hui','7'],['Risque de rupture','3'],['Fiabilité moyenne','89 %']].map(x=>`<div class="card supply-kpi"><span class="muted">${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+  </div>
+  <div class="tracking-grid">
+    <div>
+      ${shipments.map((s,si)=>`<div class="card shipment-card" style="margin-bottom:16px">
+        <div class="shipment-head">
+          <div><div class="muted">${s.container} · ${s.carrier}</div><h3 style="margin:5px 0">${s.ref} — ${s.client}</h3><div class="muted">${s.supplier} · ${s.origin} → ${s.destination}</div></div>
+          <div style="text-align:right"><span class="badge ${statusClass(s.status)}">${s.status}</span><div style="margin-top:8px"><b>ETA ${s.eta}</b><div class="muted">Retard : ${s.delay}</div></div></div>
+        </div>
+        <div class="shipment-progress">${steps.map((st,i)=>`<div class="shipment-step ${i<s.progress?'done':i===s.progress?'current':''}"><span>${st}</span></div>`).join('')}</div>
+        <div class="panel-actions"><button class="secondary" onclick="openModal('trackingDetail',${JSON.stringify(s).replace(/"/g,'&quot;')})">Voir le tracking</button><button class="secondary" onclick="openModal('reminder',${JSON.stringify(s).replace(/"/g,'&quot;')})">Planifier relance</button><button class="primary" onclick="openModal('supplierEmail',${JSON.stringify(s).replace(/"/g,'&quot;')})">Générer email fournisseur</button></div>
+      </div>`).join('')}
+    </div>
+    <div>
+      <div class="card"><div class="section-title"><h3>Alertes approvisionnement</h3><button class="secondary" onclick="quickAction('Alertes actualisées')">Actualiser</button></div>
+        ${[['Risque de rupture — Article EL-400','Stock estimé à 6 jours','red'],['Retard fournisseur — CMD-2279','4 jours de retard probable','amber'],['Document douanier manquant','Certificat d’origine requis','violet'],['Écart de prix détecté','Yiwu 12% moins cher','green']].map(x=>`<div class="list-item"><span class="dot" style="background:var(--${x[2]})"></span><div style="flex:1"><b>${x[0]}</b><div class="muted">${x[1]}</div><div class="quick-actions"><button class="secondary" onclick="quickAction('Alerte traitée')">Traiter</button><button class="secondary" onclick="openModal('ai')">Analyser</button></div></div></div>`).join('')}
+      </div>
+      <div class="card" style="margin-top:16px"><div class="section-title"><h3>Relances automatiques</h3><span class="badge green">Actives</span></div>
+        <div class="card-pad"><p><b>J-3 avant échéance</b><br><span class="muted">Email fournisseur + notification responsable</span></p><p><b>Jour de retard</b><br><span class="muted">Relance urgente + alerte dashboard</span></p><p><b>J+3 de retard</b><br><span class="muted">Escalade au manager</span></p><button class="primary" onclick="openModal('workflowItem')">Configurer les règles</button></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function pageContent(){switch(state.active){
+  case'dashboard':return Dashboard();
+  case'export360':return Export360Page();
+  case'tracking':return TrackingSupplyChain();
+  case'importexport':return GenericPage('Import / Export','Suivez commandes, containers, douane et livraisons.',OrdersTable(),`openModal('order')`,'+ Nouvelle opération');
+  case'documents':return Documents();
+  case'crm':return CRMPage();
+  case'suppliers':return Entities('suppliers');
+  case'command':return CommandCenter();
+  case'__oldcommand':return ModuleCards('Command Center','Vue centrale des opérations critiques.',[
+    {title:'Retards critiques',desc:'2 dossiers nécessitent une action immédiate.',button:'Traiter',action:'Retards traités'},
+    {title:'Documents bloquants',desc:'4 documents manquent pour finaliser les dossiers.',button:'Voir',onclick:"nav('documents')"},
+    {title:'Actions automatiques',desc:'7 recommandations prêtes à être appliquées.',button:'Appliquer',action:'Recommandations automatiques appliquées'}
+  ]);
+  case'customer360':return Customer360Page();
+  case'supplier360':return Supplier360Page();
+  case'commcenter':return CommunicationCenterPage();
+  case'emailhub':return EmailHubPage();
+  case'ai':return AssistantOperationalPage();
+  case'reports':return ReportsPage();
+  case'__oldreports':return ModuleCards('Rapports & Business Intelligence','Analysez votre activité en temps réel.',[
+    {title:'Rentabilité',desc:'Profit par client, fournisseur, pays et produit.',button:'Générer PDF',action:'Rapport de rentabilité généré'},
+    {title:'Délais',desc:'Temps moyen par étape et causes de retard.',button:'Exporter CSV',action:'Export CSV préparé'},
+    {title:'Prévisions & tendances',desc:'CA et volumes prévisionnels.',button:'Calculer',onclick:"openModal('ai')"}
+  ]);
+  case'workflows':return WorkflowBuilderPage();
+  case'integrations':return IntegrationPage();
+  case'settings':return GenericPage('Paramètres','Configurez votre entreprise et votre expérience.',`<div class="card card-pad"><div class="form-grid"><div class="field"><label>Nom de l’entreprise</label><input id="companyInline" value="${esc(localStorage.getItem('pf_company')||'Portflow Logistics')}"></div><div class="field"><label>Email</label><input value="contact@portflow.ai"></div><div class="field"><label>Langue</label><select><option>Français</option><option>English</option></select></div><div class="field"><label>Devise</label><select><option>EUR</option><option>USD</option><option>TND</option></select></div></div><button class="primary" style="margin-top:16px" onclick="localStorage.setItem('pf_company',document.getElementById('companyInline').value);toast('Paramètres enregistrés')">Enregistrer</button></div>`,`openModal('settings')`,'Paramètres avancés');
+  default:return '<div class="empty">Module en préparation</div>'
+}}
+
+
+function calculateOrderTotal(){
+  const num=id=>{
+    const raw=(document.getElementById(id)?.value||'').replace(/\s/g,'').replace(',','.');
+    return Number(raw)||0;
+  };
+  const subtotal=num('f_subtotal');
+  const transport=num('f_transport_cost');
+  const customs=num('f_customs_cost');
+  const insurance=num('f_insurance_cost');
+  const other=num('f_other_cost');
+  const total=subtotal+transport+customs+insurance+other;
+  const currency=document.getElementById('f_order_currency')?.value||'EUR';
+  setFieldValue('f_total',total.toLocaleString('fr-FR')+' '+currency);
+  const deposit=num('f_deposit_paid');
+  setFieldValue('f_remaining',Math.max(total-deposit,0).toLocaleString('fr-FR')+' '+currency);
+}
+
+function setFieldValue(id,value){const el=document.getElementById(id);if(el)el.value=value}
+function autoFillClient(){
+  const company=getVal('f_name')||'Nova Distribution';
+  const contact=getVal('f_contact')||'Amine Ben Salah';
+  const slug=company.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'client';
+  setFieldValue('f_name',company);
+  setFieldValue('f_contact',contact);
+  setFieldValue('f_stage','Qualification');
+  setFieldValue('f_score','84');
+  setFieldValue('f_email',(contact.split(' ')[0]||'contact').toLowerCase()+'@'+slug+'.com');
+  setFieldValue('f_phone','+216 71 245 980');
+  setFieldValue('f_city','Tunis, Tunisie');
+  setFieldValue('f_sector','Import & Distribution');
+  setFieldValue('f_source','LinkedIn');
+  setFieldValue('f_owner','Sami Ben Ali');
+  setFieldValue('f_notes','Profil enrichi automatiquement pour la démonstration. À vérifier avant enregistrement.');
+  const box=document.getElementById('clientAutoResult');
+  if(box)box.innerHTML='<b>✓ Remplissage automatique terminé</b><br>Coordonnées, score, secteur et responsable proposés.';
+}
+function autoFillSupplier(){
+  const company=getVal('f_name')||'Global Supply Industries';
+  const slug=company.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'supplier';
+  setFieldValue('f_name',company);
+  setFieldValue('f_country','Turquie');
+  setFieldValue('f_category','Équipements industriels');
+  setFieldValue('f_email','export@'+slug+'.com');
+  setFieldValue('f_rating','4.4');
+  setFieldValue('f_ontime','89');
+  setFieldValue('f_payment','30% acompte / 70% avant expédition');
+  const box=document.getElementById('supplierAutoResult');
+  if(box)box.innerHTML='<b>✓ Profil fournisseur complété</b><br>Pays, catégorie, contact, fiabilité et conditions de paiement proposés.';
+}
+function extractDocumentDemo(){
+  if(!state.selectedFile){toast('Choisissez d’abord un PDF ou une image.');return}
+  const box=document.getElementById('extractStatus');
+  if(box)box.innerHTML='<b>Lecture du document…</b><div class="loading-line"><span></span></div>';
+  setTimeout(()=>{
+    const name=state.selectedFile.toLowerCase();
+    setFieldValue('f_name',state.selectedFile);
+    setFieldValue('f_type',name.includes('packing')?'Packing List':name.includes('bl')?'Bill of Lading':name.includes('contrat')?'Contrat':'Facture');
+    setFieldValue('f_status','En cours');
+    setFieldValue('f_priority','Haute');
+    setFieldValue('f_client','Nord Distribution');
+    setFieldValue('f_supplier','Yiwu Textile Co.');
+    setFieldValue('f_amount','42 600 EUR');
+    setFieldValue('f_owner','Sami Ben Ali');
+    setFieldValue('f_date','2026-07-31');
+    setFieldValue('f_due','2026-08-15');
+    setFieldValue('f_notes','Champs extraits automatiquement dans la démonstration. Vérification humaine requise.');
+    if(box)box.innerHTML='<b>✓ Extraction automatique terminée</b><br>Le formulaire a été rempli. Vérifiez les valeurs avant de sauvegarder.';
+  },900);
+}
+
+function field(id,label,value='',type='text',full=''){return `<div class="field ${full}"><label>${label}</label><input id="${id}" type="${type}" value="${esc(value)}"></div>`}
+function selectField(id,label,value,options,full=''){return `<div class="field ${full}"><label>${label}</label><select id="${id}">${options.map(o=>`<option ${o===value?'selected':''}>${o}</option>`).join('')}</select></div>`}
+function Modal(){
+  if(!state.modal)return'';
+  const {type,item,index}=state.modal;
+  let title='Ajouter / Modifier',body='',foot='',size='large';
+  if(type==='delete'){
+    title='Confirmer la suppression';size='small';
+    body=`<p>Cette action supprimera définitivement cet élément de la démonstration.</p>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="danger" onclick="removeItem()">Supprimer</button>`;
+  }else if(type==='order'){
+    title=index===null?'Nouvelle commande import / export':'Modifier la commande';
+    body=`<div class="form-grid">
+      <div class="supplier-form-note"><b>Informations principales</b><br>Créez une commande complète avec produit, transport, paiement, coûts et documents.</div>
+      ${field('f_ref','Référence',item.ref||'')}
+      ${selectField('f_order_type','Type de commande',item.orderType||'Import',['Achat local','Import','Export'])}
+      ${field('f_order_date','Date de commande',item.orderDate||'2026-07-31','date')}
+      ${selectField('f_status','Statut',item.status||'En attente',['Brouillon','En attente','Confirmée','Production','En transit','Douane','Livrée','Retard','Bloquée'])}
+
+      ${field('f_product','Produit / Désignation',item.product||'')}
+      ${field('f_order_category','Catégorie',item.category||'')}
+      ${field('f_quantity','Quantité',item.quantity||'','number')}
+      ${selectField('f_unit','Unité',item.unit||'Pièces',['Pièces','Kg','Tonnes','Cartons','Palettes','Conteneurs'])}
+
+      ${selectField('f_client','Client / Société',item.client||'',data.clients.map(c=>c.name))}
+      ${selectField('f_supplier','Fournisseur',item.supplier||'',data.suppliers.map(s=>s.name))}
+      ${selectField('f_priority','Priorité',item.priority||'Normale',['Faible','Normale','Haute','Urgente'])}
+      ${field('f_owner','Responsable',item.owner||'Sami Ben Ali')}
+
+      <div class="supplier-form-note"><b>Transport & logistique</b><br>Renseignez le mode de transport, le suivi et les ports concernés.</div>
+      ${selectField('f_transport_mode','Mode de transport',item.transportMode||'Maritime',['Maritime','Aérien','Routier','Ferroviaire','Multimodal'])}
+      ${field('f_carrier','Transporteur',item.carrier||'')}
+      ${field('f_container','N° container / Tracking',item.container||'')}
+      ${selectField('f_incoterm','Incoterm',item.incoterm||'FOB',['EXW','FOB','CIF','CFR','DAP','DDP'])}
+      ${field('f_origin','Origine',item.origin||'')}
+      ${field('f_destination','Destination',item.destination||'')}
+      ${field('f_port_departure','Port / Lieu de départ',item.portDeparture||'')}
+      ${field('f_port_arrival','Port / Lieu d’arrivée',item.portArrival||'')}
+      ${field('f_shipment_date','Date d’expédition',item.shipmentDate||'','date')}
+      ${field('f_eta','Date d’arrivée estimée',item.eta&&item.eta.includes('-')?item.eta:'','date')}
+
+      <div class="supplier-form-note"><b>Paiement & calcul des coûts</b><br>Le total final et le solde restant sont calculés automatiquement.</div>
+      ${selectField('f_order_currency','Devise',item.currency||'EUR',['EUR','USD','TND'])}
+      ${field('f_payment_terms','Conditions de paiement',item.paymentTerms||'30% acompte / 70% avant expédition')}
+      ${field('f_subtotal','Sous-total marchandises',item.subtotal||'','number')}
+      ${field('f_transport_cost','Transport',item.transportCost||'','number')}
+      ${field('f_customs_cost','Douane & taxes',item.customsCost||'','number')}
+      ${field('f_insurance_cost','Assurance',item.insuranceCost||'','number')}
+      ${field('f_other_cost','Autres frais',item.otherCost||'','number')}
+      ${field('f_deposit_paid','Acompte payé',item.depositPaid||'','number')}
+      ${field('f_total','Total final',item.value||'')}
+      ${field('f_remaining','Solde restant',item.remaining||'')}
+
+      <div class="order-summary">
+        <div><span>Sous-total</span><b id="sumSubtotal">Marchandises</b></div>
+        <div><span>Transport</span><b>+ frais logistiques</b></div>
+        <div><span>Douane</span><b>+ taxes</b></div>
+        <div><span>Assurance</span><b>+ couverture</b></div>
+        <div><span>Total</span><b>Calcul automatique</b></div>
+      </div>
+
+      <div class="field full"><label>Documents requis</label><div class="checkbox-grid">
+        <label class="checkbox-line"><span>Facture commerciale</span><input type="checkbox" checked></label>
+        <label class="checkbox-line"><span>Packing List</span><input type="checkbox" checked></label>
+        <label class="checkbox-line"><span>Bill of Lading / AWB</span><input type="checkbox"></label>
+        <label class="checkbox-line"><span>Certificat d’origine</span><input type="checkbox"></label>
+        <label class="checkbox-line"><span>Assurance transport</span><input type="checkbox"></label>
+        <label class="checkbox-line"><span>Document douanier</span><input type="checkbox"></label>
+      </div></div>
+
+      <div class="field full"><label>Notes internes</label><textarea id="f_order_notes">${esc(item.notes||'')}</textarea></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="secondary" onclick="calculateOrderTotal()">Calculer total</button><button class="secondary" onclick="state.modal=null;render();toast('Brouillon enregistré')">Enregistrer brouillon</button><button class="primary" onclick="calculateOrderTotal();saveModal()">Enregistrer et ouvrir tracking</button>`;
+  }else if(type==='document'||type==='upload'){
+    title=type==='upload'?'Importer et analyser un document':(index===null?'Nouveau document':'Modifier le document');
+    body=`${type==='upload'?`<div class="upload-zone"><b>Glissez un fichier ou cliquez pour le sélectionner</b><div class="muted" id="selectedFileName" style="margin-top:7px">${state.selectedFile||'PDF, PNG, JPG ou EML — 20 Mo max.'}</div><input type="file" accept=".pdf,.png,.jpg,.jpeg,.eml" onchange="handleFile(this)"><div class="quick-actions" style="justify-content:center"><button class="secondary" onclick="extractDocumentDemo()">Scanner et remplir automatiquement</button></div><div id="extractStatus" class="auto-fill-box" style="margin-top:14px"><b>Extraction automatique</b><br>Sélectionnez un PDF ou une image, puis lancez le scan.</div></div>`:''}
+      <div class="form-grid" style="margin-top:16px">
+      ${field('f_name','Nom du document',item.name||state.selectedFile||'')}
+      ${selectField('f_type','Type de document',item.type||'Facture',['Facture','Contrat','Packing List','Bill of Lading','Bon de commande','Certificat','Email','Autre'])}
+      ${selectField('f_status','Statut',item.status||'En analyse',['Nouveau','En analyse','En cours','Validé','Bloqué','Terminé'])}
+      ${selectField('f_priority','Priorité',item.priority||'Normale',['Faible','Normale','Haute','Urgente'])}
+      ${field('f_client','Client / Société',item.client||'')}
+      ${field('f_supplier','Fournisseur',item.supplier||'')}
+      ${field('f_amount','Montant + devise',item.amount||'')}
+      ${field('f_owner','Responsable',item.owner||'')}
+      ${field('f_date','Date du document',item.date||'', 'date')}
+      ${field('f_due','Date d’échéance',item.due||'', 'date')}
+      <div class="field full"><label>Description / Notes</label><textarea id="f_notes">${esc(item.notes||'')}</textarea></div>
+      </div>${state.aiAnswer?`<div class="ai-answer"><b>✦ Résultat de l’extraction automatique</b><br>${esc(state.aiAnswer)}</div>`:''}`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="saveModal()">Enregistrer</button>`;
+  }else if(type==='documentView'){
+    title='Aperçu du document';
+    body=`<div class="card card-pad" style="box-shadow:none"><div class="demo-chip">Document sécurisé</div><h2>${esc(item.name)}</h2><div class="form-grid">
+      <div><span class="muted">Type</span><p>${esc(item.type)}</p></div><div><span class="muted">Statut</span><p><span class="badge ${statusClass(item.status)}">${esc(item.status)}</span></p></div>
+      <div><span class="muted">Client</span><p>${esc(item.client||'—')}</p></div><div><span class="muted">Fournisseur</span><p>${esc(item.supplier||'—')}</p></div>
+      <div><span class="muted">Montant</span><p>${esc(item.amount||'—')}</p></div><div><span class="muted">Responsable</span><p>${esc(item.owner||'—')}</p></div>
+      <div class="full"><span class="muted">Notes</span><p>${esc(item.notes||'Aucune note.')}</p></div>
+    </div></div>`;
+    foot=`<button class="secondary" onclick="quickAction('Téléchargement simulé')">Télécharger</button><button class="primary" onclick="openModal('document',data.documents[${index}],${index})">Modifier</button>`;
+  }else if(type==='client'||type==='clientAuto'){
+    title=index===null?(type==='clientAuto'?'Nouveau client — remplissage automatique':'Nouveau client'):'Modifier le client';
+    body=`${type==='clientAuto'?`<div class="auto-fill-box" id="clientAutoResult"><b>Remplissage automatique</b><br>Saisissez seulement le nom de société et le contact, puis lancez le remplissage.</div>`:''}
+    <div class="form-grid">
+      ${field('f_name','Société',item.name||'')}
+      ${field('f_contact','Contact principal',item.contact||'')}
+      ${selectField('f_stage','Étape',item.stage||'Prospect',['Prospect','Qualification','Proposition','Négociation','Gagné','Perdu'])}
+      ${field('f_score','Score',item.score||'70','number')}
+      ${field('f_email','Email',item.email||'','email')}
+      ${field('f_phone','Téléphone',item.phone||'')}
+      ${field('f_city','Ville / Pays',item.city||'')}
+      ${field('f_sector','Secteur d’activité',item.sector||'')}
+      ${selectField('f_source','Source',item.source||'LinkedIn',['LinkedIn','Site web','Salon','Référence','Appel','Email','Autre'])}
+      ${field('f_owner','Responsable',item.owner||'Sami Ben Ali')}
+      <div class="field full"><label>Notes internes</label><textarea id="f_notes">${esc(item.notes||'')}</textarea></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button>${type==='clientAuto'?`<button class="secondary" onclick="autoFillClient()">Remplir automatiquement</button>`:''}<button class="primary" onclick="saveModal()">Enregistrer</button>`;
+  }else if(type==='supplier'||type==='supplierAuto'){
+    title=index===null?(type==='supplierAuto'?'Nouveau fournisseur — préremplissage automatique':'Nouveau fournisseur'):'Modifier le fournisseur';
+    body=`${type==='supplierAuto'?`<div class="auto-fill-box" id="supplierAutoResult"><b>Préremplissage automatique</b><br>Saisissez le nom du fournisseur puis complétez sa fiche.</div>`:''}
+    <div class="form-grid">
+      <div class="supplier-form-note"><b>Informations complètes du fournisseur</b><br>Ces données seront utilisées dans le suivi, la comparaison, les commandes et le popup 360°.</div>
+      ${field('f_name','Nom commercial',item.name||'')}
+      ${field('f_legal_name','Raison sociale',item.legalName||'')}
+      ${field('f_country','Pays',item.country||'')}
+      ${field('f_city','Ville',item.city||'')}
+      ${field('f_address','Adresse complète',item.address||'')}
+      ${field('f_tax','Identifiant fiscal / Registre',item.tax||'')}
+      ${field('f_category','Catégorie / Produits',item.category||'')}
+      ${field('f_contact','Contact principal',item.contact||'')}
+      ${field('f_email','Email',item.email||'','email')}
+      ${field('f_phone','Téléphone',item.phone||'')}
+      ${field('f_website','Site web',item.website||'')}
+      ${selectField('f_currency','Devise',item.currency||'USD',['USD','EUR','TND'])}
+      ${field('f_rating','Note / 5',item.rating||'4.0')}
+      ${field('f_ontime','Livraisons à l’heure (%)',item.onTime||'80','number')}
+      ${field('f_lead_time','Délai moyen',item.leadTime||'')}
+      ${field('f_min_order','Commande minimum',item.minOrder||'')}
+      ${field('f_payment','Conditions de paiement',item.payment||'')}
+      ${field('f_incoterms','Incoterms',item.incoterms||'')}
+      ${field('f_certifications','Certifications',item.certifications||'')}
+      ${selectField('f_risk','Niveau de risque',item.risk||'Faible',['Faible','Modéré','Élevé','Critique'])}
+      ${selectField('f_supplier_status','Statut fournisseur',item.status||'Actif',['Prospect','En validation','Actif','Suspendu','Bloqué'])}
+      <div class="field full"><label>Notes internes</label><textarea id="f_notes">${esc(item.notes||'')}</textarea></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button>${type==='supplierAuto'?`<button class="secondary" onclick="autoFillSupplier()">Préremplir la fiche</button>`:''}<button class="primary" onclick="saveModal()">Enregistrer</button>`;
+  }else if(type==='ai'){
+    title='Assistant opérationnel Portflow';
+    body=`<div class="field"><label>Posez votre question</label><textarea id="aiPrompt" placeholder="Ex. Résume le dossier CMD-2291 et propose la prochaine action."></textarea></div><div class="quick-actions"><button class="secondary" onclick="document.getElementById('aiPrompt').value='Analyse le risque de retard de CMD-2279'">Risque de retard</button><button class="secondary" onclick="document.getElementById('aiPrompt').value='Rédige une relance fournisseur professionnelle'">Rédiger une relance</button><button class="secondary" onclick="document.getElementById('aiPrompt').value='Résume les documents manquants'">Documents manquants</button></div>${state.aiAnswer?`<div class="ai-answer"><b>✦ Résultat de l’assistant</b><br>${esc(state.aiAnswer)}</div>`:''}`;
+    foot=`<button class="secondary" onclick="closeModal()">Fermer</button><button class="primary" onclick="askAI()">Analyser</button>`;
+  }else if(type==='notifications'){
+    title='Centre de notifications';size='small';
+    body=`<div class="list">${data.notifications.map((n,i)=>`<div class="list-item"><span class="dot"></span><div><b>${esc(n)}</b><div class="muted">Il y a ${i+1} heure${i?'s':''}</div></div></div>`).join('')}</div>`;
+    foot=`<button class="secondary" onclick="quickAction('Toutes les notifications marquées comme lues')">Tout marquer comme lu</button><button class="primary" onclick="closeModal()">Fermer</button>`;
+  }else if(type==='search'){
+    title=`Résultats pour « ${esc(item.query)} »`;
+    body=item.results.length?`<div class="list">${item.results.map(r=>`<div class="list-item"><span class="badge blue">${r.kind}</span><div style="flex:1"><b>${esc(r.title)}</b><div class="muted">${esc(r.sub||'')}</div></div><button class="secondary" onclick="openSearchResult('${r.kind}',${r.index})">Ouvrir</button></div>`).join('')}</div>`:`<div class="empty-state">Aucun résultat trouvé.</div>`;
+    foot=`<button class="primary" onclick="closeModal()">Fermer</button>`;
+  }else if(type==='settings'){
+    title='Paramètres avancés';
+    body=`<div class="form-grid">${field('f_company','Nom de l’entreprise',localStorage.getItem('pf_company')||'Portflow Logistics')}${field('f_email','Email principal','contact@portflow.ai','email')}${selectField('f_lang','Langue','Français',['Français','English','العربية'])}${selectField('f_currency','Devise','EUR',['EUR','USD','TND'])}${selectField('f_theme','Thème','Sombre',['Sombre','Clair','Système'])}${selectField('f_notifications','Notifications','Activées',['Activées','Désactivées'])}</div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="saveModal()">Enregistrer</button>`;
+  
+  
+  
+  }else if(type==='integrationConnect'){
+    title='Connecter '+esc(item.name||'une intégration');
+    body=`<div class="auto-fill-box"><b>Connexion sécurisée</b><br>Les identifiants sont utilisés uniquement pour synchroniser les données autorisées.</div>
+    <div class="form-grid">
+      ${field('f_int_account','Email / Identifiant','')}
+      ${field('f_int_key','Clé API / Mot de passe','','password')}
+      ${selectField('f_int_frequency','Fréquence de synchronisation','Toutes les 15 minutes',['Temps réel','Toutes les 5 minutes','Toutes les 15 minutes','Toutes les heures','Chaque jour'])}
+      ${selectField('f_int_direction','Sens de synchronisation','Bidirectionnelle',['Import uniquement','Export uniquement','Bidirectionnelle'])}
+      <div class="field full"><label>Permissions</label><div class="integration-details"><div><span>Lire les données</span><input type="checkbox" checked></div><div><span>Créer et mettre à jour</span><input type="checkbox" checked></div><div><span>Importer les pièces jointes</span><input type="checkbox" checked></div></div></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.integrations['${item.key}']=true;state.modal=null;render();toast('${esc(item.name||'Intégration')} connecté avec succès')">Tester et connecter</button>`;
+  }else if(type==='integrationConfig'){
+    title='Configurer '+esc(item.name||'intégration');
+    body=`<div class="form-grid">
+      ${field('f_cfg_account','Compte connecté',item.account||'')}
+      ${selectField('f_cfg_frequency','Synchronisation','Toutes les 15 minutes',['Temps réel','Toutes les 5 minutes','Toutes les 15 minutes','Toutes les heures','Chaque jour'])}
+      ${selectField('f_cfg_conflict','En cas de conflit','Portflow prioritaire',['Portflow prioritaire','Application externe prioritaire','Demander une validation'])}
+      ${selectField('f_cfg_notifications','Notifications d’erreur','Activées',['Activées','Désactivées'])}
+      <div class="field full"><label>Données synchronisées</label><div class="integration-details"><div><span>Commandes</span><input type="checkbox" checked></div><div><span>Fournisseurs</span><input type="checkbox" checked></div><div><span>Documents</span><input type="checkbox" checked></div><div><span>Statuts et événements</span><input type="checkbox" checked></div></div></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="quickAction('Synchronisation manuelle terminée')">Synchroniser maintenant</button><button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Configuration enregistrée')">Enregistrer</button>`;
+  }else if(type==='customIntegration'){
+    title='Intégration personnalisée';
+    body=`<div class="form-grid">
+      ${field('f_custom_name','Nom de l’intégration','')}
+      ${selectField('f_custom_type','Type','API REST',['API REST','Webhook','SFTP','Import CSV automatique'])}
+      ${field('f_custom_url','URL / Endpoint','https://')}
+      ${selectField('f_custom_auth','Authentification','Clé API',['Aucune','Clé API','Bearer Token','Basic Auth','OAuth 2.0'])}
+      ${field('f_custom_key','Clé / Token','','password')}
+      ${selectField('f_custom_event','Événement','Commande mise à jour',['Commande créée','Commande mise à jour','Document ajouté','Retard détecté','Fournisseur modifié'])}
+      <div class="field full"><label>Exemple de données JSON</label><textarea>{"order_reference":"CMD-2291","status":"in_transit","eta":"2026-08-02"}</textarea></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="quickAction('Test réussi : réponse 200 OK')">Tester</button><button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Intégration personnalisée créée')">Créer</button>`;
+  }else if(type==='integrationLogs'){
+    title='Historique des synchronisations';
+    body=`<div class="list">
+      ${[
+        ['Gmail','12 nouveaux emails importés','Succès','Il y a 4 min'],
+        ['CMA CGM','3 événements de tracking mis à jour','Succès','Il y a 18 min'],
+        ['WhatsApp Business','5 conversations synchronisées','Succès','Il y a 25 min'],
+        ['Odoo','Échec d’authentification','Erreur','Hier 16:42'],
+        ['API Webhook','Commande CMD-2291 envoyée','Succès','Hier 15:10']
+      ].map(x=>`<div class="integration-log"><span class="dot" style="background:var(--${x[2]==='Succès'?'green':'red'})"></span><div style="flex:1"><b>${x[0]}</b><div class="muted">${x[1]}</div></div><span class="badge ${x[2]==='Succès'?'green':'red'}">${x[2]}</span><span class="muted">${x[3]}</span></div>`).join('')}
+    </div>`;
+    foot=`<button class="secondary" onclick="quickAction('Journal exporté en CSV')">Exporter CSV</button><button class="primary" onclick="closeModal()">Fermer</button>`;
+
+  
+  
+  
+  
+  }else if(type==='workflowCreate'||type==='workflowEdit'){
+    title=type==='workflowEdit'?'Modifier le workflow':'Nouveau workflow';
+    body=`<div class="form-grid">
+      ${field('f_wf_name','Nom',item.name||'')}
+      ${selectField('f_wf_status','Statut',item.status||'Actif',['Actif','En pause','Brouillon'])}
+      ${selectField('f_wf_trigger','Déclencheur',item.trigger||'Document manquant',['Document manquant','ETA dépassée','Paiement en retard','Nouveau fournisseur','Commande créée','Score fournisseur faible'])}
+      ${selectField('f_wf_condition','Condition','Depuis 3 jours',['Immédiatement','Depuis 1 jour','Depuis 3 jours','Depuis 7 jours','Valeur supérieure à un seuil'])}
+      ${selectField('f_wf_action','Action principale',item.action||'Envoyer un email',['Envoyer un email','Envoyer WhatsApp','Créer une tâche','Créer une alerte','Modifier le statut','Notifier le responsable'])}
+      ${field('f_wf_owner','Responsable','Sami Ben Ali')}
+      ${selectField('f_wf_priority','Priorité','Haute',['Normale','Haute','Urgente'])}
+      ${selectField('f_wf_frequency','Fréquence de vérification','Chaque heure',['Chaque heure','Toutes les 6 heures','Chaque jour'])}
+      <div class="field full"><label>Description</label><textarea>Décrivez ce que le workflow doit vérifier et exécuter automatiquement.</textarea></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="quickAction('Test du workflow réussi')">Tester</button><button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Workflow enregistré avec succès')">Enregistrer</button>`;
+  }else if(type==='workflowTemplates'){
+    title='Bibliothèque de modèles';
+    body=`<div class="workflow-template-grid">
+      ${[
+        ['Retard fournisseur','Relance + notification'],
+        ['ETA dépassée','Alerte urgente + responsable'],
+        ['Document manquant','Tâche + email fournisseur'],
+        ['Paiement en retard','Relance client + comptabilité'],
+        ['Nouveau fournisseur','Checklist + documents'],
+        ['Relance client','Message + rappel automatique']
+      ].map(x=>`<div class="workflow-template"><h4>${x[0]}</h4><p class="muted">${x[1]}</p><button class="primary" onclick="openModal('workflowCreate',{name:'${x[0]}'})">Utiliser ce modèle</button></div>`).join('')}
+    </div>`;
+    foot=`<button class="primary" onclick="closeModal()">Fermer</button>`;
+
+  }else if(type==='folderSummary'){
+    title='Résumé automatique du dossier';
+    body=`<div class="form-grid">${selectField('f_summary_order','Commande','CMD-2291',['CMD-2291','CMD-2288','CMD-2285','CMD-2279'])}${selectField('f_summary_format','Format','Synthèse courte',['Synthèse courte','Rapport détaillé','Résumé commercial','Résumé logistique'])}</div>
+    <div class="recommendation" style="margin-top:16px"><b>Résumé généré</b><p>La commande CMD-2291 est en transit. La facture et le packing list sont disponibles. Le Bill of Lading doit encore être confirmé. Aucun retard critique n’est détecté. Prochaine action : demander au fournisseur la confirmation d’embarquement.</p></div>`;
+    foot=`<button class="secondary" onclick="quickAction('Résumé copié')">Copier</button><button class="secondary" onclick="quickAction('Résumé exporté en PDF')">Exporter PDF</button><button class="primary" onclick="closeModal()">Fermer</button>`;
+  }else if(type==='riskDetection'){
+    title='Détection automatique des risques';
+    body=`<div class="list">
+      <div class="list-item"><span class="dot" style="background:var(--red)"></span><div style="flex:1"><b>CMD-2279 — Retard critique</b><div class="muted">ETA dépassée de 4 jours.</div></div><span class="badge red">Critique</span></div>
+      <div class="list-item"><span class="dot" style="background:var(--amber)"></span><div style="flex:1"><b>CMD-2291 — Document manquant</b><div class="muted">Bill of Lading non confirmé.</div></div><span class="badge amber">Moyen</span></div>
+      <div class="list-item"><span class="dot" style="background:var(--violet)"></span><div style="flex:1"><b>Shenzhen Electronics — Fiabilité faible</b><div class="muted">Taux de livraison à temps inférieur à 80%.</div></div><span class="badge violet">À surveiller</span></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="quickAction('Rapport de risques exporté')">Exporter</button><button class="primary" onclick="quickAction('Plan d’action créé')">Créer un plan d’action</button>`;
+  }else if(type==='automationRules'){
+    title='Règles d’automatisation';
+    body=`<div class="form-grid">
+      ${selectField('f_rule_event','Événement','ETA dépassée',['ETA dépassée','Document manquant','Paiement en retard','Score fournisseur faible'])}
+      ${selectField('f_rule_action','Action','Créer une alerte',['Créer une alerte','Envoyer un email','Planifier une relance','Notifier le responsable'])}
+      ${field('f_rule_delay','Délai avant action','0','number')}
+      ${selectField('f_rule_priority','Priorité','Haute',['Normale','Haute','Urgente'])}
+      <div class="field full"><label>Description</label><textarea>Déclencher automatiquement l’action lorsque la condition est remplie.</textarea></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Règle d’automatisation enregistrée')">Enregistrer</button>`;
+
+  }else if(type==='newCommunication'){
+    title='Nouvelle communication';
+    body=`<div class="module-grid">
+      <button class="secondary" onclick="openModal('newMessage')">WhatsApp / Message</button>
+      <button class="secondary" onclick="openModal('composeEmail')">Email</button>
+      <button class="secondary" onclick="openModal('scheduleCall')">Appel</button>
+      <button class="secondary" onclick="openModal('internalNote')">Note interne</button>
+    </div>`;
+    foot=`<button class="primary" onclick="closeModal()">Fermer</button>`;
+  }else if(type==='newMessage'){
+    title='Nouveau message WhatsApp';
+    body=`<div class="form-grid">${field('f_msg_client','Client / Contact',item.client||'')}${selectField('f_msg_template','Modèle','Suivi commande',['Suivi commande','Relance fournisseur','Confirmation livraison','Envoi devis','Message libre'])}<div class="field full"><label>Message</label><textarea style="min-height:180px">Bonjour,
+
+Nous vous confirmons que votre dossier est en cours de traitement. Vous trouverez ci-joint la dernière mise à jour disponible.
+
+Bien cordialement,
+Équipe Portflow</textarea></div><div class="field full"><label>Pièce jointe</label><input type="file"></div></div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Message envoyé dans la démonstration')">Envoyer</button>`;
+  }else if(type==='scheduleCall'){
+    title='Planifier un appel';
+    body=`<div class="form-grid">${field('f_call_client','Client',item.client||'')}${field('f_call_date','Date','2026-08-01','date')}${field('f_call_time','Heure','10:30','time')}${selectField('f_call_priority','Priorité','Normale',['Normale','Haute','Urgente'])}<div class="field full"><label>Objet de l’appel</label><textarea>Suivi de commande et confirmation de la prochaine étape.</textarea></div></div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Appel planifié avec succès')">Planifier</button>`;
+  }else if(type==='internalNote'){
+    title='Ajouter une note interne';
+    body=`<div class="form-grid">${field('f_note_title','Titre','')}${selectField('f_note_priority','Priorité','Normale',['Faible','Normale','Haute','Urgente'])}${field('f_note_mentions','Mentionner','@Sami')}${field('f_note_due','Échéance','2026-08-02','date')}<div class="field full"><label>Note</label><textarea style="min-height:180px">Ajoutez le contexte utile pour l’équipe.</textarea></div><div class="field full"><label>Pièce jointe</label><input type="file"></div></div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Note interne ajoutée')">Ajouter</button>`;
+  }else if(type==='conversation'){
+    title=esc(item.name||'Conversation');
+    body=`<div class="auto-fill-box"><b>${esc(item.channel||'Canal')}</b><br>${esc(item.contact||'')} · <span class="badge ${statusClass(item.status||'En attente')}">${esc(item.status||'En attente')}</span></div>
+    <div class="list"><div class="list-item"><span class="dot"></span><div><b>Client</b><div class="muted">Pouvez-vous nous confirmer la date de livraison ?</div></div></div><div class="list-item"><span class="dot" style="background:var(--green)"></span><div><b>Équipe Portflow</b><div class="muted">La livraison est prévue le 3 août. Nous vous informerons de toute mise à jour.</div></div></div></div>
+    <div class="field" style="margin-top:15px"><label>Réponse</label><textarea placeholder="Écrivez votre réponse…"></textarea></div>`;
+    foot=`<button class="secondary" onclick="quickAction('Conversation archivée')">Archiver</button><button class="primary" onclick="state.modal=null;render();toast('Réponse envoyée')">Envoyer</button>`;
+
+  }else if(type==='clientMenu'){
+    title=esc(item.name||'Client');
+    body=`<div class="module-grid">
+      <button class="secondary" onclick="openModal('client',data.clients[${item.index}],${item.index})">Modifier la fiche</button>
+      <button class="secondary" onclick="quickAction('Email client préparé')">Envoyer un email</button>
+      <button class="secondary" onclick="openModal('reminder',{ref:'Relance ${esc(item.name||'client')}'})">Planifier une relance</button>
+      <button class="secondary" onclick="state.selectedClient=${item.index};state.modal=null;nav('customer360')">Ouvrir Customer 360</button>
+      <button class="danger" onclick="confirmDelete('client',${item.index})">Supprimer le client</button>
+    </div>`;
+    foot=`<button class="primary" onclick="closeModal()">Fermer</button>`;
+
+  }else if(type==='composeEmail'){
+    title='Nouvel email';
+    body=`<div class="form-grid">${field('f_email_to','Destinataire',item.replyTo||'')}${field('f_email_cc','Copie','')}${field('f_email_subject','Objet',item.subject||'Suivi de commande')}${selectField('f_email_link','Lier à la commande','CMD-2291',['CMD-2291','CMD-2288','CMD-2285','CMD-2279'])}<div class="field full"><label>Message</label><textarea style="min-height:220px">Bonjour,
+
+Nous revenons vers vous concernant la commande sélectionnée. Merci de nous confirmer son statut actuel ainsi que la date prévue de la prochaine étape.
+
+Bien cordialement,
+Équipe Portflow</textarea></div></div>`;
+    foot=`<button class="secondary" onclick="quickAction('Brouillon enregistré')">Enregistrer brouillon</button><button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Email envoyé dans la démonstration')">Envoyer</button>`;
+
+  
+  }else if(type==='supplier360Popup'){
+    title='Fiche fournisseur 360°';
+    const linkedOrders=data.orders.filter(o=>o.supplier===item.name);
+    const riskLevel=item.risk||((item.onTime||0)<80?'Élevé':'Faible');
+    body=`<div class="supplier-popup-hero">
+      <div class="supplier-popup-logo">${esc((item.name||'F').split(' ').map(x=>x[0]).slice(0,2).join(''))}</div>
+      <div style="min-width:0"><h2>${esc(item.name||'Fournisseur')}</h2><p>${esc(item.legalName||item.name||'')} · ${esc(item.country||'—')} · ${esc(item.category||'—')}</p>
+      <div class="quick-actions"><span class="badge green">${esc(item.status||'Actif')}</span><span class="badge blue">Fiabilité ${item.onTime||0}%</span><span class="badge ${riskLevel==='Élevé'||riskLevel==='Critique'?'red':'green'}">Risque ${esc(riskLevel)}</span></div></div>
+    </div>
+    <div class="supplier-popup-kpis">
+      ${[['Commandes',linkedOrders.length||0],['Note',esc(item.rating||'—')+'/5'],['Délai moyen',esc(item.leadTime||'18 jours')],['À l’heure',(item.onTime||0)+'%']].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b></div>`).join('')}
+    </div>
+    <div class="supplier-popup-grid">
+      <div class="card card-pad" style="box-shadow:none">
+        <h3>Coordonnées & conditions</h3>
+        <p><span class="muted">Contact</span><br><b>${esc(item.contact||'Non renseigné')}</b></p>
+        <p><span class="muted">Email</span><br><b>${esc(item.email||'Non renseigné')}</b></p>
+        <p><span class="muted">Téléphone</span><br><b>${esc(item.phone||'Non renseigné')}</b></p>
+        <p><span class="muted">Adresse</span><br>${esc(item.address||item.city||'Non renseignée')}</p>
+        <p><span class="muted">Paiement</span><br><b>${esc(item.payment||'Non renseigné')}</b></p>
+        <p><span class="muted">Incoterms</span><br><b>${esc(item.incoterms||'Non renseignés')}</b></p>
+      </div>
+      <div class="card card-pad" style="box-shadow:none">
+        <h3>Performance & conformité</h3>
+        ${[['Qualité',Math.min(100,Math.round((Number(item.rating)||4)*20))],['Délais',Number(item.onTime)||0],['Réactivité',88],['Documents',96]].map(x=>`<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>${x[0]}</span><b>${x[1]}%</b></div><div class="bar"><span style="width:${x[1]}%"></span></div></div>`).join('')}
+        <p><span class="muted">Certifications</span><br><b>${esc(item.certifications||'Aucune certification renseignée')}</b></p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px;box-shadow:none">
+      <div class="section-title"><h3>Commandes liées</h3><span class="badge blue">${linkedOrders.length}</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Référence</th><th>Client</th><th>Statut</th><th>Valeur</th><th>ETA</th></tr></thead><tbody>
+      ${linkedOrders.length?linkedOrders.map(o=>`<tr><td>${esc(o.ref)}</td><td>${esc(o.client)}</td><td><span class="badge ${statusClass(o.status)}">${esc(o.status)}</span></td><td>${esc(o.value)}</td><td>${esc(o.eta)}</td></tr>`).join(''):`<tr><td colspan="5"><div class="empty-state">Aucune commande liée.</div></td></tr>`}
+      </tbody></table></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="openModal('supplier',data.suppliers[${index}],${index})">Modifier</button><button class="secondary" onclick="openModal('supplierCompare')">Comparer</button><button class="primary" onclick="closeModal()">Fermer</button>`;
+
+  
+  }else if(type==='exportOperation'||type==='exportEdit'){
+    title=type==='exportEdit'?'Modifier l’opération export':'Nouvelle opération export';
+    body=`<div class="form-grid">
+      ${field('f_exp_ref','Référence export','EXP-2026-0043')}
+      ${selectField('f_exp_status','Statut','Préparation',['Brouillon','Préparation','Booking confirmé','En transit','Douane','Livré'])}
+      ${selectField('f_exp_client','Client',data.clients[1]?.name||'Nord Distribution',data.clients.map(c=>c.name))}
+      ${field('f_exp_country','Pays destination','Italie')}
+      ${field('f_exp_product','Produit','Textile')}
+      ${field('f_exp_quantity','Quantité','1200 cartons')}
+      ${selectField('f_exp_incoterm','Incoterm','FOB',['EXW','FOB','CIF','CFR','DAP','DDP'])}
+      ${selectField('f_exp_currency','Devise','EUR',['EUR','USD','TND'])}
+      ${field('f_exp_value','Valeur export','126000')}
+      ${field('f_exp_freight','Coût fret','4850')}
+      ${field('f_exp_forwarder','Transitaire','Mediterranean Forwarding')}
+      ${field('f_exp_shipping','Compagnie maritime','CMA CGM')}
+      ${field('f_exp_vessel','Navire','CMA CGM TOSCA')}
+      ${field('f_exp_voyage','Voyage','0MR7CE1MA')}
+      ${field('f_exp_booking','Booking','BKG-882041')}
+      ${field('f_exp_container','Container','CMAU 782941-0')}
+      ${field('f_exp_port_from','Port départ','Ningbo')}
+      ${field('f_exp_port_to','Port arrivée','Gênes')}
+      ${field('f_exp_etd','ETD','2026-08-06','date')}
+      ${field('f_exp_eta','ETA','2026-08-12','date')}
+      <div class="field full"><label>Notes</label><textarea>Opération export centralisée avec suivi de tous les intervenants.</textarea></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="secondary" onclick="quickAction('Brouillon export enregistré')">Brouillon</button><button class="primary" onclick="state.modal=null;render();toast('Opération export enregistrée')">Enregistrer</button>`;
+  }else if(type==='vesselBooking'){
+    title='Booking maritime';
+    body=`<div class="form-grid">
+      ${field('f_bkg_company','Compagnie maritime','CMA CGM')}
+      ${field('f_bkg_vessel','Navire','CMA CGM TOSCA')}
+      ${field('f_bkg_voyage','N° voyage','0MR7CE1MA')}
+      ${field('f_bkg_number','N° booking','BKG-882041')}
+      ${field('f_bkg_container','Container','CMAU 782941-0')}
+      ${selectField('f_bkg_type','Type container','40HC',['20GP','40GP','40HC','Reefer'])}
+      ${field('f_bkg_doc_cutoff','Cut-off documentaire','2026-08-04T12:00','datetime-local')}
+      ${field('f_bkg_container_cutoff','Cut-off container','2026-08-05T18:00','datetime-local')}
+      ${field('f_bkg_etd','ETD','2026-08-06','date')}
+      ${field('f_bkg_eta','ETA','2026-08-12','date')}
+    </div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Booking maritime mis à jour')">Enregistrer</button>`;
+  }else if(type==='stakeholder'){
+    title='Ajouter un intervenant';
+    body=`<div class="form-grid">
+      ${selectField('f_st_role','Rôle','Transitaire',['Client','Fournisseur','Transitaire','Agent maritime','Autorité portuaire','Banque','Assurance','Douane'])}
+      ${field('f_st_company','Organisation','')}
+      ${field('f_st_contact','Contact','')}
+      ${field('f_st_email','Email','','email')}
+      ${field('f_st_phone','Téléphone','')}
+      ${field('f_st_responsibility','Responsabilité','')}
+      <div class="field full"><label>Notes</label><textarea></textarea></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Intervenant ajouté')">Ajouter</button>`;
+
+  }else if(type==='supplierCompare'){
+    title='Comparaison des fournisseurs';
+    body=`<div class="table-wrap"><table class="compare-table"><thead><tr><th>Critère</th><th>Yiwu Textile</th><th>Shenzhen Electronics</th><th>Anadolu Steel</th></tr></thead><tbody>
+      <tr><td>Prix moyen</td><td class="best">Le plus bas</td><td>+8 %</td><td>+14 %</td></tr>
+      <tr><td>Délai</td><td>18 jours</td><td>24 jours</td><td class="best">10 jours</td></tr>
+      <tr><td>Fiabilité</td><td class="best">96 %</td><td>82 %</td><td>91 %</td></tr>
+      <tr><td>Qualité</td><td class="best">4.9 / 5</td><td>4.4 / 5</td><td>4.6 / 5</td></tr>
+      <tr><td>Paiement</td><td>30 / 70</td><td>50 / 50</td><td class="best">60 jours</td></tr>
+    </tbody></table></div>
+    <div class="recommendation" style="margin-top:16px"><b>Recommandation</b><p>Yiwu Textile est le meilleur choix global grâce à son prix, sa qualité et sa fiabilité. Anadolu Steel reste recommandé lorsque le délai est prioritaire.</p><button class="primary" onclick="quickAction('Fournisseur sélectionné')">Sélectionner Yiwu Textile</button></div>`;
+    foot=`<button class="secondary" onclick="quickAction('Comparaison exportée en PDF')">Exporter PDF</button><button class="primary" onclick="closeModal()">Fermer</button>`;
+  }else if(type==='trackingDetail'){
+    title='Détail du tracking — '+esc(item.ref||'');
+    body=`<div class="form-grid"><div><span class="muted">Container</span><p><b>${esc(item.container||'')}</b></p></div><div><span class="muted">Transporteur</span><p><b>${esc(item.carrier||'')}</b></p></div><div><span class="muted">Origine</span><p>${esc(item.origin||'')}</p></div><div><span class="muted">Destination</span><p>${esc(item.destination||'')}</p></div><div><span class="muted">ETA</span><p>${esc(item.eta||'')}</p></div><div><span class="muted">Retard</span><p>${esc(item.delay||'')}</p></div></div><div class="recommendation"><b>Dernière mise à jour</b><p>Le container est en transit. Aucun blocage douanier critique détecté pour le moment.</p></div>`;
+    foot=`<button class="secondary" onclick="quickAction('Tracking actualisé')">Actualiser</button><button class="primary" onclick="closeModal()">Fermer</button>`;
+  }else if(type==='reminder'){
+    title='Planifier une relance';
+    body=`<div class="form-grid">${field('f_reminder_subject','Commande',item.ref||'')}${field('f_reminder_date','Date de relance','2026-08-01','date')}${selectField('f_reminder_channel','Canal','Email',['Email','WhatsApp','Notification'])}${selectField('f_reminder_priority','Priorité','Haute',['Normale','Haute','Urgente'])}<div class="field full"><label>Message</label><textarea>Bonjour, pouvez-vous nous confirmer le statut et la date d’expédition de la commande ${esc(item.ref||'')} ?</textarea></div></div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Relance planifiée avec succès')">Planifier</button>`;
+  }else if(type==='supplierEmail'){
+    title='Email fournisseur généré';
+    body=`<div class="field"><label>Objet</label><input value="Suivi urgent de la commande ${esc(item.ref||'')}"></div><div class="field" style="margin-top:14px"><label>Message</label><textarea style="min-height:210px">Bonjour,
+
+Nous vous contactons concernant la commande ${esc(item.ref||'')}. Merci de nous confirmer son état actuel, la date d’expédition prévue ainsi que tout risque susceptible d’affecter le délai convenu.
+
+Nous vous remercions également de joindre les documents d’expédition disponibles.
+
+Bien cordialement,
+Équipe Portflow</textarea></div>`;
+    foot=`<button class="secondary" onclick="quickAction('Email copié')">Copier</button><button class="primary" onclick="state.modal=null;render();toast('Email envoyé dans la démonstration')">Envoyer</button>`;
+
+  }else if(type==='generic'||type==='commandTask'||type==='workflowItem'){
+    title=type==='commandTask'?'Ajouter une action critique':type==='workflowItem'?'Créer un workflow':'Ajouter un élément';
+    body=`<div class="form-grid">
+      ${field('f_generic_title','Titre',item.title||'')}
+      ${selectField('f_generic_status','Statut','En cours',['Brouillon','En cours','En attente','Terminé'])}
+      ${selectField('f_generic_priority','Priorité','Normale',['Faible','Normale','Haute','Urgente'])}
+      ${field('f_generic_owner','Responsable','Sami Ben Ali')}
+      <div class="field full"><label>Description</label><textarea id="f_generic_desc" placeholder="Décrivez l’élément, l’action ou le workflow…"></textarea></div>
+      <div class="field full"><label>Module</label><input value="${esc(item.module||state.active)}" disabled></div>
+    </div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Élément ajouté avec succès dans la démo')">Ajouter</button>`;
+  }else{
+    title='Action premium';
+    body=`<div class="empty-state"><h3>Module interactif</h3><p>Cette action est prête dans la démonstration premium.</p></div>`;
+    foot=`<button class="primary" onclick="closeModal()">Fermer</button>`;
+  }
+  return `<div class="modal" onclick="if(event.target===this)closeModal()"><div class="modal-box ${size}"><div class="modal-head"><strong>${title}</strong><button class="icon-btn" onclick="closeModal()">×</button></div><div class="modal-body">${body}</div><div class="modal-foot">${foot}</div></div></div>`;
+}
+function App(){return `<div class="app"><div class="mobile-overlay ${state.mobileMenu?'show':''}" onclick="toggleMobileMenu()"></div>${Sidebar()}<main class="main">${Topbar()}<div class="content">${pageContent()}</div></main><button class="ai-float" onclick="openModal('ai')">✦</button><nav class="phone-bottom-nav"><button class="${state.active==='dashboard'?'active':''}" onclick="nav('dashboard')"><span>⌂</span>Accueil</button><button class="${state.active==='tracking'?'active':''}" onclick="nav('tracking')"><span>▣</span>Tracking</button><button class="${state.active==='documents'?'active':''}" onclick="nav('documents')"><span>▤</span>Docs</button><button class="${state.active==='suppliers'?'active':''}" onclick="nav('suppliers')"><span>◆</span>Fourn.</button><button onclick="toggleMobileMenu()"><span>☰</span>Menu</button></nav>${Modal()}${state.toast?`<div class="toast">${esc(state.toast)}</div>`:''}</div>`}
+function render(){
+  root.innerHTML=state.logged?App():Login();
+  ['f_subtotal','f_transport_cost','f_customs_cost','f_insurance_cost','f_other_cost','f_deposit_paid','f_order_currency'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('input',calculateOrderTotal);
+    if(el&&el.tagName==='SELECT')el.addEventListener('change',calculateOrderTotal);
+  });
+}
+render();
+</script>
+
+</body>
+</html>
