@@ -943,6 +943,230 @@ button:active{transform:scale(.97)}
   }
 }
 
+
+/* ===== Feedback-driven premium modules ===== */
+.feedback-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.feedback-kpi{padding:16px}.feedback-kpi b{display:block;font-size:23px;margin-top:7px}
+.feedback-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.risk-card{padding:16px;border-bottom:1px solid rgba(148,163,184,.08)}
+.risk-card:last-child{border-bottom:0}.risk-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.risk-meter{height:8px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden;margin-top:12px}
+.risk-meter span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444)}
+.stock-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.stock-card{padding:18px}.stock-number{font-size:30px;font-weight:800;margin:10px 0}
+.regulation-item{display:grid;grid-template-columns:46px minmax(0,1fr) auto;gap:12px;align-items:center;padding:15px 18px;border-bottom:1px solid rgba(148,163,184,.08)}
+.regulation-icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(139,92,246,.12);font-size:20px}
+.finance-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.finance-kpi{padding:16px}.finance-kpi b{display:block;font-size:23px;margin-top:7px}
+.team-board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.team-col{padding:14px}.team-task{padding:12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);margin-top:10px}
+@media(max-width:1050px){.feedback-grid{grid-template-columns:1fr}.stock-grid,.team-board{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.feedback-kpis,.finance-grid,.stock-grid,.team-board{grid-template-columns:1fr}.regulation-item{grid-template-columns:40px 1fr}.regulation-item>div:last-child{grid-column:1/-1}}
+
+
+/* ===== AZNAVO feedback fixes ===== */
+.top-select{
+  background:#071122;border:1px solid var(--line);border-radius:11px;
+  padding:9px 10px;color:#fff;min-width:105px
+}
+.action-done{opacity:.7;pointer-events:none;background:rgba(34,197,94,.16)!important;border-color:rgba(34,197,94,.35)!important}
+.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.detail-box{padding:14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025)}
+.detail-box span{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}
+.checklist{display:grid;gap:10px}
+.check-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.025)}
+.task-card-pro{padding:16px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015));margin-bottom:10px}
+.task-meta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.currency-note{font-size:11px;color:#9fb0c5}
+@media(max-width:900px){.top-select{display:none}}
+@media(max-width:760px){.detail-grid{grid-template-columns:1fr}}
+
+
+/* ===== Final navigation, alerts and language fixes ===== */
+html,body{width:100%;max-width:100%;overflow-x:hidden!important}
+.app{width:100%;max-width:100%;overflow-x:hidden}
+.main{width:calc(100% - 280px);max-width:calc(100% - 280px);overflow-x:hidden}
+.sidebar{
+  width:280px!important;min-width:280px!important;flex:0 0 280px!important;
+  z-index:12;overflow-y:auto!important;overflow-x:hidden!important;
+  scrollbar-width:thin;scrollbar-color:#315f9e transparent;
+}
+.sidebar::-webkit-scrollbar{width:7px}.sidebar::-webkit-scrollbar-thumb{background:#315f9e;border-radius:99px}
+.sidebar .brand{position:sticky;top:-18px;z-index:2;background:#050b18;padding-top:18px}
+.nav-title{color:#7890ae!important;font-size:10px!important;font-weight:800!important;margin:19px 10px 8px!important}
+.nav-btn{display:flex!important;visibility:visible!important;opacity:1!important;min-height:44px;color:#b6c5d8!important}
+.nav-btn span:last-child{display:block!important;white-space:normal;line-height:1.25}
+.nav-btn.active{color:#fff!important}
+.content{max-width:100%!important;width:100%!important;overflow-x:hidden!important}
+.topbar{width:100%;max-width:100%;overflow:visible;flex-wrap:nowrap}
+.top-actions{min-width:0;flex-shrink:0}
+.search{min-width:180px}
+.notification-wrap{position:relative;display:inline-flex}
+.notification-count{position:absolute;right:-4px;top:-6px;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:#ef4444;color:white;font-size:10px;font-weight:800;display:grid;place-items:center;border:2px solid #071122}
+.dashboard-alert-strip{display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:center;margin:0 0 16px;padding:14px 17px;border-radius:15px;border:1px solid rgba(239,68,68,.28);background:linear-gradient(90deg,rgba(239,68,68,.12),rgba(245,158,11,.07))}
+.dashboard-alert-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(239,68,68,.15);font-size:19px}
+.dashboard-alert-strip p{margin:4px 0 0;color:#b7c6d9;font-size:12px}
+@media(max-width:1150px){.profile{display:none}.topbar .search{max-width:360px}}
+@media(max-width:900px){.top-select{max-width:145px}.topbar>strong{display:none}}
+@media(max-width:760px){
+ .main{width:100%!important;max-width:100%!important}.sidebar{position:fixed!important;min-width:280px!important}
+ .dashboard-alert-strip{grid-template-columns:auto 1fr}.dashboard-alert-strip button{grid-column:1/-1;width:100%}
+}
+
+
+/* ===== Device preview modes + dashboard cleanup ===== */
+.device-switcher{
+  position:fixed;right:18px;bottom:18px;z-index:10020;
+  display:flex;gap:6px;padding:7px;border:1px solid rgba(148,163,184,.24);
+  border-radius:14px;background:rgba(5,11,24,.94);backdrop-filter:blur(16px);
+  box-shadow:0 16px 40px rgba(0,0,0,.35)
+}
+.device-switcher button{
+  border:1px solid var(--line);background:rgba(255,255,255,.04);color:#aebdd0;
+  border-radius:9px;padding:8px 10px;font-size:12px
+}
+.device-switcher button.active{background:#2563eb;color:#fff;border-color:#3b82f6}
+body.device-tablet,body.device-phone{background:#020713}
+body.device-tablet .app,body.device-phone .app{
+  margin:18px auto;min-height:calc(100vh - 36px);height:calc(100vh - 36px);
+  overflow:auto;border:1px solid rgba(148,163,184,.24);border-radius:22px;
+  box-shadow:0 30px 90px rgba(0,0,0,.55);background:var(--bg)
+}
+body.device-tablet .app{width:min(820px,calc(100vw - 36px))}
+body.device-phone .app{width:min(390px,calc(100vw - 24px));margin:12px auto;height:calc(100vh - 24px);min-height:calc(100vh - 24px)}
+body.device-tablet .sidebar,body.device-phone .sidebar{
+  position:fixed!important;left:-290px!important;width:280px!important;min-width:280px!important;
+  z-index:10010!important;transition:left .25s ease
+}
+body.device-tablet .sidebar.mobile-open,body.device-phone .sidebar.mobile-open{left:0!important}
+body.device-tablet .main,body.device-phone .main{width:100%!important;max-width:100%!important}
+body.device-tablet .mobile-menu-btn,body.device-phone .mobile-menu-btn{display:inline-grid!important}
+body.device-tablet .topbar,body.device-phone .topbar{height:auto;min-height:64px;flex-wrap:wrap;padding:10px 12px;gap:8px}
+body.device-tablet .topbar>strong,body.device-phone .topbar>strong{display:block!important;flex:1}
+body.device-tablet .search,body.device-phone .search{order:3;flex-basis:100%;max-width:none}
+body.device-tablet .profile,body.device-phone .profile{display:none!important}
+body.device-phone .top-select{display:none!important}
+body.device-phone .top-actions>.secondary:last-child{display:none!important}
+body.device-tablet .content{padding:18px}
+body.device-phone .content{padding:12px}
+body.device-tablet .kpis,body.device-tablet .feedback-kpis,body.device-tablet .finance-grid{grid-template-columns:repeat(2,1fr)!important}
+body.device-phone .kpis,body.device-phone .feedback-kpis,body.device-phone .finance-grid,
+body.device-phone .stock-grid,body.device-phone .cards,body.device-phone .module-grid{grid-template-columns:1fr!important}
+body.device-tablet .two,body.device-phone .two,body.device-tablet .feedback-grid,body.device-phone .feedback-grid{grid-template-columns:1fr!important}
+body.device-phone .page-head{flex-direction:column;align-items:flex-start}
+body.device-phone .page-head>div,body.device-phone .page-head .panel-actions{width:100%}
+body.device-phone .page-head button{width:100%}
+body.device-phone table{min-width:680px}
+@media(max-width:700px){.device-switcher{right:10px;bottom:74px}.device-switcher button{padding:7px 8px;font-size:11px}}
+
+
+/* ===== V6 professional settings + true phone preview ===== */
+.settings-pro-grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:16px}
+.settings-logo-card,.settings-form-card{padding:20px}
+.logo-preview-large{width:118px;height:118px;border-radius:24px;display:grid;place-items:center;margin:0 auto 18px;background:linear-gradient(135deg,#2563eb,#8b5cf6);font-size:42px;font-weight:900;overflow:hidden;box-shadow:0 20px 45px rgba(37,99,235,.28)}
+.logo-preview-large img{width:100%;height:100%;object-fit:cover}
+.settings-section{padding:18px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.02);margin-bottom:14px}
+.settings-section h3{margin:0 0 14px}
+.settings-actions{display:flex;justify-content:flex-end;gap:10px;position:sticky;bottom:0;padding:14px 0 0;background:linear-gradient(transparent,#071122 30%)}
+.settings-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.settings-tabs button.active{background:#2563eb;color:#fff;border-color:#3b82f6}
+@media(max-width:950px){.settings-pro-grid{grid-template-columns:1fr}}
+
+body.device-phone{overflow:hidden!important}
+body.device-phone .app{
+  width:390px!important;max-width:390px!important;height:844px!important;min-height:844px!important;
+  margin:12px auto!important;border:1px solid rgba(148,163,184,.2);border-radius:28px!important;
+  overflow:hidden!important;box-shadow:0 30px 80px rgba(0,0,0,.55)
+}
+body.device-phone .sidebar{position:absolute!important;left:-290px!important;top:0!important;height:100%!important;z-index:50!important}
+body.device-phone .sidebar.mobile-open{left:0!important}
+body.device-phone .main{width:100%!important;max-width:100%!important;height:100%!important;overflow:auto!important}
+body.device-phone .topbar{position:sticky!important;top:0!important;display:grid!important;grid-template-columns:auto 1fr auto auto!important;align-items:center!important;padding:9px 10px!important}
+body.device-phone .topbar .search{grid-column:1/-1!important;order:initial!important;width:100%!important}
+body.device-phone .topbar .top-actions{display:contents!important}
+body.device-phone .topbar .top-actions .top-select,
+body.device-phone .topbar .top-actions .profile,
+body.device-phone .topbar .top-actions>button.secondary:last-child{display:none!important}
+body.device-phone .topbar .top-actions>button.secondary{font-size:0!important;width:42px!important;padding:0!important}
+body.device-phone .topbar .top-actions>button.secondary:before{content:'✦';font-size:17px}
+body.device-phone .notification-wrap{display:inline-flex!important}
+body.device-phone .content{padding:12px!important;width:100%!important}
+body.device-phone .page-head{display:block!important}
+body.device-phone .page-head h1{font-size:25px!important}
+body.device-phone .page-head .panel-actions{display:grid!important;grid-template-columns:1fr!important;margin-top:12px}
+body.device-phone .kpis,body.device-phone .supply-kpis,body.device-phone .crm-kpis,
+body.device-phone .customer-kpis,body.device-phone .assistant-kpis,body.device-phone .workflow-kpis,
+body.device-phone .integration-kpis,body.device-phone .export-kpis,body.device-phone .profile-kpis{
+  grid-template-columns:1fr!important
+}
+body.device-phone .tracking-grid,body.device-phone .customer-grid,body.device-phone .email-layout,
+body.device-phone .comm-grid,body.device-phone .workflow-grid,body.device-phone .export-grid,
+body.device-phone .split-360,body.device-phone .settings-pro-grid{grid-template-columns:1fr!important}
+body.device-phone .cards,body.device-phone .integration-grid,body.device-phone .assistant-grid{grid-template-columns:1fr!important}
+body.device-phone .card{border-radius:14px!important}
+body.device-phone .table-wrap{overflow-x:auto!important}
+body.device-phone table{min-width:620px!important}
+body.device-phone .profile-hero,body.device-phone .customer-hero{grid-template-columns:52px 1fr!important}
+body.device-phone .profile-hero>.panel-actions,body.device-phone .customer-hero>.panel-actions{grid-column:1/-1!important}
+body.device-phone .device-switcher{position:fixed!important;right:16px!important;bottom:16px!important;z-index:1000!important}
+
+
+/* ===== V7 profile menu + full-height sidebar ===== */
+.app{height:100vh;min-height:100vh;overflow:hidden}
+.sidebar{
+  position:sticky!important;
+  top:0!important;
+  height:100vh!important;
+  max-height:100vh!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+}
+.main{
+  height:100vh!important;
+  min-height:100vh!important;
+  overflow:hidden!important;
+  display:flex;
+  flex-direction:column;
+}
+.topbar{flex:0 0 auto}
+.content{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  margin:0!important;
+}
+.profile-menu-wrap{position:relative}
+.profile.profile-clickable{cursor:pointer;user-select:none}
+.profile-dropdown{
+  position:absolute;right:0;top:calc(100% + 10px);width:245px;
+  background:#0b162a;border:1px solid var(--line);border-radius:15px;
+  box-shadow:0 24px 70px rgba(0,0,0,.48);padding:8px;z-index:100;
+}
+.profile-dropdown-head{padding:12px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.profile-dropdown button{
+  width:100%;border:0;background:transparent;color:#d8e4f2;
+  text-align:left;padding:11px 12px;border-radius:10px;
+}
+.profile-dropdown button:hover{background:rgba(47,124,255,.1)}
+.profile-dropdown .danger-item{color:#fca5a5}
+.admin-profile-grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:16px}
+.admin-profile-card{padding:22px}
+.admin-photo{
+  width:120px;height:120px;border-radius:28px;display:grid;place-items:center;
+  margin:0 auto 18px;background:linear-gradient(135deg,#2563eb,#8b5cf6);
+  font-size:38px;font-weight:900;overflow:hidden
+}
+.admin-photo img{width:100%;height:100%;object-fit:cover}
+.permission-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(max-width:950px){.admin-profile-grid{grid-template-columns:1fr}}
+@media(max-width:760px){
+  .app{height:100dvh;min-height:100dvh}
+  .main{height:100dvh!important;min-height:100dvh!important}
+  .content{padding-bottom:80px!important}
+  .profile-menu-wrap{display:none}
+}
+
 </style>
 </head>
 <body>
@@ -1002,10 +1226,15 @@ const navIcons={
   reports:'▥',
   workflows:'⤧',
   integrations:'⌘',
-  settings:'⚙'
+  settings:'⚙',
+  predictive:'◐',
+  warehouse:'▦',
+  compliance:'⚖',
+  finance:'¤',
+  collaboration:'♧'
 };
 
-const pages=[['dashboard','Dashboard'],['command','Command Center'],['importexport','Import / Export'],['export360','Dossier Export 360°'],['tracking','Tracking & Supply Chain'],['documents','Documents'],['suppliers','Fournisseurs'],['supplier360','Supplier 360'],['crm','CRM & Commercial'],['customer360','Customer 360'],['commcenter','Communication Center'],['emailhub','Email Hub'],['ai','Assistant opérationnel'],['reports','Analyses & Rapports'],['workflows','Workflow Builder'],['integrations','Intégrations'],['settings','Paramètres']];
+const pages=[['dashboard','Dashboard'],['command','Command Center'],['importexport','Import / Export'],['export360','Dossier Export 360°'],['tracking','Tracking & Supply Chain'],['warehouse','Stocks & Entrepôts'],['documents','Documents'],['suppliers','Fournisseurs'],['supplier360','Supplier 360'],['crm','CRM & Commercial'],['customer360','Customer 360'],['commcenter','Communication Center'],['emailhub','Email Hub'],['predictive','IA Prédictive'],['compliance','Conformité & L/C'],['finance','Finance & Rapports'],['collaboration','Collaboration'],['ai','Assistant opérationnel'],['reports','Analyses & Rapports'],['workflows','Workflow Builder'],['integrations','Intégrations'],['settings','Paramètres']];
 
 let state={
   logged:false,
@@ -1212,7 +1441,7 @@ function Login(){return `<div class="login">
   </div>
 </section>
 </div>`}
-function Sidebar(){return `<aside class="sidebar ${state.mobileMenu?'mobile-open':''}"><div class="brand"><div class="logo">A</div><div><b>AZNAVO</b><div class="muted">Import / Export Platform</div></div></div>${[['Vue d’ensemble',['dashboard','command']],['Opérations',['importexport','export360','tracking','documents','suppliers']],['Relation client',['crm','customer360','commcenter','emailhub']],['Intelligence',['ai','reports']],['Automatisation',['workflows']],['Système',['integrations','settings']]].map(g=>`<div class="nav-title">${g[0]}</div>${g[1].map(id=>{const p=pages.find(x=>x[0]===id);return `<button class="nav-btn ${state.active===id?'active':''}" onclick="nav('${id}')"><span class="nav-icon">${navIcons[id]||'◆'}</span><span>${p[1]}</span></button>`}).join('')}`).join('')}</aside>`}
+function Sidebar(){return `<aside class="sidebar ${state.mobileMenu?'mobile-open':''}"><div class="brand"><div class="logo">A</div><div><b>AZNAVO</b><div class="muted">Import / Export Platform</div></div></div>${[['Vue d’ensemble',['dashboard','command']],['Opérations',['importexport','export360','tracking','warehouse','documents','suppliers']],['Relation client',['crm','customer360','commcenter','emailhub']],['Pilotage intelligent',['predictive','compliance','finance','collaboration','ai','reports']],['Automatisation',['workflows']],['Système',['integrations','settings']]].map(g=>`<div class="nav-title">${g[0]}</div>${g[1].map(id=>{const p=pages.find(x=>x[0]===id);return `<button class="nav-btn ${state.active===id?'active':''}" onclick="nav('${id}')"><span class="nav-icon">${navIcons[id]||'◆'}</span><span>${p[1]}</span></button>`}).join('')}`).join('')}</aside>`}
 function Topbar(){const label=pages.find(x=>x[0]===state.active)[1];return `<header class="topbar"><button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()">☰</button><strong>${label}</strong><div class="search"><input id="globalSearch" placeholder="Rechercher une commande, un client, un document…" onkeydown="if(event.key==='Enter')runSearch()"></div><div class="top-actions"><button class="secondary" onclick="openModal('ai')">✦ Assistant</button><button class="icon-btn" onclick="showNotifications()" title="Notifications">🔔</button><div class="profile"><div class="avatar">SB</div><div><b style="font-size:12px">Sami Ben Ali</b><div class="muted">Admin Premium</div></div></div><button class="secondary" onclick="logout()">Déconnexion</button></div></header>`}
 function Kpis(){return `<div class="grid kpis">${[['Commandes en cours',data.orders.length,'+9,4 %'],['Expéditions actives','46','+3,1 %'],['CA du mois','452 K€','+19,6 %'],['Docs en attente IA',data.documents.filter(d=>/analyse/i.test(d.status)).length,'−22 %']].map(x=>`<div class="card card-pad kpi"><small>${x[0]}</small><strong>${x[1]}</strong><div class="trend">↗ ${x[2]} vs mois dernier</div></div>`).join('')}</div>`}
 function OrdersTable(){return `<div class="card"><div class="section-title"><h3>Commandes & expéditions</h3><button class="primary" onclick="openModal('order')">+ Nouvelle commande</button></div><div class="table-wrap"><table><thead><tr><th>Référence</th><th>Fournisseur</th><th>Client</th><th>Statut</th><th>Valeur</th><th>ETA</th><th>Actions</th></tr></thead><tbody>${data.orders.length?data.orders.map((o,i)=>`<tr><td style="color:#77b1ff">${esc(o.ref)}</td><td>${esc(o.supplier)}</td><td>${esc(o.client)}</td><td><span class="badge ${statusClass(o.status)}">${esc(o.status)}</span></td><td>${esc(o.value)}</td><td>${esc(o.eta)}</td><td><button class="secondary" onclick="openModal('order',data.orders[${i}],${i})">Modifier</button> <button class="danger" onclick="confirmDelete('order',${i})">Supprimer</button></td></tr>`).join(''):`<tr><td colspan="7"><div class="empty-state">Aucune commande.</div></td></tr>`}</tbody></table></div></div>`}
@@ -1760,10 +1989,68 @@ function TrackingSupplyChain(){
   </div>`;
 }
 
+
+function PredictiveAIPage(){
+  return `<div class="page-head"><div><h1>IA Prédictive</h1><p>Anticipez les ruptures, retards et anomalies avant qu'ils n'impactent vos opérations.</p></div><div class="panel-actions"><button class="secondary" onclick="quickAction('Modèles recalculés')">Actualiser</button><button class="primary" onclick="openModal('ai')">Demander à l'IA</button></div></div>
+  <div class="feedback-kpis">
+    <div class="card feedback-kpi"><span class="muted">Risque de rupture</span><b>3 articles</b><span class="badge red">Critique</span></div>
+    <div class="card feedback-kpi"><span class="muted">Retards probables</span><b>4 commandes</b><span class="badge amber">À surveiller</span></div>
+    <div class="card feedback-kpi"><span class="muted">Anomalies détectées</span><b>7</b><span class="badge violet">IA</span></div>
+    <div class="card feedback-kpi"><span class="muted">Économies estimées</span><b>18 400 €</b><span class="badge green">Ce mois</span></div>
+  </div>
+  <div class="feedback-grid">
+    <div class="card"><div class="section-title"><h3>Prévisions prioritaires</h3><span class="demo-chip">Analyse temps réel</span></div>
+      ${[
+        ['Article EL-400','Rupture probable dans 6 jours','88%','Commander 1 200 unités chez Anadolu Steel'],
+        ['CMD-2279','Retard probable de 4 jours','82%','Relancer le fournisseur et réserver un transport alternatif'],
+        ['Entrepôt Tunis','Surcharge prévue lundi','76%','Réaffecter 2 opérateurs et ouvrir un créneau supplémentaire']
+      ].map(x=>`<div class="risk-card"><div class="risk-head"><div><b>${x[0]}</b><div class="muted">${x[1]}</div></div><span class="badge violet">${x[2]}</span></div><div class="risk-meter"><span style="width:${x[2]}"></span></div><div class="recommendation" style="margin-top:12px"><b>Action recommandée</b><p>${x[3]}</p><button class="primary" onclick="quickAction('Action recommandée appliquée')">Appliquer</button></div></div>`).join('')}
+    </div>
+    <div class="card"><div class="section-title"><h3>Assistant décisionnel</h3></div><div class="card-pad"><div class="ai-summary"><b>Résumé IA</b><p>Le risque principal vient des délais fournisseurs et de la dispersion des données. La priorité est de sécuriser les stocks critiques et d'automatiser les relances.</p></div><div class="rule-list"><div class="rule-item"><b>Prévision de rupture</b><div class="muted">Stock + commandes + consommation</div></div><div class="rule-item"><b>Détection d'anomalies</b><div class="muted">Prix, quantité, délai, document</div></div><div class="rule-item"><b>Recommandations</b><div class="muted">Réapprovisionnement et réorganisation</div></div></div></div></div>
+  </div>`;
+}
+
+function WarehousePage(){
+  const items=[['EL-400','Électronique','86','120','Rupture proche'],['TX-210','Textile','1 840','900','Optimal'],['MT-990','Métal','420','300','Stable'],['CR-120','Céramique','95','180','Sous seuil']];
+  return `<div class="page-head"><div><h1>Stocks & Entrepôts</h1><p>Visibilité temps réel, multi-sites, inventaires et réapprovisionnement intelligent.</p></div><div class="panel-actions"><button class="secondary" onclick="quickAction('Inventaire lancé')">Lancer inventaire</button><button class="primary" onclick="openModal('generic',{module:'warehouse'})">+ Mouvement</button></div></div>
+  <div class="stock-grid"><div class="card stock-card"><span class="muted">Valeur du stock</span><div class="stock-number">1,28 M€</div><span class="trend">+4,8 %</span></div><div class="card stock-card"><span class="muted">Articles sous seuil</span><div class="stock-number">12</div><span class="badge red">Action requise</span></div><div class="card stock-card"><span class="muted">Entrepôts actifs</span><div class="stock-number">4</div><span class="badge green">Synchronisés</span></div></div>
+  <div class="card" style="margin-top:16px"><div class="section-title"><h3>État des stocks</h3><div class="filter-row"><select><option>Tous les sites</option><option>Tunis</option><option>Sfax</option><option>Casablanca</option></select><input placeholder="Rechercher un article"></div></div><div class="table-wrap"><table><thead><tr><th>Référence</th><th>Catégorie</th><th>Disponible</th><th>Seuil</th><th>Statut</th><th>Action</th></tr></thead><tbody>${items.map(x=>`<tr><td><b>${x[0]}</b></td><td>${x[1]}</td><td>${x[2]}</td><td>${x[3]}</td><td><span class="badge ${statusClass(x[4])}">${x[4]}</span></td><td><button class="secondary" onclick="quickAction('Fiche stock ouverte')">Voir</button> <button class="primary" onclick="quickAction('Réapprovisionnement proposé')">Réapprovisionner</button></td></tr>`).join('')}</tbody></table></div></div>`;
+}
+
+function CompliancePage(){
+  return `<div class="page-head"><div><h1>Conformité & Trade Finance</h1><p>Veille réglementaire, exigences documentaires et suivi des lettres de crédit.</p></div><div class="panel-actions"><button class="secondary" onclick="quickAction('Veille mise à jour')">Actualiser la veille</button><button class="primary" onclick="openModal('generic',{module:'compliance'})">+ Ajouter une L/C</button></div></div>
+  <div class="feedback-kpis"><div class="card feedback-kpi"><span class="muted">Alertes réglementaires</span><b>6</b><span class="badge amber">Nouvelles</span></div><div class="card feedback-kpi"><span class="muted">L/C actives</span><b>9</b><span class="badge blue">En suivi</span></div><div class="card feedback-kpi"><span class="muted">Documents manquants</span><b>4</b><span class="badge red">Bloquants</span></div><div class="card feedback-kpi"><span class="muted">Pays surveillés</span><b>7</b><span class="badge green">Actifs</span></div></div>
+  <div class="feedback-grid"><div class="card"><div class="section-title"><h3>Veille réglementaire</h3><span class="badge violet">Temps réel</span></div>${[
+    ['🇱🇾','Libye — Procédure bancaire mise à jour','Nouvelle exigence documentaire pour les L/C import.','Urgent'],
+    ['🇹🇳','Tunisie — Douane','Mise à jour du contrôle d’origine préférentielle.','À vérifier'],
+    ['🇲🇦','Maroc — Import','Nouvelle nomenclature pour certaines pièces industrielles.','Information']
+  ].map(x=>`<div class="regulation-item"><div class="regulation-icon">${x[0]}</div><div><b>${x[1]}</b><div class="muted">${x[2]}</div></div><div><span class="badge ${x[3]==='Urgent'?'red':x[3]==='À vérifier'?'amber':'blue'}">${x[3]}</span><div class="quick-actions"><button class="secondary" onclick="quickAction('Alerte consultée')">Consulter</button></div></div></div>`).join('')}</div>
+  <div class="card"><div class="section-title"><h3>Lettres de crédit</h3></div><div class="card-pad"><p><b>LC-2026-018 · Banque Libyenne</b><br><span class="muted">Échéance 12 août · 76 300 €</span></p><div class="bar"><span style="width:72%"></span></div><p style="margin-top:18px"><b>LC-2026-021 · BIAT</b><br><span class="muted">Documents en vérification · 42 600 €</span></p><div class="bar"><span style="width:48%"></span></div><button class="primary" style="margin-top:18px" onclick="quickAction('Checklist L/C ouverte')">Ouvrir la checklist</button></div></div></div>`;
+}
+
+function FinanceAdvancedPage(){
+  return `<div class="page-head"><div><h1>Finance & Rapports automatiques</h1><p>Clôture journalière, paiements cash, rentabilité et trésorerie prévisionnelle.</p></div><div class="panel-actions"><button class="secondary" onclick="quickAction('Rapport PDF généré')">Exporter PDF</button><button class="primary" onclick="quickAction('Clôture journalière générée')">Générer la clôture</button></div></div>
+  <div class="finance-grid"><div class="card finance-kpi"><span class="muted">Encaissements jour</span><b>38 450 TND</b><span class="badge green">Validés</span></div><div class="card finance-kpi"><span class="muted">Paiements cash</span><b>21 800 TND</b><span class="badge blue">56 opérations</span></div><div class="card finance-kpi"><span class="muted">Écart caisse</span><b>0 TND</b><span class="badge green">Conforme</span></div><div class="card finance-kpi"><span class="muted">Trésorerie 30 jours</span><b>+124 000 TND</b><span class="badge violet">Prévision IA</span></div></div>
+  <div class="grid two"><div class="card"><div class="section-title"><h3>Rapport financier journalier</h3><span class="demo-chip">Automatique</span></div><div class="table-wrap"><table><thead><tr><th>Canal</th><th>Transactions</th><th>Montant</th><th>Statut</th></tr></thead><tbody><tr><td>Cash</td><td>56</td><td>21 800 TND</td><td><span class="badge green">Rapproché</span></td></tr><tr><td>Virement</td><td>18</td><td>12 250 TND</td><td><span class="badge green">Rapproché</span></td></tr><tr><td>Carte</td><td>9</td><td>4 400 TND</td><td><span class="badge amber">En attente</span></td></tr></tbody></table></div></div><div class="card"><div class="section-title"><h3>Rentabilité</h3></div><div class="card-pad"><p><b>Client le plus rentable</b><br><span class="muted">Atlas Ceramics SA · 22,4 %</span></p><p><b>Commande la plus rentable</b><br><span class="muted">CMD-2285 · 31 800 €</span></p><p><b>Coût logistique moyen</b><br><span class="muted">8,7 % du CA</span></p><button class="primary" onclick="quickAction('Analyse de rentabilité ouverte')">Voir l'analyse</button></div></div></div>`;
+}
+
+function CollaborationPage(){
+  const cols=[['Welcome',['Recevoir 14 visiteurs','Vérifier les rendez-vous']],['Documentation',['Contrôler 22 dossiers','Relancer 3 pièces manquantes']],['Biométrie',['Préparer 18 passages','Signaler 1 anomalie']],['Interview',['Planifier 16 entretiens','Clôturer 12 dossiers']]];
+  return `<div class="page-head"><div><h1>Collaboration & Workflow équipes</h1><p>Assignez les tâches, coordonnez les équipes et suivez les validations en temps réel.</p></div><div class="panel-actions"><button class="secondary" onclick="quickAction('Planning partagé ouvert')">Calendrier</button><button class="primary" onclick="openModal('workflowItem')">+ Nouvelle tâche</button></div></div>
+  <div class="feedback-kpis"><div class="card feedback-kpi"><span class="muted">Tâches aujourd'hui</span><b>83</b><span class="badge blue">4 équipes</span></div><div class="card feedback-kpi"><span class="muted">En retard</span><b>5</b><span class="badge red">Urgent</span></div><div class="card feedback-kpi"><span class="muted">Validations</span><b>12</b><span class="badge amber">En attente</span></div><div class="card feedback-kpi"><span class="muted">Charge moyenne</span><b>78%</b><span class="badge green">Équilibrée</span></div></div>
+  <div class="team-board">${cols.map(c=>`<div class="card team-col"><div class="section-title" style="padding:0 0 12px;border:0"><h3>${c[0]}</h3><span class="badge blue">${c[1].length}</span></div>${c[1].map(t=>`<div class="team-task"><b>${t}</b><div class="muted" style="margin-top:6px">Responsable assigné · aujourd'hui</div><div class="quick-actions"><button class="secondary" onclick="quickAction('Tâche ouverte')">Voir</button><button class="primary" onclick="quickAction('Tâche terminée')">Terminer</button></div></div>`).join('')}</div>`).join('')}</div>`;
+}
+
+
 function pageContent(){switch(state.active){
   case'dashboard':return Dashboard();
   case'export360':return Export360Page();
   case'tracking':return TrackingSupplyChain();
+  case'warehouse':return WarehousePage();
+  case'predictive':return PredictiveAIPage();
+  case'compliance':return CompliancePage();
+  case'finance':return FinanceAdvancedPage();
+  case'collaboration':return CollaborationPage();
   case'importexport':return GenericPage('Import / Export','Suivez commandes, containers, douane et livraisons.',OrdersTable(),`openModal('order')`,'+ Nouvelle opération');
   case'documents':return Documents();
   case'crm':return CRMPage();
@@ -2332,6 +2619,1280 @@ function render(){
     if(el&&el.tagName==='SELECT')el.addEventListener('change',calculateOrderTotal);
   });
 }
+
+/* ===== AZNAVO feedback fixes: language, currencies and working actions ===== */
+state.lang = localStorage.getItem('az_lang') || 'fr';
+state.market = localStorage.getItem('az_market') || 'TN';
+state.currency = state.market === 'TN' ? 'TND' : state.market === 'MA' ? 'MAD' : 'USD';
+state.appliedActions = {};
+state.warehouseMovements = [
+  {ref:'MVT-1042',type:'Entrée',article:'EL-400',qty:1200,site:'Tunis',date:'2026-08-01',status:'Validé'},
+  {ref:'MVT-1041',type:'Transfert',article:'TX-210',qty:240,site:'Tunis → Sfax',date:'2026-07-31',status:'En cours'}
+];
+state.teamTasks = [
+  {id:'TSK-101',title:'Contrôler les documents L/C',team:'Documentation',owner:'Lina Trabelsi',priority:'Urgente',status:'En cours',due:'Aujourd’hui 12:00'},
+  {id:'TSK-102',title:'Préparer la clôture caisse',team:'Finance',owner:'Sami Ben Ali',priority:'Haute',status:'En attente',due:'Aujourd’hui 17:00'},
+  {id:'TSK-103',title:'Relancer CMD-2279',team:'Supply Chain',owner:'Nour Gharbi',priority:'Haute',status:'En cours',due:'Aujourd’hui 10:30'}
+];
+
+const i18n={
+  fr:{search:'Rechercher une commande, un client, un document…',assistant:'Assistant',logout:'Déconnexion'},
+  en:{search:'Search an order, customer or document…',assistant:'Assistant',logout:'Logout'}
+};
+function money(n){
+  const code=state.currency;
+  const locale=state.market==='MA'?'fr-MA':state.market==='TN'?'fr-TN':'en-US';
+  return Number(n).toLocaleString(locale,{maximumFractionDigits:0})+' '+code;
+}
+function changeMarket(v){
+  state.market=v;state.currency=v==='TN'?'TND':v==='MA'?'MAD':'USD';
+  localStorage.setItem('az_market',v);render();toast('Devise adaptée : '+state.currency);
+}
+function toggleLanguage(){
+  state.lang=state.lang==='fr'?'en':'fr';localStorage.setItem('az_lang',state.lang);render();
+  toast(state.lang==='fr'?'Interface en français':'Interface switched to English');
+}
+const _Topbar=Topbar;
+Topbar=function(){
+  const label=pages.find(x=>x[0]===state.active)[1];
+  const t=i18n[state.lang];
+  return `<header class="topbar">
+    <button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    <strong>${label}</strong>
+    <div class="search"><input id="globalSearch" placeholder="${t.search}" onkeydown="if(event.key==='Enter')runSearch()"></div>
+    <div class="top-actions">
+      <select class="top-select" onchange="changeMarket(this.value)" title="Marché et devise">
+        <option value="TN" ${state.market==='TN'?'selected':''}>Tunisie · TND</option>
+        <option value="MA" ${state.market==='MA'?'selected':''}>Maroc · MAD</option>
+        <option value="INT" ${state.market==='INT'?'selected':''}>International · USD</option>
+      </select>
+      <button class="secondary" onclick="toggleLanguage()">${state.lang==='fr'?'EN':'FR'}</button>
+      <button class="secondary" onclick="openModal('ai')">✦ ${t.assistant}</button>
+      <button class="icon-btn" onclick="showNotifications()" title="Notifications">🔔</button>
+      <div class="profile"><div class="avatar">SB</div><div><b style="font-size:12px">Sami Ben Ali</b><div class="muted">Admin Premium</div></div></div>
+      <button class="secondary" onclick="logout()">${t.logout}</button>
+    </div>
+  </header>`;
+}
+
+function applyPrediction(key,label){
+  state.appliedActions[key]=true;
+  data.notifications.unshift('Action IA appliquée : '+label);
+  render();toast('Action appliquée et ajoutée au plan opérationnel');
+}
+function openRegulation(country,title,desc,status){
+  openModal('regulationDetail',{country,title,desc,status});
+}
+function openLCChecklist(){openModal('lcChecklist',{ref:'LC-2026-018'});}
+function downloadFinanceReport(){
+  const report=`AZNAVO - Rapport financier journalier\nMarché: ${state.market}\nDevise: ${state.currency}\n\nEncaissements: ${money(38450)}\nPaiements cash: ${money(21800)}\nÉcart caisse: ${money(0)}\nPrévision 30 jours: ${money(124000)}\n\nStatut: Rapport de démonstration`;
+  const blob=new Blob([report],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='AZNAVO_Rapport_Financier.txt';a.click();
+  URL.revokeObjectURL(a.href);toast('Rapport téléchargé');
+}
+function generateClose(){
+  data.notifications.unshift('Clôture journalière générée en '+state.currency);
+  openModal('financeClose',{});
+}
+function openTask(index){openModal('taskDetail',state.teamTasks[index],index)}
+function finishTask(index){
+  state.teamTasks[index].status='Terminé';render();toast('Tâche terminée');
+}
+function saveTask(){
+  const t={id:uid('TSK'),title:getVal('f_task_title')||'Nouvelle tâche',team:getVal('f_task_team')||'Opérations',owner:getVal('f_task_owner')||'Sami Ben Ali',priority:getVal('f_task_priority')||'Normale',status:'En attente',due:getVal('f_task_due')||'À planifier'};
+  state.teamTasks.unshift(t);state.modal=null;render();toast('Tâche ajoutée');
+}
+function saveWarehouseMovement(){
+  const m={ref:uid('MVT'),type:getVal('f_mvt_type'),article:getVal('f_mvt_article'),qty:Number(getVal('f_mvt_qty')||0),site:getVal('f_mvt_site'),date:getVal('f_mvt_date'),status:'Validé'};
+  state.warehouseMovements.unshift(m);state.modal=null;render();toast('Mouvement de stock enregistré');
+}
+function analyseWarehousePDF(){
+  const box=document.getElementById('warehousePdfResult');
+  if(box)box.innerHTML='<b>Analyse en cours…</b><div class="loading-line"><span></span></div>';
+  setTimeout(()=>{if(box)box.innerHTML=`<b>✓ Extraction IA terminée</b><div class="detail-grid" style="margin-top:12px">
+    <div class="detail-box"><span>Document</span><b>Bon de réception</b></div>
+    <div class="detail-box"><span>Fournisseur</span><b>Anadolu Steel</b></div>
+    <div class="detail-box"><span>Article</span><b>EL-400</b></div>
+    <div class="detail-box"><span>Quantité</span><b>1 200 unités</b></div>
+    <div class="detail-box"><span>Entrepôt</span><b>Tunis</b></div>
+    <div class="detail-box"><span>Confiance</span><b>96 %</b></div>
+  </div><button class="primary" style="margin-top:14px" onclick="state.modal=null;render();toast('Entrée stock créée depuis le PDF')">Créer le mouvement</button>`},900);
+}
+
+const _PredictiveAIPage=PredictiveAIPage;
+PredictiveAIPage=function(){
+  const actions=[
+    ['stock','Article EL-400','Rupture probable dans 6 jours','88%','Commander 1 200 unités chez Anadolu Steel'],
+    ['delay','CMD-2279','Retard probable de 4 jours','82%','Relancer le fournisseur et réserver un transport alternatif'],
+    ['capacity','Entrepôt Tunis','Surcharge prévue lundi','76%','Réaffecter 2 opérateurs et ouvrir un créneau supplémentaire']
+  ];
+  return `<div class="page-head"><div><h1>IA Prédictive</h1><p>Anticipez les ruptures, retards et anomalies avant qu'ils n'impactent vos opérations.</p></div><div class="panel-actions"><button class="secondary" onclick="quickAction('Modèles recalculés')">Actualiser</button><button class="primary" onclick="openModal('ai')">Demander à l'IA</button></div></div>
+  <div class="feedback-kpis"><div class="card feedback-kpi"><span class="muted">Risque de rupture</span><b>3 articles</b><span class="badge red">Critique</span></div><div class="card feedback-kpi"><span class="muted">Retards probables</span><b>4 commandes</b><span class="badge amber">À surveiller</span></div><div class="card feedback-kpi"><span class="muted">Anomalies détectées</span><b>7</b><span class="badge violet">IA</span></div><div class="card feedback-kpi"><span class="muted">Économies estimées</span><b>${money(18400)}</b><span class="badge green">Ce mois</span></div></div>
+  <div class="feedback-grid"><div class="card"><div class="section-title"><h3>Prévisions prioritaires</h3><span class="demo-chip">Analyse temps réel</span></div>
+  ${actions.map(x=>`<div class="risk-card"><div class="risk-head"><div><b>${x[1]}</b><div class="muted">${x[2]}</div></div><span class="badge violet">${x[3]}</span></div><div class="risk-meter"><span style="width:${x[3]}"></span></div><div class="recommendation" style="margin-top:12px"><b>Action recommandée</b><p>${x[4]}</p><button class="${state.appliedActions[x[0]]?'secondary action-done':'primary'}" onclick="applyPrediction('${x[0]}','${x[4].replace(/'/g,"\\'")}')">${state.appliedActions[x[0]]?'✓ Appliquée':'Appliquer'}</button></div></div>`).join('')}
+  </div><div class="card"><div class="section-title"><h3>Assistant décisionnel</h3></div><div class="card-pad"><div class="ai-summary"><b>Résumé IA</b><p>Les recommandations appliquées deviennent automatiquement des tâches, notifications et actions de suivi.</p></div><button class="primary" onclick="openModal('ai')">Lancer une analyse</button></div></div></div>`;
+}
+
+WarehousePage=function(){
+  const items=[['EL-400','Électronique','86','120','Rupture proche'],['TX-210','Textile','1 840','900','Optimal'],['MT-990','Métal','420','300','Stable'],['CR-120','Céramique','95','180','Sous seuil']];
+  return `<div class="page-head"><div><h1>Stocks & Entrepôts</h1><p>Visibilité temps réel, multi-sites, inventaires et réapprovisionnement intelligent.</p></div><div class="panel-actions"><button class="secondary" onclick="openModal('warehousePDF')">Analyser PDF par IA</button><button class="secondary" onclick="quickAction('Inventaire lancé')">Lancer inventaire</button><button class="primary" onclick="openModal('warehouseMovement')">+ Mouvement complet</button></div></div>
+  <div class="stock-grid"><div class="card stock-card"><span class="muted">Valeur du stock</span><div class="stock-number">${money(1280000)}</div><span class="trend">+4,8 %</span></div><div class="card stock-card"><span class="muted">Articles sous seuil</span><div class="stock-number">12</div><span class="badge red">Action requise</span></div><div class="card stock-card"><span class="muted">Entrepôts actifs</span><div class="stock-number">4</div><span class="badge green">Synchronisés</span></div></div>
+  <div class="card" style="margin-top:16px"><div class="section-title"><h3>État des stocks</h3><div class="filter-row"><select><option>Tous les sites</option><option>Tunis</option><option>Sfax</option><option>Casablanca</option></select><input placeholder="Rechercher un article"></div></div><div class="table-wrap"><table><thead><tr><th>Référence</th><th>Catégorie</th><th>Disponible</th><th>Seuil</th><th>Statut</th><th>Action</th></tr></thead><tbody>${items.map(x=>`<tr><td><b>${x[0]}</b></td><td>${x[1]}</td><td>${x[2]}</td><td>${x[3]}</td><td><span class="badge ${statusClass(x[4])}">${x[4]}</span></td><td><button class="secondary" onclick="openModal('stockDetail',{ref:'${x[0]}',category:'${x[1]}',available:'${x[2]}',threshold:'${x[3]}',status:'${x[4]}'})">Voir</button> <button class="primary" onclick="openModal('warehouseMovement',{article:'${x[0]}',type:'Entrée'})">Réapprovisionner</button></td></tr>`).join('')}</tbody></table></div></div>
+  <div class="card" style="margin-top:16px"><div class="section-title"><h3>Derniers mouvements</h3></div><div class="table-wrap"><table><thead><tr><th>Réf.</th><th>Type</th><th>Article</th><th>Quantité</th><th>Site</th><th>Date</th><th>Statut</th></tr></thead><tbody>${state.warehouseMovements.map(m=>`<tr><td>${m.ref}</td><td>${m.type}</td><td><b>${m.article}</b></td><td>${m.qty}</td><td>${m.site}</td><td>${m.date}</td><td><span class="badge green">${m.status}</span></td></tr>`).join('')}</tbody></table></div></div>`;
+}
+
+CompliancePage=function(){
+  const regs=[
+    ['LY','Libye — Procédure bancaire mise à jour','Nouvelle exigence documentaire pour les L/C import.','Urgent'],
+    ['TN','Tunisie — Douane','Mise à jour du contrôle d’origine préférentielle.','À vérifier'],
+    ['MA','Maroc — Import','Nouvelle nomenclature pour certaines pièces industrielles.','Information']
+  ];
+  return `<div class="page-head"><div><h1>Conformité & Trade Finance</h1><p>Veille réglementaire, exigences documentaires et suivi des lettres de crédit.</p></div><div class="panel-actions"><button class="secondary" onclick="quickAction('Veille mise à jour')">Actualiser la veille</button><button class="primary" onclick="openModal('lcForm')">+ Ajouter une L/C</button></div></div>
+  <div class="feedback-kpis"><div class="card feedback-kpi"><span class="muted">Alertes réglementaires</span><b>6</b><span class="badge amber">Nouvelles</span></div><div class="card feedback-kpi"><span class="muted">L/C actives</span><b>9</b><span class="badge blue">En suivi</span></div><div class="card feedback-kpi"><span class="muted">Documents manquants</span><b>4</b><span class="badge red">Bloquants</span></div><div class="card feedback-kpi"><span class="muted">Pays surveillés</span><b>7</b><span class="badge green">Actifs</span></div></div>
+  <div class="feedback-grid"><div class="card"><div class="section-title"><h3>Veille réglementaire</h3><span class="badge violet">Temps réel</span></div>${regs.map(x=>`<div class="regulation-item"><div class="regulation-icon">${x[0]}</div><div><b>${x[1]}</b><div class="muted">${x[2]}</div></div><div><span class="badge ${x[3]==='Urgent'?'red':x[3]==='À vérifier'?'amber':'blue'}">${x[3]}</span><div class="quick-actions"><button class="secondary" onclick="openRegulation('${x[0]}','${x[1].replace(/'/g,"\\'")}','${x[2].replace(/'/g,"\\'")}','${x[3]}')">Consulter</button></div></div></div>`).join('')}</div>
+  <div class="card"><div class="section-title"><h3>Lettres de crédit</h3></div><div class="card-pad"><p><b>LC-2026-018 · Banque Libyenne</b><br><span class="muted">Échéance 12 août · ${money(76300)}</span></p><div class="bar"><span style="width:72%"></span></div><p style="margin-top:18px"><b>LC-2026-021 · BIAT</b><br><span class="muted">Documents en vérification · ${money(42600)}</span></p><div class="bar"><span style="width:48%"></span></div><button class="primary" style="margin-top:18px" onclick="openLCChecklist()">Ouvrir la checklist</button></div></div></div>`;
+}
+
+FinanceAdvancedPage=function(){
+  return `<div class="page-head"><div><h1>Finance & Rapports automatiques</h1><p>Clôture journalière, paiements cash, rentabilité et trésorerie prévisionnelle.</p><div class="currency-note">Marché sélectionné : ${state.market} · Devise : ${state.currency}</div></div><div class="panel-actions"><button class="secondary" onclick="downloadFinanceReport()">Exporter rapport</button><button class="primary" onclick="generateClose()">Générer la clôture</button></div></div>
+  <div class="finance-grid"><div class="card finance-kpi"><span class="muted">Encaissements jour</span><b>${money(38450)}</b><span class="badge green">Validés</span></div><div class="card finance-kpi"><span class="muted">Paiements cash</span><b>${money(21800)}</b><span class="badge blue">56 opérations</span></div><div class="card finance-kpi"><span class="muted">Écart caisse</span><b>${money(0)}</b><span class="badge green">Conforme</span></div><div class="card finance-kpi"><span class="muted">Trésorerie 30 jours</span><b>+${money(124000)}</b><span class="badge violet">Prévision IA</span></div></div>
+  <div class="grid two"><div class="card"><div class="section-title"><h3>Rapport financier journalier</h3><span class="demo-chip">Automatique</span></div><div class="table-wrap"><table><thead><tr><th>Canal</th><th>Transactions</th><th>Montant</th><th>Statut</th></tr></thead><tbody><tr><td>Cash</td><td>56</td><td>${money(21800)}</td><td><span class="badge green">Rapproché</span></td></tr><tr><td>Virement</td><td>18</td><td>${money(12250)}</td><td><span class="badge green">Rapproché</span></td></tr><tr><td>Carte</td><td>9</td><td>${money(4400)}</td><td><span class="badge amber">En attente</span></td></tr></tbody></table></div></div><div class="card"><div class="section-title"><h3>Rentabilité</h3></div><div class="card-pad"><p><b>Client le plus rentable</b><br><span class="muted">Atlas Ceramics SA · 22,4 %</span></p><p><b>Commande la plus rentable</b><br><span class="muted">CMD-2285 · ${money(31800)}</span></p><p><b>Coût logistique moyen</b><br><span class="muted">8,7 % du CA</span></p><button class="primary" onclick="openModal('profitAnalysis')">Voir l'analyse</button></div></div></div>`;
+}
+
+CollaborationPage=function(){
+  return `<div class="page-head"><div><h1>Collaboration & Workflow équipes</h1><p>Pilotez les responsabilités, échéances, validations et charges de travail.</p></div><div class="panel-actions"><button class="secondary" onclick="openModal('teamPlanning')">Planning équipe</button><button class="primary" onclick="openModal('taskForm')">+ Nouvelle tâche</button></div></div>
+  <div class="feedback-kpis"><div class="card feedback-kpi"><span class="muted">Tâches aujourd'hui</span><b>${state.teamTasks.length}</b><span class="badge blue">Équipes</span></div><div class="card feedback-kpi"><span class="muted">En retard</span><b>1</b><span class="badge red">Urgent</span></div><div class="card feedback-kpi"><span class="muted">Validations</span><b>2</b><span class="badge amber">En attente</span></div><div class="card feedback-kpi"><span class="muted">Charge moyenne</span><b>78%</b><span class="badge green">Équilibrée</span></div></div>
+  <div class="grid two"><div class="card"><div class="section-title"><h3>Plan d'action partagé</h3><span class="demo-chip">Temps réel</span></div><div class="card-pad">${state.teamTasks.map((t,i)=>`<div class="task-card-pro"><div style="display:flex;justify-content:space-between;gap:12px"><div><b>${t.id} · ${t.title}</b><div class="muted">${t.team} · ${t.due}</div></div><span class="badge ${statusClass(t.status)}">${t.status}</span></div><div class="task-meta"><span class="badge blue">${t.owner}</span><span class="badge ${t.priority==='Urgente'?'red':'amber'}">${t.priority}</span></div><div class="panel-actions"><button class="secondary" onclick="openTask(${i})">Voir</button><button class="primary ${t.status==='Terminé'?'action-done':''}" onclick="finishTask(${i})">${t.status==='Terminé'?'✓ Terminée':'Terminer'}</button></div></div>`).join('')}</div></div>
+  <div class="card"><div class="section-title"><h3>Charge des équipes</h3></div><div class="card-pad">${[['Supply Chain',82],['Documentation',74],['Finance',68],['Commercial',61]].map(x=>`<div style="margin-bottom:18px"><div style="display:flex;justify-content:space-between"><b>${x[0]}</b><span>${x[1]}%</span></div><div class="bar" style="margin-top:8px"><span style="width:${x[1]}%"></span></div></div>`).join('')}<button class="secondary" onclick="openModal('teamPlanning')">Voir le planning complet</button></div></div></div>`;
+}
+
+const _Modal=Modal;
+Modal=function(){
+  if(!state.modal)return'';
+  const {type,item,index}=state.modal;
+  let title='',body='',foot='',size='large';
+  if(type==='regulationDetail'){
+    title='Détail de l’alerte réglementaire';
+    body=`<div class="auto-fill-box"><b>${esc(item.country)} · ${esc(item.status)}</b><br>${esc(item.title)}</div><div class="detail-grid">
+      <div class="detail-box"><span>Résumé</span><b>${esc(item.desc)}</b></div>
+      <div class="detail-box"><span>Impact</span><b>Documents et validation bancaire</b></div>
+      <div class="detail-box"><span>Date d’application</span><b>Immédiate</b></div>
+      <div class="detail-box"><span>Action recommandée</span><b>Mettre à jour la checklist du dossier</b></div>
+    </div><div class="ai-summary"><b>Analyse IA</b><p>Deux dossiers actifs sont concernés. Une vérification des documents bancaires et du certificat d’origine est recommandée.</p></div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Fermer</button><button class="primary" onclick="state.modal=null;render();toast('Alerte marquée comme traitée')">Marquer traitée</button>`;
+  }else if(type==='lcChecklist'){
+    title='Checklist Lettre de Crédit';
+    body=`<div class="checklist">${[['Facture proforma',true],['Contrat commercial',true],['Certificat d’origine',false],['Packing List',true],['Document transport',false],['Validation banque',false]].map(x=>`<label class="check-row"><span>${x[0]}</span><input type="checkbox" ${x[1]?'checked':''}></label>`).join('')}</div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Fermer</button><button class="primary" onclick="state.modal=null;render();toast('Checklist L/C enregistrée')">Enregistrer</button>`;
+  }else if(type==='lcForm'){
+    title='Nouvelle lettre de crédit';
+    body=`<div class="form-grid">${field('f_lc_ref','Référence','')}${field('f_lc_bank','Banque','')}${field('f_lc_client','Client','')}${field('f_lc_amount','Montant','')}${selectField('f_lc_currency','Devise',state.currency,['TND','MAD','USD','EUR'])}${field('f_lc_expiry','Échéance','','date')}<div class="field full"><label>Conditions documentaires</label><textarea></textarea></div></div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="state.modal=null;render();toast('Lettre de crédit ajoutée')">Ajouter</button>`;
+  }else if(type==='financeClose'){
+    title='Clôture journalière générée';
+    body=`<div class="demo-chip">Clôture conforme</div><h2>${money(38450)}</h2><div class="detail-grid"><div class="detail-box"><span>Cash</span><b>${money(21800)}</b></div><div class="detail-box"><span>Virements</span><b>${money(12250)}</b></div><div class="detail-box"><span>Cartes</span><b>${money(4400)}</b></div><div class="detail-box"><span>Écart</span><b>${money(0)}</b></div></div>`;
+    foot=`<button class="secondary" onclick="downloadFinanceReport()">Télécharger</button><button class="primary" onclick="closeModal()">Terminer</button>`;
+  }else if(type==='profitAnalysis'){
+    title='Analyse de rentabilité';
+    body=`<div class="detail-grid"><div class="detail-box"><span>Marge brute</span><b>${money(96400)}</b></div><div class="detail-box"><span>Coûts logistiques</span><b>${money(28400)}</b></div><div class="detail-box"><span>Meilleur client</span><b>Atlas Ceramics SA</b></div><div class="detail-box"><span>Recommandation IA</span><b>Renégocier le fret maritime</b></div></div>`;
+    foot=`<button class="primary" onclick="closeModal()">Fermer</button>`;
+  }else if(type==='taskForm'){
+    title='Nouvelle tâche collaborative';
+    body=`<div class="form-grid">${field('f_task_title','Titre','')}${selectField('f_task_team','Équipe','Supply Chain',['Supply Chain','Documentation','Finance','Commercial','Direction'])}${field('f_task_owner','Responsable','Sami Ben Ali')}${selectField('f_task_priority','Priorité','Normale',['Faible','Normale','Haute','Urgente'])}${field('f_task_due','Échéance','Aujourd’hui 17:00')}<div class="field full"><label>Description</label><textarea></textarea></div></div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="saveTask()">Ajouter</button>`;
+  }else if(type==='taskDetail'){
+    title='Détail de la tâche';
+    body=`<div class="detail-grid"><div class="detail-box"><span>Référence</span><b>${esc(item.id)}</b></div><div class="detail-box"><span>Équipe</span><b>${esc(item.team)}</b></div><div class="detail-box"><span>Responsable</span><b>${esc(item.owner)}</b></div><div class="detail-box"><span>Échéance</span><b>${esc(item.due)}</b></div></div><div class="ai-summary"><b>${esc(item.title)}</b><p>Suivi complet, commentaires, pièces jointes et historique de validation disponibles dans la version SaaS.</p></div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Fermer</button><button class="primary" onclick="finishTask(${index});closeModal()">Terminer</button>`;
+  }else if(type==='teamPlanning'){
+    title='Planning des équipes';
+    body=`<div class="table-wrap"><table><thead><tr><th>Équipe</th><th>Charge</th><th>Tâches</th><th>Disponibilité</th></tr></thead><tbody><tr><td>Supply Chain</td><td>82%</td><td>14</td><td>2 personnes disponibles</td></tr><tr><td>Documentation</td><td>74%</td><td>11</td><td>1 personne disponible</td></tr><tr><td>Finance</td><td>68%</td><td>8</td><td>Disponible</td></tr></tbody></table></div>`;
+    foot=`<button class="primary" onclick="closeModal()">Fermer</button>`;
+  }else if(type==='warehouseMovement'){
+    title='Mouvement de stock complet';
+    body=`<div class="form-grid">${selectField('f_mvt_type','Type',item.type||'Entrée',['Entrée','Sortie','Transfert','Ajustement','Retour'])}${field('f_mvt_article','Article / Référence',item.article||'')}${field('f_mvt_qty','Quantité','','number')}${selectField('f_mvt_unit','Unité','Pièces',['Pièces','Cartons','Palettes','Kg','Tonnes'])}${selectField('f_mvt_site','Entrepôt','Tunis',['Tunis','Sfax','Sousse','Casablanca'])}${field('f_mvt_location','Emplacement','A-12-04')}${field('f_mvt_batch','Lot / Série','')}${field('f_mvt_date','Date','2026-08-01','date')}${field('f_mvt_supplier','Fournisseur','')}${field('f_mvt_order','Commande liée','')}<div class="field full"><label>Motif / Notes</label><textarea></textarea></div></div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Annuler</button><button class="primary" onclick="saveWarehouseMovement()">Enregistrer</button>`;
+  }else if(type==='stockDetail'){
+    title='Fiche stock '+esc(item.ref);
+    body=`<div class="detail-grid"><div class="detail-box"><span>Catégorie</span><b>${esc(item.category)}</b></div><div class="detail-box"><span>Disponible</span><b>${esc(item.available)}</b></div><div class="detail-box"><span>Seuil minimum</span><b>${esc(item.threshold)}</b></div><div class="detail-box"><span>Statut</span><b>${esc(item.status)}</b></div><div class="detail-box"><span>Consommation moyenne</span><b>34 / jour</b></div><div class="detail-box"><span>Couverture estimée</span><b>6 jours</b></div></div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Fermer</button><button class="primary" onclick="openModal('warehouseMovement',{article:'${esc(item.ref)}',type:'Entrée'})">Réapprovisionner</button>`;
+  }else if(type==='warehousePDF'){
+    title='Analyse PDF par IA — Stock';
+    body=`<div class="upload-zone"><b>Déposez un bon de réception, facture ou packing list</b><input type="file" accept=".pdf,.png,.jpg,.jpeg"><button class="primary" style="margin-top:14px" onclick="analyseWarehousePDF()">Analyser automatiquement</button></div><div id="warehousePdfResult" class="auto-fill-box" style="margin-top:16px">L’IA extraira le fournisseur, l’article, la quantité, le lot et l’entrepôt.</div>`;
+    foot=`<button class="secondary" onclick="closeModal()">Fermer</button>`;
+  }else{
+    return _Modal();
+  }
+  return `<div class="modal" onclick="if(event.target===this)closeModal()"><div class="modal-box ${size}"><div class="modal-head"><strong>${title}</strong><button class="icon-btn" onclick="closeModal()">×</button></div><div class="modal-body">${body}</div><div class="modal-foot">${foot}</div></div></div>`;
+}
+
+
+/* ===== Final overrides: visible sidebar, real FR/EN, alerts and notifications ===== */
+const navLabels={
+ fr:{dashboard:'Dashboard',command:'Centre de pilotage',importexport:'Import / Export',export360:'Dossier Export 360°',tracking:'Tracking & Supply Chain',warehouse:'Stocks & Entrepôts',documents:'Documents',suppliers:'Fournisseurs',supplier360:'Fournisseur 360°',crm:'CRM & Commercial',customer360:'Client 360°',commcenter:'Centre de communication',emailhub:'Centre Emails',predictive:'IA Prédictive',compliance:'Conformité & L/C',finance:'Finance & Rapports',collaboration:'Collaboration',ai:'Assistant opérationnel',reports:'Analyses & Rapports',workflows:'Automatisations',integrations:'Intégrations',settings:'Paramètres'},
+ en:{dashboard:'Dashboard',command:'Command Center',importexport:'Import / Export',export360:'Export File 360°',tracking:'Tracking & Supply Chain',warehouse:'Inventory & Warehouses',documents:'Documents',suppliers:'Suppliers',supplier360:'Supplier 360°',crm:'CRM & Sales',customer360:'Customer 360°',commcenter:'Communication Center',emailhub:'Email Hub',predictive:'Predictive AI',compliance:'Compliance & L/C',finance:'Finance & Reports',collaboration:'Collaboration',ai:'Operations Assistant',reports:'Analytics & Reports',workflows:'Automation Builder',integrations:'Integrations',settings:'Settings'}
+};
+const groupLabels={fr:['Vue d’ensemble','Opérations','Relation client','Pilotage intelligent','Automatisation','Système'],en:['Overview','Operations','Customer Relations','Intelligent Management','Automation','System']};
+Sidebar=function(){
+ const groups=[['dashboard','command'],['importexport','export360','tracking','warehouse','documents','suppliers','supplier360'],['crm','customer360','commcenter','emailhub'],['predictive','compliance','finance','collaboration','ai','reports'],['workflows'],['integrations','settings']];
+ const gl=groupLabels[state.lang]||groupLabels.fr;const labels=navLabels[state.lang]||navLabels.fr;
+ return `<aside class="sidebar ${state.mobileMenu?'mobile-open':''}"><div class="brand"><div class="logo">A</div><div><b>AZNAVO</b><div class="muted">Import / Export Platform</div></div></div>${groups.map((ids,gi)=>`<div class="nav-title">${gl[gi]}</div>${ids.map(id=>`<button class="nav-btn ${state.active===id?'active':''}" onclick="nav('${id}')"><span class="nav-icon">${navIcons[id]||'◆'}</span><span>${labels[id]}</span></button>`).join('')}`).join('')}</aside>`;
+}
+function translatedPageLabel(){return (navLabels[state.lang]||navLabels.fr)[state.active]||pages.find(x=>x[0]===state.active)?.[1]||''}
+Topbar=function(){
+ const t=i18n[state.lang];const count=data.notifications.length;
+ return `<header class="topbar"><button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()">☰</button><strong>${translatedPageLabel()}</strong><div class="search"><input id="globalSearch" placeholder="${t.search}" onkeydown="if(event.key==='Enter')runSearch()"></div><div class="top-actions"><select class="top-select" onchange="changeMarket(this.value)" title="${state.lang==='fr'?'Marché et devise':'Market and currency'}"><option value="TN" ${state.market==='TN'?'selected':''}>Tunisie · TND</option><option value="MA" ${state.market==='MA'?'selected':''}>Maroc · MAD</option><option value="INT" ${state.market==='INT'?'selected':''}>International · USD</option></select><button class="secondary" onclick="toggleLanguage()">${state.lang==='fr'?'EN':'FR'}</button><button class="secondary" onclick="openModal('ai')">✦ ${t.assistant}</button><span class="notification-wrap"><button class="icon-btn" onclick="showNotifications()" title="Notifications">🔔</button>${count?`<span class="notification-count">${count}</span>`:''}</span><div class="profile"><div class="avatar">SB</div><div><b style="font-size:12px">Sami Ben Ali</b><div class="muted">Admin Premium</div></div></div><button class="secondary" onclick="logout()">${t.logout}</button></div></header>`;
+}
+const _DashboardFinal=Dashboard;
+Dashboard=function(){
+ const base=_DashboardFinal();
+ const alert=state.lang==='fr'
+ ? `<div class="dashboard-alert-strip"><div class="dashboard-alert-icon">⚠</div><div><b>4 alertes nécessitent votre attention</b><p>Retard CMD-2279, document manquant, risque de rupture EL-400 et validation L/C.</p></div><button class="secondary" onclick="showNotifications()">Voir les alertes</button></div>`
+ : `<div class="dashboard-alert-strip"><div class="dashboard-alert-icon">⚠</div><div><b>4 alerts require your attention</b><p>CMD-2279 delay, missing document, EL-400 stock risk and L/C validation.</p></div><button class="secondary" onclick="showNotifications()">View alerts</button></div>`;
+ return alert+base;
+}
+const translationPairs={
+ 'Bonjour, Sami 👋':'Hello, Sami 👋','Voici l’essentiel de votre activité aujourd’hui.':'Here is today’s operational overview.','Nouvelle commande':'New order','Importer un document':'Import a document','Centre de pilotage AZNAVO':'AZNAVO Control Center','Suivez les commandes critiques, les délais fournisseurs et les documents importants en un seul endroit.':'Track critical orders, supplier lead times and important documents in one place.','Voir le tracking':'View tracking','Créer une commande':'Create order','Commandes en cours':'Open orders','Expéditions actives':'Active shipments','CA du mois':'Monthly revenue','Docs en attente IA':'Documents awaiting AI','Réseau mondial des expéditions':'Global shipment network','Alertes intelligentes':'Smart alerts','Tout voir':'View all','Commandes & expéditions':'Orders & shipments','Fournisseur':'Supplier','Client':'Customer','Statut':'Status','Valeur':'Value','Actions':'Actions','Modifier':'Edit','Supprimer':'Delete','Traiter':'Resolve','Analyse automatique mise à jour il y a quelques minutes.':'Automated analysis updated a few minutes ago.','Déconnexion':'Logout','Paramètres':'Settings','Documents':'Documents','Fournisseurs':'Suppliers','Collaboration':'Collaboration','Finance & Rapports automatiques':'Finance & Automated Reports','Conformité & Trade Finance':'Compliance & Trade Finance','Stocks & Entrepôts':'Inventory & Warehouses','IA Prédictive':'Predictive AI','Ajouter':'Add','Annuler':'Cancel','Fermer':'Close','Enregistrer':'Save','Terminer':'Complete','Voir':'View','Consulter':'Open','Ouvrir la checklist':'Open checklist','Rapport financier journalier':'Daily financial report','Exporter rapport':'Export report','Générer la clôture':'Generate closing'};
+function applyLanguageToDOM(){
+ document.documentElement.lang=state.lang;
+ if(state.lang!=='en')return;
+ const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
+ while(n=walker.nextNode()){
+   if(!n.nodeValue||!n.nodeValue.trim())continue;
+   const raw=n.nodeValue;const key=raw.trim();
+   if(translationPairs[key])n.nodeValue=raw.replace(key,translationPairs[key]);
+ }
+ document.querySelectorAll('input[placeholder],textarea[placeholder]').forEach(el=>{
+   const p=el.getAttribute('placeholder');
+   const map={'Rechercher une commande, un client, un document…':'Search an order, customer or document…','Rechercher un article':'Search an item','Décrivez l’élément, l’action ou le workflow…':'Describe the item, action or workflow…'};
+   if(map[p])el.setAttribute('placeholder',map[p]);
+ });
+}
+const _renderFinal=render;
+render=function(){_renderFinal();requestAnimationFrame(applyLanguageToDOM)};
+
+
+/* ===== FINAL FIX v3: unambiguous language + working market currency ===== */
+const AZ_MARKETS = {
+  TN: { code: 'TND', locale: 'fr-TN', rate: 3.40, fr: 'Tunisie', en: 'Tunisia' },
+  MA: { code: 'MAD', locale: 'fr-MA', rate: 10.80, fr: 'Maroc', en: 'Morocco' },
+  INT:{ code: 'USD', locale: 'en-US', rate: 1.08, fr: 'International', en: 'International' }
+};
+
+state.market = localStorage.getItem('az_market') || state.market || 'TN';
+state.lang = localStorage.getItem('az_lang') || state.lang || 'fr';
+state.currency = AZ_MARKETS[state.market]?.code || 'TND';
+
+function changeMarket(value){
+  if(!AZ_MARKETS[value]) value='TN';
+  state.market=value;
+  state.currency=AZ_MARKETS[value].code;
+  localStorage.setItem('az_market',value);
+  localStorage.setItem('az_currency',state.currency);
+  render();
+  setTimeout(()=>toast(
+    state.lang==='fr'
+      ? `Marché sélectionné : ${AZ_MARKETS[value].fr} — devise ${state.currency}`
+      : `Selected market: ${AZ_MARKETS[value].en} — currency ${state.currency}`
+  ),50);
+}
+
+function setLanguage(value){
+  state.lang=value==='en'?'en':'fr';
+  localStorage.setItem('az_lang',state.lang);
+  document.documentElement.lang=state.lang;
+  render();
+  setTimeout(()=>toast(state.lang==='fr'?'Interface en français':'Interface in English'),50);
+}
+
+/* Kept only for old buttons that may still call it. */
+function toggleLanguage(){
+  setLanguage(state.lang==='fr'?'en':'fr');
+}
+
+function formatMarketMoneyFromEUR(eurValue){
+  const market=AZ_MARKETS[state.market] || AZ_MARKETS.TN;
+  const converted=Number(eurValue)*market.rate;
+  return converted.toLocaleString(market.locale,{
+    maximumFractionDigits:0,
+    minimumFractionDigits:0
+  })+' '+market.code;
+}
+
+function convertVisibleEuroAmounts(){
+  const rootNode=document.querySelector('.app') || document.body;
+  if(!rootNode) return;
+  const walker=document.createTreeWalker(rootNode,NodeFilter.SHOW_TEXT);
+  const nodes=[];
+  let node;
+  while(node=walker.nextNode()) nodes.push(node);
+
+  nodes.forEach(n=>{
+    const raw=n.nodeValue;
+    if(!raw || !/[€]/.test(raw)) return;
+
+    n.nodeValue=raw
+      .replace(/(\d[\d\s.,]*)\s*K€/g,(m,num)=>{
+        const clean=Number(num.replace(/\s/g,'').replace(',','.'));
+        return Number.isFinite(clean)?formatMarketMoneyFromEUR(clean*1000):m;
+      })
+      .replace(/(\d[\d\s.,]*)\s*€/g,(m,num)=>{
+        const clean=Number(num.replace(/\s/g,'').replace(',','.'));
+        return Number.isFinite(clean)?formatMarketMoneyFromEUR(clean):m;
+      });
+  });
+}
+
+/* Larger translation dictionary for the visible prototype. */
+const AZ_TRANSLATIONS = {
+  'Dashboard':'Dashboard',
+  'Centre de pilotage':'Command Center',
+  'Dossier Export 360°':'Export File 360°',
+  'Stocks & Entrepôts':'Inventory & Warehouses',
+  'Fournisseurs':'Suppliers',
+  'Fournisseur 360°':'Supplier 360°',
+  'CRM & Commercial':'CRM & Sales',
+  'Client 360°':'Customer 360°',
+  'Centre de communication':'Communication Center',
+  'Centre Emails':'Email Hub',
+  'IA Prédictive':'Predictive AI',
+  'Conformité & L/C':'Compliance & L/C',
+  'Finance & Rapports':'Finance & Reports',
+  'Assistant opérationnel':'Operations Assistant',
+  'Analyses & Rapports':'Analytics & Reports',
+  'Automatisations':'Automations',
+  'Intégrations':'Integrations',
+  'Paramètres':'Settings',
+  'Vue d’ensemble':'Overview',
+  'Opérations':'Operations',
+  'Relation client':'Customer Relations',
+  'Pilotage intelligent':'Intelligent Management',
+  'Automatisation':'Automation',
+  'Système':'System',
+  'Bonjour, Sami 👋':'Hello, Sami 👋',
+  'Voici l’essentiel de votre activité aujourd’hui.':"Here is today's operational overview.",
+  'Nouvelle commande':'New order',
+  'Importer un document':'Import document',
+  'Centre de pilotage AZNAVO':'AZNAVO Control Center',
+  'Suivez les commandes critiques, les délais fournisseurs et les documents importants en un seul endroit.':'Track critical orders, supplier lead times and important documents in one place.',
+  'Voir le tracking':'View tracking',
+  'Créer une commande':'Create order',
+  'Commandes en cours':'Open orders',
+  'Expéditions actives':'Active shipments',
+  'CA du mois':'Monthly revenue',
+  'Docs en attente IA':'Documents awaiting AI',
+  'Réseau mondial des expéditions':'Global shipment network',
+  'Alertes intelligentes':'Smart alerts',
+  'Tout voir':'View all',
+  'Commandes & expéditions':'Orders & shipments',
+  'Fournisseur':'Supplier',
+  'Client':'Customer',
+  'Statut':'Status',
+  'Valeur':'Value',
+  'Actions':'Actions',
+  'Modifier':'Edit',
+  'Supprimer':'Delete',
+  'Traiter':'Resolve',
+  'Déconnexion':'Logout',
+  'Ajouter':'Add',
+  'Annuler':'Cancel',
+  'Fermer':'Close',
+  'Enregistrer':'Save',
+  'Terminer':'Complete',
+  'Voir':'View',
+  'Consulter':'Open',
+  'Ouvrir la checklist':'Open checklist',
+  'Exporter rapport':'Export report',
+  'Générer la clôture':'Generate closing',
+  'Rapport financier journalier':'Daily financial report',
+  'Marché sélectionné':'Selected market',
+  'Devise':'Currency',
+  'Recherche':'Search',
+  'Notifications':'Notifications'
+};
+
+function applyFinalLanguage(){
+  document.documentElement.lang=state.lang;
+  if(state.lang!=='en') return;
+
+  const rootNode=document.querySelector('.app') || document.body;
+  const walker=document.createTreeWalker(rootNode,NodeFilter.SHOW_TEXT);
+  const nodes=[];
+  let node;
+  while(node=walker.nextNode()) nodes.push(node);
+
+  nodes.forEach(n=>{
+    const raw=n.nodeValue;
+    if(!raw || !raw.trim()) return;
+    let updated=raw;
+    Object.entries(AZ_TRANSLATIONS)
+      .sort((a,b)=>b[0].length-a[0].length)
+      .forEach(([fr,en])=>{ updated=updated.split(fr).join(en); });
+    n.nodeValue=updated;
+  });
+
+  document.querySelectorAll('input[placeholder],textarea[placeholder]').forEach(el=>{
+    const p=el.getAttribute('placeholder')||'';
+    const placeholders={
+      'Rechercher une commande, un client, un document…':'Search an order, customer or document…',
+      'Rechercher un article':'Search an item',
+      'Décrivez l’élément, l’action ou le workflow…':'Describe the item, action or workflow…'
+    };
+    if(placeholders[p]) el.setAttribute('placeholder',placeholders[p]);
+  });
+}
+
+/* Definitive top bar: explicit language select, no reversed button. */
+Topbar=function(){
+  const t=i18n[state.lang] || i18n.fr;
+  const count=data.notifications.length;
+  const market=AZ_MARKETS[state.market] || AZ_MARKETS.TN;
+  const title=translatedPageLabel();
+
+  return `<header class="topbar">
+    <button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    <strong>${title}</strong>
+    <div class="search">
+      <input id="globalSearch" placeholder="${t.search}" onkeydown="if(event.key==='Enter')runSearch()">
+    </div>
+    <div class="top-actions">
+      <select class="top-select" aria-label="${state.lang==='fr'?'Marché et devise':'Market and currency'}"
+              onchange="changeMarket(this.value)">
+        <option value="TN" ${state.market==='TN'?'selected':''}>${state.lang==='fr'?'Tunisie':'Tunisia'} · TND</option>
+        <option value="MA" ${state.market==='MA'?'selected':''}>${state.lang==='fr'?'Maroc':'Morocco'} · MAD</option>
+        <option value="INT" ${state.market==='INT'?'selected':''}>International · USD</option>
+      </select>
+
+      <select class="top-select" aria-label="Language" onchange="setLanguage(this.value)">
+        <option value="fr" ${state.lang==='fr'?'selected':''}>FR · Français</option>
+        <option value="en" ${state.lang==='en'?'selected':''}>EN · English</option>
+      </select>
+
+      <button class="secondary" onclick="openModal('ai')">✦ ${t.assistant}</button>
+      <span class="notification-wrap">
+        <button class="icon-btn" onclick="showNotifications()" title="${state.lang==='fr'?'Notifications':'Notifications'}">🔔</button>
+        ${count?`<span class="notification-count">${count}</span>`:''}
+      </span>
+      <div class="profile">
+        <div class="avatar">SB</div>
+        <div><b style="font-size:12px">Sami Ben Ali</b><div class="muted">Admin Premium</div></div>
+      </div>
+      <button class="secondary" onclick="logout()">${t.logout}</button>
+    </div>
+  </header>`;
+};
+
+/* Override KPI hard-coded euro value so it always follows selected market. */
+Kpis=function(){
+  const labels=state.lang==='fr'
+    ? ['Commandes en cours','Expéditions actives','CA du mois','Docs en attente IA']
+    : ['Open orders','Active shipments','Monthly revenue','Documents awaiting AI'];
+  const trendSuffix=state.lang==='fr'?'vs mois dernier':'vs last month';
+  const values=[
+    data.orders.length,
+    '46',
+    formatMarketMoneyFromEUR(452000),
+    data.documents.filter(d=>/analyse/i.test(d.status)).length
+  ];
+  const trends=['+9,4 %','+3,1 %','+19,6 %','−22 %'];
+  return `<div class="grid kpis">${labels.map((label,i)=>`
+    <div class="card card-pad kpi">
+      <small>${label}</small>
+      <strong>${values[i]}</strong>
+      <div class="trend">↗ ${trends[i]} ${trendSuffix}</div>
+    </div>`).join('')}</div>`;
+};
+
+/* Final render wrapper: translate first, then convert all original euro figures. */
+const __renderCurrencyLanguageFix=render;
+render=function(){
+  __renderCurrencyLanguageFix();
+  requestAnimationFrame(()=>{
+    applyFinalLanguage();
+    convertVisibleEuroAmounts();
+  });
+};
+
+
+/* ===== Dashboard banner removal + desktop/tablet/phone preview ===== */
+state.deviceMode=localStorage.getItem('az_device_mode')||'desktop';
+function setDeviceMode(mode){
+  if(!['desktop','tablet','phone'].includes(mode))mode='desktop';
+  state.deviceMode=mode;
+  localStorage.setItem('az_device_mode',mode);
+  document.body.classList.remove('device-tablet','device-phone');
+  if(mode==='tablet')document.body.classList.add('device-tablet');
+  if(mode==='phone')document.body.classList.add('device-phone');
+  ensureDeviceSwitcher();
+  toast(state.lang==='fr'?`Mode ${mode==='desktop'?'ordinateur':mode==='tablet'?'tablette':'téléphone'}`:`${mode} mode`);
+}
+function ensureDeviceSwitcher(){
+  document.querySelector('.dashboard-banner')?.remove();
+  document.querySelectorAll('.device-switcher').forEach((el,i)=>{if(i>0)el.remove()});
+  let box=document.querySelector('.device-switcher');
+  if(!box){
+    box=document.createElement('div');
+    box.className='device-switcher';
+    document.body.appendChild(box);
+  }
+  box.innerHTML=`
+    <button class="${state.deviceMode==='desktop'?'active':''}" onclick="setDeviceMode('desktop')" title="Desktop">🖥️ <span>PC</span></button>
+    <button class="${state.deviceMode==='tablet'?'active':''}" onclick="setDeviceMode('tablet')" title="Tablet">▣ <span>Tablet</span></button>
+    <button class="${state.deviceMode==='phone'?'active':''}" onclick="setDeviceMode('phone')" title="Phone">▯ <span>Phone</span></button>`;
+  document.body.classList.remove('device-tablet','device-phone');
+  if(state.deviceMode==='tablet')document.body.classList.add('device-tablet');
+  if(state.deviceMode==='phone')document.body.classList.add('device-phone');
+}
+const __renderDevicePreview=render;
+render=function(){
+  __renderDevicePreview();
+  requestAnimationFrame(()=>{
+    document.querySelector('.dashboard-banner')?.remove();
+    ensureDeviceSwitcher();
+  });
+};
+
+
+/* ===== FINAL COMPLETE ENGLISH TRANSLATION FIX ===== */
+const AZ_COMPLETE_TRANSLATIONS = {
+  /* Navigation and sections */
+  "Vue d’ensemble":"Overview",
+  "Opérations":"Operations",
+  "Relation client":"Customer relations",
+  "Pilotage intelligent":"Intelligent management",
+  "Automatisation":"Automation",
+  "Système":"System",
+  "Command Center":"Command Center",
+  "Import / Export":"Import / Export",
+  "Dossier Export 360°":"Export File 360°",
+  "Tracking & Supply Chain":"Tracking & Supply Chain",
+  "Stocks & Entrepôts":"Inventory & Warehouses",
+  "Documents":"Documents",
+  "Fournisseurs":"Suppliers",
+  "Supplier 360":"Supplier 360",
+  "CRM & Commercial":"CRM & Sales",
+  "Customer 360":"Customer 360",
+  "Communication Center":"Communication Center",
+  "Email Hub":"Email Hub",
+  "IA Prédictive":"Predictive AI",
+  "Conformité & L/C":"Compliance & L/C",
+  "Finance & Rapports":"Finance & Reports",
+  "Assistant opérationnel":"Operations Assistant",
+  "Analyses & Rapports":"Analytics & Reports",
+  "Workflow Builder":"Workflow Builder",
+  "Intégrations":"Integrations",
+  "Paramètres":"Settings",
+
+  /* Dashboard */
+  "Bonjour, Sami 👋":"Hello, Sami 👋",
+  "Voici l’essentiel de votre activité aujourd’hui.":"Here is today's operational overview.",
+  "Commandes en cours":"Open orders",
+  "Expéditions actives":"Active shipments",
+  "CA du mois":"Monthly revenue",
+  "Docs en attente IA":"Documents awaiting AI",
+  "Réseau mondial des expéditions":"Global shipment network",
+  "routes actives":"active routes",
+  "Alertes intelligentes":"Smart alerts",
+  "Tout voir":"View all",
+  "Commandes & expéditions":"Orders & shipments",
+  "Nouvelle commande":"New order",
+  "Importer un document":"Import document",
+  "Créer une commande":"Create order",
+  "Voir le tracking":"View tracking",
+  "vs mois dernier":"vs last month",
+  "Aujourd’hui":"Today",
+  "Ce mois":"This month",
+
+  /* Common actions */
+  "Ajouter":"Add",
+  "Ajouter un élément":"Add item",
+  "Nouvelle tâche":"New task",
+  "Créer un workflow":"Create workflow",
+  "Modifier":"Edit",
+  "Supprimer":"Delete",
+  "Voir":"View",
+  "Consulter":"Open",
+  "Ouvrir":"Open",
+  "Fermer":"Close",
+  "Annuler":"Cancel",
+  "Enregistrer":"Save",
+  "Valider":"Validate",
+  "Confirmer":"Confirm",
+  "Appliquer":"Apply",
+  "Appliquée":"Applied",
+  "Terminer":"Complete",
+  "Terminée":"Completed",
+  "Télécharger":"Download",
+  "Exporter":"Export",
+  "Exporter rapport":"Export report",
+  "Générer la clôture":"Generate closing",
+  "Actualiser":"Refresh",
+  "Rechercher":"Search",
+  "Filtrer":"Filter",
+  "Marquer traitée":"Mark as resolved",
+  "Marquer comme lu":"Mark as read",
+  "Tout effacer":"Clear all",
+  "Lancer une analyse":"Run analysis",
+  "Analyser PDF par IA":"Analyze PDF with AI",
+  "Lancer inventaire":"Start inventory",
+  "Mouvement complet":"Full movement",
+  "Réapprovisionner":"Replenish",
+  "Planning équipe":"Team schedule",
+  "Voir le planning complet":"View full schedule",
+  "Ouvrir la checklist":"Open checklist",
+  "Ajouter une L/C":"Add L/C",
+  "Demander à l’IA":"Ask AI",
+
+  /* Forms */
+  "Titre":"Title",
+  "Description":"Description",
+  "Statut":"Status",
+  "Priorité":"Priority",
+  "Responsable":"Owner",
+  "Module":"Module",
+  "Équipe":"Team",
+  "Échéance":"Due date",
+  "Date":"Date",
+  "Type":"Type",
+  "Quantité":"Quantity",
+  "Unité":"Unit",
+  "Entrepôt":"Warehouse",
+  "Emplacement":"Location",
+  "Lot / Série":"Batch / Serial",
+  "Fournisseur":"Supplier",
+  "Client":"Customer",
+  "Commande liée":"Linked order",
+  "Motif / Notes":"Reason / Notes",
+  "Conditions documentaires":"Document requirements",
+  "Banque":"Bank",
+  "Montant":"Amount",
+  "Devise":"Currency",
+  "Référence":"Reference",
+  "Catégorie":"Category",
+  "Disponible":"Available",
+  "Seuil":"Threshold",
+  "Seuil minimum":"Minimum threshold",
+  "Consommation moyenne":"Average consumption",
+  "Couverture estimée":"Estimated coverage",
+  "Décrivez l’élément, l’action ou le workflow…":"Describe the item, action or workflow…",
+  "Rechercher un article":"Search an item",
+  "Tous les sites":"All sites",
+
+  /* Statuses */
+  "En cours":"In progress",
+  "En attente":"Pending",
+  "Terminé":"Completed",
+  "Urgente":"Urgent",
+  "Haute":"High",
+  "Normale":"Normal",
+  "Faible":"Low",
+  "Critique":"Critical",
+  "À surveiller":"Monitor",
+  "À vérifier":"Review",
+  "Action requise":"Action required",
+  "Validé":"Validated",
+  "Validés":"Validated",
+  "Rapproché":"Reconciled",
+  "Conforme":"Compliant",
+  "Synchronisés":"Synchronized",
+  "Rupture proche":"Near stockout",
+  "Sous seuil":"Below threshold",
+  "Stable":"Stable",
+  "Optimal":"Optimal",
+  "Retard":"Delayed",
+  "Douane":"Customs",
+  "En transit":"In transit",
+  "Analysé":"Analyzed",
+  "En analyse":"Analyzing",
+  "Gagné":"Won",
+  "Négociation":"Negotiation",
+  "Nouvelles":"New",
+  "Bloquants":"Blocking",
+  "Actifs":"Active",
+  "Temps réel":"Real time",
+
+  /* Predictive AI */
+  "Prévisions prioritaires":"Priority forecasts",
+  "Analyse temps réel":"Real-time analysis",
+  "Action recommandée":"Recommended action",
+  "Rupture probable dans 6 jours":"Likely stockout in 6 days",
+  "Retard probable de 4 jours":"Likely delay of 4 days",
+  "Surcharge prévue lundi":"Capacity overload expected Monday",
+  "Commander 1 200 unités chez Anadolu Steel":"Order 1,200 units from Anadolu Steel",
+  "Relancer le fournisseur et réserver un transport alternatif":"Follow up with the supplier and book alternative transport",
+  "Réaffecter 2 opérateurs et ouvrir un créneau supplémentaire":"Reassign 2 operators and open an additional time slot",
+  "Assistant décisionnel":"Decision assistant",
+  "Résumé IA":"AI summary",
+  "Les recommandations appliquées deviennent automatiquement des tâches, notifications et actions de suivi.":"Applied recommendations automatically become tasks, notifications and follow-up actions.",
+  "Risque de rupture":"Stockout risk",
+  "Retards probables":"Likely delays",
+  "Anomalies détectées":"Detected anomalies",
+  "Économies estimées":"Estimated savings",
+
+  /* Warehouse */
+  "Visibilité temps réel, multi-sites, inventaires et réapprovisionnement intelligent.":"Real-time visibility, multi-site inventory and intelligent replenishment.",
+  "Valeur du stock":"Inventory value",
+  "Articles sous seuil":"Items below threshold",
+  "Entrepôts actifs":"Active warehouses",
+  "État des stocks":"Inventory status",
+  "Derniers mouvements":"Latest movements",
+  "Entrée":"Inbound",
+  "Sortie":"Outbound",
+  "Transfert":"Transfer",
+  "Ajustement":"Adjustment",
+  "Retour":"Return",
+  "Pièces":"Units",
+  "Cartons":"Boxes",
+  "Palettes":"Pallets",
+  "Mouvement de stock complet":"Full inventory movement",
+  "Fiche stock":"Inventory record",
+  "Analyse PDF par IA — Stock":"AI PDF Analysis — Inventory",
+  "Déposez un bon de réception, facture ou packing list":"Upload a goods receipt, invoice or packing list",
+  "Analyser automatiquement":"Analyze automatically",
+  "L’IA extraira le fournisseur, l’article, la quantité, le lot et l’entrepôt.":"AI will extract the supplier, item, quantity, batch and warehouse.",
+  "Analyse en cours…":"Analysis in progress…",
+  "Extraction IA terminée":"AI extraction completed",
+  "Bon de réception":"Goods receipt",
+  "Créer le mouvement":"Create movement",
+
+  /* Compliance */
+  "Conformité & Trade Finance":"Compliance & Trade Finance",
+  "Veille réglementaire, exigences documentaires et suivi des lettres de crédit.":"Regulatory monitoring, document requirements and letter-of-credit tracking.",
+  "Alertes réglementaires":"Regulatory alerts",
+  "L/C actives":"Active L/Cs",
+  "Documents manquants":"Missing documents",
+  "Pays surveillés":"Monitored countries",
+  "Veille réglementaire":"Regulatory monitoring",
+  "Lettres de crédit":"Letters of credit",
+  "Détail de l’alerte réglementaire":"Regulatory alert details",
+  "Résumé":"Summary",
+  "Impact":"Impact",
+  "Date d’application":"Effective date",
+  "Action recommandée":"Recommended action",
+  "Mettre à jour la checklist du dossier":"Update the file checklist",
+  "Analyse IA":"AI analysis",
+  "Deux dossiers actifs sont concernés. Une vérification des documents bancaires et du certificat d’origine est recommandée.":"Two active files are affected. Reviewing bank documents and the certificate of origin is recommended.",
+  "Checklist Lettre de Crédit":"Letter of Credit Checklist",
+  "Facture proforma":"Proforma invoice",
+  "Contrat commercial":"Commercial contract",
+  "Certificat d’origine":"Certificate of origin",
+  "Document transport":"Transport document",
+  "Validation banque":"Bank validation",
+  "Nouvelle lettre de crédit":"New letter of credit",
+  "Échéance 12 août":"Due August 12",
+  "Documents en vérification":"Documents under review",
+
+  /* Finance */
+  "Finance & Rapports automatiques":"Finance & Automated Reports",
+  "Clôture journalière, paiements cash, rentabilité et trésorerie prévisionnelle.":"Daily closing, cash payments, profitability and cash-flow forecasting.",
+  "Marché sélectionné":"Selected market",
+  "Encaissements jour":"Daily receipts",
+  "Paiements cash":"Cash payments",
+  "Écart caisse":"Cash variance",
+  "Trésorerie 30 jours":"30-day cash forecast",
+  "Rapport financier journalier":"Daily financial report",
+  "Automatique":"Automatic",
+  "Canal":"Channel",
+  "Transactions":"Transactions",
+  "Rentabilité":"Profitability",
+  "Client le plus rentable":"Most profitable customer",
+  "Commande la plus rentable":"Most profitable order",
+  "Coût logistique moyen":"Average logistics cost",
+  "Voir l’analyse":"View analysis",
+  "Clôture journalière générée":"Daily closing generated",
+  "Clôture conforme":"Closing compliant",
+  "Virements":"Bank transfers",
+  "Cartes":"Cards",
+  "Analyse de rentabilité":"Profitability analysis",
+  "Marge brute":"Gross margin",
+  "Coûts logistiques":"Logistics costs",
+  "Meilleur client":"Best customer",
+  "Renégocier le fret maritime":"Renegotiate sea freight",
+
+  /* Collaboration */
+  "Collaboration & Workflow équipes":"Team Collaboration & Workflow",
+  "Pilotez les responsabilités, échéances, validations et charges de travail.":"Manage responsibilities, deadlines, approvals and workloads.",
+  "Tâches aujourd'hui":"Tasks today",
+  "En retard":"Overdue",
+  "Validations":"Approvals",
+  "Charge moyenne":"Average workload",
+  "Équilibrée":"Balanced",
+  "Plan d'action partagé":"Shared action plan",
+  "Charge des équipes":"Team workload",
+  "Nouvelle tâche collaborative":"New collaborative task",
+  "Détail de la tâche":"Task details",
+  "Suivi complet, commentaires, pièces jointes et historique de validation disponibles dans la version SaaS.":"Full tracking, comments, attachments and approval history are available in the SaaS version.",
+  "Planning des équipes":"Team schedule",
+  "Tâches":"Tasks",
+  "Disponibilité":"Availability",
+  "personnes disponibles":"people available",
+  "personne disponible":"person available",
+
+  /* Notifications / generic messages */
+  "Connexion réussie — bienvenue sur la démo AZNAVO":"Login successful — welcome to the AZNAVO demo",
+  "Veuillez remplir les identifiants.":"Please enter your credentials.",
+  "Saisissez un mot-clé à rechercher.":"Enter a search term.",
+  "Action appliquée et ajoutée au plan opérationnel":"Action applied and added to the operational plan",
+  "Rapport téléchargé":"Report downloaded",
+  "Tâche terminée":"Task completed",
+  "Tâche ajoutée":"Task added",
+  "Mouvement de stock enregistré":"Inventory movement saved",
+  "Checklist L/C enregistrée":"L/C checklist saved",
+  "Lettre de crédit ajoutée":"Letter of credit added",
+  "Alerte marquée comme traitée":"Alert marked as resolved",
+  "Interface en français":"Interface in French",
+  "Interface in English":"Interface in English",
+  "Déconnexion":"Logout"
+};
+
+function azTranslateString(value){
+  if(state.lang!=='en' || !value) return value;
+  let output=String(value);
+  Object.entries(AZ_COMPLETE_TRANSLATIONS)
+    .sort((a,b)=>b[0].length-a[0].length)
+    .forEach(([fr,en])=>{
+      output=output.split(fr).join(en);
+    });
+  return output;
+}
+
+function applyCompleteEnglishTranslation(){
+  document.documentElement.lang=state.lang;
+  if(state.lang!=='en') return;
+
+  const app=document.querySelector('.app');
+  if(!app) return;
+
+  const walker=document.createTreeWalker(
+    app,
+    NodeFilter.SHOW_TEXT,
+    {
+      acceptNode(node){
+        const parent=node.parentElement;
+        if(!parent || ['SCRIPT','STYLE'].includes(parent.tagName)) return NodeFilter.FILTER_REJECT;
+        return node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    }
+  );
+
+  const textNodes=[];
+  let node;
+  while(node=walker.nextNode()) textNodes.push(node);
+  textNodes.forEach(n=>{ n.nodeValue=azTranslateString(n.nodeValue); });
+
+  app.querySelectorAll('[placeholder]').forEach(el=>{
+    el.setAttribute('placeholder',azTranslateString(el.getAttribute('placeholder')));
+  });
+  app.querySelectorAll('[title]').forEach(el=>{
+    el.setAttribute('title',azTranslateString(el.getAttribute('title')));
+  });
+  app.querySelectorAll('[aria-label]').forEach(el=>{
+    el.setAttribute('aria-label',azTranslateString(el.getAttribute('aria-label')));
+  });
+}
+
+/* Translate notifications and toasts generated after clicking buttons. */
+const __toastCompleteTranslation=toast;
+toast=function(message){
+  __toastCompleteTranslation(azTranslateString(message));
+};
+
+/* Final render layer: run after every prior render wrapper. */
+const __renderCompleteTranslation=render;
+render=function(){
+  __renderCompleteTranslation();
+  requestAnimationFrame(()=>{
+    applyCompleteEnglishTranslation();
+    setTimeout(applyCompleteEnglishTranslation,0);
+  });
+};
+
+
+/* ===== V6 FIXES: full translation, PDF, professional settings, phone ===== */
+state.companySettings = JSON.parse(localStorage.getItem('az_company_settings') || 'null') || {
+  name:'AZNAVO Import & Export',
+  legalName:'AZNAVO SYSTEMS',
+  email:'contact@aznavo.com',
+  phone:'+216 56 811 602',
+  website:'www.aznavo.com',
+  taxId:'TN-0000000/A',
+  address:'Tunis, Tunisie',
+  country:'Tunisie',
+  timezone:'Africa/Tunis',
+  logo:''
+};
+
+const AZ_V6_TRANSLATIONS = {
+  'Comparer les fournisseurs':'Compare suppliers','Suivi centralisé des commandes fournisseurs, délais, relances et risques d’approvisionnement.':'Centralized monitoring of supplier orders, lead times, follow-ups and supply risks.',
+  'Commandes suivies':'Tracked orders','Délais critiques':'Critical delays','Relances aujourd’hui':'Follow-ups today','Fiabilité moyenne':'Average reliability',
+  'Alertes approvisionnement':'Supply alerts','Générer email fournisseur':'Generate supplier email','Planifier relance':'Schedule follow-up','Créée':'Created','Facture':'Invoice','Production':'Production','Embarquée':'Loaded','En mer':'At sea','Livrée':'Delivered',
+  'Coût fret':'Freight cost','Marge estimée':'Estimated margin','Documents validés':'Validated documents','Risque global':'Overall risk','Faible':'Low',
+  'Navire, booking & transport':'Vessel, booking & transport','Modifier booking':'Edit booking','Intervenants':'Stakeholders','Intervenant':'Stakeholder',
+  'Compagnie maritime':'Shipping line','Navire':'Vessel','Numéro voyage':'Voyage number','Port départ':'Departure port','Port arrivée':'Arrival port',
+  'Cut-off documentaire':'Document cut-off','Cut-off container':'Container cut-off','Autorité portuaire':'Port authority','Agent maritime':'Shipping agent','Transitaire':'Freight forwarder','Banque':'Bank','Contacter':'Contact',
+  'Centralisation et extraction IA de vos fichiers.':'Centralize and extract data from your files with AI.','Déposez vos PDF, images ou emails ici':'Drop your PDFs, images or emails here',
+  'L’IA extrait automatiquement les références, montants, dates et parties prenantes.':'AI automatically extracts references, amounts, dates and stakeholders.',
+  'Choisir un document':'Choose a document','Documents récents':'Recent documents','Saisie manuelle':'Manual entry','Nom':'Name','Type':'Type','Customer':'Customer',
+  'Nouveau fournisseur':'New supplier','Performance, comparaison et suivi fournisseurs.':'Supplier performance, comparison and monitoring.',
+  'Cliquez sur View 360° pour ouvrir la fiche complète du fournisseur : performance, commandes, risques et conformité.':'Click View 360° to open the full supplier record: performance, orders, risks and compliance.',
+  'Ajouter fournisseur automatiquement':'Add supplier automatically','À l’heure':'On time','Demander devis':'Request quote','Commande':'Order','Commandes':'Orders',
+  'Montant acheté':'Purchased amount','Délai moyen':'Average lead time','Livraisons à temps':'On-time deliveries','Performance fournisseur':'Supplier performance',
+  'Qualité produit':'Product quality','Respect des délais':'On-time performance','Réactivité':'Responsiveness','Conformité documentaire':'Document compliance','Compétitivité prix':'Price competitiveness',
+  'Coordonnées & conditions':'Contact details & terms','Pays':'Country','Paiement':'Payment','Comparer':'Compare','Évaluation':'Evaluation',
+  'Prospects, opportunités, relances et relations clients.':'Prospects, opportunities, follow-ups and customer relationships.','Préremplissage automatique':'Automatic prefill',
+  'Nouveau client':'New customer','Total clients':'Total customers','Prospects':'Prospects','En négociation':'In negotiation','Clients gagnés':'Won customers','Toutes les étapes':'All stages','Trier par score':'Sort by score',
+  'Prochaine relance':'Next follow-up','Chiffre d’affaires':'Revenue','Ville':'City',
+  'Vue complète du client sélectionné : activité, commandes, paiements, contacts et prochaine action.':'Complete view of the selected customer: activity, orders, payments, contacts and next action.',
+  'Remplissage automatique':'Automatic fill','Prochaine action':'Next action','Client actif':'Active customer','Potentiel élevé':'High potential','Commandes actives':'Active orders','Solde à recevoir':'Outstanding balance','Marge moyenne':'Average margin',
+  'Historique commercial':'Sales history','Interaction':'Interaction','Commande confirmée':'Order confirmed','Email reçu':'Email received','Appel commercial':'Sales call','Paiement reçu':'Payment received',
+  'Analyse relationnelle':'Relationship analysis','Relation très solide':'Very strong relationship','Client fiable avec potentiel de croissance élevé. Aucun risque majeur de paiement détecté.':'Reliable customer with strong growth potential. No major payment risk detected.',
+  'Appliquer le plan':'Apply plan','Prochaine meilleure action':'Next best action','Proposer une offre volume':'Propose volume offer',
+  'Centralisez WhatsApp, emails, appels, notes internes et relances.':'Centralize WhatsApp, emails, calls, internal notes and follow-ups.',
+  'Exporter historique':'Export history','Nouvelle communication':'New communication','Conversations actives':'Active conversations','Messages aujourd’hui':'Messages today','Appels planifiés':'Scheduled calls','Réponses dans les délais':'On-time replies',
+  'Actions rapides':'Quick actions','Nouveau message':'New message','Envoyer un email':'Send email','Planifier un appel':'Schedule call','Créer une note':'Create note','Planifier rappel':'Schedule reminder','Envoyer un PDF':'Send PDF','Envoyer devis':'Send quote','Partager tracking':'Share tracking',
+  'Conversations récentes':'Recent conversations','Tous les canaux':'All channels','Répondre':'Reply','Timeline de communication':'Communication timeline',
+  'Centralisez les emails fournisseurs et clients, puis reliez-les aux commandes.':'Centralize supplier and customer emails, then link them to orders.',
+  'Synchroniser':'Synchronize','Nouvel email':'New email','Dossiers':'Folders','Boîte de réception':'Inbox','Envoyés':'Sent','Brouillons':'Drafts','Relances':'Follow-ups','Comptes connectés':'Connected accounts','Connecter un compte':'Connect account',
+  'Aperçu':'Preview','Répondre':'Reply','Lier':'Link','Résumé automatique':'Automatic summary','Copier le résumé':'Copy summary',
+  'Automatisez la lecture des documents, les résumés de dossiers et la détection des risques avec Angular, PHP et des règles métier.':'Automate document reading, file summaries and risk detection with Angular, PHP and business rules.',
+  'Configurer les règles':'Configure rules','Scanner un document':'Scan document','Documents traités':'Processed documents','Dossiers résumés':'Summarized files','Risques détectés':'Detected risks','Tâches automatisées':'Automated tasks',
+  'Extraire un document':'Extract a document','Numéro de facture ou commande':'Invoice or order number','Fournisseur, client et montant':'Supplier, customer and amount','Date, échéance et devise':'Date, due date and currency','Scanner et remplir':'Scan and fill',
+  'Résumer un dossier':'Summarize a file','Statut global de la commande':'Overall order status','Documents présents et manquants':'Available and missing documents','Prochaine action recommandée':'Recommended next action','Générer le résumé':'Generate summary',
+  'Détecter les risques':'Detect risks','ETA dépassée ou retard probable':'Overdue ETA or likely delay','Document obligatoire manquant':'Missing mandatory document','Fournisseur peu fiable ou paiement en retard':'Unreliable supplier or overdue payment','Lancer la détection':'Run detection',
+  'Mesurez la rentabilité, les délais, la performance fournisseurs et les tendances.':'Measure profitability, lead times, supplier performance and trends.',
+  'Exporter Excel':'Export Excel','Générer PDF':'Generate PDF','30 derniers jours':'Last 30 days','Ce trimestre':'This quarter','Cette année':'This year','Tous les fournisseurs':'All suppliers','Tous les clients':'All customers',
+  'Coût achats':'Purchase cost','Marge brute':'Gross margin','Chiffre d’affaires mensuel':'Monthly revenue','Commandes par statut':'Orders by status','Prévisions & Tendances':'Forecasts & Trends','Calcul statistique':'Statistical calculation','Prévision prochain mois':'Next-month forecast','Volume prévu':'Forecast volume','Risque délai':'Lead-time risk',
+  'Automatisez les tâches répétitives avec des règles Angular, PHP, MySQL et Cron Jobs.':'Automate repetitive tasks with Angular, PHP, MySQL and Cron Jobs.',
+  'Bibliothèque de modèles':'Template library','Nouveau workflow':'New workflow','Workflows actifs':'Active workflows','Exécutions aujourd’hui':'Runs today','Temps économisé':'Time saved','Taux de réussite':'Success rate','Tous les statuts':'All statuses',
+  'Déclencheur':'Trigger','Action':'Action','Actif':'Active','En pause':'Paused','Pause':'Pause','Activer':'Activate','Utiliser':'Use','Voir tout':'View all','Document manquant':'Missing document','Paiement en retard':'Overdue payment',
+  'Connectez vos emails, ERP, documents, transporteurs et applications externes.':'Connect your emails, ERP, documents, carriers and external applications.',
+  'Historique':'History','Intégration personnalisée':'Custom integration','Intégrations actives':'Active integrations','Synchronisations aujourd’hui':'Synchronizations today','Erreurs':'Errors','Dernière synchronisation':'Last synchronization',
+  'Connecté':'Connected','Disponible':'Available','Compte':'Account','Dernière synchro':'Last sync','Configurer':'Configure','Déconnecter':'Disconnect','Connecter':'Connect',
+  'Paramètres avancés':'Advanced settings','Configurez votre entreprise et votre expérience.':'Configure your company and experience.','Nom de l’entreprise':'Company name','Langue':'Language','Français':'French','Enregistrer':'Save'
+};
+
+function v6Translate(value){
+  if(state.lang!=='en' || !value) return value;
+  let out=String(value);
+  Object.entries({...AZ_COMPLETE_TRANSLATIONS,...AZ_V6_TRANSLATIONS})
+    .sort((a,b)=>b[0].length-a[0].length)
+    .forEach(([fr,en])=>{out=out.split(fr).join(en)});
+  return out;
+}
+function v6TranslateDom(){
+  if(state.lang!=='en') return;
+  const root=document.querySelector('.app'); if(!root)return;
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
+    return n.parentElement && !['SCRIPT','STYLE','OPTION'].includes(n.parentElement.tagName) && n.nodeValue.trim()
+      ? NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
+  }});
+  const nodes=[];let n;while(n=walker.nextNode())nodes.push(n);
+  nodes.forEach(x=>x.nodeValue=v6Translate(x.nodeValue));
+  root.querySelectorAll('[placeholder],[title],[aria-label]').forEach(el=>{
+    ['placeholder','title','aria-label'].forEach(a=>{if(el.hasAttribute(a))el.setAttribute(a,v6Translate(el.getAttribute(a)))});
+  });
+  root.querySelectorAll('select option').forEach(o=>o.textContent=v6Translate(o.textContent));
+}
+let v6Observer=null;
+function startV6TranslationObserver(){
+  if(v6Observer)v6Observer.disconnect();
+  if(state.lang!=='en')return;
+  v6Observer=new MutationObserver(()=>requestAnimationFrame(v6TranslateDom));
+  const app=document.querySelector('.app');
+  if(app)v6Observer.observe(app,{childList:true,subtree:true,characterData:true});
+  v6TranslateDom();
+}
+
+function generateRealPDFReport(){
+  const m=AZ_MARKETS[state.market]||AZ_MARKETS.TN;
+  const title=state.lang==='fr'?'Rapport AZNAVO — Analyses & Performance':'AZNAVO Report — Analytics & Performance';
+  const w=window.open('','_blank','width=980,height=760');
+  if(!w){toast(state.lang==='fr'?'Autorisez les fenêtres contextuelles pour générer le PDF.':'Allow pop-ups to generate the PDF.');return}
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${title}</title>
+  <style>body{font-family:Arial;padding:40px;color:#122033}h1{color:#1d4ed8}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.k{border:1px solid #dbe2ea;border-radius:12px;padding:16px}.k b{font-size:22px;display:block;margin-top:8px}table{width:100%;border-collapse:collapse;margin-top:25px}th,td{border:1px solid #dbe2ea;padding:10px;text-align:left}.muted{color:#64748b}.foot{margin-top:35px;font-size:12px;color:#64748b}@media print{button{display:none}}</style></head><body>
+  <button onclick="window.print()">🖨 ${state.lang==='fr'?'Imprimer / Enregistrer PDF':'Print / Save PDF'}</button>
+  <h1>${title}</h1><p class="muted">${state.lang==='fr'?'Marché':'Market'}: ${m[state.lang==='fr'?'fr':'en']} · ${m.code}</p>
+  <div class="grid"><div class="k">${state.lang==='fr'?'Chiffre d’affaires':'Revenue'}<b>${formatMarketMoneyFromEUR(452000)}</b></div><div class="k">${state.lang==='fr'?'Coût achats':'Purchase cost'}<b>${formatMarketMoneyFromEUR(318000)}</b></div><div class="k">${state.lang==='fr'?'Marge brute':'Gross margin'}<b>${formatMarketMoneyFromEUR(134000)}</b></div></div>
+  <table><thead><tr><th>${state.lang==='fr'?'Indicateur':'Metric'}</th><th>${state.lang==='fr'?'Valeur':'Value'}</th></tr></thead><tbody><tr><td>${state.lang==='fr'?'Délai moyen':'Average lead time'}</td><td>18.4 days</td></tr><tr><td>${state.lang==='fr'?'Livraisons à temps':'On-time deliveries'}</td><td>89%</td></tr><tr><td>${state.lang==='fr'?'Commandes en transit':'Orders in transit'}</td><td>46</td></tr></tbody></table>
+  <p class="foot">AZNAVO Import & Export Platform · ${new Date().toLocaleString()}</p></body></html>`);
+  w.document.close();setTimeout(()=>w.print(),400);
+}
+function exportRealExcel(){
+  const rows=[['Metric','Value'],['Revenue',formatMarketMoneyFromEUR(452000)],['Purchase cost',formatMarketMoneyFromEUR(318000)],['Gross margin',formatMarketMoneyFromEUR(134000)],['Average lead time','18.4 days'],['On-time deliveries','89%']];
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(';')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='AZNAVO_Report.csv';a.click();URL.revokeObjectURL(a.href);toast(state.lang==='fr'?'Export Excel téléchargé':'Excel export downloaded');
+}
+
+function saveCompanySettings(){
+  const s=state.companySettings;
+  ['name','legalName','email','phone','website','taxId','address','country','timezone'].forEach(k=>{
+    const el=document.getElementById('cs_'+k);if(el)s[k]=el.value.trim();
+  });
+  localStorage.setItem('az_company_settings',JSON.stringify(s));
+  toast(state.lang==='fr'?'Paramètres enregistrés':'Settings saved');
+  render();
+}
+function previewCompanyLogo(input){
+  const f=input.files?.[0];if(!f)return;
+  const r=new FileReader();r.onload=()=>{state.companySettings.logo=r.result;localStorage.setItem('az_company_settings',JSON.stringify(state.companySettings));render()};r.readAsDataURL(f);
+}
+function ProfessionalSettingsPage(){
+  const s=state.companySettings;
+  return `<div class="page-head"><div><h1>${state.lang==='fr'?'Paramètres entreprise':'Company Settings'}</h1><p>${state.lang==='fr'?'Identité, coordonnées, localisation, préférences et sécurité de votre organisation.':'Identity, contact details, localization, preferences and security for your organization.'}</p></div><div class="panel-actions"><button class="secondary" onclick="toast('${state.lang==='fr'?'Sauvegarde cloud simulée':'Cloud backup simulated'}')">${state.lang==='fr'?'Sauvegarder dans le cloud':'Cloud backup'}</button><button class="primary" onclick="saveCompanySettings()">${state.lang==='fr'?'Enregistrer':'Save changes'}</button></div></div>
+  <div class="settings-pro-grid">
+    <div class="card settings-logo-card">
+      <div class="logo-preview-large">${s.logo?`<img src="${s.logo}">`:'A'}</div>
+      <h3 style="text-align:center">${esc(s.name)}</h3><p class="muted" style="text-align:center">${esc(s.legalName)}</p>
+      <div class="upload-zone"><b>${state.lang==='fr'?'Logo de l’entreprise':'Company logo'}</b><p class="muted">${state.lang==='fr'?'PNG/JPG, format carré recommandé':'PNG/JPG, square format recommended'}</p><input type="file" accept="image/png,image/jpeg" onchange="previewCompanyLogo(this)"></div>
+      <div class="ai-summary"><b>${state.lang==='fr'?'État du compte':'Account status'}</b><p>${state.lang==='fr'?'Plan Premium actif · 14 utilisateurs · 4 agences':'Premium plan active · 14 users · 4 branches'}</p></div>
+    </div>
+    <div class="card settings-form-card">
+      <div class="settings-section"><h3>${state.lang==='fr'?'Identité légale':'Legal identity'}</h3><div class="form-grid">
+        ${field('cs_name',state.lang==='fr'?'Nom commercial':'Business name',s.name)}
+        ${field('cs_legalName',state.lang==='fr'?'Raison sociale':'Legal name',s.legalName)}
+        ${field('cs_taxId',state.lang==='fr'?'Matricule fiscal / ICE':'Tax ID / ICE',s.taxId)}
+        ${field('cs_website',state.lang==='fr'?'Site web':'Website',s.website)}
+      </div></div>
+      <div class="settings-section"><h3>${state.lang==='fr'?'Contact & adresse':'Contact & address'}</h3><div class="form-grid">
+        ${field('cs_email','Email',s.email,'email')}${field('cs_phone',state.lang==='fr'?'Téléphone':'Phone',s.phone)}
+        ${field('cs_country',state.lang==='fr'?'Pays':'Country',s.country)}${field('cs_timezone',state.lang==='fr'?'Fuseau horaire':'Time zone',s.timezone)}
+        <div class="field full"><label>${state.lang==='fr'?'Adresse complète':'Full address'}</label><textarea id="cs_address">${esc(s.address)}</textarea></div>
+      </div></div>
+      <div class="settings-section"><h3>${state.lang==='fr'?'Localisation & affichage':'Localization & display'}</h3><div class="form-grid">
+        <div class="field"><label>${state.lang==='fr'?'Langue de l’interface':'Interface language'}</label><select onchange="setLanguage(this.value)"><option value="fr" ${state.lang==='fr'?'selected':''}>Français</option><option value="en" ${state.lang==='en'?'selected':''}>English</option></select></div>
+        <div class="field"><label>${state.lang==='fr'?'Marché & devise':'Market & currency'}</label><select onchange="changeMarket(this.value)"><option value="TN" ${state.market==='TN'?'selected':''}>Tunisie · TND</option><option value="MA" ${state.market==='MA'?'selected':''}>Maroc · MAD</option><option value="INT" ${state.market==='INT'?'selected':''}>International · USD</option></select></div>
+        <div class="field"><label>${state.lang==='fr'?'Format date':'Date format'}</label><select><option>DD/MM/YYYY</option><option>MM/DD/YYYY</option></select></div>
+        <div class="field"><label>${state.lang==='fr'?'Début de semaine':'Week starts on'}</label><select><option>${state.lang==='fr'?'Lundi':'Monday'}</option><option>${state.lang==='fr'?'Dimanche':'Sunday'}</option></select></div>
+      </div></div>
+      <div class="settings-section"><h3>${state.lang==='fr'?'Sécurité & notifications':'Security & notifications'}</h3><div class="checkbox-grid">
+        <label class="checkbox-line"><span>${state.lang==='fr'?'Authentification à deux facteurs':'Two-factor authentication'}</span><input type="checkbox" checked></label>
+        <label class="checkbox-line"><span>${state.lang==='fr'?'Alertes email':'Email alerts'}</span><input type="checkbox" checked></label>
+        <label class="checkbox-line"><span>${state.lang==='fr'?'Alertes WhatsApp':'WhatsApp alerts'}</span><input type="checkbox"></label>
+        <label class="checkbox-line"><span>${state.lang==='fr'?'Journal d’audit':'Audit log'}</span><input type="checkbox" checked></label>
+      </div></div>
+      <div class="settings-actions"><button class="secondary" onclick="render()">${state.lang==='fr'?'Annuler':'Cancel'}</button><button class="primary" onclick="saveCompanySettings()">${state.lang==='fr'?'Enregistrer les modifications':'Save changes'}</button></div>
+    </div>
+  </div>`;
+}
+
+const __v6PageContent=pageContent;
+pageContent=function(){
+  if(state.active==='settings')return ProfessionalSettingsPage();
+  if(state.active==='reports'){
+    let out=ReportsPage();
+    out=out.replace(`onclick="quickAction('Export Excel préparé')"`,`onclick="exportRealExcel()"`);
+    out=out.replace(`onclick="quickAction('Rapport PDF généré')"`,`onclick="generateRealPDFReport()"`);
+    return out;
+  }
+  return __v6PageContent();
+};
+
+const __v6Render=render;
+render=function(){
+  __v6Render();
+  requestAnimationFrame(()=>{
+    startV6TranslationObserver();
+    v6TranslateDom();
+    ensureDeviceSwitcher();
+  });
+};
+
+/* Fix any PDF button generated dynamically anywhere in the app. */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  const txt=b.textContent.trim().toLowerCase();
+  if((txt.includes('pdf')||txt.includes('generate pdf')||txt.includes('générer pdf')) && !b.dataset.v6Handled){
+    if(b.getAttribute('onclick')?.includes('quickAction')){
+      e.preventDefault();e.stopImmediatePropagation();generateRealPDFReport();
+    }
+  }
+},true);
+
+
+/* ===== V7: admin profile, dropdown and complete language runtime ===== */
+state.profileMenuOpen=false;
+state.adminProfile=JSON.parse(localStorage.getItem('az_admin_profile')||'null')||{
+  firstName:'Sami',lastName:'Ben Ali',email:'sami@aznavo.com',
+  phone:'+216 20 000 000',role:'Admin Premium',department:'Direction',
+  language:'fr',timezone:'Africa/Tunis',photo:''
+};
+
+function toggleProfileMenu(){
+  state.profileMenuOpen=!state.profileMenuOpen;
+  render();
+}
+function openAdminProfile(){
+  state.profileMenuOpen=false;
+  state.active='adminProfile';
+  render();
+}
+function saveAdminProfile(){
+  const p=state.adminProfile;
+  ['firstName','lastName','email','phone','role','department','timezone'].forEach(k=>{
+    const el=document.getElementById('ap_'+k);if(el)p[k]=el.value.trim();
+  });
+  localStorage.setItem('az_admin_profile',JSON.stringify(p));
+  toast(state.lang==='fr'?'Profil administrateur enregistré':'Administrator profile saved');
+  render();
+}
+function previewAdminPhoto(input){
+  const f=input.files?.[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{state.adminProfile.photo=r.result;localStorage.setItem('az_admin_profile',JSON.stringify(state.adminProfile));render()};
+  r.readAsDataURL(f);
+}
+function AdminProfilePage(){
+  const p=state.adminProfile;
+  const fr=state.lang==='fr';
+  return `<div class="page-head"><div><h1>${fr?'Profil administrateur':'Administrator Profile'}</h1><p>${fr?'Informations personnelles, sécurité, préférences et permissions.':'Personal information, security, preferences and permissions.'}</p></div><div class="panel-actions"><button class="secondary" onclick="toast('${fr?'Mot de passe réinitialisé dans la démo':'Password reset simulated'}')">${fr?'Réinitialiser le mot de passe':'Reset password'}</button><button class="primary" onclick="saveAdminProfile()">${fr?'Enregistrer':'Save changes'}</button></div></div>
+  <div class="admin-profile-grid">
+    <div class="card admin-profile-card">
+      <div class="admin-photo">${p.photo?`<img src="${p.photo}">`:'SB'}</div>
+      <h2 style="text-align:center;margin-bottom:4px">${esc(p.firstName+' '+p.lastName)}</h2>
+      <p class="muted" style="text-align:center">${esc(p.role)}</p>
+      <div class="upload-zone" style="margin-top:18px"><b>${fr?'Photo de profil':'Profile photo'}</b><input type="file" accept="image/png,image/jpeg" onchange="previewAdminPhoto(this)"></div>
+      <div class="ai-summary"><b>${fr?'Statut du compte':'Account status'}</b><p>${fr?'Actif · 2FA activée · Dernière connexion aujourd’hui':'Active · 2FA enabled · Last login today'}</p></div>
+    </div>
+    <div class="card admin-profile-card">
+      <div class="settings-section"><h3>${fr?'Informations personnelles':'Personal information'}</h3><div class="form-grid">
+        ${field('ap_firstName',fr?'Prénom':'First name',p.firstName)}
+        ${field('ap_lastName',fr?'Nom':'Last name',p.lastName)}
+        ${field('ap_email','Email',p.email,'email')}
+        ${field('ap_phone',fr?'Téléphone':'Phone',p.phone)}
+        ${field('ap_role',fr?'Rôle':'Role',p.role)}
+        ${field('ap_department',fr?'Département':'Department',p.department)}
+        ${field('ap_timezone',fr?'Fuseau horaire':'Time zone',p.timezone)}
+      </div></div>
+      <div class="settings-section"><h3>${fr?'Sécurité':'Security'}</h3><div class="checkbox-grid">
+        <label class="checkbox-line"><span>${fr?'Authentification à deux facteurs':'Two-factor authentication'}</span><input type="checkbox" checked></label>
+        <label class="checkbox-line"><span>${fr?'Alerte nouvelle connexion':'New login alert'}</span><input type="checkbox" checked></label>
+        <label class="checkbox-line"><span>${fr?'Déconnexion automatique':'Automatic logout'}</span><input type="checkbox"></label>
+        <label class="checkbox-line"><span>${fr?'Journal des activités':'Activity log'}</span><input type="checkbox" checked></label>
+      </div></div>
+      <div class="settings-section"><h3>${fr?'Permissions principales':'Main permissions'}</h3><div class="permission-grid">
+        ${['Import / Export','Finance','Documents','Fournisseurs','CRM','Rapports','Équipe','Paramètres'].map(x=>`<label class="checkbox-line"><span>${x}</span><input type="checkbox" checked></label>`).join('')}
+      </div></div>
+    </div>
+  </div>`;
+}
+
+/* Explicit complete bilingual replacement executed after every render. */
+const AZ_V7_TRANSLATIONS={
+ 'Export File 360°':'Export File 360°','Centralisez toute l’opération export : intervenants, navire, booking, fret, documents, banque, douane et suivi.':'Centralize the entire export operation: stakeholders, vessel, booking, freight, documents, banking, customs and tracking.',
+ 'Nouvelle opération export':'New export operation','Relancer intervenant':'Follow up with stakeholder','Valeur export':'Export value',
+ 'Suivez commandes, containers, douane et livraisons.':'Track orders, containers, customs and deliveries.','Nouvelle opération':'New operation',
+ 'Orders & shipments':'Orders & shipments','Référence':'Reference','Actions':'Actions',
+ 'Virement':'Bank transfer','Carte':'Card','Prévision IA':'AI forecast','Voir l’analyse':'View analysis',
+ 'Règles métier':'Business rules','OCR + RÈGLES':'OCR + RULES','Synthèse automatique':'Automatic summary',
+ 'Lisez un PDF ou une image, détectez les champs utiles et préremplissez automatiquement le formulaire.':'Read a PDF or image, detect useful fields and automatically prefill the form.',
+ 'Regroupez commande, documents, emails, paiements et délais dans un résumé structuré.':'Combine the order, documents, emails, payments and lead times into a structured summary.',
+ 'Analysez les dates, retards, documents, paiements et performances fournisseurs.':'Analyze dates, delays, documents, payments and supplier performance.',
+ 'Fiabilité':'Reliability','Qualité':'Quality','Achats':'Purchases',
+ 'Jan':'Jan','Fév':'Feb','Mar':'Mar','Avr':'Apr','Mai':'May','Juin':'Jun','Juil':'Jul',
+ 'Paramètres entreprise':'Company Settings','Identité, coordonnées, localisation, préférences et sécurité de votre organisation.':'Identity, contact details, localization, preferences and security for your organization.',
+ 'Sauvegarder dans le cloud':'Cloud backup','Identité légale':'Legal identity','Nom commercial':'Business name','Raison sociale':'Legal name',
+ 'Matricule fiscal / ICE':'Tax ID / ICE','Site web':'Website','Contact & adresse':'Contact & address','Téléphone':'Phone','Fuseau horaire':'Time zone','Adresse complète':'Full address',
+ 'Localisation & affichage':'Localization & display','Langue de l’interface':'Interface language','Marché & devise':'Market & currency','Format date':'Date format','Début de semaine':'Week starts on',
+ 'Sécurité & notifications':'Security & notifications','Authentification à deux facteurs':'Two-factor authentication','Alertes email':'Email alerts','Alertes WhatsApp':'WhatsApp alerts','Journal d’audit':'Audit log',
+ 'Enregistrer les modifications':'Save changes','Logo de l’entreprise':'Company logo','État du compte':'Account status',
+ 'Plan Premium actif · 14 utilisateurs · 4 agences':'Premium plan active · 14 users · 4 branches'
+};
+
+function v7TranslateString(s){
+  if(state.lang!=='en'||!s)return s;
+  let out=String(s);
+  const dict={...AZ_COMPLETE_TRANSLATIONS,...AZ_V6_TRANSLATIONS,...AZ_V7_TRANSLATIONS};
+  Object.entries(dict).sort((a,b)=>b[0].length-a[0].length).forEach(([fr,en])=>{out=out.split(fr).join(en)});
+  return out;
+}
+function v7TranslateAll(){
+  if(state.lang!=='en')return;
+  const root=document.querySelector('.app');if(!root)return;
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
+    const p=n.parentElement;
+    return p&&!['SCRIPT','STYLE'].includes(p.tagName)&&n.nodeValue.trim()?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
+  }});
+  const nodes=[];let n;while(n=walker.nextNode())nodes.push(n);
+  nodes.forEach(x=>x.nodeValue=v7TranslateString(x.nodeValue));
+  root.querySelectorAll('option').forEach(o=>o.textContent=v7TranslateString(o.textContent));
+  root.querySelectorAll('[placeholder],[title],[aria-label]').forEach(el=>{
+    ['placeholder','title','aria-label'].forEach(a=>{if(el.hasAttribute(a))el.setAttribute(a,v7TranslateString(el.getAttribute(a)))});
+  });
+}
+
+/* Sidebar with new Admin Profile item and independent full-height scroll. */
+const __v7Sidebar=Sidebar;
+Sidebar=function(){
+  let out=__v7Sidebar();
+  const settingsButton=`<button class="nav-btn ${state.active==='adminProfile'?'active':''}" onclick="state.active='adminProfile';render()"><span class="nav-icon">👤</span><span>${state.lang==='fr'?'Profil administrateur':'Administrator Profile'}</span></button>`;
+  const insertBefore='</aside>';
+  if(out.includes(insertBefore))out=out.replace(insertBefore,settingsButton+insertBefore);
+  return out;
+};
+
+/* Professional user dropdown instead of separate logout button. */
+const __v7Topbar=Topbar;
+Topbar=function(){
+  const t=i18n[state.lang]||i18n.fr;
+  const count=data.notifications.length;
+  const title=translatedPageLabel();
+  const p=state.adminProfile;
+  return `<header class="topbar">
+    <button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    <strong>${title}</strong>
+    <div class="search"><input id="globalSearch" placeholder="${t.search}" onkeydown="if(event.key==='Enter')runSearch()"></div>
+    <div class="top-actions">
+      <select class="top-select" onchange="changeMarket(this.value)">
+        <option value="TN" ${state.market==='TN'?'selected':''}>${state.lang==='fr'?'Tunisie':'Tunisia'} · TND</option>
+        <option value="MA" ${state.market==='MA'?'selected':''}>${state.lang==='fr'?'Maroc':'Morocco'} · MAD</option>
+        <option value="INT" ${state.market==='INT'?'selected':''}>International · USD</option>
+      </select>
+      <select class="top-select" onchange="setLanguage(this.value)">
+        <option value="fr" ${state.lang==='fr'?'selected':''}>FR · Français</option>
+        <option value="en" ${state.lang==='en'?'selected':''}>EN · English</option>
+      </select>
+      <button class="secondary" onclick="openModal('ai')">✦ ${t.assistant}</button>
+      <span class="notification-wrap"><button class="icon-btn" onclick="showNotifications()">🔔</button>${count?`<span class="notification-count">${count}</span>`:''}</span>
+      <div class="profile-menu-wrap">
+        <div class="profile profile-clickable" onclick="toggleProfileMenu()">
+          <div class="avatar">${p.photo?`<img src="${p.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:10px">`:'SB'}</div>
+          <div><b style="font-size:12px">${esc(p.firstName+' '+p.lastName)}</b><div class="muted">${esc(p.role)}</div></div><span>⌄</span>
+        </div>
+        ${state.profileMenuOpen?`<div class="profile-dropdown">
+          <div class="profile-dropdown-head"><b>${esc(p.firstName+' '+p.lastName)}</b><div class="muted">${esc(p.email)}</div></div>
+          <button onclick="openAdminProfile()">👤 ${state.lang==='fr'?'Mon profil':'My profile'}</button>
+          <button onclick="state.active='settings';state.profileMenuOpen=false;render()">⚙️ ${state.lang==='fr'?'Paramètres entreprise':'Company settings'}</button>
+          <button onclick="toast('${state.lang==='fr'?'Centre de sécurité ouvert':'Security center opened'}')">🛡️ ${state.lang==='fr'?'Sécurité':'Security'}</button>
+          <button class="danger-item" onclick="logout()">↪ ${state.lang==='fr'?'Déconnexion':'Logout'}</button>
+        </div>`:''}
+      </div>
+    </div>
+  </header>`;
+};
+
+const __v7PageContent=pageContent;
+pageContent=function(){
+  if(state.active==='adminProfile')return AdminProfilePage();
+  return __v7PageContent();
+};
+
+const __v7Render=render;
+render=function(){
+  __v7Render();
+  requestAnimationFrame(()=>{
+    v7TranslateAll();
+    const side=document.querySelector('.sidebar');
+    if(side){side.style.height='100vh';side.style.maxHeight='100vh';}
+  });
+};
+
+/* close profile dropdown when clicking elsewhere */
+document.addEventListener('click',e=>{
+  if(state.profileMenuOpen&&!e.target.closest('.profile-menu-wrap')){
+    state.profileMenuOpen=false;render();
+  }
+});
+
 render();
 </script>
 
