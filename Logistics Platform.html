@@ -1167,6 +1167,83 @@ body.device-phone .device-switcher{position:fixed!important;right:16px!important
   .profile-menu-wrap{display:none}
 }
 
+
+/* ===== AZNAVO Trade Copilot — additive module only ===== */
+.copilot-hero{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;
+  padding:22px;border:1px solid rgba(139,92,246,.28);border-radius:18px;
+  background:
+    radial-gradient(circle at 88% 10%,rgba(139,92,246,.22),transparent 32%),
+    linear-gradient(135deg,rgba(37,99,235,.14),rgba(139,92,246,.08)),
+    rgba(10,22,42,.92);
+  box-shadow:var(--shadow);margin-bottom:16px
+}
+.copilot-hero h1{margin:0 0 7px;font-size:28px}
+.copilot-hero p{margin:0;color:var(--muted);max-width:780px}
+.copilot-orb{
+  width:82px;height:82px;border-radius:24px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#2563eb,#8b5cf6);font-size:34px;
+  box-shadow:0 20px 45px rgba(99,102,241,.34)
+}
+.copilot-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.copilot-kpi{padding:17px}.copilot-kpi b{display:block;font-size:25px;margin:9px 0 5px}
+.copilot-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.copilot-operation{
+  padding:16px;border-bottom:1px solid rgba(148,163,184,.08)
+}
+.copilot-operation:last-child{border-bottom:0}
+.copilot-operation-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.copilot-score-ring{
+  width:86px;height:86px;border-radius:50%;display:grid;place-items:center;
+  background:conic-gradient(var(--amber) calc(var(--score)*1%),rgba(255,255,255,.07) 0);
+  position:relative;flex:0 0 auto
+}
+.copilot-score-ring:before{
+  content:'';position:absolute;inset:9px;border-radius:50%;background:#0b162a
+}
+.copilot-score-ring b{position:relative;font-size:22px}
+.copilot-alert{
+  display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:12px;align-items:center;
+  padding:14px 16px;border-bottom:1px solid rgba(148,163,184,.08)
+}
+.copilot-alert:last-child{border-bottom:0}
+.copilot-alert-icon{
+  width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(245,158,11,.11)
+}
+.copilot-recommendation{
+  padding:15px;border:1px solid rgba(139,92,246,.22);border-radius:14px;
+  background:linear-gradient(135deg,rgba(139,92,246,.10),rgba(47,124,255,.06));
+  margin-bottom:11px
+}
+.copilot-recommendation.done{opacity:.65;border-color:rgba(34,197,94,.28)}
+.copilot-recommendation h4{margin:0 0 6px}
+.copilot-recommendation p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+.copilot-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.copilot-dashboard-card{
+  padding:18px;margin-bottom:16px;border:1px solid rgba(139,92,246,.28);
+  background:
+    radial-gradient(circle at 95% 12%,rgba(139,92,246,.18),transparent 28%),
+    linear-gradient(135deg,rgba(37,99,235,.10),rgba(139,92,246,.07)),
+    rgba(10,22,42,.9)
+}
+.copilot-dashboard-grid{display:grid;grid-template-columns:1fr auto;gap:15px;align-items:center}
+.copilot-mini-list{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.copilot-mini{padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.035);font-size:11px}
+@media(max-width:1050px){
+  .copilot-kpis{grid-template-columns:repeat(2,1fr)}
+  .copilot-layout{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .copilot-hero{grid-template-columns:1fr;padding:17px}
+  .copilot-orb{width:62px;height:62px;border-radius:18px}
+  .copilot-kpis{grid-template-columns:1fr}
+  .copilot-alert{grid-template-columns:38px 1fr}
+  .copilot-alert>div:last-child{grid-column:1/-1}
+  .copilot-dashboard-grid{grid-template-columns:1fr}
+  .copilot-dashboard-grid button{width:100%}
+}
+
 </style>
 </head>
 <body>
@@ -3892,6 +3969,245 @@ document.addEventListener('click',e=>{
     state.profileMenuOpen=false;render();
   }
 });
+
+
+/* ===== AZNAVO Trade Copilot — appended without replacing existing modules ===== */
+if (!pages.some(p=>p[0]==='tradecopilot')) {
+  pages.push(['tradecopilot','Trade Copilot']);
+}
+navIcons.tradecopilot='✦';
+
+state.tradeCopilot = state.tradeCopilot || {
+  selectedOperation:'EXP-2026-001',
+  applied:{},
+  tasks:0,
+  operations:[
+    {
+      ref:'EXP-2026-001',client:'Atlas Ceramics SA',route:'Shenzhen → Sfax',
+      completion:82,risk:67,riskLabel:'Moyen',eta:'18 août 2026',
+      missing:['Packing List','Certificat d’origine'],
+      alerts:[
+        {icon:'📄',level:'amber',title:'2 documents manquants',text:'Packing List et certificat d’origine requis avant le dédouanement.'},
+        {icon:'🚢',level:'red',title:'ETA retardée de 2 jours',text:'Nouvelle arrivée estimée au 18 août 2026.'},
+        {icon:'💰',level:'amber',title:'Écart devis / facture',text:'La facture dépasse le devis de 420 TND.'}
+      ],
+      recommendations:[
+        {id:'supplier',title:'Relancer le fournisseur',text:'Demander immédiatement le Packing List et le certificat d’origine.',priority:'Haute'},
+        {id:'customer',title:'Informer le client',text:'Notifier Atlas Ceramics du nouveau délai estimé.',priority:'Haute'},
+        {id:'invoice',title:'Vérifier la facture',text:'Contrôler l’écart de 420 TND avant validation du paiement.',priority:'Moyenne'}
+      ]
+    },
+    {
+      ref:'IMP-2026-014',client:'MedTech Import',route:'Istanbul → Radès',
+      completion:91,risk:34,riskLabel:'Faible',eta:'12 août 2026',
+      missing:['Attestation d’assurance'],
+      alerts:[
+        {icon:'📄',level:'amber',title:'1 document à compléter',text:'Attestation d’assurance non jointe au dossier.'},
+        {icon:'✅',level:'green',title:'Transport conforme',text:'Booking, navire et ETA confirmés.'}
+      ],
+      recommendations:[
+        {id:'insurance',title:'Demander l’attestation',text:'Envoyer une relance automatique au transitaire.',priority:'Moyenne'},
+        {id:'customs',title:'Préparer le dossier douane',text:'Le reste des documents est déjà validé.',priority:'Faible'}
+      ]
+    }
+  ]
+};
+
+function tradeCopilotText(fr,en){return state.lang==='en'?en:fr}
+
+function getCopilotOperation(){
+  return state.tradeCopilot.operations.find(o=>o.ref===state.tradeCopilot.selectedOperation)
+    || state.tradeCopilot.operations[0];
+}
+
+function selectCopilotOperation(ref){
+  state.tradeCopilot.selectedOperation=ref;
+  render();
+}
+
+function applyCopilotRecommendation(operationRef,recommendationId,title){
+  const key=operationRef+'_'+recommendationId;
+  state.tradeCopilot.applied[key]=true;
+  data.notifications.unshift(
+    tradeCopilotText('Trade Copilot : action appliquée — ','Trade Copilot: action applied — ')+title
+  );
+  render();
+  toast(tradeCopilotText('Recommandation appliquée avec succès','Recommendation applied successfully'));
+}
+
+function createCopilotTask(operationRef,recommendationId,title){
+  const key=operationRef+'_'+recommendationId;
+  state.tradeCopilot.applied[key]=true;
+  state.tradeCopilot.tasks++;
+  if(state.teamTasks){
+    state.teamTasks.unshift({
+      id:'TC-'+String(Date.now()).slice(-5),
+      title,
+      team:'Supply Chain',
+      owner:'Sami Ben Ali',
+      priority:'Haute',
+      status:'En attente',
+      due:'Aujourd’hui'
+    });
+  }
+  data.notifications.unshift(
+    tradeCopilotText('Nouvelle tâche Trade Copilot : ','New Trade Copilot task: ')+title
+  );
+  render();
+  toast(tradeCopilotText('Tâche créée dans le plan opérationnel','Task created in the operational plan'));
+}
+
+function runCopilotAnalysis(){
+  toast(tradeCopilotText('Analyse des opérations mise à jour','Operations analysis refreshed'));
+}
+
+function TradeCopilotPage(){
+  const o=getCopilotOperation();
+  const highRisks=state.tradeCopilot.operations.filter(x=>x.risk>=60).length;
+  const missing=state.tradeCopilot.operations.reduce((s,x)=>s+x.missing.length,0);
+  const openRecommendations=state.tradeCopilot.operations.reduce(
+    (s,x)=>s+x.recommendations.filter(r=>!state.tradeCopilot.applied[x.ref+'_'+r.id]).length,0
+  );
+
+  return `<div class="copilot-hero">
+    <div>
+      <span class="demo-chip">AZNAVO SIGNATURE MODULE</span>
+      <h1>${tradeCopilotText('Trade Copilot','Trade Copilot')}</h1>
+      <p>${tradeCopilotText(
+        'Votre assistant opérationnel détecte les documents manquants, retards, écarts de coûts et actions prioritaires sur chaque opération.',
+        'Your operations assistant detects missing documents, delays, cost variances and priority actions for every shipment.'
+      )}</p>
+      <div class="panel-actions" style="margin-top:16px">
+        <select class="top-select" onchange="selectCopilotOperation(this.value)">
+          ${state.tradeCopilot.operations.map(x=>`<option value="${x.ref}" ${x.ref===o.ref?'selected':''}>${x.ref} · ${x.client}</option>`).join('')}
+        </select>
+        <button class="primary" onclick="runCopilotAnalysis()">✦ ${tradeCopilotText('Actualiser l’analyse','Refresh analysis')}</button>
+      </div>
+    </div>
+    <div class="copilot-orb">✦</div>
+  </div>
+
+  <div class="copilot-kpis">
+    <div class="card copilot-kpi"><span class="muted">${tradeCopilotText('Opérations analysées','Analyzed operations')}</span><b>${state.tradeCopilot.operations.length}</b><span class="badge violet">COPILOT</span></div>
+    <div class="card copilot-kpi"><span class="muted">${tradeCopilotText('Risques élevés','High risks')}</span><b>${highRisks}</b><span class="badge red">${tradeCopilotText('Action requise','Action required')}</span></div>
+    <div class="card copilot-kpi"><span class="muted">${tradeCopilotText('Documents manquants','Missing documents')}</span><b>${missing}</b><span class="badge amber">${tradeCopilotText('À compléter','To complete')}</span></div>
+    <div class="card copilot-kpi"><span class="muted">${tradeCopilotText('Actions proposées','Suggested actions')}</span><b>${openRecommendations}</b><span class="badge green">${state.tradeCopilot.tasks} ${tradeCopilotText('tâche(s) créée(s)','task(s) created')}</span></div>
+  </div>
+
+  <div class="copilot-layout">
+    <div>
+      <div class="card">
+        <div class="section-title"><h3>${tradeCopilotText('Diagnostic de l’opération','Operation diagnostic')}</h3><span class="badge ${o.risk>=60?'amber':'green'}">${tradeCopilotText('Risque','Risk')} ${o.riskLabel}</span></div>
+        <div class="copilot-operation">
+          <div class="copilot-operation-head">
+            <div>
+              <h2 style="margin:0 0 7px">${o.ref}</h2>
+              <div class="muted">${o.client} · ${o.route}</div>
+              <div class="copilot-mini-list">
+                <span class="copilot-mini">${tradeCopilotText('Avancement','Completion')} : <b>${o.completion}%</b></span>
+                <span class="copilot-mini">ETA : <b>${o.eta}</b></span>
+                <span class="copilot-mini">${tradeCopilotText('Documents','Documents')} : <b>${o.missing.length} ${tradeCopilotText('manquant(s)','missing')}</b></span>
+              </div>
+            </div>
+            <div class="copilot-score-ring" style="--score:${o.risk}"><b>${o.risk}</b></div>
+          </div>
+          <div style="margin-top:17px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:7px"><span class="muted">${tradeCopilotText('Complétude du dossier','File completeness')}</span><b>${o.completion}%</b></div>
+            <div class="bar"><span style="width:${o.completion}%"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="section-title"><h3>${tradeCopilotText('Alertes détectées','Detected alerts')}</h3><span class="badge violet">${tradeCopilotText('Analyse métier','Business analysis')}</span></div>
+        ${o.alerts.map(a=>`<div class="copilot-alert">
+          <div class="copilot-alert-icon">${a.icon}</div>
+          <div><b>${tradeCopilotText(a.title,
+            a.title==='2 documents manquants'?'2 missing documents':
+            a.title==='ETA retardée de 2 jours'?'ETA delayed by 2 days':
+            a.title==='Écart devis / facture'?'Quotation / invoice variance':
+            a.title==='1 document à compléter'?'1 document to complete':'Transport compliant'
+          )}</b><div class="muted" style="margin-top:5px">${a.text}</div></div>
+          <span class="badge ${a.level}">${a.level==='red'?tradeCopilotText('Critique','Critical'):a.level==='green'?tradeCopilotText('Conforme','Compliant'):tradeCopilotText('À vérifier','Review')}</span>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title"><h3>${tradeCopilotText('Plan d’action recommandé','Recommended action plan')}</h3><span class="demo-chip">AI + RULES</span></div>
+      <div class="card-pad">
+        ${o.recommendations.map(r=>{
+          const done=!!state.tradeCopilot.applied[o.ref+'_'+r.id];
+          return `<div class="copilot-recommendation ${done?'done':''}">
+            <div style="display:flex;justify-content:space-between;gap:10px">
+              <h4>${r.title}</h4>
+              <span class="badge ${r.priority==='Haute'?'red':r.priority==='Moyenne'?'amber':'blue'}">${r.priority}</span>
+            </div>
+            <p>${r.text}</p>
+            <div class="copilot-actions">
+              <button class="secondary" onclick="createCopilotTask('${o.ref}','${r.id}','${r.title.replace(/'/g,"\\'")}')" ${done?'disabled':''}>${done?'✓ '+tradeCopilotText('Créée','Created'):'+ '+tradeCopilotText('Créer une tâche','Create task')}</button>
+              <button class="primary ${done?'action-done':''}" onclick="applyCopilotRecommendation('${o.ref}','${r.id}','${r.title.replace(/'/g,"\\'")}')">${done?'✓ '+tradeCopilotText('Appliquée','Applied'):tradeCopilotText('Appliquer','Apply')}</button>
+            </div>
+          </div>`;
+        }).join('')}
+        <div class="ai-summary">
+          <b>✦ ${tradeCopilotText('Résumé Trade Copilot','Trade Copilot summary')}</b>
+          <p>${tradeCopilotText(
+            `L’opération ${o.ref} est complétée à ${o.completion} %. Le risque principal concerne les documents et le respect du délai. Les actions prioritaires peuvent être transformées en tâches en un clic.`,
+            `Operation ${o.ref} is ${o.completion}% complete. The main risk concerns documents and schedule compliance. Priority actions can be converted into tasks with one click.`
+          )}</p>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* Add the module to the current sidebar without rewriting the existing Sidebar function. */
+const __tradeCopilotSidebar=Sidebar;
+Sidebar=function(){
+  let out=__tradeCopilotSidebar();
+  if(!out.includes("nav('tradecopilot')")){
+    const button=`<button class="nav-btn ${state.active==='tradecopilot'?'active':''}" onclick="nav('tradecopilot')"><span class="nav-icon">✦</span><span>Trade Copilot</span></button>`;
+    const target=`<button class="nav-btn ${state.active==='predictive'?'active':''}" onclick="nav('predictive')">`;
+    const idx=out.indexOf(target);
+    if(idx>=0) out=out.slice(0,idx)+button+out.slice(idx);
+    else out=out.replace('</aside>',button+'</aside>');
+  }
+  return out;
+};
+
+/* Add the new page while preserving every existing page. */
+const __tradeCopilotPageContent=pageContent;
+pageContent=function(){
+  if(state.active==='tradecopilot') return TradeCopilotPage();
+  return __tradeCopilotPageContent();
+};
+
+/* Add a compact signature card to Dashboard while preserving its current content. */
+const __tradeCopilotDashboard=Dashboard;
+Dashboard=function(){
+  let out=__tradeCopilotDashboard();
+  const card=`<div class="card copilot-dashboard-card">
+    <div class="copilot-dashboard-grid">
+      <div>
+        <span class="badge violet">✦ TRADE COPILOT</span>
+        <h3 style="margin:10px 0 5px">${tradeCopilotText('Votre priorité aujourd’hui','Your priority today')}</h3>
+        <div class="muted">${tradeCopilotText('EXP-2026-001 présente un risque moyen : 2 documents manquants, ETA +2 jours et un écart de coût de 420 TND.','EXP-2026-001 has a medium risk: 2 missing documents, ETA +2 days and a 420 TND cost variance.')}</div>
+        <div class="copilot-mini-list">
+          <span class="copilot-mini">📄 2 ${tradeCopilotText('documents','documents')}</span>
+          <span class="copilot-mini">🚢 ETA +2j</span>
+          <span class="copilot-mini">💰 +420 TND</span>
+        </div>
+      </div>
+      <button class="primary" onclick="nav('tradecopilot')">${tradeCopilotText('Ouvrir Trade Copilot','Open Trade Copilot')} →</button>
+    </div>
+  </div>`;
+  const marker='<div class="dashboard-alert-strip">';
+  if(out.includes(marker)) return out.replace(marker,card+marker);
+  const kpiMarker='<div class="grid kpis">';
+  if(out.includes(kpiMarker)) return out.replace(kpiMarker,card+kpiMarker);
+  return card+out;
+};
 
 render();
 </script>
