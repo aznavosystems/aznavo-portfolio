@@ -372,7 +372,26 @@ demo: 'erp-crm.html.html'}
   ],
   demo: 'location.html'
 },
-
+{
+  id: 'hotel-ai-demo',
+  badge: 'Demo SaaS · Hospitality',
+  title: 'AI Hotel Operating Team',
+  summary: 'Prototype interactif pour gérer les demandes, réservations et opérations d’un hôtel.',
+  desc: 'Démonstration d’un tableau de bord hôtelier avec réception, réservations, relances, ventes additionnelles et suivi des réclamations.',
+  features: [
+    'Réception et messages',
+    'Demandes de réservation',
+    'Relances commerciales',
+    'Ventes additionnelles',
+    'Réclamations et tâches',
+    'Base de connaissances',
+    'Tableau de bord hôtelier'
+  ],
+  stack: ['HTML', 'CSS', 'JavaScript', 'LocalStorage'],
+  cover: 'logo.png',
+  gallery: [{ src: 'logo.png', label: 'AI Hotel Operating Team' }],
+  demo: 'hotel-ai-demo.html'
+},
 ,{
   id: 'pharmacie-demo',
   badge: 'Demo SaaS',
@@ -405,26 +424,7 @@ demo: 'erp-crm.html.html'}
 }
 
 ];
-{
-  id: 'hotel-ai-demo',
-  badge: 'Demo SaaS · Hospitality',
-  title: 'AI Hotel Operating Team',
-  summary: 'Prototype interactif pour gérer les demandes, réservations et opérations d’un hôtel.',
-  desc: 'Démonstration d’un tableau de bord hôtelier avec réception, réservations, relances, ventes additionnelles et suivi des réclamations.',
-  features: [
-    'Réception et messages',
-    'Demandes de réservation',
-    'Relances commerciales',
-    'Ventes additionnelles',
-    'Réclamations et tâches',
-    'Base de connaissances',
-    'Tableau de bord hôtelier'
-  ],
-  stack: ['HTML', 'CSS', 'JavaScript', 'LocalStorage'],
-  cover: 'logo.png',
-  gallery: [{ src: 'logo.png', label: 'AI Hotel Operating Team' }],
-  demo: 'hotel-ai-demo.html'
-}
+
 function projPlaceholderSVG(label){
   return 'data:image/svg+xml;utf8,' + encodeURIComponent(`
     <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
