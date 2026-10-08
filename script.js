@@ -390,7 +390,7 @@ demo: 'erp-crm.html.html'}
   stack: ['HTML', 'CSS', 'JavaScript', 'LocalStorage'],
   cover: 'logo.png',
   gallery: [{ src: 'logo.png', label: 'AI Hotel Operating Team' }],
-  demo: 'hotel-ai-demo.html'
+demo: 'Prototype_AI_Hotel_Tunisie.html'
 },
 ,{
   id: 'pharmacie-demo',
