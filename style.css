@@ -2058,3 +2058,8 @@ h1,h2,h3,h4{color:#0F172A;}
 :is(#portfolio,#stack,#process,#testimonials) > .container > .eyebrow {display:flex !important;justify-content:center !important;width:fit-content;max-width:100%;margin-left:auto !important;margin-right:auto !important;}
 :is(#portfolio,#stack,#process,#testimonials) > .container > .section__title {text-align:center !important;max-width:900px !important;margin-left:auto !important;margin-right:auto !important;}
 :is(#portfolio,#stack,#process,#testimonials) > .container > .section__lead {text-align:center !important;max-width:760px !important;margin-left:auto !important;margin-right:auto !important;}
+
+/* Center pricing section heading and description */
+#pricing > .container > .eyebrow {display:flex !important;justify-content:center !important;width:fit-content;max-width:100%;margin-left:auto !important;margin-right:auto !important;}
+#pricing > .container > .section__title {text-align:center !important;max-width:900px !important;margin-left:auto !important;margin-right:auto !important;}
+#pricing > .container > .section__lead {text-align:center !important;max-width:760px !important;margin-left:auto !important;margin-right:auto !important;}
