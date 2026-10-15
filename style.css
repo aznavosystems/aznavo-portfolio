@@ -2042,3 +2042,14 @@ h1,h2,h3,h4{color:#0F172A;}
   #about > .container > .section__lead,
   #industries > .container > .section__lead { max-width: 100%; }
 }
+
+/* Consistent centered section introductions */
+#about .container > .eyebrow,
+#industries .container > .eyebrow,
+#services .container > .eyebrow {display:flex !important;justify-content:center !important;width:fit-content;margin-left:auto !important;margin-right:auto !important;}
+#about .container > .section__title,
+#industries .container > .section__title,
+#services .container > .section__title {text-align:center !important;max-width:900px !important;margin-left:auto !important;margin-right:auto !important;}
+#about .container > .section__lead,
+#industries .container > .section__lead,
+#services .container > .section__lead {text-align:center !important;max-width:760px !important;margin-left:auto !important;margin-right:auto !important;}
