@@ -4828,6 +4828,7 @@ function exportPaymentsPDF(){
   const html = `<html><head><title>Recettes AZNAVO</title><style>body{font-family:Arial;padding:30px;color:#0F172A}h1{color:#2563EB}table{width:100%;border-collapse:collapse;font-size:12px}th,td{border:1px solid #E2E8F0;padding:7px;text-align:left}th{background:#F1F5F9}</style></head><body><h1>AZNAVO SYSTEMS — Journal des recettes</h1><p>${new Date().toLocaleDateString('fr-FR')}</p><table><thead><tr><th>Référence</th><th>Date</th><th>Client</th><th>Bien</th><th>Type</th><th>Montant</th><th>Mode</th><th>Statut</th></tr></thead><tbody>${rows}</tbody></table><script>window.onload=()=>window.print()<\/script>
 
 
+<script src="aznavo-one-ai-demo.js" defer></script>
 </body></html>`;
   const w = window.open('','_blank');
   if(!w){ showToast('Autorisez les fenêtres pop-up pour imprimer'); return; }
