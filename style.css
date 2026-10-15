@@ -2063,3 +2063,12 @@ h1,h2,h3,h4{color:#0F172A;}
 #pricing > .container > .eyebrow {display:flex !important;justify-content:center !important;width:fit-content;max-width:100%;margin-left:auto !important;margin-right:auto !important;}
 #pricing > .container > .section__title {text-align:center !important;max-width:900px !important;margin-left:auto !important;margin-right:auto !important;}
 #pricing > .container > .section__lead {text-align:center !important;max-width:760px !important;margin-left:auto !important;margin-right:auto !important;}
+
+/* Mobile navigation: closed by default, overlay above hero, open only via toggle */
+@media (max-width:860px){
+ .nav{position:fixed;top:0;left:0;right:0;z-index:10000;}
+ .nav__links{position:fixed !important;top:64px !important;left:0 !important;right:0 !important;width:100% !important;max-height:0 !important;overflow:hidden !important;visibility:hidden;opacity:0;pointer-events:none;transition:max-height .3s ease,opacity .2s ease,visibility .2s ease !important;box-shadow:0 14px 25px rgba(15,23,42,.08);}
+ .nav__links.is-open{max-height:calc(100dvh - 64px) !important;overflow-y:auto !important;visibility:visible;opacity:1;pointer-events:auto;}
+ .nav__links a{display:block;width:100%;background:#fff;}
+ .nav__toggle{position:relative;z-index:10001;}
+}
